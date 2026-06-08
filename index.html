@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的个人网站</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", Arial, sans-serif;
+      background: #f5f7fb;
+      color: #222;
+      line-height: 1.8;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 20px;
+    }
+
+    nav {
+      background: white;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      margin: 0 15px;
+      color: #1e3a8a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    .project {
+      background: #f5f7fb;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 32px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 8px;
+      }
+
+      section {
+        margin: 25px 15px;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>你好，我是 SphinxL97</h1>
+    <p>欢迎来到我的个人网站</p>
+  </header>
+
+  <nav>
+    <a href="#about">关于我</a>
+    <a href="#research">研究方向</a>
+    <a href="#projects">项目展示</a>
+    <a href="#contact">联系我</a>
+  </nav>
+
+  <section id="about">
+    <h2>关于我</h2>
+    <p>
+      这里可以写你的个人介绍。例如：你的学习经历、工作经历、研究兴趣、目前正在做的事情等。
+    </p>
+  </section>
+
+  <section id="research">
+    <h2>研究方向</h2>
+    <p>
+      我关注图书馆数据服务、推荐系统、人工智能应用、用户行为分析等方向。
+    </p>
+  </section>
+
+  <section id="projects">
+    <h2>项目展示</h2>
+
+    <div class="project">
+      <h3>项目一：图书推荐系统研究</h3>
+      <p>
+        这里可以介绍你的推荐系统项目，例如使用 LLM 进行兴趣划分，并结合推荐模型进行图书推荐。
+      </p>
+    </div>
+
+    <div class="project">
+      <h3>项目二：AI 学习与科研工具整理</h3>
+      <p>
+        这里可以介绍你整理 AI 工具、科研写作、学术伦理等方面的内容。
+      </p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>联系我</h2>
+    <p>邮箱：your-email@example.com</p>
+    <p>GitHub：SphinxL97</p>
+  </section>
+
+  <footer>
+    © 2026 SphinxL97. All rights reserved.
+  </footer>
+
+</body>
+</html>
