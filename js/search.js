@@ -1,0 +1,5 @@
+
+async function loadJSON(path){const r=await fetch(path);return await r.json();}
+function esc(s){return String(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+let records=[];function doSearch(){const q=document.getElementById('searchInput').value.trim();const box=document.getElementById('searchResults');if(!q){box.innerHTML='<p class="meta">请输入关键词。</p>';return;}const res=records.filter(r=>[r.title,r.type,r.text].join(' ').includes(q)).slice(0,80);box.innerHTML=res.map(r=>{let text=r.text||'';let i=text.indexOf(q);let snip=i>=0?text.slice(Math.max(0,i-60),i+q.length+80):text.slice(0,160);return `<article class="result"><a href="${r.url}">${esc(r.title)} ${r.page?'｜第'+r.page+'页':''}</a><div class="meta">${esc(r.type)}</div><p>${esc(snip)}</p></article>`}).join('')||'<p>没有找到结果。</p>'}
+loadJSON('data/beitie_search_index.json').then(d=>{records=d.records||[];document.getElementById('searchBtn').onclick=doSearch;document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch()});});

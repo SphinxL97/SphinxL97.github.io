@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="css/style.css" /><title>碑帖详情｜翰墨智读</title></head>
+<body>
+<header class="topbar"><a class="brand" href="index.html">翰墨智读</a><nav><a href="gallery.html">碑帖总览</a><a href="detail.html?id=001">道因法师碑</a><a href="search.html">全文检索</a><a href="about.html">项目说明</a></nav></header>
+<main class="page detail-page">
+  <section id="detailHero" class="detail-hero"></section>
+  <section id="reader" class="reader-panel">
+    <div class="image-pane"><img id="pageImage" alt="碑帖页图" /><div id="missingImage" class="missing-image">本页图片尚未放入本地仓库。请把图片复制到 assets/beitie/001_daoyin/images/。</div></div>
+    <div class="text-pane">
+      <div class="reader-controls"><button id="prevPage">上一页</button><select id="pageSelect"></select><button id="nextPage">下一页</button></div>
+      <h2 id="pageTitle">逐页释文</h2>
+      <div id="pageText" class="vertical-text"></div>
+    </div>
+  </section>
+  <section class="tabs">
+    <button data-tab="guide" class="active">AI 导读</button>
+    <button data-tab="text">完整碑文</button>
+    <button data-tab="background">背景说明</button>
+    <button data-tab="version">版本题跋</button>
+  </section>
+  <section id="tabContent" class="tab-content"></section>
+</main>
+<footer>翰墨智读 · 碑帖开放数据展示</footer>
+<script src="js/detail.js"></script>
+</body></html>
