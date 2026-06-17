@@ -1,10 +1,198 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>碑帖总览</title><link rel="stylesheet" href="css/style.css"></head><body><header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-seal">拓</span><span>碑帖智能读析平台<small>名称待定</small></span></a>
-  <nav class="navlinks">
-    <a href="index.html">首页</a>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>碑帖总览 · 碑帖智能读析平台（名称待定）</title>
+<style>
+
+:root{
+  --paper:#f6f0e5;
+  --paper2:#fbf8f1;
+  --ink:#211b16;
+  --muted:#74685b;
+  --line:#ded2c2;
+  --red:#9f3025;
+  --red2:#7c231b;
+  --green:#5aa66b;
+  --shadow:0 18px 52px rgba(52,35,20,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;color:var(--ink);background:var(--paper);}
+a{text-decoration:none;color:inherit}
+.topline{
+  height:68px;
+  padding:0 56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  background:rgba(246,240,229,.96);
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 6px 24px rgba(50,34,20,.06);
+}
+.site-name{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+  min-width:300px;
+}
+.seal{
+  width:36px;height:36px;border:1.5px solid var(--red);border-radius:50%;
+  color:var(--red);display:grid;place-items:center;font-family:"SimSun",serif;font-weight:800;
+}
+.name-main{font-size:19px;font-weight:900;letter-spacing:.03em}
+.name-sub{font-size:13px;color:var(--muted);margin-left:2px}
+.topnav{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:32px;
+  font-size:16px;
+  white-space:nowrap;
+}
+.topnav a{padding:22px 0 18px;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--red);border-bottom-color:var(--red)}
+@media(max-width:860px){
+  .topline{height:auto;align-items:flex-start;flex-direction:column;padding:12px 20px;gap:6px}
+  .site-name{min-width:0}
+  .topnav{width:100%;overflow:auto;justify-content:flex-start;gap:22px;padding-bottom:4px;font-size:14px}
+}
+
+body{background:#f6f7f8}
+.gallery-hero{
+  position:relative;
+  min-height:280px;
+  background:#161616;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  color:#fff;
+}
+.gallery-hero:before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:url('assets/beitie/001_daoyin/images/0020_二十.jpg');
+  background-size:cover;
+  background-position:center 42%;
+  filter:grayscale(1) contrast(1.15);
+  transform:scale(1.05);
+  opacity:.52;
+}
+.gallery-hero:after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.52)),radial-gradient(circle at center,rgba(64,94,70,.35),transparent 42%);
+}
+.hero-center{position:relative;z-index:2;text-align:center;width:min(760px,calc(100% - 40px));padding-top:18px}
+.hero-center h1{font-family:"SimSun","Songti SC",serif;font-size:42px;margin:0 0 18px;letter-spacing:.12em}
+.gallery-search{height:54px;background:#fff;display:flex;border-radius:2px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.gallery-search input{flex:1;border:0;outline:none;padding:0 20px;font-size:16px}
+.gallery-search button{width:86px;border:0;background:#5aa66b;color:#fff;font-weight:900;font-size:18px}
+.filter-panel{
+  background:#fff;
+  border-bottom:1px solid #e7e7e7;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
+}
+.filter-inner{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:18px 0 20px}
+.filter-row{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.filter-row b{width:72px;text-align:right;margin-right:8px;color:#333;font-size:14px}
+.chip{font-size:13px;background:#f2f2f2;border:1px solid #ececec;color:#555;padding:4px 10px;border-radius:2px}
+.chip.active{background:#e8f7ea;color:#39924b;border-color:#d4ecd8}
+.results-bar{width:min(1120px,calc(100% - 40px));margin:28px auto 16px;display:flex;justify-content:space-between;align-items:center}
+.results-bar h2{font-size:18px;margin:0}
+.sort-tools{display:flex;gap:10px}
+.sort-tools span{font-size:13px;background:#fff;border:1px solid #e6e6e6;padding:5px 10px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.gallery-grid{
+  width:min(1120px,calc(100% - 40px));
+  margin:0 auto 60px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px 36px;
+}
+.beitie-card{
+  display:block;
+  background:#fff;
+  border:1px solid #e4e7eb;
+  box-shadow:0 8px 22px rgba(20,30,40,.09);
+  transition:.18s ease;
+  min-height:430px;
+}
+.beitie-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,30,40,.14)}
+.thumb{
+  height:330px;
+  padding:16px 16px 0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  background:#fff;
+  position:relative;
+}
+.thumb img{
+  max-width:100%;
+  max-height:310px;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.ribbon{
+  position:absolute;right:12px;top:12px;
+  background:#e65c5c;color:#fff;font-size:12px;
+  padding:3px 7px;
+  transform:rotate(45deg) translate(18px,-2px);
+  transform-origin:center;
+}
+.card-info{padding:12px 16px 16px}
+.card-info h3{margin:0 0 8px;font-family:"SimSun","Songti SC",serif;font-size:20px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta{font-size:13px;color:#777;display:flex;gap:10px;flex-wrap:wrap}
+.meta .ready{color:#1a8f41}
+.card-disabled{cursor:default}
+.card-disabled:hover{transform:none}
+@media(max-width:1100px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.gallery-grid{grid-template-columns:repeat(2,1fr);gap:18px}.filter-row b{width:100%;text-align:left}}
+@media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.thumb{height:auto}.thumb img{max-height:none}}
+</style>
+</head>
+<body>
+<header class="topline">
+  <a class="site-name" href="index.html">
+    <span class="seal">拓</span>
+    <span class="name-main">碑帖智能读析平台</span>
+    <span class="name-sub">名称待定</span>
+  </a>
+  <nav class="topnav">
     <a href="gallery.html">碑帖总览</a>
     <a href="people.html">人物关系（待定）</a>
     <a href="ai-gallery.html">AI配图（待定）</a>
     <a href="help.html">帮助说明（待定）</a>
   </nav>
-</header><section class="sub-hero"><div><span>45 件碑帖封面入口</span><h1>碑帖总览</h1><p>当前只开放 001《道因法师碑》完整内容，其余作品先保留封面入口，后续逐步补充释文、人物关系与 AI 配图。</p></div></section><main class="page-main"><div class="toolbar"><div><b>检索结果：</b><span id="countBox">45</span></div><input id="gallerySearch" placeholder="搜索题名、书体、责任者，如：道因、楷书、欧阳通"></div><div class="cards-grid" id="galleryGrid"></div></main><footer class="footer">碑帖总览 · 45 件封面 · 001 完整样板</footer><script src="js/gallery.js"></script></body></html>
+</header>
+<section class="gallery-hero">
+  <div class="hero-center">
+    <h1>碑帖总览</h1>
+    <div class="gallery-search">
+      <input id="gallerySearch" placeholder="输入关键词：道因法师碑、欧阳通、楷书、唐……">
+      <button>搜</button>
+    </div>
+  </div>
+</section>
+<section class="filter-panel">
+  <div class="filter-inner">
+    <div class="filter-row"><b>书体</b><span class="chip active">全部</span><span class="chip">楷书</span><span class="chip">隶书</span><span class="chip">行书</span><span class="chip">篆书</span></div>
+    <div class="filter-row"><b>版本状态</b><span class="chip active">全部</span><span class="chip">001 完整样板</span><span class="chip">其余待补充</span></div>
+    <div class="filter-row"><b>功能状态</b><span class="chip active">封面入口</span><span class="chip">逐页释文</span><span class="chip">人物关系</span><span class="chip">AI配图</span></div>
+  </div>
+</section>
+<div class="results-bar">
+  <h2>检索结果：<span id="countText">45</span></h2>
+  <div class="sort-tools"><span>默认排序 ↓</span><span>字数 ↓</span><span>□ 仅看完整样板</span></div>
+</div>
+<main class="gallery-grid" id="galleryGrid"></main>
+<script src="js/gallery.js"></script>
+</body>
+</html>
