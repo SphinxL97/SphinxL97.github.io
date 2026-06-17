@@ -1,4 +1,362 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>001 道因法师碑</title><link rel="stylesheet" href="css/style.css"></head><body>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>道因法师碑 · 碑帖智能读析平台（名称待定）</title>
+<style>
+:root{
+  --paper:#f6f0e5;
+  --paper2:#fbf8f1;
+  --ink:#211b16;
+  --muted:#75685c;
+  --line:#dfd1bd;
+  --red:#9f3025;
+  --red2:#7b2119;
+  --gold:#b58b53;
+  --green:#527b5a;
+  --dark:#17120f;
+  --card:#fffdf8;
+  --shadow:0 18px 58px rgba(52,35,20,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+  background:
+    radial-gradient(circle at 78% 10%,rgba(159,48,37,.08),transparent 30%),
+    linear-gradient(90deg,rgba(159,48,37,.028) 1px,transparent 1px),
+    linear-gradient(rgba(159,48,37,.028) 1px,transparent 1px),
+    var(--paper);
+  background-size:auto,44px 44px,44px 44px,auto;
+  line-height:1.78;
+}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* 顶部：一行，左名右栏 */
+.topline{
+  height:68px;
+  padding:0 56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  background:rgba(246,240,229,.96);
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  box-shadow:0 6px 24px rgba(50,34,20,.06);
+  backdrop-filter:blur(12px);
+}
+.site-name{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-shrink:0;
+  min-width:300px;
+}
+.seal{
+  width:36px;height:36px;border:1.5px solid var(--red);border-radius:50%;
+  color:var(--red);display:grid;place-items:center;font-family:"SimSun",serif;font-weight:800;
+}
+.name-main{font-size:19px;font-weight:900;letter-spacing:.03em}
+.name-sub{font-size:13px;color:var(--muted);margin-left:2px}
+.topnav{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:32px;
+  font-size:16px;
+  white-space:nowrap;
+}
+.topnav a{padding:22px 0 18px;border-bottom:2px solid transparent}
+.topnav a:hover{color:var(--red);border-bottom-color:var(--red)}
+
+/* 首屏 */
+.work-hero{
+  width:min(1180px,calc(100% - 56px));
+  margin:38px auto 34px;
+  display:grid;
+  grid-template-columns:420px 1fr;
+  gap:34px;
+  align-items:stretch;
+}
+.cover-panel{
+  border-radius:28px;
+  background:#201815;
+  border:1px solid #352822;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  min-height:560px;
+  position:relative;
+}
+.cover-panel img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.95;
+}
+.cover-label{
+  position:absolute;
+  top:20px;
+  right:18px;
+  writing-mode:vertical-rl;
+  background:rgba(255,253,248,.86);
+  color:var(--red2);
+  font-family:"SimSun",serif;
+  letter-spacing:.14em;
+  border-radius:999px;
+  padding:18px 9px;
+  border:1px solid rgba(255,255,255,.7);
+}
+.info-panel{
+  background:rgba(255,253,248,.92);
+  border:1px solid var(--line);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  padding:34px;
+  min-height:560px;
+}
+.kicker{
+  color:var(--red);
+  font-weight:900;
+  letter-spacing:.1em;
+  margin-bottom:10px;
+}
+.info-panel h1{
+  font-family:"SimSun","Songti SC",serif;
+  font-size:52px;
+  line-height:1.1;
+  margin:0 0 12px;
+  letter-spacing:.08em;
+}
+.alias{
+  font-size:16px;
+  color:var(--muted);
+  margin-bottom:24px;
+}
+.summary{
+  font-size:17px;
+  color:#4e4339;
+  margin:0 0 22px;
+}
+.meta-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin:24px 0 20px;
+}
+.meta{
+  border:1px solid #ead9c5;
+  background:#fff7e8;
+  border-radius:16px;
+  padding:13px 14px;
+  min-height:72px;
+}
+.meta b{
+  display:block;
+  color:var(--red);
+  font-size:13px;
+  margin-bottom:4px;
+}
+.meta span{font-size:15px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:999px;
+  padding:12px 20px;
+  background:var(--red);
+  color:#fff;
+  font-weight:900;
+  border:1px solid var(--red);
+}
+.btn.ghost{background:transparent;color:var(--red)}
+.notice{
+  margin-top:16px;
+  padding:12px 14px;
+  border-radius:14px;
+  background:#f6efe3;
+  color:#726457;
+  font-size:13px;
+  border:1px dashed #d8c7b1;
+}
+
+/* 内容区 */
+.page-wrap{
+  width:min(1180px,calc(100% - 56px));
+  margin:0 auto 70px;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:26px;
+}
+.side{
+  position:sticky;
+  top:92px;
+  align-self:start;
+  background:rgba(255,253,248,.92);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 12px 42px rgba(52,35,20,.08);
+}
+.side strong{
+  display:block;
+  margin:4px 8px 12px;
+}
+.side a{
+  display:block;
+  padding:9px 10px;
+  border-radius:12px;
+  color:#4f4338;
+}
+.side a:hover{background:#f4e8d8;color:var(--red)}
+.content-card{
+  background:rgba(255,253,248,.94);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:28px;
+  box-shadow:0 12px 42px rgba(52,35,20,.08);
+  margin-bottom:24px;
+}
+.section-title{
+  font-family:"SimSun","Songti SC",serif;
+  font-size:34px;
+  margin:0 0 16px;
+  letter-spacing:.05em;
+}
+.lead{
+  color:#4d4237;
+  font-size:17px;
+  margin:0 0 16px;
+}
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.info-box{
+  border:1px solid #ead9c5;
+  border-radius:18px;
+  background:#fff8eb;
+  padding:18px;
+}
+.info-box h3{
+  margin:0 0 10px;
+  color:var(--red2);
+}
+.info-box p{margin:0;color:#554a40}
+.timeline{
+  position:relative;
+  margin-top:10px;
+}
+.timeline:before{
+  content:"";
+  position:absolute;
+  left:9px;top:4px;bottom:4px;
+  width:1px;
+  background:#d9c6ad;
+}
+.tl{
+  position:relative;
+  padding:0 0 22px 36px;
+}
+.tl:before{
+  content:"";
+  position:absolute;
+  left:2px;top:7px;
+  width:14px;height:14px;border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 0 4px #f4e5d2;
+}
+.tl b{color:var(--red2)}
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  border:1px solid #ead7c0;
+  border-radius:999px;
+  background:#fff6e8;
+  color:#7d382e;
+  font-size:13px;
+  padding:4px 10px;
+}
+.people-grid,.place-grid,.event-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.entity{
+  border:1px solid #ead9c5;
+  background:#fff8eb;
+  border-radius:18px;
+  padding:16px;
+}
+.entity h3{margin:0 0 6px;font-size:18px}
+.entity .role{color:var(--red);font-weight:900;font-size:14px}
+.entity p{margin:8px 0 0;color:#63564a;font-size:14px}
+.photo-strip{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-top:16px;
+}
+.photo-strip a{
+  background:#1d1714;
+  border-radius:16px;
+  overflow:hidden;
+  min-height:150px;
+  display:grid;
+  place-items:center;
+  border:1px solid #3c2d26;
+}
+.photo-strip img{
+  width:100%;
+  height:180px;
+  object-fit:contain;
+  background:#16110f;
+}
+.quote{
+  border-left:4px solid var(--red);
+  padding:10px 0 10px 18px;
+  color:#564a40;
+  background:#fff8eb;
+  border-radius:0 14px 14px 0;
+}
+.source-note{
+  font-size:13px;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  padding-top:16px;
+  margin-top:20px;
+}
+
+/* 响应式 */
+@media(max-width:980px){
+  .topline{height:auto;align-items:flex-start;flex-direction:column;padding:12px 20px;gap:6px}
+  .site-name{min-width:0}
+  .topnav{width:100%;overflow:auto;justify-content:flex-start;gap:22px;padding-bottom:4px;font-size:14px}
+  .work-hero,.page-wrap{grid-template-columns:1fr;width:calc(100% - 32px)}
+  .cover-panel{min-height:420px}
+  .side{position:relative;top:0}
+  .people-grid,.place-grid,.event-grid,.two-col{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .meta-grid,.photo-strip{grid-template-columns:1fr}
+  .info-panel h1{font-size:40px}
+}
+</style>
+</head>
+<body>
 <header class="topline">
   <a class="site-name" href="index.html">
     <span class="seal">拓</span>
@@ -12,4 +370,196 @@
     <a href="help.html">帮助说明（待定）</a>
   </nav>
 </header>
-<div class="layout"><aside class="side"><strong>001 道因法师碑</strong><a href="#overview">作品概览</a><a href="#reader">图文校读</a><a href="#people">相关人物</a><a href="#timeline">版本流传</a><a href="#fulltext">完整碑文</a><a href="#background">背景说明</a><a href="#version">版本题跋</a></aside><main><section class="content-card" id="overview"><div class="work-hero"><div><div class="eyebrow">001 · 完整样板</div><h1 class="work-title" id="workTitle"></h1><p id="workSummary"></p><div class="meta-list" id="workMeta"></div><a class="btn" href="reader.html?id=001&page=5">进入图文校读</a><a class="btn secondary" href="people.html">查看人物关系</a></div><div class="hero-card"><div class="hero-art" style="height:420px"><img id="workCover"></div></div></div></section><section class="content-card" id="reader"><h2 class="section-title">图文校读</h2><p class="section-sub">当前先实现页级对应；第5页提供字位高亮样板。</p><a class="btn secondary" href="reader.html?id=001&page=5">打开校读工作台</a></section><section class="content-card" id="people"><h2 class="section-title">相关人物</h2><div class="people-grid" id="peopleGrid"></div></section><section class="content-card" id="timeline"><h2 class="section-title">版本流传时间线</h2><div class="timeline" id="timelineBox"></div></section><section class="content-card" id="fulltext"><h2 class="section-title">完整碑文</h2><div class="long-text" id="fullText"></div></section><section class="content-card" id="background"><h2 class="section-title">背景说明</h2><div class="long-text" id="backgroundText"></div></section><section class="content-card" id="version"><h2 class="section-title">版本、题跋、馆藏与尺寸</h2><div class="long-text" id="versionText"></div></section></main></div><footer class="footer">001 道因法师碑 · 完整样板</footer><script src="js/detail.js"></script></body></html>
+
+<section class="work-hero" id="top">
+  <div class="cover-panel">
+    <img src="assets/beitie/001_daoyin/images/0005_五.jpg"
+         onerror="this.onerror=null;this.src='https://img.library.sh.cn/hisdata/bt/cover/1l6zxtkx0xtdz55m.jpg';"
+         alt="道因法师碑">
+    <div class="cover-label">道因法师碑</div>
+  </div>
+
+  <div class="info-panel">
+    <div class="kicker">001 · 上海图书馆藏本</div>
+    <h1>道因法师碑</h1>
+    <div class="alias">全称：大唐故翻经大德益州多宝寺道因法师碑文并序</div>
+    <p class="summary">
+      本页以你提供的上海图书馆藏本信息为主，展示《道因法师碑》的基本著录、版本流传、书法背景与相关人物。外部资料只作为补充说明，避免把“原碑信息”和“上海图书馆藏北宋拓本信息”混在一起。
+    </p>
+
+    <div class="meta-grid">
+      <div class="meta"><b>首题</b><span>道因法师碑</span></div>
+      <div class="meta"><b>责任者</b><span>欧阳通（楷书），李儇（撰文）</span></div>
+      <div class="meta"><b>书体</b><span>楷书</span></div>
+      <div class="meta"><b>版本</b><span>北宋拓本</span></div>
+      <div class="meta"><b>数量</b><span>裱本 33 开</span></div>
+      <div class="meta"><b>刻立年代</b><span>龙朔三年十月十日刻立（663）</span></div>
+      <div class="meta"><b>刻立地点</b><span>长安怀德坊慧日寺</span></div>
+      <div class="meta"><b>馆藏地</b><span>上海图书馆</span></div>
+      <div class="meta"><b>尺寸</b><span>册高 35.8 厘米，宽 22.1 厘米；碑文占三十一开半，帖芯高 25.3 厘米，宽 15.2 厘米</span></div>
+      <div class="meta"><b>来源书目</b><span>《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012 年</span></div>
+    </div>
+
+    <div class="actions">
+      <a class="btn" href="reader.html?id=001&page=5">进入图文校读</a>
+      <a class="btn ghost" href="#collection">查看藏本信息</a>
+      <a class="btn ghost" href="#people">查看相关人物</a>
+    </div>
+    <div class="notice">
+      注：本页责任者、版本、数量、尺寸、刻立地点、馆藏地等核心字段，按你本次提供的信息固定。若外部资料出现不同说法，只作为“补充资料/异文说明”处理。
+    </div>
+  </div>
+</section>
+
+<main class="page-wrap">
+  <aside class="side">
+    <strong>道因法师碑</strong>
+    <a href="#overview">作品概览</a>
+    <a href="#collection">上海图书馆藏本</a>
+    <a href="#calligraphy">书法与碑刻</a>
+    <a href="#history">流传与题跋</a>
+    <a href="#people">相关人物</a>
+    <a href="#places">地名与事件</a>
+    <a href="#sources">资料说明</a>
+  </aside>
+
+  <section>
+    <article class="content-card" id="overview">
+      <h2 class="section-title">作品概览</h2>
+      <p class="lead">
+        《道因法师碑》为唐代佛教碑刻。碑文记述道因法师的生平、讲经、入蜀、入京以及参与玄奘译经事业等事迹。碑额题“故大德因法师碑”，碑文三十四行，满行七十三字。此碑既可从佛教史、唐代碑刻制度理解，也可作为欧阳通楷书风格的代表性材料来阅读。
+      </p>
+      <p>
+        你的网站展示对象应重点放在“上海图书馆藏王存善旧藏北宋拓本”上，而不是单纯复述原碑百科。原碑旧在长安怀德坊慧日寺，后经迁藏，与西安碑林相关；上海图书馆藏本则具有北宋拓本、递藏题跋、校勘补配等文献价值。
+      </p>
+      <div class="badges">
+        <span class="badge">唐代碑刻</span>
+        <span class="badge">楷书</span>
+        <span class="badge">欧阳通</span>
+        <span class="badge">佛教碑刻</span>
+        <span class="badge">北宋拓本</span>
+        <span class="badge">王存善藏本</span>
+      </div>
+    </article>
+
+    <article class="content-card" id="collection">
+      <h2 class="section-title">上海图书馆藏本</h2>
+      <div class="two-col">
+        <div class="info-box">
+          <h3>藏本身份</h3>
+          <p>
+            本件为北宋拓本，原为王存善藏本，现藏上海图书馆。数量为裱本三十三开，册高 35.8 厘米、宽 22.1 厘米；碑文占三十一开半，帖芯高 25.3 厘米、宽 15.2 厘米。
+          </p>
+        </div>
+        <div class="info-box">
+          <h3>版本价值</h3>
+          <p>
+            此册经潘宁、陈琦、许增、法嘉荪、李鸿裔、汪令闻、王存善等递藏，并保存题签、题记、题跋与校勘信息。它不只是书法图像，更是一件可以研究版本、题跋和收藏史的文献对象。
+          </p>
+        </div>
+        <div class="info-box">
+          <h3>缺失与补配</h3>
+          <p>
+            碑文佚失一开，位于第 28—29 行之间，缺八十字。碑额为光绪二十八年（1902）王存善以明拓配补。网页中应保留这一信息，作为版本说明的重要部分。
+          </p>
+        </div>
+        <div class="info-box">
+          <h3>图文校读</h3>
+          <p>
+            当前图像共 72 页，逐页释文覆盖其中 61 页。页面将先实现“逐页图像—逐页释文”同步，再逐步扩展到字位对齐和人物实体链接。
+          </p>
+        </div>
+      </div>
+      <div class="photo-strip">
+        <a href="reader.html?id=001&page=5"><img src="assets/beitie/001_daoyin/images/0005_五.jpg" onerror="this.style.display='none'" alt="第5页"></a>
+        <a href="reader.html?id=001&page=6"><img src="assets/beitie/001_daoyin/images/0006_六.jpg" onerror="this.style.display='none'" alt="第6页"></a>
+        <a href="reader.html?id=001&page=7"><img src="assets/beitie/001_daoyin/images/0007_七.jpg" onerror="this.style.display='none'" alt="第7页"></a>
+        <a href="reader.html?id=001&page=20"><img src="assets/beitie/001_daoyin/images/0020_二十.jpg" onerror="this.style.display='none'" alt="第20页"></a>
+      </div>
+    </article>
+
+    <article class="content-card" id="calligraphy">
+      <h2 class="section-title">书法与碑刻价值</h2>
+      <p>
+        欧阳通为欧阳询之子，父子并称“大小欧阳”。《道因法师碑》中的楷书继承欧阳询严整险劲的法度，同时更显瘦硬、峭拔和锋芒。外部资料常以“险峻”“遒劲”“横画收笔带隶意”等词概括其书风。
+      </p>
+      <p>
+        此碑除书法价值外，原碑形制与雕刻也值得说明：原碑为螭首龟趺，碑额有佛教造像装饰，碑侧与龟趺座旁有浮雕花纹和线刻人物。网页介绍中可以将这些内容放入“原碑背景”小栏目，避免与上海图书馆藏拓本尺寸混淆。
+      </p>
+      <div class="quote">
+        网页写法建议：书法部分以“欧阳通楷书风格”为主，碑刻形制作为背景补充；藏本部分则突出“北宋拓本、王存善藏本、题跋校勘”。
+      </div>
+    </article>
+
+    <article class="content-card" id="history">
+      <h2 class="section-title">流传与题跋</h2>
+      <div class="timeline">
+        <div class="tl"><b>663 年</b><br>龙朔三年十月十日刻立。</div>
+        <div class="tl"><b>原碑时期</b><br>原立于长安怀德坊慧日寺，后移入文庙，又移至西安碑林。</div>
+        <div class="tl"><b>北宋拓本</b><br>上海图书馆藏本为王存善旧藏北宋拓本。</div>
+        <div class="tl"><b>1738 年</b><br>册尾有乾隆三年四月潘宁题跋，论及大小欧阳书体流变。</div>
+        <div class="tl"><b>1902 年</b><br>王存善作“道因碑校勘表”并跋，并以明拓配补碑额。</div>
+        <div class="tl"><b>1916 年</b><br>首页有民国五年正月王存善题记，说明此拓本为北宋拓本。</div>
+        <div class="tl"><b>今藏</b><br>上海图书馆藏，来源书目为《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑。</div>
+      </div>
+    </article>
+
+    <article class="content-card" id="people">
+      <h2 class="section-title">相关人物</h2>
+      <div class="people-grid">
+        <div class="entity"><h3>道因法师</h3><div class="role">碑主</div><p>俗姓侯，濮阳人。碑文记其讲经弘法、入蜀、入京及参与玄奘译经等事迹。</p></div>
+        <div class="entity"><h3>欧阳通</h3><div class="role">楷书</div><p>唐代书法家，欧阳询之子。此碑为其代表性传世书迹之一。</p></div>
+        <div class="entity"><h3>李儇</h3><div class="role">撰文</div><p>本页主字段按你提供的信息固定为“李儇（撰文）”。若后续做异文说明，可另列外部资料中的“李俨”。</p></div>
+        <div class="entity"><h3>玄奘</h3><div class="role">译经相关人物</div><p>道因法师曾至长安大慈恩寺，参与玄奘法师译经相关工作。</p></div>
+        <div class="entity"><h3>常长寿、范素</h3><div class="role">镌刻者</div><p>外部资料与碑文末尾均提及华原县常长寿、范素镌刻。</p></div>
+        <div class="entity"><h3>王存善</h3><div class="role">藏家 / 校勘者</div><p>王存善藏本主人，保存题记、校勘表，并以明拓配补碑额。</p></div>
+        <div class="entity"><h3>潘宁</h3><div class="role">题跋者 / 递藏者</div><p>册尾有乾隆三年潘宁题跋，论及大小欧阳书体流变。</p></div>
+        <div class="entity"><h3>许增、何绍基</h3><div class="role">递藏与题跋相关</div><p>许增为递藏相关人物，何绍基曾为许增题跋。</p></div>
+        <div class="entity"><h3>翁方纲、吴荣光</h3><div class="role">校勘对照相关</div><p>王存善校勘表涉及翁方纲题跋之吴荣光藏元明间拓本。</p></div>
+      </div>
+    </article>
+
+    <article class="content-card" id="places">
+      <h2 class="section-title">地名与事件</h2>
+      <div class="two-col">
+        <div>
+          <h3>重要地名</h3>
+          <div class="place-grid">
+            <div class="entity"><h3>长安怀德坊慧日寺</h3><p>刻立地点，也是原碑相关地点。</p></div>
+            <div class="entity"><h3>上海图书馆</h3><p>本件北宋拓本馆藏地。</p></div>
+            <div class="entity"><h3>西安碑林</h3><p>原碑后世迁藏相关地点。</p></div>
+            <div class="entity"><h3>益州 / 成都</h3><p>道因法师入蜀、居多宝寺讲经的区域。</p></div>
+            <div class="entity"><h3>大慈恩寺</h3><p>道因参与玄奘译经相关地点。</p></div>
+            <div class="entity"><h3>彭门光化寺</h3><p>道因法师归葬相关地点。</p></div>
+          </div>
+        </div>
+        <div>
+          <h3>历史事件</h3>
+          <div class="event-grid">
+            <div class="entity"><h3>龙朔三年立碑</h3><p>663 年十月十日刻立。</p></div>
+            <div class="entity"><h3>玄奘译经</h3><p>道因曾协助玄奘证译梵本。</p></div>
+            <div class="entity"><h3>原碑迁藏</h3><p>从慧日寺、文庙到西安碑林的流转。</p></div>
+            <div class="entity"><h3>北宋拓本递藏</h3><p>潘宁、陈琦、许增、王存善等递藏。</p></div>
+            <div class="entity"><h3>王存善校勘补配</h3><p>1902 年校勘并以明拓补碑额。</p></div>
+            <div class="entity"><h3>题跋与收藏史</h3><p>潘宁、何绍基、王存善等题跋形成研究链条。</p></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="content-card" id="sources">
+      <h2 class="section-title">资料说明</h2>
+      <p>
+        本页以你本次给出的“首题、责任者、书体、版本、数量、尺寸、刻立年代、刻立地点、馆藏地、来源书目”等字段为主。外部资料中的原碑形制、欧阳通生平、书法评价、碑侧雕刻等内容被整理为补充说明，避免与上海图书馆藏本核心字段相互混淆。
+      </p>
+      <p>
+        如果后续你希望进一步严谨，可以在本页底部加入“数据来源”列表，将上海图书馆开放数据、你整理的文字资料、百度百科、维基百科、故宫博物院、台北故宫等分开标注。
+      </p>
+      <div class="source-note">
+        页面替换说明：把本文件命名为 <b>detail.html</b>，放到你的 GitHub Pages 仓库根目录，覆盖原来的 detail.html。图片路径默认使用 <b>assets/beitie/001_daoyin/images/0005_五.jpg</b> 等文件。
+      </div>
+    </article>
+  </section>
+</main>
+</body>
+</html>
