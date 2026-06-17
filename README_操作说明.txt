@@ -1,45 +1,35 @@
-# 翰墨智读网页原型包
+碑帖智能读析平台 v3（名称待定）
+==================================================
 
-把本文件夹内所有内容复制到：
+本版本按你的最新要求调整了网站结构：
 
-`E:\GitHubDesktop\GitHub\SphinxL97.github.io`
+导航栏目：
+首页 / 碑帖总览 / 001 道因法师碑 / 人物关系（待定） / AI配图（待定） / 帮助说明（待定）
 
-如果提示覆盖 `index.html`，先把你原来的 index.html 备份一份，再覆盖。
+已删除“全文检索”导航入口。
 
-## 图片放置规则
+主要页面：
+1. index.html：首页，正式网站首屏。
+2. gallery.html：碑帖总览，45件封面入口。只有001可以进入完整页面。
+3. detail.html?id=001：001《道因法师碑》完整样板页。
+4. reader.html?id=001&page=5：图文校读页，逐页图片与逐页释文同步。第5页有字框样例。
+5. people.html：人物关系（待定），支持搜索人物，显示动态漂浮关系图，中心人物会放大。
+6. ai-gallery.html：AI配图（待定），45件碑帖封面先作为AI图片/视频占位。
+7. help.html：帮助说明（待定），内容暂时占位。
 
-当前包内只放了第 5 页和第 20 页示例图。完整图片请放到：
+使用方法：
+复制本包所有文件到：
+E:\GitHubDesktop\GitHub\SphinxL97.github.io
 
-`assets/beitie/001_daoyin/images/`
-
-命名建议保持下载脚本生成的格式：
-
-`0005_五.jpg`
-`0006_六.jpg`
-`0020_二十.jpg`
-
-网页会按照 `data/beitie_pages.json` 里的路径读取图片。
-
-## 本地预览
-
-在仓库根目录打开命令行：
-
-```bash
+本地预览：
+cd /d E:\GitHubDesktop\GitHub\SphinxL97.github.io
 python -m http.server 8000
-```
 
-浏览器访问：
+打开：
+http://127.0.0.1:8000/
 
-`http://localhost:8000`
+说明：
+001《道因法师碑》的完整图片需要你把对应页图放到：
+assets/beitie/001_daoyin/images
 
-不要直接双击 html 文件预览，因为浏览器可能禁止本地 JSON 读取。
-
-## 上传 GitHub Pages
-
-在 GitHub Desktop 里：
-
-1. 回到 Changes
-2. Summary 写：add beitie demo pages
-3. Commit to main
-4. Push origin
-5. 等几十秒访问 https://sphinxl97.github.io/
+命名要与 data/beitie_pages.json 里的 image 字段一致。没有放图片的页，会显示缺图提示，但释文仍可显示。

@@ -1,43 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="css/style.css" />
-<title>翰墨智读｜上海图书馆碑帖开放数据展示</title>
-</head>
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>碑帖智能读析平台（名称待定）</title><link rel="stylesheet" href="css/style.css"/></head>
 <body>
-<header class="topbar">
-  <a class="brand" href="index.html">翰墨智读</a>
-  <nav>
-    <a href="gallery.html">碑帖总览</a>
-    <a href="detail.html?id=001">道因法师碑</a>
-    <a href="search.html">全文检索</a>
-    <a href="about.html">项目说明</a>
-  </nav>
+<header class="site-header">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">拓</span>
+      <span>碑帖智能读析平台<small>名称待定</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="gallery.html">碑帖总览</a>
+      <a href="detail.html?id=001">001 道因法师碑</a>
+      <a href="people.html">人物关系（待定）</a>
+      <a href="ai-gallery.html">AI配图（待定）</a>
+      <a href="help.html">帮助说明（待定）</a>
+    </nav>
+  </div>
 </header>
-<main>
-<section class="hero">
-  <div class="hero-text">
-    <p class="eyebrow">上海图书馆开放数据竞赛 · 碑帖专题示例</p>
-    <h1>从拓片到故事：碑帖 AI 辅助阅读平台</h1>
-    <p>先以《道因法师碑》为样例，展示高清页图、逐页释文、完整碑文、背景说明、版本题跋与 AI 分段导读。其余 44 件碑帖先保留入口，后续逐条补充。</p>
-    <div class="hero-actions">
-      <a class="btn primary" href="detail.html?id=001">进入《道因法师碑》</a>
-      <a class="btn" href="gallery.html">查看 45 件碑帖</a>
+
+<section class="hero new-hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">上海图书馆开放数据 · 碑帖专题实验</div>
+      <h1>碑帖智能读析平台<br/><span>名称待定</span></h1>
+      <p>以 45 件碑帖为入口，先完成 001《道因法师碑》样板。平台将图像、逐页释文、人物关系与 AI 配图组织成一个可阅读、可研究、可扩展的数字碑帖网站。</p>
+      <div class="hero-actions">
+        <a class="btn" href="gallery.html">进入碑帖总览</a>
+        <a class="btn secondary" href="detail.html?id=001">查看 001 样板</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-art"><img src="https://img.library.sh.cn/hisdata/bt/cover/1l6zxtkx0xtdz55m.jpg" alt="道因法师碑封面" onerror="this.style.display='none'"/></div>
+      <div class="hero-meta"><div><b>45 件</b><span>封面入口</span></div><div><b>001</b><span>完整样板</span></div><div><b>关系</b><span>人物网络测试</span></div></div>
     </div>
   </div>
-  <div class="hero-card">
-    <img src="assets/beitie/001_daoyin/cover.jpg" alt="道因法师碑示例图" onerror="this.parentElement.classList.add('no-img')" />
-    <div class="hero-card-caption">道因法师碑 · 北宋拓本 · 上海图书馆藏</div>
-  </div>
 </section>
-<section class="feature-grid">
-  <article><h3>图文对读</h3><p>逐页显示拓片图像与对应释文，适合读者边看图边读文。</p></article>
-  <article><h3>AI 导读</h3><p>将长篇碑文拆成可阅读的故事段落，提供白话说明和插画提示。</p></article>
-  <article><h3>全文检索</h3><p>支持检索碑文、背景、题跋和逐页释文。</p></article>
+<section class="section">
+ <div class="section-head"><div><h2 class="section-title">当前网站结构</h2><p class="section-sub">先把结构做完整，再逐步补充每件碑帖的图像、释文、人物与 AI 配图。</p></div></div>
+ <div class="feature-grid">
+  <a class="feature" href="gallery.html"><div class="num">01</div><h3>碑帖总览</h3><p>45 件碑帖封面入口，001 可进入完整内容。</p></a>
+  <a class="feature" href="detail.html?id=001"><div class="num">02</div><h3>001 道因法师碑</h3><p>图像、逐页释文、背景、题跋与人物关系样板。</p></a>
+  <a class="feature" href="people.html"><div class="num">03</div><h3>人物关系（待定）</h3><p>支持搜索人物，查看围绕该人物展开的动态关系图。</p></a>
+  <a class="feature" href="ai-gallery.html"><div class="num">04</div><h3>AI配图（待定）</h3><p>先用 45 件封面占位，后续替换为 AI 图片或视频。</p></a>
+ </div>
 </section>
-</main>
-<footer>数据来源：上海图书馆开放数据。本站为参赛展示原型。</footer>
-</body>
-</html>
+<section class="section"><div class="section-head"><div><h2 class="section-title">001 样板预览</h2><p class="section-sub">当前只开放《道因法师碑》完整样板，其余碑帖先作为目录入口。</p></div><a class="btn secondary" href="gallery.html">查看 45 件封面</a></div><div class="card-grid" id="homeCards"></div></section>
+<footer class="footer">碑帖智能读析平台（名称待定） · 当前先做 001《道因法师碑》</footer><script src="js/main.js"></script></body></html>

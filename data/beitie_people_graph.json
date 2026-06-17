@@ -1,0 +1,224 @@
+{
+  "nodes": [
+    {
+      "id": "道因法师碑",
+      "label": "道因法师碑",
+      "type": "碑帖",
+      "size": 42,
+      "center": true,
+      "summary": "当前完整样板，连接碑主、撰文者、书者、译经人物、藏家与题跋者。"
+    },
+    {
+      "id": "道因法师",
+      "label": "道因法师",
+      "type": "人物",
+      "size": 32,
+      "summary": "碑主，唐代高僧。"
+    },
+    {
+      "id": "欧阳通",
+      "label": "欧阳通",
+      "type": "人物",
+      "size": 34,
+      "summary": "书者，唐代书法家，楷书。"
+    },
+    {
+      "id": "李俨",
+      "label": "李俨",
+      "type": "人物",
+      "size": 30,
+      "summary": "撰文者。"
+    },
+    {
+      "id": "玄奘",
+      "label": "玄奘",
+      "type": "人物",
+      "size": 31,
+      "summary": "译经相关人物，碑文记道因法师与玄奘证译梵本。"
+    },
+    {
+      "id": "王存善",
+      "label": "王存善",
+      "type": "人物",
+      "size": 30,
+      "summary": "藏家、题记者。"
+    },
+    {
+      "id": "何绍基",
+      "label": "何绍基",
+      "type": "人物",
+      "size": 28,
+      "summary": "题跋者，背景说明中见其为许增题跋。"
+    },
+    {
+      "id": "潘宁",
+      "label": "潘宁",
+      "type": "人物",
+      "size": 26,
+      "summary": "题跋者，乾隆三年题跋。"
+    },
+    {
+      "id": "许增",
+      "label": "许增",
+      "type": "人物",
+      "size": 26,
+      "summary": "递藏相关人物，亦称益斋。"
+    },
+    {
+      "id": "陈琦",
+      "label": "陈琦",
+      "type": "人物",
+      "size": 24,
+      "summary": "递藏相关人物，元璞。"
+    },
+    {
+      "id": "法嘉荪",
+      "label": "法嘉荪",
+      "type": "人物",
+      "size": 24,
+      "summary": "递藏相关人物，莘侣。"
+    },
+    {
+      "id": "李鸿裔",
+      "label": "李鸿裔",
+      "type": "人物",
+      "size": 24,
+      "summary": "递藏相关人物，苏邻。"
+    },
+    {
+      "id": "汪令闻",
+      "label": "汪令闻",
+      "type": "人物",
+      "size": 24,
+      "summary": "递藏相关人物。"
+    },
+    {
+      "id": "多宝寺",
+      "label": "多宝寺",
+      "type": "地点/机构",
+      "size": 25,
+      "summary": "道因法师在成都居住讲学之寺。"
+    },
+    {
+      "id": "慧日寺",
+      "label": "慧日寺",
+      "type": "地点/机构",
+      "size": 25,
+      "summary": "长安慧日寺，碑刻相关地点。"
+    },
+    {
+      "id": "上海图书馆",
+      "label": "上海图书馆",
+      "type": "收藏机构",
+      "size": 28,
+      "summary": "本册馆藏机构。"
+    },
+    {
+      "id": "西安碑林",
+      "label": "西安碑林",
+      "type": "收藏/地点",
+      "size": 26,
+      "summary": "碑石后入西安碑林。"
+    }
+  ],
+  "links": [
+    {
+      "source": "道因法师碑",
+      "target": "道因法师",
+      "relation": "碑主"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "欧阳通",
+      "relation": "书者"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "李俨",
+      "relation": "撰文者"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "玄奘",
+      "relation": "译经相关"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "王存善",
+      "relation": "藏家/题记者"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "何绍基",
+      "relation": "题跋者"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "潘宁",
+      "relation": "题跋者"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "许增",
+      "relation": "递藏相关"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "陈琦",
+      "relation": "递藏相关"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "法嘉荪",
+      "relation": "递藏相关"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "李鸿裔",
+      "relation": "递藏相关"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "汪令闻",
+      "relation": "递藏相关"
+    },
+    {
+      "source": "道因法师",
+      "target": "多宝寺",
+      "relation": "居住讲学"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "慧日寺",
+      "relation": "原立/相关"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "上海图书馆",
+      "relation": "今藏"
+    },
+    {
+      "source": "道因法师碑",
+      "target": "西安碑林",
+      "relation": "碑石所在"
+    },
+    {
+      "source": "何绍基",
+      "target": "许增",
+      "relation": "为其题跋"
+    },
+    {
+      "source": "王存善",
+      "target": "许增",
+      "relation": "递藏链相关"
+    }
+  ],
+  "samples": [
+    "欧阳通",
+    "王存善",
+    "何绍基",
+    "玄奘",
+    "道因法师",
+    "许增"
+  ]
+}

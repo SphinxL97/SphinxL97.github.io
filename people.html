@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>人物关系（待定）</title><link rel="stylesheet" href="css/style.css"/></head><body>
+<header class="site-header">
+  <div class="nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">拓</span>
+      <span>碑帖智能读析平台<small>名称待定</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="gallery.html">碑帖总览</a>
+      <a href="detail.html?id=001">001 道因法师碑</a>
+      <a href="people.html">人物关系（待定）</a>
+      <a href="ai-gallery.html">AI配图（待定）</a>
+      <a href="help.html">帮助说明（待定）</a>
+    </nav>
+  </div>
+</header>
+
+<section class="section graph-section">
+ <div class="section-head"><div><h1 class="section-title">人物关系（待定）</h1><p class="section-sub">先用 001《道因法师碑》做动态人物关系样例。搜索人物后，该人物会成为关系网络的中心节点并放大显示。</p></div><a class="btn secondary" href="detail.html?id=001#people">返回 001 人物列表</a></div>
+ <div class="graph-tools"><input id="personSearch" placeholder="搜索人物：欧阳通、王存善、何绍基、玄奘、道因法师……"/><button class="btn" id="searchPersonBtn">搜索人物</button></div>
+ <div class="sample-people" id="samplePeople"></div>
+ <div class="graph-layout"><div class="graph-canvas"><svg id="relationGraph" viewBox="0 0 980 620" preserveAspectRatio="xMidYMid meet"></svg></div><aside class="graph-info" id="graphInfo"><h2>关系说明</h2><p>节点会轻微漂浮，用来表现“人物关系网络”的动态感。后续可以把这里的数据替换为 45 件碑帖抽取出来的真实人物实体链接结果。</p></aside></div>
+</section><footer class="footer">人物关系（待定） · 当前为 001《道因法师碑》样例网络</footer><script src="js/people.js"></script></body></html>
