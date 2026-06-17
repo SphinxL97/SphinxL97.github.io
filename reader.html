@@ -1,18 +1,12 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>图文校读</title><link rel="stylesheet" href="css/style.css"></head><body>
-<header class="site-header">
-  <div class="nav">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">拓</span>
-      <span>碑帖智能读析平台<small>名称待定</small></span>
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">首页</a>
-      <a href="gallery.html">碑帖总览</a>
-      <a href="detail.html?id=001">001 道因法师碑</a>
-      <a href="people.html">人物关系（待定）</a>
-      <a href="ai-gallery.html">AI配图（待定）</a>
-      <a href="help.html">帮助说明（待定）</a>
-    </nav>
-  </div>
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-seal">拓</span><span>碑帖智能读析平台<small>名称待定</small></span></a>
+  <nav class="navlinks">
+    <a href="index.html">首页</a>
+    <a href="gallery.html">碑帖总览</a>
+    <a href="people.html">人物关系（待定）</a>
+    <a href="ai-gallery.html">AI配图（待定）</a>
+    <a href="help.html">帮助说明（待定）</a>
+  </nav>
 </header>
 <div class="reader-shell"><section class="viewer" id="viewer"><div class="missing" id="missingBox">正在加载图像……</div><img id="pageImage" style="display:none"><div id="boxLayer"></div></section><aside class="reader-panel"><h1>图文校读工作台</h1><p class="section-sub">第5页有示例字框；其他页先显示页级图文对应。</p><div class="reader-controls"><button id="prevBtn">上一页</button><select id="pageSelect"></select><button id="nextBtn">下一页</button></div><div id="pageInfo" class="ready"></div><div class="char-text" id="charText"></div><div class="long-text" style="margin-top:16px">说明：当前不建议直接做OCR。更稳的路线是已有逐页释文 + 半自动字位网格 + 人工微调。第5页“故大德因法师碑”已放入示例字框。</div></aside></div><script src="js/reader.js"></script></body></html>

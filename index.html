@@ -1,49 +1,99 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>碑帖智能读析平台（名称待定）</title><link rel="stylesheet" href="css/style.css"/></head>
-<body>
-<header class="site-header">
-  <div class="nav">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">拓</span>
-      <span>碑帖智能读析平台<small>名称待定</small></span>
-    </a>
-    <nav class="nav-links">
-      <a href="index.html">首页</a>
-      <a href="gallery.html">碑帖总览</a>
-      <a href="detail.html?id=001">001 道因法师碑</a>
-      <a href="people.html">人物关系（待定）</a>
-      <a href="ai-gallery.html">AI配图（待定）</a>
-      <a href="help.html">帮助说明（待定）</a>
-    </nav>
-  </div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>碑帖智能读析平台（名称待定）</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="home-clean">
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-seal">拓</span><span>碑帖智能读析平台<small>名称待定</small></span></a>
+  <nav class="navlinks">
+    <a href="index.html">首页</a>
+    <a href="gallery.html">碑帖总览</a>
+    <a href="people.html">人物关系（待定）</a>
+    <a href="ai-gallery.html">AI配图（待定）</a>
+    <a href="help.html">帮助说明（待定）</a>
+  </nav>
 </header>
 
-<section class="hero new-hero">
-  <div class="hero-inner">
-    <div>
-      <div class="eyebrow">上海图书馆开放数据 · 碑帖专题实验</div>
-      <h1>碑帖智能读析平台<br/><span>名称待定</span></h1>
-      <p>以 45 件碑帖为入口，先完成 001《道因法师碑》样板。平台将图像、逐页释文、人物关系与 AI 配图组织成一个可阅读、可研究、可扩展的数字碑帖网站。</p>
-      <div class="hero-actions">
-        <a class="btn" href="gallery.html">进入碑帖总览</a>
-        <a class="btn secondary" href="detail.html?id=001">查看 001 样板</a>
-      </div>
+<main class="clean-landing">
+  <section class="clean-hero">
+    <div class="clean-bg-orb orb-one"></div>
+    <div class="clean-bg-orb orb-two"></div>
+
+    <div class="clean-title">
+      <div class="clean-kicker">上海图书馆开放数据 · 碑帖专题实验</div>
+      <h1>碑帖智能读析平台 <span>名称待定</span></h1>
+      <p>以 45 件碑帖为入口，先完成 001《道因法师碑》样板。平台将碑帖封面、逐页释文、人物关系与 AI 配图组织为一个可阅读、可研究、可扩展的数字碑帖网站。</p>
     </div>
-    <div class="hero-card">
-      <div class="hero-art"><img src="https://img.library.sh.cn/hisdata/bt/cover/1l6zxtkx0xtdz55m.jpg" alt="道因法师碑封面" onerror="this.style.display='none'"/></div>
-      <div class="hero-meta"><div><b>45 件</b><span>封面入口</span></div><div><b>001</b><span>完整样板</span></div><div><b>关系</b><span>人物网络测试</span></div></div>
+
+    <div class="landing-modules">
+      <a class="landing-card" href="gallery.html">
+        <div class="illus illus-catalog" aria-hidden="true">
+          <svg viewBox="0 0 140 110">
+            <rect x="18" y="18" width="96" height="70" rx="10"/>
+            <rect x="30" y="30" width="26" height="46" rx="3"/>
+            <rect x="62" y="30" width="26" height="46" rx="3"/>
+            <path d="M100 32v44M104 32v44"/>
+            <circle cx="111" cy="84" r="11"/>
+          </svg>
+        </div>
+        <h2>碑帖总览</h2>
+        <p>展示 45 件碑帖封面入口。当前只有 001《道因法师碑》开放完整页图与详情，其余先作为入口占位。</p>
+        <span>进入总览</span>
+      </a>
+
+      <a class="landing-card" href="people.html">
+        <div class="illus illus-network" aria-hidden="true">
+          <svg viewBox="0 0 140 110">
+            <circle cx="70" cy="54" r="18" class="main-node"/>
+            <circle cx="34" cy="30" r="10"/>
+            <circle cx="108" cy="28" r="10"/>
+            <circle cx="32" cy="82" r="10"/>
+            <circle cx="108" cy="82" r="10"/>
+            <path d="M55 45L43 35M85 44l14-10M55 64L42 77M85 64l14 13"/>
+          </svg>
+        </div>
+        <h2>人物关系（待定）</h2>
+        <p>支持搜索人物，查看这个人物在碑帖、题跋、收藏与共现人物中的关系网络。中心人物会放大显示。</p>
+        <span>查看关系</span>
+      </a>
+
+      <a class="landing-card" href="ai-gallery.html">
+        <div class="illus illus-ai" aria-hidden="true">
+          <svg viewBox="0 0 140 110">
+            <rect x="24" y="24" width="78" height="52" rx="8"/>
+            <path d="M34 64l18-17 15 13 12-10 15 14"/>
+            <circle cx="84" cy="38" r="7"/>
+            <path d="M106 36l16 8-16 8z"/>
+            <path d="M35 88h54"/>
+          </svg>
+        </div>
+        <h2>AI配图（待定）</h2>
+        <p>后续把碑帖文字转化为图片或视频导览。当前先用 45 件碑帖封面作为占位，001 先做样例。</p>
+        <span>查看占位</span>
+      </a>
+
+      <a class="landing-card" href="help.html">
+        <div class="illus illus-help" aria-hidden="true">
+          <svg viewBox="0 0 140 110">
+            <path d="M70 18a36 36 0 1 0 0 72 36 36 0 0 0 0-72z"/>
+            <path d="M70 37c8 0 14 5 14 12 0 10-12 10-12 20"/>
+            <path d="M70 80h.1"/>
+            <path d="M44 30l-10-10M96 30l10-10M44 80l-10 10M96 80l10 10"/>
+          </svg>
+        </div>
+        <h2>帮助说明（待定）</h2>
+        <p>用于放置数据来源、释文说明、人物链接规则、AI 配图说明、图文校读使用方法等内容。</p>
+        <span>查看说明</span>
+      </a>
     </div>
-  </div>
-</section>
-<section class="section">
- <div class="section-head"><div><h2 class="section-title">当前网站结构</h2><p class="section-sub">先把结构做完整，再逐步补充每件碑帖的图像、释文、人物与 AI 配图。</p></div></div>
- <div class="feature-grid">
-  <a class="feature" href="gallery.html"><div class="num">01</div><h3>碑帖总览</h3><p>45 件碑帖封面入口，001 可进入完整内容。</p></a>
-  <a class="feature" href="detail.html?id=001"><div class="num">02</div><h3>001 道因法师碑</h3><p>图像、逐页释文、背景、题跋与人物关系样板。</p></a>
-  <a class="feature" href="people.html"><div class="num">03</div><h3>人物关系（待定）</h3><p>支持搜索人物，查看围绕该人物展开的动态关系图。</p></a>
-  <a class="feature" href="ai-gallery.html"><div class="num">04</div><h3>AI配图（待定）</h3><p>先用 45 件封面占位，后续替换为 AI 图片或视频。</p></a>
- </div>
-</section>
-<section class="section"><div class="section-head"><div><h2 class="section-title">001 样板预览</h2><p class="section-sub">当前只开放《道因法师碑》完整样板，其余碑帖先作为目录入口。</p></div><a class="btn secondary" href="gallery.html">查看 45 件封面</a></div><div class="card-grid" id="homeCards"></div></section>
-<footer class="footer">碑帖智能读析平台（名称待定） · 当前先做 001《道因法师碑》</footer><script src="js/main.js"></script></body></html>
+  </section>
+</main>
+
+<footer class="footer clean-footer">碑帖智能读析平台（名称待定） · 当前先做 001《道因法师碑》样板</footer>
+<script src="js/main.js"></script>
+</body>
+</html>
