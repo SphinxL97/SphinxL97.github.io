@@ -1,0 +1,214 @@
+{
+  "index": 19,
+  "uri": "http://data.library.sh.cn/bt/resource/work/u71vopn6xin458mi",
+  "title": "虞恭公温彦博碑",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/u71vopn6xin458mi",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "虞恭公温彦博碑",
+      "variantType": "首题"
+    },
+    "contribution": [
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/ww68ccx56mn7ol4o"
+        },
+        "agentLabel": "欧阳询",
+        "role": "书"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/ujlgvhcyt7btlleb"
+        },
+        "agentLabel": "岑文本",
+        "role": "撰"
+      }
+    ],
+    "creator": "岑文本（撰）、欧阳询（书）",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/ex5oi2a1luzhmfvb",
+      "@type": "Annotation",
+      "hasBody": "（清内府本）此清内府旧藏“北宋拓本”，每行存二十三字，拓制时间早于四欧堂本。王澍跋语评定：“所见温公碑此第一”。<br/> 此册清初为王闻远（莲泾）所藏，后归王澍（虚舟）、毕沅（灵岩山人），毕氏获罪没入内府，钤有“三希堂精鉴玺”、“宜子孙”、“嘉庆鉴赏”、“嘉庆御览之宝”、“石渠宝笈”、“宝笈三编”诸印。上海图书馆馆藏国家一级文物。<br/><br/>首行“碑”字“田”可见，“田”部中竖向上有伸出。<br/>四行“食邑河内”之“邑”字口部完好。<br/>九行“太子洗马李纲直道正辞”之“马”字上半近乎完好，“李”字中竖泐处已连及左点。“道”字“目”部二小横完好。<br/>十二行“申明臣节”之“申”字“田”部完好。<br/>十三行“东北道招慰”之“慰”字完好。<br/>十三行“天地横溃”之“溃”字可辨。<br/>十七行“十万之师方绝大汉五饵之术”之“方”字完好。<br/>十八行“浇俗”之“浇”字完好。<br/>三十三行“蔼蔼高门世应显命”之“门”字左上角稍损。<br/><br/>雍正十年（1732）王澍将此册碑文与新旧唐书进行了校读，碑文所记虽较史书为详备，然碑文多断缺，许多史实已经不可考，册后留有王澍题跋二则。<br/><br/>乾隆五十年（1785）四月八日翁方纲题跋校正了王澍之论欧书。<br/>乾隆五十年（1785）四月十二日翁方纲题跋，又云：“今日新拓本每行尚存十九字，愚所见旧拓本，每行存廿字至廿四字，后先凡数本，皆苦墨太浓湿 ，转不及今存十九字之本，独此一本，每行存二十三字，而墨气尚不十分浓湿 ，宋拓中之足珍者矣。王虚舟先生平生以率更为职志，而谓此为所见第一本，亦可见旧拓善本之难得。”<br/>（按：此跋可知《虞恭公碑》乾隆拓本以每行十九字为流行。此跋后段翁方纲再次辩驳了王澍对《化度寺》、《九成宫》、《虞恭公》书法的品评，极为精彩，因其无关碑帖版本定性与递藏关系，兹不转录。）<br/><br/>乾隆五十八年（1793）王文治为毕沅题跋。王文治提及毕沅亦藏有宋拓欧书三种，由此可知集藏宋拓欧书碑帖古已有之，虽未必始于毕沅，但必将止于吴湖帆，因为后人再也无力收齐四种宋拓欧书，此乃千年一遇之事。<br/><br/>共二十五开，册高36厘米，宽22.3厘米。碑文十六开，帖芯高24.8厘米、宽11.9厘米 。",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/0ob63ac68fqsnoea",
+        "@type": "Instance",
+        "binding": "25开",
+        "dimensions": "册高36厘米，宽22.3厘米。碑文十六开，帖芯高24.8厘米、宽11.9厘米 。",
+        "edition": "北宋拓本",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/bzsihoke6i3qrobk",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "清初为王闻远（莲泾）所藏，后归王澍（虚舟）、毕沅（灵岩山人），毕氏获罪没入内府",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "seal": "钤有“三希堂精鉴玺”、“宜子孙”、“嘉庆鉴赏”、“嘉庆御览之宝”、“石渠宝笈”、“宝笈三编”诸印",
+          "shelfMark": "18A350"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "prefaceAndPostscript": "有王澍、翁方纲、王文治题跋。",
+        "temporal": "宋",
+        "type": "贴",
+        "tieTemporal": "宋"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/9295fb2gqic9ju48",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "type": "碑"
+      }
+    ],
+    "lineAndCharacterCount": "每行存二十三字",
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "楷书"
+    },
+    "title": [
+      {
+        "@language": "cht",
+        "@value": "虞恭公溫彥博碑"
+      },
+      {
+        "@language": "en",
+        "@value": "yu gong gong wen yan bo bei"
+      },
+      {
+        "@language": "chs",
+        "@value": "虞恭公温彦博碑"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "虞恭公温彦博碑"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/bzsihoke6i3qrobk.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/18A350"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/u71vopn6xin458mi",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "虞恭公温彦博碑",
+        "variantType": "首题"
+      },
+      "contribution": [
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/ww68ccx56mn7ol4o"
+          },
+          "agentLabel": "欧阳询",
+          "role": "书"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/ujlgvhcyt7btlleb"
+          },
+          "agentLabel": "岑文本",
+          "role": "撰"
+        }
+      ],
+      "creator": "岑文本（撰）、欧阳询（书）",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/ex5oi2a1luzhmfvb",
+        "@type": "Annotation",
+        "hasBody": "（清内府本）此清内府旧藏“北宋拓本”，每行存二十三字，拓制时间早于四欧堂本。王澍跋语评定：“所见温公碑此第一”。<br/> 此册清初为王闻远（莲泾）所藏，后归王澍（虚舟）、毕沅（灵岩山人），毕氏获罪没入内府，钤有“三希堂精鉴玺”、“宜子孙”、“嘉庆鉴赏”、“嘉庆御览之宝”、“石渠宝笈”、“宝笈三编”诸印。上海图书馆馆藏国家一级文物。<br/><br/>首行“碑”字“田”可见，“田”部中竖向上有伸出。<br/>四行“食邑河内”之“邑”字口部完好。<br/>九行“太子洗马李纲直道正辞”之“马”字上半近乎完好，“李”字中竖泐处已连及左点。“道”字“目”部二小横完好。<br/>十二行“申明臣节”之“申”字“田”部完好。<br/>十三行“东北道招慰”之“慰”字完好。<br/>十三行“天地横溃”之“溃”字可辨。<br/>十七行“十万之师方绝大汉五饵之术”之“方”字完好。<br/>十八行“浇俗”之“浇”字完好。<br/>三十三行“蔼蔼高门世应显命”之“门”字左上角稍损。<br/><br/>雍正十年（1732）王澍将此册碑文与新旧唐书进行了校读，碑文所记虽较史书为详备，然碑文多断缺，许多史实已经不可考，册后留有王澍题跋二则。<br/><br/>乾隆五十年（1785）四月八日翁方纲题跋校正了王澍之论欧书。<br/>乾隆五十年（1785）四月十二日翁方纲题跋，又云：“今日新拓本每行尚存十九字，愚所见旧拓本，每行存廿字至廿四字，后先凡数本，皆苦墨太浓湿 ，转不及今存十九字之本，独此一本，每行存二十三字，而墨气尚不十分浓湿 ，宋拓中之足珍者矣。王虚舟先生平生以率更为职志，而谓此为所见第一本，亦可见旧拓善本之难得。”<br/>（按：此跋可知《虞恭公碑》乾隆拓本以每行十九字为流行。此跋后段翁方纲再次辩驳了王澍对《化度寺》、《九成宫》、《虞恭公》书法的品评，极为精彩，因其无关碑帖版本定性与递藏关系，兹不转录。）<br/><br/>乾隆五十八年（1793）王文治为毕沅题跋。王文治提及毕沅亦藏有宋拓欧书三种，由此可知集藏宋拓欧书碑帖古已有之，虽未必始于毕沅，但必将止于吴湖帆，因为后人再也无力收齐四种宋拓欧书，此乃千年一遇之事。<br/><br/>共二十五开，册高36厘米，宽22.3厘米。碑文十六开，帖芯高24.8厘米、宽11.9厘米 。",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/0ob63ac68fqsnoea",
+          "@type": "Instance",
+          "binding": "25开",
+          "dimensions": "册高36厘米，宽22.3厘米。碑文十六开，帖芯高24.8厘米、宽11.9厘米 。",
+          "edition": "北宋拓本",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/bzsihoke6i3qrobk",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "清初为王闻远（莲泾）所藏，后归王澍（虚舟）、毕沅（灵岩山人），毕氏获罪没入内府",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "seal": "钤有“三希堂精鉴玺”、“宜子孙”、“嘉庆鉴赏”、“嘉庆御览之宝”、“石渠宝笈”、“宝笈三编”诸印",
+            "shelfMark": "18A350"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "prefaceAndPostscript": "有王澍、翁方纲、王文治题跋。",
+          "temporal": "宋",
+          "type": "贴",
+          "tieTemporal": "宋"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/9295fb2gqic9ju48",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "type": "碑"
+        }
+      ],
+      "lineAndCharacterCount": "每行存二十三字",
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "楷书"
+      },
+      "title": [
+        {
+          "@language": "cht",
+          "@value": "虞恭公溫彥博碑"
+        },
+        {
+          "@language": "en",
+          "@value": "yu gong gong wen yan bo bei"
+        },
+        {
+          "@language": "chs",
+          "@value": "虞恭公温彦博碑"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "虞恭公温彦博碑"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/bzsihoke6i3qrobk.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/18A350",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "019_虞恭公温彦博碑.json"
+}

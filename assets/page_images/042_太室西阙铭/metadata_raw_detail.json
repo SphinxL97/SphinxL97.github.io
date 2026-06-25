@@ -1,0 +1,192 @@
+{
+  "index": 42,
+  "uri": "http://data.library.sh.cn/bt/resource/work/snun4qho3oxf8ook",
+  "title": "太室西阙铭",
+  "search_item": {
+    "instance": [
+      {
+        "item": {
+          "note": {
+            "noteType": "流传经历",
+            "@type": "Note",
+            "label": "王懿荣旧藏，光绪乙巳（1905）归龚心銘"
+          },
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "@type": "Item",
+          "organization": "上海图书馆",
+          "@id": "http://data.library.sh.cn/bt/resource/item/pm5t3fh6k9vlqufz",
+          "shelfMark": "S1228"
+        },
+        "tieTemporal": "明",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+        "binding": "8开",
+        "edition": [
+          "王懿荣旧藏本影印",
+          "明拓本"
+        ],
+        "prefaceAndPostscript": "吴士鉴、张亨嘉",
+        "@id": "http://data.library.sh.cn/bt/resource/instance/hkfyp7fvudfr52ua",
+        "type": "贴",
+        "temporal": "明",
+        "dimensions": "册高36.6厘米，寬19.4厘米，帖芯高26.8厘米，寬12.9厘米。",
+        "printEdition": "王懿荣旧藏本影印"
+      },
+      {
+        "temporalValue": "汉元初五年（118）",
+        "@type": "Instance",
+        "beiTemporal": "汉",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+        "@id": "http://data.library.sh.cn/bt/resource/instance/begrtagxuklsrdbi",
+        "type": "碑",
+        "creationPlace": "河南登封嵩山太室山下中岳庙前",
+        "temporal": "汉"
+      }
+    ],
+    "scriptForm": {
+      "categoryType": "calligraphy",
+      "@type": "Category",
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+      "label": "隶书"
+    },
+    "temporalValue": "汉元初五年（118）",
+    "@type": "Work",
+    "bfTitle": [
+      {
+        "variantType": "额题",
+        "@type": "Title",
+        "label": "中岳泰室阳城崇高阙"
+      },
+      {
+        "variantType": "首题",
+        "@type": "Title",
+        "label": "太室西阙铭"
+      }
+    ],
+    "NT": "1",
+    "@id": "http://data.library.sh.cn/bt/resource/work/snun4qho3oxf8ook",
+    "title": [
+      {
+        "@value": "tai shi xi que ming",
+        "@language": "en"
+      },
+      {
+        "@value": "太室西阙铭",
+        "@language": "chs"
+      },
+      {
+        "@value": "太室西闕銘",
+        "@language": "cht"
+      }
+    ],
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑",
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "titleChs": {
+      "@value": "太室西阙铭",
+      "@language": "chs"
+    },
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/pm5t3fh6k9vlqufz.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/S1228"
+  },
+  "detail": {
+    "datas": {
+      "instance": [
+        {
+          "item": {
+            "note": {
+              "noteType": "流传经历",
+              "@type": "Note",
+              "label": "王懿荣旧藏，光绪乙巳（1905）归龚心銘"
+            },
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "@type": "Item",
+            "organization": "上海图书馆",
+            "@id": "http://data.library.sh.cn/bt/resource/item/pm5t3fh6k9vlqufz",
+            "shelfMark": "S1228"
+          },
+          "tieTemporal": "明",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+          "binding": "8开",
+          "edition": [
+            "王懿荣旧藏本影印",
+            "明拓本"
+          ],
+          "prefaceAndPostscript": "吴士鉴、张亨嘉",
+          "@id": "http://data.library.sh.cn/bt/resource/instance/hkfyp7fvudfr52ua",
+          "type": "贴",
+          "temporal": "明",
+          "dimensions": "册高36.6厘米，寬19.4厘米，帖芯高26.8厘米，寬12.9厘米。",
+          "printEdition": "王懿荣旧藏本影印"
+        },
+        {
+          "temporalValue": "汉元初五年（118）",
+          "@type": "Instance",
+          "beiTemporal": "汉",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+          "@id": "http://data.library.sh.cn/bt/resource/instance/begrtagxuklsrdbi",
+          "type": "碑",
+          "creationPlace": "河南登封嵩山太室山下中岳庙前",
+          "temporal": "汉"
+        }
+      ],
+      "scriptForm": {
+        "categoryType": "calligraphy",
+        "@type": "Category",
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+        "label": "隶书"
+      },
+      "temporalValue": "汉元初五年（118）",
+      "@type": "Work",
+      "bfTitle": [
+        {
+          "variantType": "额题",
+          "@type": "Title",
+          "label": "中岳泰室阳城崇高阙"
+        },
+        {
+          "variantType": "首题",
+          "@type": "Title",
+          "label": "太室西阙铭"
+        }
+      ],
+      "NT": "1",
+      "@id": "http://data.library.sh.cn/bt/resource/work/snun4qho3oxf8ook",
+      "title": [
+        {
+          "@value": "tai shi xi que ming",
+          "@language": "en"
+        },
+        {
+          "@value": "太室西阙铭",
+          "@language": "chs"
+        },
+        {
+          "@value": "太室西闕銘",
+          "@language": "cht"
+        }
+      ],
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑",
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "titleChs": {
+        "@value": "太室西阙铭",
+        "@language": "chs"
+      },
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/pm5t3fh6k9vlqufz.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/S1228",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "042_太室西阙铭.json"
+}

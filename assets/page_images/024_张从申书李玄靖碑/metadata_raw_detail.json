@@ -1,0 +1,236 @@
+{
+  "index": 24,
+  "uri": "http://data.library.sh.cn/bt/resource/work/ljd94x9x6wdlcsfh",
+  "title": "张从申书李玄靖碑",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/ljd94x9x6wdlcsfh",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "张从申书李玄靖碑",
+      "variantType": "首题"
+    },
+    "contribution": [
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/u4x5imackioclc8s"
+        },
+        "agentLabel": "张从申",
+        "role": "书"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/buqvvfryweft5gfj"
+        },
+        "agentLabel": "柳识",
+        "role": "撰"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/k5mb7xoioyadv3of"
+        },
+        "agentLabel": "李阳冰",
+        "role": "篆额"
+      }
+    ],
+    "creator": "柳识撰，张从申书，李阳冰篆额",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/s2kngazp5qir7xxq",
+      "@type": "Annotation",
+      "hasBody": "（朱秉衡藏本）<br/>《玄靖先生李含光碑》，唐大历七年（772）八月十四日刻，柳识撰，张从申书，李阳冰篆额。碑石原在江苏句容玉晨观，明嘉靖三年（1524）毁于火。<br/>传世宋本少见，唯见有宝熙、沈曾植题跋本（现藏北京故宫博物院）和张照、杜文澜题跋本（现藏国家图书馆）。<br/><br/>此册为朱秉衡（定甫）旧藏“宋拓本”，经与故宫博物院藏本校勘，拓制时间相近。上海图书馆馆藏国家一级文物。<br/><br/>钤“希世之珍”、 “曰藻”、 “元淳之印”、“子孙世守”、“平原叔子谷夫珍玩”等印。<br/><br/>共十六开半，册高38.7厘米，宽24.8厘米，帖芯高27厘米，宽15.6厘米。 <br/>馆藏号  21A413",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/62b0zeyxgchazbad",
+        "@type": "Instance",
+        "binding": "共十六开半",
+        "dimensions": "册高38.7厘米，宽24.8厘米，帖芯高27厘米，宽15.6厘米。",
+        "edition": "宋拓本",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/u3yl86f8pe6yxfnz",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "朱秉衡（定甫）旧藏“宋拓本”",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "seal": "钤“希世之珍”、 “曰藻”、 “元淳之印”、“子孙世守”、“平原叔子谷夫珍玩”等印",
+          "shelfMark": "21A413"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "temporal": "宋",
+        "temporalValue": "唐大历七年（772）",
+        "type": "贴",
+        "tieTemporal": "宋"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/5t7pa7xzvxedh2u6",
+        "@type": "Instance",
+        "creationPlace": "江苏句容玉晨观",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "temporal": "唐",
+        "temporalValue": "唐大历七年（772）",
+        "type": "碑",
+        "beiTemporal": "唐"
+      }
+    ],
+    "temporal": {
+      "@id": "http://data.library.sh.cn/authority/temporal/icdquglj1cgbekqk",
+      "@type": "Temporal",
+      "label": "唐"
+    },
+    "temporalValue": "唐大历七年（772）",
+    "title": [
+      {
+        "@language": "chs",
+        "@value": "张从申书李玄靖碑"
+      },
+      {
+        "@language": "en",
+        "@value": "zhang cong shen shu li xuan jing bei"
+      },
+      {
+        "@language": "cht",
+        "@value": "張從申書李玄靖碑"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "张从申书李玄靖碑"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/u3yl86f8pe6yxfnz.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/21A413"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/ljd94x9x6wdlcsfh",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "张从申书李玄靖碑",
+        "variantType": "首题"
+      },
+      "contribution": [
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/u4x5imackioclc8s"
+          },
+          "agentLabel": "张从申",
+          "role": "书"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/buqvvfryweft5gfj"
+          },
+          "agentLabel": "柳识",
+          "role": "撰"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/k5mb7xoioyadv3of"
+          },
+          "agentLabel": "李阳冰",
+          "role": "篆额"
+        }
+      ],
+      "creator": "柳识撰，张从申书，李阳冰篆额",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/s2kngazp5qir7xxq",
+        "@type": "Annotation",
+        "hasBody": "（朱秉衡藏本）<br/>《玄靖先生李含光碑》，唐大历七年（772）八月十四日刻，柳识撰，张从申书，李阳冰篆额。碑石原在江苏句容玉晨观，明嘉靖三年（1524）毁于火。<br/>传世宋本少见，唯见有宝熙、沈曾植题跋本（现藏北京故宫博物院）和张照、杜文澜题跋本（现藏国家图书馆）。<br/><br/>此册为朱秉衡（定甫）旧藏“宋拓本”，经与故宫博物院藏本校勘，拓制时间相近。上海图书馆馆藏国家一级文物。<br/><br/>钤“希世之珍”、 “曰藻”、 “元淳之印”、“子孙世守”、“平原叔子谷夫珍玩”等印。<br/><br/>共十六开半，册高38.7厘米，宽24.8厘米，帖芯高27厘米，宽15.6厘米。 <br/>馆藏号  21A413",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/62b0zeyxgchazbad",
+          "@type": "Instance",
+          "binding": "共十六开半",
+          "dimensions": "册高38.7厘米，宽24.8厘米，帖芯高27厘米，宽15.6厘米。",
+          "edition": "宋拓本",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/u3yl86f8pe6yxfnz",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "朱秉衡（定甫）旧藏“宋拓本”",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "seal": "钤“希世之珍”、 “曰藻”、 “元淳之印”、“子孙世守”、“平原叔子谷夫珍玩”等印",
+            "shelfMark": "21A413"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "temporal": "宋",
+          "temporalValue": "唐大历七年（772）",
+          "type": "贴",
+          "tieTemporal": "宋"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/5t7pa7xzvxedh2u6",
+          "@type": "Instance",
+          "creationPlace": "江苏句容玉晨观",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "temporal": "唐",
+          "temporalValue": "唐大历七年（772）",
+          "type": "碑",
+          "beiTemporal": "唐"
+        }
+      ],
+      "temporal": {
+        "@id": "http://data.library.sh.cn/authority/temporal/icdquglj1cgbekqk",
+        "@type": "Temporal",
+        "label": "唐"
+      },
+      "temporalValue": "唐大历七年（772）",
+      "title": [
+        {
+          "@language": "chs",
+          "@value": "张从申书李玄靖碑"
+        },
+        {
+          "@language": "en",
+          "@value": "zhang cong shen shu li xuan jing bei"
+        },
+        {
+          "@language": "cht",
+          "@value": "張從申書李玄靖碑"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "张从申书李玄靖碑"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/u3yl86f8pe6yxfnz.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/21A413",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "024_张从申书李玄靖碑.json"
+}

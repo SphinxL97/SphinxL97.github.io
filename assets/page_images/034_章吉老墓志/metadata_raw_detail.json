@@ -1,0 +1,250 @@
+{
+  "index": 34,
+  "uri": "http://data.library.sh.cn/bt/resource/work/4lpfhne452yfe8b9",
+  "title": "章吉老墓志",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/4lpfhne452yfe8b9",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "章吉老墓志",
+      "variantType": "首题"
+    },
+    "contribution": [
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/yshhpgxbe2gneu5n"
+        },
+        "agentLabel": "周绅",
+        "role": "撰"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/now4uqhpvw3z43ta"
+        },
+        "agentLabel": "陈敦复",
+        "role": "篆盖"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/f5xd35476e0vjcvn"
+        },
+        "agentLabel": "米芾",
+        "role": "行书"
+      }
+    ],
+    "creator": "周绅撰，米芾行书，陈敦复篆盖",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/teiibwnh1w78gs2u",
+      "@type": "Annotation",
+      "hasBody": "（潘承厚藏本）《章吉老墓志》宋崇宁四年（1105）九月初一刻，周绅撰，米芾行书（时年五十五岁），陈敦复篆盖。石原在安徽无为县，久佚。拓本极罕见。<br/>此册为“明初拓本”。经杨泾、陆心源、陆树声树彰兄弟、唐翰题、潘承厚递藏。上海图书馆馆藏国家二级文物。<br/>红木面板有褚德彝民国二十年（1931）三月题签。<br/>另有罗振玉篆书为潘承厚题端，民国二十年（1931）六月吴湖帆绘《米家山水图》并诗跋（为潘承厚题），据题跋可知，昔年潘祖荫有《章吉老墓志》，视为孤本，后赠内侄汪鹤舲。但潘承厚新得唐翰题藏本，并非潘祖荫旧藏。此罗振玉题端及吴湖帆绘《米家山水图》并诗跋共两开，不知何故与《章吉老墓志册》分散多年，2008年笔者在上海图书馆未编碑帖堆中捡得以上两开，现已重装入册，距吴湖帆绘画题跋已越七十七年。<br/>册中有杨泾（鉅济）、陆树声、陆树彰（季寅，陆心源之子）、唐翰题（子冰，张廷济孙婿）、蒋祖诒（谷孙，蒋汝藻之子）藏印。<br/>另有同治六年（1867）三月唐翰题（鹪安）题跋，王同愈（栩缘）民国二十年（1931）七月观款。据唐翰题题跋可知，此册同治六年（1867）与《章吉老墓表》（大观二年1108刻，米芾大字行书）原合装一册，今本仅存《墓志》不见《墓表》。<br/>此本原装裱次序略有颠倒。清光绪八年（1882）陆心源、胡镢将此册作为底本刻入《穰梨馆历代名人法书》第三卷中时，连同册中杨泾（鉅济）钤印一并刻入，还将第九开左半与第十开右半对调，第十开左半与第十一开右半对调，使文序理顺。<br/>共十三开，册高29.4厘米，宽16.6厘米。碑文十二开，帖芯高26厘米，宽13.9厘米。",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/c65dis0tmvs7w5uh",
+        "@type": "Instance",
+        "creationPlace": "安徽无为县",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "temporal": "宋",
+        "temporalValue": "宋崇宁四年（1105）",
+        "type": "碑",
+        "beiTemporal": "宋"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/mfw679y2zxbar0n5",
+        "@type": "Instance",
+        "binding": "13开",
+        "dimensions": "册高29.4厘米，宽16.6厘米。碑文十二开，帖芯高26厘米，宽13.9厘米。",
+        "edition": "明初拓本",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/ap9pmvwzidyc9x61",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "杨泾、陆心源、陆树声树彰兄弟、唐翰题、潘承厚递藏",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "seal": "有杨泾（鉅济）、陆树声、陆树彰（季寅，陆心源之子）、唐翰题（子冰，张廷济孙婿）、蒋祖诒（谷孙，蒋汝藻之子）藏印",
+          "shelfMark": "55B2188"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "prefaceAndPostscript": "罗振玉篆书为潘承厚题端，民国二十年（1931）六月吴湖帆绘《米家山水图》并诗跋（为潘承厚题），另有同治六年（1867）三月唐翰题（鹪安）题跋，王同愈（栩缘）民国二十年（1931）七月观款。",
+        "temporal": "明",
+        "temporalValue": "宋崇宁四年（1105）",
+        "type": "贴",
+        "tieTemporal": "明"
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/xing-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "行书"
+    },
+    "temporal": {
+      "@id": "http://data.library.sh.cn/authority/temporal/pizh5ypd5d17u795",
+      "@type": "Temporal",
+      "label": "宋"
+    },
+    "temporalValue": "宋崇宁四年（1105）",
+    "title": [
+      {
+        "@language": "en",
+        "@value": "zhang ji lao mu zhi"
+      },
+      {
+        "@language": "cht",
+        "@value": "章吉老墓志"
+      },
+      {
+        "@language": "chs",
+        "@value": "章吉老墓志"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "章吉老墓志"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/ap9pmvwzidyc9x61.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/55B2188"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/4lpfhne452yfe8b9",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "章吉老墓志",
+        "variantType": "首题"
+      },
+      "contribution": [
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/yshhpgxbe2gneu5n"
+          },
+          "agentLabel": "周绅",
+          "role": "撰"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/now4uqhpvw3z43ta"
+          },
+          "agentLabel": "陈敦复",
+          "role": "篆盖"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/f5xd35476e0vjcvn"
+          },
+          "agentLabel": "米芾",
+          "role": "行书"
+        }
+      ],
+      "creator": "周绅撰，米芾行书，陈敦复篆盖",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/teiibwnh1w78gs2u",
+        "@type": "Annotation",
+        "hasBody": "（潘承厚藏本）《章吉老墓志》宋崇宁四年（1105）九月初一刻，周绅撰，米芾行书（时年五十五岁），陈敦复篆盖。石原在安徽无为县，久佚。拓本极罕见。<br/>此册为“明初拓本”。经杨泾、陆心源、陆树声树彰兄弟、唐翰题、潘承厚递藏。上海图书馆馆藏国家二级文物。<br/>红木面板有褚德彝民国二十年（1931）三月题签。<br/>另有罗振玉篆书为潘承厚题端，民国二十年（1931）六月吴湖帆绘《米家山水图》并诗跋（为潘承厚题），据题跋可知，昔年潘祖荫有《章吉老墓志》，视为孤本，后赠内侄汪鹤舲。但潘承厚新得唐翰题藏本，并非潘祖荫旧藏。此罗振玉题端及吴湖帆绘《米家山水图》并诗跋共两开，不知何故与《章吉老墓志册》分散多年，2008年笔者在上海图书馆未编碑帖堆中捡得以上两开，现已重装入册，距吴湖帆绘画题跋已越七十七年。<br/>册中有杨泾（鉅济）、陆树声、陆树彰（季寅，陆心源之子）、唐翰题（子冰，张廷济孙婿）、蒋祖诒（谷孙，蒋汝藻之子）藏印。<br/>另有同治六年（1867）三月唐翰题（鹪安）题跋，王同愈（栩缘）民国二十年（1931）七月观款。据唐翰题题跋可知，此册同治六年（1867）与《章吉老墓表》（大观二年1108刻，米芾大字行书）原合装一册，今本仅存《墓志》不见《墓表》。<br/>此本原装裱次序略有颠倒。清光绪八年（1882）陆心源、胡镢将此册作为底本刻入《穰梨馆历代名人法书》第三卷中时，连同册中杨泾（鉅济）钤印一并刻入，还将第九开左半与第十开右半对调，第十开左半与第十一开右半对调，使文序理顺。<br/>共十三开，册高29.4厘米，宽16.6厘米。碑文十二开，帖芯高26厘米，宽13.9厘米。",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/c65dis0tmvs7w5uh",
+          "@type": "Instance",
+          "creationPlace": "安徽无为县",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "temporal": "宋",
+          "temporalValue": "宋崇宁四年（1105）",
+          "type": "碑",
+          "beiTemporal": "宋"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/mfw679y2zxbar0n5",
+          "@type": "Instance",
+          "binding": "13开",
+          "dimensions": "册高29.4厘米，宽16.6厘米。碑文十二开，帖芯高26厘米，宽13.9厘米。",
+          "edition": "明初拓本",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/ap9pmvwzidyc9x61",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "杨泾、陆心源、陆树声树彰兄弟、唐翰题、潘承厚递藏",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "seal": "有杨泾（鉅济）、陆树声、陆树彰（季寅，陆心源之子）、唐翰题（子冰，张廷济孙婿）、蒋祖诒（谷孙，蒋汝藻之子）藏印",
+            "shelfMark": "55B2188"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "prefaceAndPostscript": "罗振玉篆书为潘承厚题端，民国二十年（1931）六月吴湖帆绘《米家山水图》并诗跋（为潘承厚题），另有同治六年（1867）三月唐翰题（鹪安）题跋，王同愈（栩缘）民国二十年（1931）七月观款。",
+          "temporal": "明",
+          "temporalValue": "宋崇宁四年（1105）",
+          "type": "贴",
+          "tieTemporal": "明"
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/xing-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "行书"
+      },
+      "temporal": {
+        "@id": "http://data.library.sh.cn/authority/temporal/pizh5ypd5d17u795",
+        "@type": "Temporal",
+        "label": "宋"
+      },
+      "temporalValue": "宋崇宁四年（1105）",
+      "title": [
+        {
+          "@language": "en",
+          "@value": "zhang ji lao mu zhi"
+        },
+        {
+          "@language": "cht",
+          "@value": "章吉老墓志"
+        },
+        {
+          "@language": "chs",
+          "@value": "章吉老墓志"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "章吉老墓志"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/ap9pmvwzidyc9x61.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/55B2188",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "034_章吉老墓志.json"
+}

@@ -1,0 +1,65 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://iiif.library.sh.cn/p/3/058f15c9-b4c7-4a11-920c-acf6c0ab8882",
+  "type": "Collection",
+  "label": {
+    "zh-Hant": [
+      "黄庭堅青原山诗刻石(第一辑)"
+    ]
+  },
+  "summary": {
+    "zh-Hant": [
+      "黄庭堅青原山诗刻石(第一辑)"
+    ]
+  },
+  "behavior": [
+    "together"
+  ],
+  "logo": [
+    {
+      "id": "https://viewers.etu.wiki/shlib_logo.png",
+      "type": "Image",
+      "format": "image/png"
+    }
+  ],
+  "thumbnail": [
+    {
+      "id": "https://viewers.etu.wiki/collection.jpg",
+      "type": "Image",
+      "format": "image/jpeg"
+    }
+  ],
+  "rights": "https://creativecommons.org/licenses/by-nc-nd/3.0/cn/",
+  "requiredStatement": {
+    "label": {
+      "zh-Hant": [
+        "歸屬"
+      ]
+    },
+    "value": {
+      "zh-Hant": [
+        "上海图书馆拓片馆藏"
+      ]
+    }
+  },
+  "items": [
+    {
+      "id": "https://iiif.library.sh.cn/p/3/058f15c9-b4c7-4a11-920c-acf6c0ab8882/1",
+      "type": "Manifest",
+      "label": {
+        "zh-Hant": [
+          "黄庭堅青原山诗刻石(第一辑)册一"
+        ]
+      }
+    },
+    {
+      "id": "https://iiif.library.sh.cn/p/3/058f15c9-b4c7-4a11-920c-acf6c0ab8882/2",
+      "type": "Manifest",
+      "label": {
+        "zh-Hant": [
+          "黄庭堅青原山诗刻石(第一辑)册二"
+        ]
+      }
+    }
+  ]
+}

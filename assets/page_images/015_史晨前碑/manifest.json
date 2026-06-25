@@ -1,0 +1,2603 @@
+{
+  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2",
+  "type": "Manifest",
+  "label": {
+    "zh-Hant": [
+      "史晨碑(第三辑)"
+    ]
+  },
+  "metadata": [
+    {
+      "label": {
+        "zh-Hant": [
+          "url"
+        ]
+      },
+      "value": {
+        "zh-Hant": [
+          "http://data.library.sh.cn/bt/resource/work/11rpdyr93guw4tod"
+        ]
+      }
+    },
+    {
+      "label": {
+        "zh-Hant": [
+          "题名"
+        ]
+      },
+      "value": {
+        "zh-Hant": [
+          "史晨前碑"
+        ]
+      }
+    },
+    {
+      "label": {
+        "zh-Hant": [
+          "版本"
+        ]
+      },
+      "value": {
+        "zh-Hant": [
+          "明中叶前拓本"
+        ]
+      }
+    },
+    {
+      "label": {
+        "zh-Hant": [
+          "来源书册"
+        ]
+      },
+      "value": {
+        "zh-Hant": [
+          "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年."
+        ]
+      }
+    },
+    {
+      "label": {
+        "zh-Hant": [
+          "馆藏地"
+        ]
+      },
+      "value": {
+        "zh-Hant": [
+          "上海图书馆"
+        ]
+      }
+    },
+    {
+      "label": {
+        "zh-Hant": [
+          "索取号"
+        ]
+      },
+      "value": {
+        "zh-Hant": [
+          "19A363"
+        ]
+      }
+    }
+  ],
+  "rights": "https://creativecommons.org/licenses/by-nc-nd/3.0/cn/",
+  "requiredStatement": {
+    "label": {
+      "zh-Hant": [
+        "歸屬"
+      ]
+    },
+    "value": {
+      "zh-Hant": [
+        "上海图书馆拓片馆藏"
+      ]
+    }
+  },
+  "logo": [
+    {
+      "id": "https://viewers.etu.wiki/shlib_logo.png",
+      "type": "Image",
+      "format": "image/png"
+    }
+  ],
+  "viewingDirection": "right-to-left",
+  "behavior": [
+    "paged"
+  ],
+  "items": [
+    {
+      "id": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "一"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39/ap/p/a/f4e54c1cb24262f17821ddffcb0db4a2",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/f4e54c1cb24262f17821ddffcb0db4a2",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/f4e54c1cb24262f17821ddffcb0db4a2",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a/ap/p/a/74332bc5b887993fe7fd3f878f706a2e",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/74332bc5b887993fe7fd3f878f706a2e",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/74332bc5b887993fe7fd3f878f706a2e",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45/ap/p/a/fc86314c3a7533c17cb2d7361709a812",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/fc86314c3a7533c17cb2d7361709a812",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/fc86314c3a7533c17cb2d7361709a812",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "四"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592/ap/p/a/18c221db8b4de2d1fecc806c1d69b634",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/18c221db8b4de2d1fecc806c1d69b634",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/18c221db8b4de2d1fecc806c1d69b634",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "五"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67/ap/p/a/e3dc1af67b857ce27d9b3665afd4b9ff",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/e3dc1af67b857ce27d9b3665afd4b9ff",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/e3dc1af67b857ce27d9b3665afd4b9ff",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "六"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3/ap/p/a/290d0235965e32e8eb18bd8012195f09",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/290d0235965e32e8eb18bd8012195f09",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/290d0235965e32e8eb18bd8012195f09",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "七"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5/ap/p/a/96384c5d7645b853fcc238bc26c5efd6",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/96384c5d7645b853fcc238bc26c5efd6",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/96384c5d7645b853fcc238bc26c5efd6",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "八"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa/ap/p/a/5290669e81507764978125e1e50301b9",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/5290669e81507764978125e1e50301b9",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/5290669e81507764978125e1e50301b9",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "九"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7/ap/p/a/c0e345e81b44e14ad13c5007a83d438b",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/c0e345e81b44e14ad13c5007a83d438b",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/c0e345e81b44e14ad13c5007a83d438b",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c/ap/p/a/1cfeffcc3c8dfd927eec2935e9b567d9",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/1cfeffcc3c8dfd927eec2935e9b567d9",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/1cfeffcc3c8dfd927eec2935e9b567d9",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十一"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a/ap/p/a/453af3fa6fb00ccc7ffa44d1ed4ec0ae",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/453af3fa6fb00ccc7ffa44d1ed4ec0ae",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/453af3fa6fb00ccc7ffa44d1ed4ec0ae",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十二"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa/ap/p/a/05574f815ad0f780a2a8cc17ec3b2dec",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/05574f815ad0f780a2a8cc17ec3b2dec",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/05574f815ad0f780a2a8cc17ec3b2dec",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十三"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a/ap/p/a/10f6fe64c8e3bc98a06990420b0f1fd3",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/10f6fe64c8e3bc98a06990420b0f1fd3",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/10f6fe64c8e3bc98a06990420b0f1fd3",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十四"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3/ap/p/a/f8290b7abac2470607ed09a8172898bd",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/f8290b7abac2470607ed09a8172898bd",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/f8290b7abac2470607ed09a8172898bd",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十五"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb/ap/p/a/a7de1513b35afae84d64466741d31d0b",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/a7de1513b35afae84d64466741d31d0b",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/a7de1513b35afae84d64466741d31d0b",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十六"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0/ap/p/a/c6e4208ea3520b3373cd65f1fd81ce0d",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/c6e4208ea3520b3373cd65f1fd81ce0d",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/c6e4208ea3520b3373cd65f1fd81ce0d",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十七"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f/ap/p/a/3672d9f61e2fe60129740bc4a1b0af8c",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/3672d9f61e2fe60129740bc4a1b0af8c",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/3672d9f61e2fe60129740bc4a1b0af8c",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十八"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043/ap/p/a/9e7182104c496d5b05d6c64e848fb4b6",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/9e7182104c496d5b05d6c64e848fb4b6",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/9e7182104c496d5b05d6c64e848fb4b6",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "十九"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71/ap/p/a/845011fc52631205dca0c23c364eaa6a",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/845011fc52631205dca0c23c364eaa6a",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/845011fc52631205dca0c23c364eaa6a",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd/ap/p/a/0b9ae0c1d9fa816d0d102304b820331a",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/0b9ae0c1d9fa816d0d102304b820331a",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/0b9ae0c1d9fa816d0d102304b820331a",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十一"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101/ap/p/a/5f3aed4db5a80fa099a6dd9cf40fcd91",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/5f3aed4db5a80fa099a6dd9cf40fcd91",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/5f3aed4db5a80fa099a6dd9cf40fcd91",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十二"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b/ap/p/a/74498a23952d071361f24743e43e8b94",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/74498a23952d071361f24743e43e8b94",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/74498a23952d071361f24743e43e8b94",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十三"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68/ap/p/a/0a484ff56fc5b311c6430a90f7ad1046",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/0a484ff56fc5b311c6430a90f7ad1046",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/0a484ff56fc5b311c6430a90f7ad1046",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十四"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940/ap/p/a/6db8301ba796a72b169c9c65a2beebb7",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/6db8301ba796a72b169c9c65a2beebb7",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/6db8301ba796a72b169c9c65a2beebb7",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十五"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260/ap/p/a/e496d2a33eae0117943ce9fe531439c3",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/e496d2a33eae0117943ce9fe531439c3",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/e496d2a33eae0117943ce9fe531439c3",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十六"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c/ap/p/a/aedfbe430f126eebb8a19710dccddd8b",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/aedfbe430f126eebb8a19710dccddd8b",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/aedfbe430f126eebb8a19710dccddd8b",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十七"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d/ap/p/a/3c169a830e69a1a9c60df595a2752b4c",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/3c169a830e69a1a9c60df595a2752b4c",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/3c169a830e69a1a9c60df595a2752b4c",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十八"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60/ap/p/a/7f433985879f46f4719834c805fea417",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/7f433985879f46f4719834c805fea417",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/7f433985879f46f4719834c805fea417",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "二十九"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c/ap/p/a/cc06171901978d85dab5e2c7e14c82bb",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/cc06171901978d85dab5e2c7e14c82bb",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/cc06171901978d85dab5e2c7e14c82bb",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae/ap/p/a/bf4c3de81a23a3ab8b8c1f031a25b159",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/bf4c3de81a23a3ab8b8c1f031a25b159",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/bf4c3de81a23a3ab8b8c1f031a25b159",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十一"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103/ap/p/a/803aa3cebe43c39872d67d11d302397a",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/803aa3cebe43c39872d67d11d302397a",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/803aa3cebe43c39872d67d11d302397a",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十二"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93/ap/p/a/b08ec7c6f28373e807085e310e822835",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/b08ec7c6f28373e807085e310e822835",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/b08ec7c6f28373e807085e310e822835",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十三"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2/ap/p/a/d3f7e4c33be12f437262e3a5067c457e",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/d3f7e4c33be12f437262e3a5067c457e",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/d3f7e4c33be12f437262e3a5067c457e",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十四"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b/ap/p/a/21a8ddf14c6a54e20e7136168f410caa",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/21a8ddf14c6a54e20e7136168f410caa",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/21a8ddf14c6a54e20e7136168f410caa",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十五"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10/ap/p/a/8f935f2ddee2ee45892b7e9aadfce94f",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/8f935f2ddee2ee45892b7e9aadfce94f",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/8f935f2ddee2ee45892b7e9aadfce94f",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十六"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb/ap/p/a/6f0cc933598f9389756346cf88947882",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/6f0cc933598f9389756346cf88947882",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/6f0cc933598f9389756346cf88947882",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十七"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d/ap/p/a/2d5c155fc6a121d45d1d6ae2ba6e3946",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/2d5c155fc6a121d45d1d6ae2ba6e3946",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/2d5c155fc6a121d45d1d6ae2ba6e3946",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十八"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703/ap/p/a/e3f29b7166d49143915249aaf9a22036",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/e3f29b7166d49143915249aaf9a22036",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/e3f29b7166d49143915249aaf9a22036",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "三十九"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505/ap/p/a/9112b787f7bdb05199435eba8cf539f3",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/9112b787f7bdb05199435eba8cf539f3",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/9112b787f7bdb05199435eba8cf539f3",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577",
+      "type": "Canvas",
+      "label": {
+        "zh-Hant": [
+          "四十"
+        ]
+      },
+      "height": 2235,
+      "width": 1459,
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577/ap/p",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577/ap/p/a/c11c137517a00a89d041f171f3dfb8fb",
+              "type": "Annotation",
+              "motivation": "painting",
+              "body": {
+                "id": "https://iiif.library.sh.cn/i/3/c11c137517a00a89d041f171f3dfb8fb",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.library.sh.cn/i/3/c11c137517a00a89d041f171f3dfb8fb",
+                    "type": "ImageService3",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577/ap/s",
+          "type": "AnnotationPage"
+        },
+        {
+          "id": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577/ap/c",
+          "type": "AnnotationPage"
+        }
+      ]
+    }
+  ],
+  "structures": [
+    {
+      "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0",
+      "type": "Range",
+      "label": {
+        "zh-Hant": [
+          "史晨碑(第三辑)"
+        ]
+      },
+      "items": [
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/749a4c83-9894-4612-9410-83f7b4f19d39",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "一"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/749a4c83-9894-4612-9410-83f7b4f19d39",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/60cae35a-1414-42c9-9952-83acfa7daa6a",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/60cae35a-1414-42c9-9952-83acfa7daa6a",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/0fdd83a1-da52-4106-b0a5-91198a1b0c45",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/0fdd83a1-da52-4106-b0a5-91198a1b0c45",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/7842ddab-b701-45be-b5d2-e342a0883592",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "四"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/7842ddab-b701-45be-b5d2-e342a0883592",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/9d7db484-9b44-4c8f-b620-214c27415c67",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "五"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/9d7db484-9b44-4c8f-b620-214c27415c67",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/f454e329-cd0e-4d7f-ba41-aedf890928b3",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "六"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/f454e329-cd0e-4d7f-ba41-aedf890928b3",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "七"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/a2158bbd-eda0-42b4-a4ba-8b6cdfd811e5",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "八"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/d0e9c41a-470c-4dd8-b2bf-97f47ed97daa",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/3873d02a-0a65-4bf6-a53b-0ab07809b2c7",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "九"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/3873d02a-0a65-4bf6-a53b-0ab07809b2c7",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/8092d6c8-fd75-4013-8d97-7a99e5d6ee7c",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/972c2327-5270-48e4-90cf-fffa11535d5a",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十一"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/972c2327-5270-48e4-90cf-fffa11535d5a",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/0505c0fa-f6a3-4492-82fd-c90b218a92fa",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十二"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/0505c0fa-f6a3-4492-82fd-c90b218a92fa",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/920a1104-6b5a-47f7-9822-82995185354a",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十三"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/920a1104-6b5a-47f7-9822-82995185354a",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/29e4e237-0fb8-4947-b6cd-9eec0931e9c3",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十四"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/29e4e237-0fb8-4947-b6cd-9eec0931e9c3",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/19337f12-b4c6-497f-8546-d68993377adb",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十五"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/19337f12-b4c6-497f-8546-d68993377adb",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/76c6faf3-d659-4c3e-9bc0-7d03469f16d0",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十六"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/76c6faf3-d659-4c3e-9bc0-7d03469f16d0",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/9bfa5d66-2490-46a1-970b-32a532f5ab2f",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十七"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/9bfa5d66-2490-46a1-970b-32a532f5ab2f",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/a9a33ad6-f7ff-440c-a21f-194dea035043",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十八"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/a9a33ad6-f7ff-440c-a21f-194dea035043",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "十九"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/5a0f4ebc-e3c2-4d5a-ba56-e39694643e71",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/6311b10e-d4b9-4785-b8b5-64e7a2e8c7bd",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/9943ab31-e465-4e0c-8006-0354b1bad101",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十一"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/9943ab31-e465-4e0c-8006-0354b1bad101",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/8a8daf27-80ec-4e45-8d55-316c6da9212b",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十二"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/8a8daf27-80ec-4e45-8d55-316c6da9212b",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/7219104f-bfde-4868-a8da-71bb96b3aa68",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十三"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/7219104f-bfde-4868-a8da-71bb96b3aa68",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/ad733074-eacf-4613-8fa0-f2e764f96940",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十四"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/ad733074-eacf-4613-8fa0-f2e764f96940",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/e8571d69-d6f0-4beb-a255-980c73931260",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十五"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/e8571d69-d6f0-4beb-a255-980c73931260",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十六"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/e78f22bc-5fc0-44bb-b74b-4000ebaf2c8c",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/1614591c-4769-45f4-a3be-4d473c5c052d",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十七"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/1614591c-4769-45f4-a3be-4d473c5c052d",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/550ccd5f-90be-4280-8f36-c5b44cc3fb60",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十八"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/550ccd5f-90be-4280-8f36-c5b44cc3fb60",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/98d142ff-66c3-4a62-8008-03ece2b78d7c",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "二十九"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/98d142ff-66c3-4a62-8008-03ece2b78d7c",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/6a407a9f-2f38-4961-82bd-68381db49fae",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/6a407a9f-2f38-4961-82bd-68381db49fae",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/62fc3420-2dc8-42b4-9c82-51f605fec103",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十一"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/62fc3420-2dc8-42b4-9c82-51f605fec103",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/10508da8-fa44-48bb-87ec-55c2ed69dc93",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十二"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/10508da8-fa44-48bb-87ec-55c2ed69dc93",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/7467fe8a-f314-442b-a6fb-d8d79f158cc2",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十三"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/7467fe8a-f314-442b-a6fb-d8d79f158cc2",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/058efdec-a425-461c-b690-efc445c0611b",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十四"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/058efdec-a425-461c-b690-efc445c0611b",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/5239493a-37cd-45e8-b260-6596ef2bed10",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十五"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/5239493a-37cd-45e8-b260-6596ef2bed10",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十六"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/a39c3488-f026-4c7c-9a7c-a3d9ada5f2bb",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/eab3e026-65fc-4589-b1ae-de648fe7a09d",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十七"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/eab3e026-65fc-4589-b1ae-de648fe7a09d",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/d2f1d647-7c0b-46ac-8e80-1042578a0703",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十八"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/d2f1d647-7c0b-46ac-8e80-1042578a0703",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/0f282903-a306-4015-833c-50dc08d7b505",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "三十九"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/0f282903-a306-4015-833c-50dc08d7b505",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://iiif.library.sh.cn/p/3/5b37abd5-8e3f-4a99-97e1-d09be21ea2f2/range/0/49ce88ec-9d11-4a01-8048-495f6d434577",
+          "type": "Range",
+          "label": {
+            "zh-Hant": [
+              "四十"
+            ]
+          },
+          "items": [
+            {
+              "id": "https://iiif.library.sh.cn/c/3/49ce88ec-9d11-4a01-8048-495f6d434577",
+              "type": "Canvas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

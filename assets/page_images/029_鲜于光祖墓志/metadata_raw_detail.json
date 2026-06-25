@@ -1,0 +1,218 @@
+{
+  "index": 29,
+  "uri": "http://data.library.sh.cn/bt/resource/work/xv5gh9rtdhz3j96x",
+  "title": "鲜于光祖墓志",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/xv5gh9rtdhz3j96x",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "鲜于光祖墓志",
+      "variantType": "首题"
+    },
+    "contribution": [
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/iug3wdzc0zdx8e37"
+        },
+        "agentLabel": "盛彪",
+        "role": "书作后记"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/pzbkmyt80wybwctd"
+        },
+        "agentLabel": "周砥",
+        "role": "撰"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/67esqv1e5dd0qvxu"
+        },
+        "agentLabel": "赵孟頫",
+        "role": "小楷书"
+      }
+    ],
+    "creator": "周砥撰，赵孟俯小楷书，盛彪书作后记",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/gxnn9x8hwan2bx7k",
+      "@type": "Annotation",
+      "hasBody": "（陆恭藏本）<br/>鲜于光祖墓志，元大德二年（1298）葬，周砥撰，赵孟俯小楷书序、铭（十开），盛彪书合葬缘故（二开），赵氏书碑时年三十，师钟繇笔法写墓志铭。石原在浙江钱塘孤山，清初陈奕禧在保定时，还曾见到此石，售价六十金，后不知下落。清嘉庆谢氏《契兰堂法帖》有此志摹本。<br/><br/>此陆恭藏“明拓本”，上海图书馆馆藏国家一级文物。此志传本仅见两种，另一在北京大学图书馆，皆佚盖。“北大本” 沈树镛、唐翰题、刘鹗、罗振玉递藏，亦为明拓本，尾缺三开，自“适李择善铭曰”至“又命其友余”，缺文由沈梧抄补。此册陆恭藏本为足本，但较之北大本拓制时间稍晚。另，清同治九年（1870）年唐翰题曾在湖州妞君兰畹处见一清拓足本，文字较漫漶，今亦不知下落。据唐翰题考订“北大本”即谢氏《契兰堂法帖》摹刻之底本。<br/><br/>首叶有嘉庆十二年（1807）梁同书题签。<br/>二叶有沈树镛题签：“吴门陆氏松下清斋旧藏，海内稀有之本。”<br/><br/>册尾有王树题跋：“此吴兴盛年之作，文外有笔，字中有韵，为吴兴楷书之冠。” <br/><br/>另，钤有顾亮、撷芳亭、停云等印章。<br/><br/>共十四开，册高31厘米，宽15.3厘米。碑文十二开。帖芯高25.3厘米，宽11.5厘米。<br/>馆藏号 18A356",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/lagi4ulnbnnh4cya",
+        "@type": "Instance",
+        "binding": "14开",
+        "dimensions": "册高31厘米，宽15.3厘米。碑文十二开。帖芯高25.3厘米，宽11.5厘米",
+        "edition": "明拓本",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/mhn0y544cnesptxo",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "organization": "上海图书馆",
+          "seal": "有顾亮、撷芳亭、停云等印章",
+          "shelfMark": "18A356"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012年.",
+        "prefaceAndPostscript": "首叶有嘉庆十二年（1807）梁同书题签。二叶有沈树镛题签：“吴门陆氏松下清斋旧藏，海内稀有之本。”册尾有王树题跋：“此吴兴盛年之作，文外有笔，字中有韵，为吴兴楷书之冠。”",
+        "temporal": "明",
+        "type": "贴",
+        "tieTemporal": "明"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/i222yth6po99tfk5",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012年.",
+        "type": "碑"
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "楷书"
+    },
+    "title": [
+      {
+        "@language": "en",
+        "@value": "xian yu guang zu mu zhi"
+      },
+      {
+        "@language": "cht",
+        "@value": "鮮於光祖墓志"
+      },
+      {
+        "@language": "chs",
+        "@value": "鲜于光祖墓志"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "鲜于光祖墓志"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/mhn0y544cnesptxo.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/18A356"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/xv5gh9rtdhz3j96x",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "鲜于光祖墓志",
+        "variantType": "首题"
+      },
+      "contribution": [
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/iug3wdzc0zdx8e37"
+          },
+          "agentLabel": "盛彪",
+          "role": "书作后记"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/pzbkmyt80wybwctd"
+          },
+          "agentLabel": "周砥",
+          "role": "撰"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/67esqv1e5dd0qvxu"
+          },
+          "agentLabel": "赵孟頫",
+          "role": "小楷书"
+        }
+      ],
+      "creator": "周砥撰，赵孟俯小楷书，盛彪书作后记",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/gxnn9x8hwan2bx7k",
+        "@type": "Annotation",
+        "hasBody": "（陆恭藏本）<br/>鲜于光祖墓志，元大德二年（1298）葬，周砥撰，赵孟俯小楷书序、铭（十开），盛彪书合葬缘故（二开），赵氏书碑时年三十，师钟繇笔法写墓志铭。石原在浙江钱塘孤山，清初陈奕禧在保定时，还曾见到此石，售价六十金，后不知下落。清嘉庆谢氏《契兰堂法帖》有此志摹本。<br/><br/>此陆恭藏“明拓本”，上海图书馆馆藏国家一级文物。此志传本仅见两种，另一在北京大学图书馆，皆佚盖。“北大本” 沈树镛、唐翰题、刘鹗、罗振玉递藏，亦为明拓本，尾缺三开，自“适李择善铭曰”至“又命其友余”，缺文由沈梧抄补。此册陆恭藏本为足本，但较之北大本拓制时间稍晚。另，清同治九年（1870）年唐翰题曾在湖州妞君兰畹处见一清拓足本，文字较漫漶，今亦不知下落。据唐翰题考订“北大本”即谢氏《契兰堂法帖》摹刻之底本。<br/><br/>首叶有嘉庆十二年（1807）梁同书题签。<br/>二叶有沈树镛题签：“吴门陆氏松下清斋旧藏，海内稀有之本。”<br/><br/>册尾有王树题跋：“此吴兴盛年之作，文外有笔，字中有韵，为吴兴楷书之冠。” <br/><br/>另，钤有顾亮、撷芳亭、停云等印章。<br/><br/>共十四开，册高31厘米，宽15.3厘米。碑文十二开。帖芯高25.3厘米，宽11.5厘米。<br/>馆藏号 18A356",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/lagi4ulnbnnh4cya",
+          "@type": "Instance",
+          "binding": "14开",
+          "dimensions": "册高31厘米，宽15.3厘米。碑文十二开。帖芯高25.3厘米，宽11.5厘米",
+          "edition": "明拓本",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/mhn0y544cnesptxo",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "organization": "上海图书馆",
+            "seal": "有顾亮、撷芳亭、停云等印章",
+            "shelfMark": "18A356"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012年.",
+          "prefaceAndPostscript": "首叶有嘉庆十二年（1807）梁同书题签。二叶有沈树镛题签：“吴门陆氏松下清斋旧藏，海内稀有之本。”册尾有王树题跋：“此吴兴盛年之作，文外有笔，字中有韵，为吴兴楷书之冠。”",
+          "temporal": "明",
+          "type": "贴",
+          "tieTemporal": "明"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/i222yth6po99tfk5",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑，上海图书馆，上海古籍出版社，2012年.",
+          "type": "碑"
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "楷书"
+      },
+      "title": [
+        {
+          "@language": "en",
+          "@value": "xian yu guang zu mu zhi"
+        },
+        {
+          "@language": "cht",
+          "@value": "鮮於光祖墓志"
+        },
+        {
+          "@language": "chs",
+          "@value": "鲜于光祖墓志"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "鲜于光祖墓志"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第二辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/mhn0y544cnesptxo.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/18A356",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "029_鲜于光祖墓志.json"
+}

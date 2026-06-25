@@ -1,0 +1,226 @@
+{
+  "index": 23,
+  "uri": "http://data.library.sh.cn/bt/resource/work/uniqew16cqxg6uu6",
+  "title": "圭峰定慧禅师碑",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/uniqew16cqxg6uu6",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "圭峰定慧禅师碑",
+      "variantType": "首题"
+    },
+    "contribution": [
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/xbn5lzpghtam5qpj"
+        },
+        "agentLabel": "柳公权",
+        "role": "篆额"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/rzotrv26lk31gv7w"
+        },
+        "agentLabel": "裴休",
+        "role": "撰"
+      },
+      {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/rzotrv26lk31gv7w"
+        },
+        "agentLabel": "裴休",
+        "role": "书"
+      }
+    ],
+    "creator": "裴休（撰、书）、柳公权（篆额）",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/8ox4rn98hogn0ghy",
+      "@type": "Annotation",
+      "hasBody": "（庞泽銮藏本）<br/>此册为蒋予蒲（元庭）旧藏，系明代淡墨精拓本，后经彭旭、魏纶先、庞泽銮递藏。彭旭以白金一斤购得，彭旭、魏纶先、龚景张皆定为“宋拓善本”，庞芝阁更定为“明拓明装”。<br/>此本二行“同中书”之“同”字未损，末行铲损处文字清晰。<br/>首页有光绪十一年（1885）除夕前三日魏纶先（温云）题跋：“圭峰碑翻版甚多，间有真本亦斑驳残蚀，全失庐山面目，此卷圭棱峭厉，不差一黍，诚宋拓之善本也，乙酉（1885）岁于中州彭氏见之，一见即爱不忍置，因出重赀购得。” <br/>二页有咸丰九年（1859）秋日彭旭题跋：“余生平所见《圭峰碑》无虑数十百本，而棱角峭厉，多等诸自郐以下，此卷秀骨内含，清劲外挺，矫矫乎如千岁松杉饱受风霜之气，老干独存而群观自耸者也，千百年后得如此宋搨名迹，不禁狂喜，而索价过昂，爱不忍释，因酬其值之半，以白金一斤易得之，洵稀世之宝也。” <br/>册尾有光绪壬寅（1902）重阳日龚心铭（景张）题跋：“圭峰碑余所见无虑数十百本，‘同’字无不损者，此尚全美，宋搨无疑。”后接光绪壬寅（1902）庞泽銮（芝阁）题跋：“右《唐圭峰碑》光绪壬寅得于邗上故家，瘦硬而腴，允推上品，近年此拓‘同’字几泐其半，一切字迹只觉峭厉非复本来面目矣，本内前人题识皆以宋拓相许，然细按字迹精神实明拓耳，旧本难得，似此‘同’字不损者亦属罕觏，幸勿作得陇望蜀想也。珍重珍重。此册尚是明时裱本，虽破损不可重装。” <br/>    册尾另附谭鑫□致魏纶先（温云）手札一通，述及筹款买碑之事。",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/hndw3ed8bqzf0y0j",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+        "type": "碑"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/gjainjl9r5qrnjl7",
+        "@type": "Instance",
+        "binding": "43开",
+        "dimensions": "册高26厘米，宽12.5厘米，帖芯高22.1厘米，宽11厘米。",
+        "edition": "明代淡墨精拓本",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/m2dnksw24qz8gapr",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "蒋予蒲旧藏，后经彭旭、魏纶先、庞泽銮递藏。",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "shelfMark": "S1517"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+        "prefaceAndPostscript": "魏纶先题跋，彭旭题跋，龚心铭题跋，",
+        "temporal": "明",
+        "type": "贴",
+        "tieTemporal": "明"
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "楷书"
+    },
+    "title": [
+      {
+        "@language": "cht",
+        "@value": "圭峰定慧禪師碑"
+      },
+      {
+        "@language": "chs",
+        "@value": "圭峰定慧禅师碑"
+      },
+      {
+        "@language": "en",
+        "@value": "gui feng ding hui chan shi bei"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "圭峰定慧禅师碑"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/m2dnksw24qz8gapr.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/S1517"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/uniqew16cqxg6uu6",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "圭峰定慧禅师碑",
+        "variantType": "首题"
+      },
+      "contribution": [
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/xbn5lzpghtam5qpj"
+          },
+          "agentLabel": "柳公权",
+          "role": "篆额"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/rzotrv26lk31gv7w"
+          },
+          "agentLabel": "裴休",
+          "role": "撰"
+        },
+        {
+          "@type": "Contribution",
+          "agent": {
+            "@id": "http://data.library.sh.cn/entity/person/rzotrv26lk31gv7w"
+          },
+          "agentLabel": "裴休",
+          "role": "书"
+        }
+      ],
+      "creator": "裴休（撰、书）、柳公权（篆额）",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/8ox4rn98hogn0ghy",
+        "@type": "Annotation",
+        "hasBody": "（庞泽銮藏本）<br/>此册为蒋予蒲（元庭）旧藏，系明代淡墨精拓本，后经彭旭、魏纶先、庞泽銮递藏。彭旭以白金一斤购得，彭旭、魏纶先、龚景张皆定为“宋拓善本”，庞芝阁更定为“明拓明装”。<br/>此本二行“同中书”之“同”字未损，末行铲损处文字清晰。<br/>首页有光绪十一年（1885）除夕前三日魏纶先（温云）题跋：“圭峰碑翻版甚多，间有真本亦斑驳残蚀，全失庐山面目，此卷圭棱峭厉，不差一黍，诚宋拓之善本也，乙酉（1885）岁于中州彭氏见之，一见即爱不忍置，因出重赀购得。” <br/>二页有咸丰九年（1859）秋日彭旭题跋：“余生平所见《圭峰碑》无虑数十百本，而棱角峭厉，多等诸自郐以下，此卷秀骨内含，清劲外挺，矫矫乎如千岁松杉饱受风霜之气，老干独存而群观自耸者也，千百年后得如此宋搨名迹，不禁狂喜，而索价过昂，爱不忍释，因酬其值之半，以白金一斤易得之，洵稀世之宝也。” <br/>册尾有光绪壬寅（1902）重阳日龚心铭（景张）题跋：“圭峰碑余所见无虑数十百本，‘同’字无不损者，此尚全美，宋搨无疑。”后接光绪壬寅（1902）庞泽銮（芝阁）题跋：“右《唐圭峰碑》光绪壬寅得于邗上故家，瘦硬而腴，允推上品，近年此拓‘同’字几泐其半，一切字迹只觉峭厉非复本来面目矣，本内前人题识皆以宋拓相许，然细按字迹精神实明拓耳，旧本难得，似此‘同’字不损者亦属罕觏，幸勿作得陇望蜀想也。珍重珍重。此册尚是明时裱本，虽破损不可重装。” <br/>    册尾另附谭鑫□致魏纶先（温云）手札一通，述及筹款买碑之事。",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/hndw3ed8bqzf0y0j",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+          "type": "碑"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/gjainjl9r5qrnjl7",
+          "@type": "Instance",
+          "binding": "43开",
+          "dimensions": "册高26厘米，宽12.5厘米，帖芯高22.1厘米，宽11厘米。",
+          "edition": "明代淡墨精拓本",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/m2dnksw24qz8gapr",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "蒋予蒲旧藏，后经彭旭、魏纶先、庞泽銮递藏。",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "shelfMark": "S1517"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+          "prefaceAndPostscript": "魏纶先题跋，彭旭题跋，龚心铭题跋，",
+          "temporal": "明",
+          "type": "贴",
+          "tieTemporal": "明"
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "楷书"
+      },
+      "title": [
+        {
+          "@language": "cht",
+          "@value": "圭峰定慧禪師碑"
+        },
+        {
+          "@language": "chs",
+          "@value": "圭峰定慧禅师碑"
+        },
+        {
+          "@language": "en",
+          "@value": "gui feng ding hui chan shi bei"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "圭峰定慧禅师碑"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/m2dnksw24qz8gapr.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/S1517",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "023_圭峰定慧禅师碑.json"
+}

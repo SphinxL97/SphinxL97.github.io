@@ -1,0 +1,188 @@
+{
+  "index": 38,
+  "uri": "http://data.library.sh.cn/bt/resource/work/el4jmvmaoknp513j",
+  "title": "十七帖",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/el4jmvmaoknp513j",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "十七帖",
+      "variantType": "首题"
+    },
+    "contribution": {
+      "@type": "Contribution",
+      "agent": {
+        "@id": "http://data.library.sh.cn/entity/person/fd6j18zbxq7i6gfd"
+      },
+      "agentLabel": "王羲之"
+    },
+    "creator": "王羲之",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/uza86yhwkmlln9g3",
+      "@type": "Annotation",
+      "hasBody": "(张伯英藏本)<br/>《十七帖》传为东晋王羲之致益州刺史周抚书札，以卷首有“十七日”字样，故名。后为唐太宗李世民购得。据《法书要录》载，原长一丈二尺，一百七行，九百四十二字，钤“贞观”两字小印。<br/>此帖真迹久佚，以《法书要录》卷十《右军书记》对勘，知原为二十帖，刻本则多为二十九帖，凡一百三十三行，一千一百六十字。帖数、行款皆有差异。<br/>此帖以“敕字本”最精，为世所重，以卷后刻 “敕”字及“付直弘文馆臣解无畏勒充馆本，臣褚遂良校无失”字样，故名，又称“弘文馆本”。传本依卷尾“僧权”二字异同，又分 “僧权”完好本与半损本两系统。<br/><br/>此张伯英旧藏唐刻“宋拓敕字本”，系“僧权”半损本，卷子装。经明童轩（士昂）、吴宽（匏庵）、项元汴等收藏，清查慎行（夏重）、吴郡缪氏、张燕昌（文鱼、芑堂）等递藏。后入清宫，钤有“嘉庆御览之宝”印，卒归张伯英。（插图1、2）上海图书馆馆藏国家一级文物。<br/>此册旧时装裱将《诸从帖》误装到《讲堂帖》前《谯周帖》后，原本应在《讲堂帖》后。<br/><br/>卷尾有明张正蒙题跋，（插图3、4、5、6）张氏跋云：“余所见数本非失之纤弱，即失之妩媚。今匏庵（吴宽）出此卷见示，笔法古质，浑然有篆籀遗意，非近代所能规摹，展卷至再，觉朴厚灵和之气溢于楮墨之外，诚宋拓唐刻之绝无而仅有者，真墨宝也。匏庵其珍之。”<br/><br/>此册与安思远藏《宋拓十七帖》（文征明朱释本）颇为接近，初看似乎同出一石，谛视之则仍有诸多差别，最明显的是帖末“敕”字枯笔刻法不同，其他异同兹不赘言。（安思远本见插图7、8）从书刻角度来看，笔者以为“文征明朱释本”略胜一筹，“张伯英藏本”笔意稍嫌驽钝，但两者毕竟是一家眷属，孰为源头，孰为支脉，抑或同出一祖，已成千古之谜。<br/><br/>另，册中还钤有沈宗蹇（熙远）、求是楼、沧洲子等印章。<br/><br/>卷长1000厘米，高31.5厘米，帖芯长422厘米，宽25.5厘米。<br/>馆藏号 19A364<br/>另，《十七帖》姜西溟藏本（即上野本）《胡母帖》首行“平安”左侧及右上摹刻了数条细擦痕，显然是照文征明朱释本翻模。<br/>",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/mwhlwb652cex1g1i",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "type": "碑"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/coxv6d6i3cwnb90s",
+        "@type": "Instance",
+        "dimensions": "卷长1000厘米，高31.5厘米，帖芯长422厘米，宽25.5厘米",
+        "edition": "唐刻“宋拓敕字本”",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/rxtofksy4s51j19k",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "此张伯英旧藏唐刻“宋拓敕字本”，系“僧权”半损本，卷子装。经明童轩（士昂）、吴宽（匏庵）、项元汴等收藏，清查慎行（夏重）、吴郡缪氏、张燕昌（文鱼、芑堂）等递藏。后入清宫，钤有“嘉庆御览之宝”印，卒归张伯英",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "seal": "有“嘉庆御览之宝”印。册中还钤有沈宗蹇（熙远）、求是楼、沧洲子等印章",
+          "shelfMark": "19A364"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+        "prefaceAndPostscript": "有明张正蒙题跋",
+        "temporal": "宋",
+        "type": "贴",
+        "tieTemporal": "宋"
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/xing-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "行书"
+    },
+    "title": [
+      {
+        "@language": "cht",
+        "@value": "十七帖"
+      },
+      {
+        "@language": "chs",
+        "@value": "十七帖"
+      },
+      {
+        "@language": "en",
+        "@value": "shi qi tie"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "十七帖"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/rxtofksy4s51j19k.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/19A364"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/el4jmvmaoknp513j",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "十七帖",
+        "variantType": "首题"
+      },
+      "contribution": {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/fd6j18zbxq7i6gfd"
+        },
+        "agentLabel": "王羲之"
+      },
+      "creator": "王羲之",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/uza86yhwkmlln9g3",
+        "@type": "Annotation",
+        "hasBody": "(张伯英藏本)<br/>《十七帖》传为东晋王羲之致益州刺史周抚书札，以卷首有“十七日”字样，故名。后为唐太宗李世民购得。据《法书要录》载，原长一丈二尺，一百七行，九百四十二字，钤“贞观”两字小印。<br/>此帖真迹久佚，以《法书要录》卷十《右军书记》对勘，知原为二十帖，刻本则多为二十九帖，凡一百三十三行，一千一百六十字。帖数、行款皆有差异。<br/>此帖以“敕字本”最精，为世所重，以卷后刻 “敕”字及“付直弘文馆臣解无畏勒充馆本，臣褚遂良校无失”字样，故名，又称“弘文馆本”。传本依卷尾“僧权”二字异同，又分 “僧权”完好本与半损本两系统。<br/><br/>此张伯英旧藏唐刻“宋拓敕字本”，系“僧权”半损本，卷子装。经明童轩（士昂）、吴宽（匏庵）、项元汴等收藏，清查慎行（夏重）、吴郡缪氏、张燕昌（文鱼、芑堂）等递藏。后入清宫，钤有“嘉庆御览之宝”印，卒归张伯英。（插图1、2）上海图书馆馆藏国家一级文物。<br/>此册旧时装裱将《诸从帖》误装到《讲堂帖》前《谯周帖》后，原本应在《讲堂帖》后。<br/><br/>卷尾有明张正蒙题跋，（插图3、4、5、6）张氏跋云：“余所见数本非失之纤弱，即失之妩媚。今匏庵（吴宽）出此卷见示，笔法古质，浑然有篆籀遗意，非近代所能规摹，展卷至再，觉朴厚灵和之气溢于楮墨之外，诚宋拓唐刻之绝无而仅有者，真墨宝也。匏庵其珍之。”<br/><br/>此册与安思远藏《宋拓十七帖》（文征明朱释本）颇为接近，初看似乎同出一石，谛视之则仍有诸多差别，最明显的是帖末“敕”字枯笔刻法不同，其他异同兹不赘言。（安思远本见插图7、8）从书刻角度来看，笔者以为“文征明朱释本”略胜一筹，“张伯英藏本”笔意稍嫌驽钝，但两者毕竟是一家眷属，孰为源头，孰为支脉，抑或同出一祖，已成千古之谜。<br/><br/>另，册中还钤有沈宗蹇（熙远）、求是楼、沧洲子等印章。<br/><br/>卷长1000厘米，高31.5厘米，帖芯长422厘米，宽25.5厘米。<br/>馆藏号 19A364<br/>另，《十七帖》姜西溟藏本（即上野本）《胡母帖》首行“平安”左侧及右上摹刻了数条细擦痕，显然是照文征明朱释本翻模。<br/>",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/mwhlwb652cex1g1i",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "type": "碑"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/coxv6d6i3cwnb90s",
+          "@type": "Instance",
+          "dimensions": "卷长1000厘米，高31.5厘米，帖芯长422厘米，宽25.5厘米",
+          "edition": "唐刻“宋拓敕字本”",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/rxtofksy4s51j19k",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "此张伯英旧藏唐刻“宋拓敕字本”，系“僧权”半损本，卷子装。经明童轩（士昂）、吴宽（匏庵）、项元汴等收藏，清查慎行（夏重）、吴郡缪氏、张燕昌（文鱼、芑堂）等递藏。后入清宫，钤有“嘉庆御览之宝”印，卒归张伯英",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "seal": "有“嘉庆御览之宝”印。册中还钤有沈宗蹇（熙远）、求是楼、沧洲子等印章",
+            "shelfMark": "19A364"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑，上海图书馆，上海古籍出版社，2006年.",
+          "prefaceAndPostscript": "有明张正蒙题跋",
+          "temporal": "宋",
+          "type": "贴",
+          "tieTemporal": "宋"
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/xing-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "行书"
+      },
+      "title": [
+        {
+          "@language": "cht",
+          "@value": "十七帖"
+        },
+        {
+          "@language": "chs",
+          "@value": "十七帖"
+        },
+        {
+          "@language": "en",
+          "@value": "shi qi tie"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "十七帖"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第一辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/rxtofksy4s51j19k.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/19A364",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "038_十七帖.json"
+}

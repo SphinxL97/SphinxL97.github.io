@@ -1,0 +1,188 @@
+{
+  "index": 13,
+  "uri": "http://data.library.sh.cn/bt/resource/work/fwlc29j6s4y7pcj8",
+  "title": "鲁峻碑",
+  "search_item": {
+    "instance": [
+      {
+        "item": {
+          "note": {
+            "noteType": "流传经历",
+            "@type": "Note",
+            "label": "沈铭昌容园藏本"
+          },
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "@type": "Item",
+          "organization": "上海图书馆",
+          "@id": "http://data.library.sh.cn/bt/resource/item/75aciaorr9svef7k",
+          "shelfMark": "L3268"
+        },
+        "tieTemporal": "明",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第四辑，上海图书馆，上海古籍出版社，2017年.",
+        "binding": "33开",
+        "edition": "明拓本",
+        "@id": "http://data.library.sh.cn/bt/resource/instance/hbtz7ie19xdyrm1r",
+        "type": "贴",
+        "temporal": "明",
+        "dimensions": "册宽16.5厘米，高32.4厘米。帖芯宽12.7厘米，高25.3厘米。馆藏号：L3268"
+      },
+      {
+        "item": {
+          "@type": "Item",
+          "@id": "http://data.library.sh.cn/bt/resource/item/8xj2flts43bo5d7s"
+        },
+        "temporalValue": "汉熹平二年（173）",
+        "@type": "Instance",
+        "beiTemporal": "汉",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第四辑，上海图书馆，上海古籍出版社，2017年.",
+        "@id": "http://data.library.sh.cn/bt/resource/instance/a50tqqynsbeid4t2",
+        "type": "碑",
+        "temporal": "汉"
+      }
+    ],
+    "scriptForm": {
+      "categoryType": "calligraphy",
+      "@type": "Category",
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+      "label": "隶书"
+    },
+    "temporalValue": "汉熹平二年（173）",
+    "@type": "Work",
+    "bfTitle": [
+      {
+        "variantType": "首题",
+        "@type": "Title",
+        "label": "鲁峻碑"
+      },
+      {
+        "variantType": "卷端题",
+        "@type": "Title",
+        "label": "汉故司隶校尉鲁君碑"
+      }
+    ],
+    "NT": "1",
+    "@id": "http://data.library.sh.cn/bt/resource/work/fwlc29j6s4y7pcj8",
+    "title": [
+      {
+        "@value": "魯峻碑",
+        "@language": "cht"
+      },
+      {
+        "@value": "lu jun bei",
+        "@language": "en"
+      },
+      {
+        "@value": "鲁峻碑",
+        "@language": "chs"
+      }
+    ],
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第四辑",
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "titleChs": {
+      "@value": "鲁峻碑",
+      "@language": "chs"
+    },
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/75aciaorr9svef7k.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/L3268"
+  },
+  "detail": {
+    "datas": {
+      "instance": [
+        {
+          "item": {
+            "note": {
+              "noteType": "流传经历",
+              "@type": "Note",
+              "label": "沈铭昌容园藏本"
+            },
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "@type": "Item",
+            "organization": "上海图书馆",
+            "@id": "http://data.library.sh.cn/bt/resource/item/75aciaorr9svef7k",
+            "shelfMark": "L3268"
+          },
+          "tieTemporal": "明",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第四辑，上海图书馆，上海古籍出版社，2017年.",
+          "binding": "33开",
+          "edition": "明拓本",
+          "@id": "http://data.library.sh.cn/bt/resource/instance/hbtz7ie19xdyrm1r",
+          "type": "贴",
+          "temporal": "明",
+          "dimensions": "册宽16.5厘米，高32.4厘米。帖芯宽12.7厘米，高25.3厘米。馆藏号：L3268"
+        },
+        {
+          "item": {
+            "@type": "Item",
+            "@id": "http://data.library.sh.cn/bt/resource/item/8xj2flts43bo5d7s"
+          },
+          "temporalValue": "汉熹平二年（173）",
+          "@type": "Instance",
+          "beiTemporal": "汉",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第四辑，上海图书馆，上海古籍出版社，2017年.",
+          "@id": "http://data.library.sh.cn/bt/resource/instance/a50tqqynsbeid4t2",
+          "type": "碑",
+          "temporal": "汉"
+        }
+      ],
+      "scriptForm": {
+        "categoryType": "calligraphy",
+        "@type": "Category",
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+        "label": "隶书"
+      },
+      "temporalValue": "汉熹平二年（173）",
+      "@type": "Work",
+      "bfTitle": [
+        {
+          "variantType": "首题",
+          "@type": "Title",
+          "label": "鲁峻碑"
+        },
+        {
+          "variantType": "卷端题",
+          "@type": "Title",
+          "label": "汉故司隶校尉鲁君碑"
+        }
+      ],
+      "NT": "1",
+      "@id": "http://data.library.sh.cn/bt/resource/work/fwlc29j6s4y7pcj8",
+      "title": [
+        {
+          "@value": "魯峻碑",
+          "@language": "cht"
+        },
+        {
+          "@value": "lu jun bei",
+          "@language": "en"
+        },
+        {
+          "@value": "鲁峻碑",
+          "@language": "chs"
+        }
+      ],
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第四辑",
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "titleChs": {
+        "@value": "鲁峻碑",
+        "@language": "chs"
+      },
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/75aciaorr9svef7k.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/L3268",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "013_鲁峻碑.json"
+}

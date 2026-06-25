@@ -1,0 +1,174 @@
+{
+  "index": 16,
+  "uri": "http://data.library.sh.cn/bt/resource/work/h4nlspdtfazcw5tn",
+  "title": "上尊号碑受禅表合册",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/h4nlspdtfazcw5tn",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "上尊号碑受禅表合册",
+      "variantType": "首题"
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/iempe2s1hjh5n3zz",
+        "@type": "Instance",
+        "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第七輯",
+        "temporal": "三国",
+        "temporalValue": "三国魏黄初元年（220）",
+        "type": "碑",
+        "beiTemporal": "三国"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/vvgzfj9trwzvgbsn",
+        "@type": "Instance",
+        "dimensions": "上尊号碑: 册高二十六点五厘米，宽十六点四厘米；碑文帖芯高二十三点七厘米，宽十四点三厘米。 受禅表: 册高三十三点八厘米，宽十八点二厘米；碑文占十一开半，帖芯高二十七点九厘米，宽十四点八厘米",
+        "edition": [
+          "元明间拓本",
+          "明初拓本"
+        ],
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/hw1sdtxo3crxhtyn",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "上尊号碑:此明初拓本历经金农、罗聘等名家递藏，清代曾被列入二级文物，经翁闓运审定确认其为明初拓无疑，残本身份因珍稀性获得重新评价。受禅表: 莫祁、莫棠兄弟所藏元明间拓本，虽被早期误定为宋拓，实为传世最早，碑文下截清晰超越其他明清善本，藏于上海图书馆并被视为珍稀文物。",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "shelfMark": "22BT004"
+        },
+        "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第七輯",
+        "prefaceAndPostscript": "上尊号碑: 同治五年沈树镛校勘记，嘉庆元年吴文桂题跋，翁闓运二十世纪五十年代题记。受禅表: 民国十七年王大成题签，民国八年莫棠与翁方纲《两汉金石记》校勘，翁闓运二十世纪五十年代题记",
+        "temporal": "明",
+        "type": "贴",
+        "tieTemporal": "明",
+        "printEdition": ""
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "隶书"
+    },
+    "temporalValue": "三国魏黄初元年（220）",
+    "title": [
+      {
+        "@language": "chs",
+        "@value": "上尊号碑受禅表合册"
+      },
+      {
+        "@language": "en",
+        "@value": "shang zun hao bei shou chan biao he ce"
+      },
+      {
+        "@language": "cht",
+        "@value": "上尊號碑受禪表合册"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "上尊号碑受禅表合册"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第七辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/hw1sdtxo3crxhtyn.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/22BT004"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/h4nlspdtfazcw5tn",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "上尊号碑受禅表合册",
+        "variantType": "首题"
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/iempe2s1hjh5n3zz",
+          "@type": "Instance",
+          "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第七輯",
+          "temporal": "三国",
+          "temporalValue": "三国魏黄初元年（220）",
+          "type": "碑",
+          "beiTemporal": "三国"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/vvgzfj9trwzvgbsn",
+          "@type": "Instance",
+          "dimensions": "上尊号碑: 册高二十六点五厘米，宽十六点四厘米；碑文帖芯高二十三点七厘米，宽十四点三厘米。 受禅表: 册高三十三点八厘米，宽十八点二厘米；碑文占十一开半，帖芯高二十七点九厘米，宽十四点八厘米",
+          "edition": [
+            "元明间拓本",
+            "明初拓本"
+          ],
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/hw1sdtxo3crxhtyn",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "上尊号碑:此明初拓本历经金农、罗聘等名家递藏，清代曾被列入二级文物，经翁闓运审定确认其为明初拓无疑，残本身份因珍稀性获得重新评价。受禅表: 莫祁、莫棠兄弟所藏元明间拓本，虽被早期误定为宋拓，实为传世最早，碑文下截清晰超越其他明清善本，藏于上海图书馆并被视为珍稀文物。",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "shelfMark": "22BT004"
+          },
+          "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第七輯",
+          "prefaceAndPostscript": "上尊号碑: 同治五年沈树镛校勘记，嘉庆元年吴文桂题跋，翁闓运二十世纪五十年代题记。受禅表: 民国十七年王大成题签，民国八年莫棠与翁方纲《两汉金石记》校勘，翁闓运二十世纪五十年代题记",
+          "temporal": "明",
+          "type": "贴",
+          "tieTemporal": "明",
+          "printEdition": ""
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "隶书"
+      },
+      "temporalValue": "三国魏黄初元年（220）",
+      "title": [
+        {
+          "@language": "chs",
+          "@value": "上尊号碑受禅表合册"
+        },
+        {
+          "@language": "en",
+          "@value": "shang zun hao bei shou chan biao he ce"
+        },
+        {
+          "@language": "cht",
+          "@value": "上尊號碑受禪表合册"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "上尊号碑受禅表合册"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第七辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/hw1sdtxo3crxhtyn.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/22BT004",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "016_上尊号碑受禅表合册.json"
+}

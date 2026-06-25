@@ -1,0 +1,180 @@
+{
+  "index": 21,
+  "uri": "http://data.library.sh.cn/bt/resource/work/8v50c7wry5ss18x4",
+  "title": "孔羡碑",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/8v50c7wry5ss18x4",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "孔羡碑",
+      "variantType": "首题"
+    },
+    "contribution": {
+      "@type": "Contribution",
+      "agent": {
+        "@id": "http://data.library.sh.cn/entity/person/a3f9b7k2m5h8n1p4"
+      },
+      "agentLabel": "梁鹄",
+      "role": "书（传为）"
+    },
+    "creator": "梁鹄（书）",
+    "hasAnnotation": {
+      "@id": "http://data.library.sh.cn/bt/resource/annotation/px98cpjyw1fh9jt7",
+      "@type": "Annotation",
+      "hasBody": "（周大烈藏本）<br/>此册为周大烈（夕红楼）藏“明中后期拓本”（以下简称“周大烈本”），周大烈审定为“明拓本”。上海图书馆馆藏国家二级文物。上海图书馆另有《孔羡碑》奚冈藏“清初拓本”（以下简称“奚冈本”），两相互校如下：<br/>“奚冈本”存碑额“鲁孔子庙之碑”篆书六字，“周大烈本”则无。<br/>三行末“以奉孔子之祀制诰三公”，“周大烈本” 之“祀”字“示”部首点尚存， “奚冈本”之“祀”字“示”部首点不存。<br/>四行“大圣之才”，“周大烈本”之“才”字完好，“奚冈本”之“才”字左下侧石花侵及笔划。<br/>四行“鲁卫”之“鲁”字“鱼”部已损右半，但左半笔划分明。（“周大烈本”、“奚冈本”均如是）<br/>八行“所谓崇化”之“所”字还可辨， “化”钩笔未连石花，出锋向右（“周大烈本”、“奚冈本”均如是）。其中“周大烈本”之 “谓”左下角“月”部右竖笔与下方石花不连，“奚冈本”之“谓”左下角“月”部右竖已连下方石花。<br/>九行“置百石”之“石”字“口”部仅泐底横。（“周大烈本”、“奚冈本”均如是）。<br/>十八行“体黄虞”之“体”字“曲”部损右下一格。（ “奚冈本”均损右下二格）。<br/>末行除“魏陈思王曹植词”、“梁鹄书”外，“奚冈本”比“周大烈本”尚多一行楷书：“嘉佑七年（1062）张稚圭按图谨记”<br/>由此可知，“周大烈本”的拓制时间明显早于“奚冈本”。<br/><br/>楠木面板有民国十年（1921）秋周大烈（印昆）题签：“魏封孔羡碑 明拓本。”<br/><br/>册中另钤有韩霖（雨公）、孙国敉、张学曾（尔唯）等印。（按：以上诸印皆明代印章，疑伪）<br/><br/>此册计十五开，册高32.3厘米，宽18.9厘米。碑文十五开，帖芯高26.7厘米，宽16.4厘米。<br/>馆藏号：48B825",
+      "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年."
+    },
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/d2ypw6gc9evznrxi",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年.",
+        "type": "碑"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/jyys079kppw5a4z6",
+        "@type": "Instance",
+        "binding": "15开",
+        "dimensions": "册高32.3厘米，宽18.9厘米。碑文十五开，帖芯高26.7厘米，宽16.4厘米",
+        "edition": "明中后期拓本",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/fo7ebgfczmm7bv0y",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "organization": "上海图书馆",
+          "seal": "有韩霖（雨公）、孙国敉、张学曾（尔唯）等印",
+          "shelfMark": "48B825"
+        },
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年.",
+        "temporal": "明",
+        "type": "贴",
+        "tieTemporal": "明"
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "隶书"
+    },
+    "title": [
+      {
+        "@language": "cht",
+        "@value": "孔羨碑"
+      },
+      {
+        "@language": "chs",
+        "@value": "孔羡碑"
+      },
+      {
+        "@language": "en",
+        "@value": "kong xian bei"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "孔羡碑"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/fo7ebgfczmm7bv0y.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/48B825"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/8v50c7wry5ss18x4",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "孔羡碑",
+        "variantType": "首题"
+      },
+      "contribution": {
+        "@type": "Contribution",
+        "agent": {
+          "@id": "http://data.library.sh.cn/entity/person/a3f9b7k2m5h8n1p4"
+        },
+        "agentLabel": "梁鹄",
+        "role": "书（传为）"
+      },
+      "creator": "梁鹄（书）",
+      "hasAnnotation": {
+        "@id": "http://data.library.sh.cn/bt/resource/annotation/px98cpjyw1fh9jt7",
+        "@type": "Annotation",
+        "hasBody": "（周大烈藏本）<br/>此册为周大烈（夕红楼）藏“明中后期拓本”（以下简称“周大烈本”），周大烈审定为“明拓本”。上海图书馆馆藏国家二级文物。上海图书馆另有《孔羡碑》奚冈藏“清初拓本”（以下简称“奚冈本”），两相互校如下：<br/>“奚冈本”存碑额“鲁孔子庙之碑”篆书六字，“周大烈本”则无。<br/>三行末“以奉孔子之祀制诰三公”，“周大烈本” 之“祀”字“示”部首点尚存， “奚冈本”之“祀”字“示”部首点不存。<br/>四行“大圣之才”，“周大烈本”之“才”字完好，“奚冈本”之“才”字左下侧石花侵及笔划。<br/>四行“鲁卫”之“鲁”字“鱼”部已损右半，但左半笔划分明。（“周大烈本”、“奚冈本”均如是）<br/>八行“所谓崇化”之“所”字还可辨， “化”钩笔未连石花，出锋向右（“周大烈本”、“奚冈本”均如是）。其中“周大烈本”之 “谓”左下角“月”部右竖笔与下方石花不连，“奚冈本”之“谓”左下角“月”部右竖已连下方石花。<br/>九行“置百石”之“石”字“口”部仅泐底横。（“周大烈本”、“奚冈本”均如是）。<br/>十八行“体黄虞”之“体”字“曲”部损右下一格。（ “奚冈本”均损右下二格）。<br/>末行除“魏陈思王曹植词”、“梁鹄书”外，“奚冈本”比“周大烈本”尚多一行楷书：“嘉佑七年（1062）张稚圭按图谨记”<br/>由此可知，“周大烈本”的拓制时间明显早于“奚冈本”。<br/><br/>楠木面板有民国十年（1921）秋周大烈（印昆）题签：“魏封孔羡碑 明拓本。”<br/><br/>册中另钤有韩霖（雨公）、孙国敉、张学曾（尔唯）等印。（按：以上诸印皆明代印章，疑伪）<br/><br/>此册计十五开，册高32.3厘米，宽18.9厘米。碑文十五开，帖芯高26.7厘米，宽16.4厘米。<br/>馆藏号：48B825",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年."
+      },
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/d2ypw6gc9evznrxi",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年.",
+          "type": "碑"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/jyys079kppw5a4z6",
+          "@type": "Instance",
+          "binding": "15开",
+          "dimensions": "册高32.3厘米，宽18.9厘米。碑文十五开，帖芯高26.7厘米，宽16.4厘米",
+          "edition": "明中后期拓本",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/fo7ebgfczmm7bv0y",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "organization": "上海图书馆",
+            "seal": "有韩霖（雨公）、孙国敉、张学曾（尔唯）等印",
+            "shelfMark": "48B825"
+          },
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑，上海图书馆，上海古籍出版社，2012年.",
+          "temporal": "明",
+          "type": "贴",
+          "tieTemporal": "明"
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/li-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "隶书"
+      },
+      "title": [
+        {
+          "@language": "cht",
+          "@value": "孔羨碑"
+        },
+        {
+          "@language": "chs",
+          "@value": "孔羡碑"
+        },
+        {
+          "@language": "en",
+          "@value": "kong xian bei"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "孔羡碑"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第三辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/fo7ebgfczmm7bv0y.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/48B825",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "021_孔羡碑.json"
+}

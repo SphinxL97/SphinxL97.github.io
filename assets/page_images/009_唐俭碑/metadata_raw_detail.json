@@ -1,0 +1,160 @@
+{
+  "index": 9,
+  "uri": "http://data.library.sh.cn/bt/resource/work/m8w6d6vft5h8353d",
+  "title": "唐俭碑",
+  "search_item": {
+    "instance": [
+      {
+        "item": {
+          "note": {
+            "noteType": "流传经历",
+            "@type": "Note",
+            "label": "经蒋祖诒、吴湖帆递藏"
+          },
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "@type": "Item",
+          "organization": "上海图书馆",
+          "@id": "http://data.library.sh.cn/bt/resource/item/oizm512ihy076y4x",
+          "shelfMark": "L73611"
+        },
+        "tieTemporal": "明",
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+        "binding": "20开",
+        "edition": "明拓本",
+        "prefaceAndPostscript": "吴湖帆题签，褚德彝题端，潘景郑签注",
+        "@id": "http://data.library.sh.cn/bt/resource/instance/hmfy6togszcfh1va",
+        "type": "贴",
+        "temporal": "明",
+        "dimensions": "册高29.6厘米，宽14.6厘米，帖芯高23厘米，宽11.6厘米。"
+      },
+      {
+        "@type": "Instance",
+        "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+        "@id": "http://data.library.sh.cn/bt/resource/instance/anp65pv0e95659nf",
+        "type": "碑"
+      }
+    ],
+    "scriptForm": {
+      "categoryType": "calligraphy",
+      "@type": "Category",
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+      "label": "楷书"
+    },
+    "@type": "Work",
+    "bfTitle": {
+      "variantType": "首题",
+      "@type": "Title",
+      "label": "唐俭碑"
+    },
+    "NT": "1",
+    "@id": "http://data.library.sh.cn/bt/resource/work/m8w6d6vft5h8353d",
+    "title": [
+      {
+        "@value": "tang jian bei",
+        "@language": "en"
+      },
+      {
+        "@value": "唐俭碑",
+        "@language": "chs"
+      },
+      {
+        "@value": "唐儉碑",
+        "@language": "cht"
+      }
+    ],
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑",
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "titleChs": {
+      "@value": "唐俭碑",
+      "@language": "chs"
+    },
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/oizm512ihy076y4x.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/L73611"
+  },
+  "detail": {
+    "datas": {
+      "instance": [
+        {
+          "item": {
+            "note": {
+              "noteType": "流传经历",
+              "@type": "Note",
+              "label": "经蒋祖诒、吴湖帆递藏"
+            },
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "@type": "Item",
+            "organization": "上海图书馆",
+            "@id": "http://data.library.sh.cn/bt/resource/item/oizm512ihy076y4x",
+            "shelfMark": "L73611"
+          },
+          "tieTemporal": "明",
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+          "binding": "20开",
+          "edition": "明拓本",
+          "prefaceAndPostscript": "吴湖帆题签，褚德彝题端，潘景郑签注",
+          "@id": "http://data.library.sh.cn/bt/resource/instance/hmfy6togszcfh1va",
+          "type": "贴",
+          "temporal": "明",
+          "dimensions": "册高29.6厘米，宽14.6厘米，帖芯高23厘米，宽11.6厘米。"
+        },
+        {
+          "@type": "Instance",
+          "noteOfSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑，上海图书馆，上海古籍出版社，2017年.",
+          "@id": "http://data.library.sh.cn/bt/resource/instance/anp65pv0e95659nf",
+          "type": "碑"
+        }
+      ],
+      "scriptForm": {
+        "categoryType": "calligraphy",
+        "@type": "Category",
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/kai-shu",
+        "label": "楷书"
+      },
+      "@type": "Work",
+      "bfTitle": {
+        "variantType": "首题",
+        "@type": "Title",
+        "label": "唐俭碑"
+      },
+      "NT": "1",
+      "@id": "http://data.library.sh.cn/bt/resource/work/m8w6d6vft5h8353d",
+      "title": [
+        {
+          "@value": "tang jian bei",
+          "@language": "en"
+        },
+        {
+          "@value": "唐俭碑",
+          "@language": "chs"
+        },
+        {
+          "@value": "唐儉碑",
+          "@language": "cht"
+        }
+      ],
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第五辑",
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "titleChs": {
+        "@value": "唐俭碑",
+        "@language": "chs"
+      },
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/oizm512ihy076y4x.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/L73611",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "009_唐俭碑.json"
+}

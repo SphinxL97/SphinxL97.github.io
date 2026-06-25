@@ -1,0 +1,172 @@
+{
+  "index": 45,
+  "uri": "http://data.library.sh.cn/bt/resource/work/ehnosxt9pzf3lps5",
+  "title": "石鼓文",
+  "search_item": {
+    "@context": {
+      "@vocab": "http://www.library.sh.cn/"
+    },
+    "@id": "http://data.library.sh.cn/bt/resource/work/ehnosxt9pzf3lps5",
+    "@type": "Work",
+    "bfTitle": {
+      "@type": "Title",
+      "label": "石鼓文",
+      "variantType": "首题"
+    },
+    "creator": "张燕昌摹刻,阮元重刻",
+    "instance": [
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/3qdme6f9njfi9yot",
+        "@type": "Instance",
+        "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第六輯",
+        "temporal": "春秋",
+        "temporalValue": "-770",
+        "type": "碑",
+        "beiTemporal": "春秋"
+      },
+      {
+        "@id": "http://data.library.sh.cn/bt/resource/instance/le8za1jo61phjdlt",
+        "@type": "Instance",
+        "binding": "册装20开",
+        "dimensions": "册高45.2厘米，宽24厘米；帖芯高39.8厘米，宽19.6厘米",
+        "edition": "明代中期拓本（黄帛本）",
+        "item": {
+          "@id": "http://data.library.sh.cn/bt/resource/item/r9q3nalsobyqwq4s",
+          "@type": "Item",
+          "heldBy": {
+            "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+          },
+          "note": {
+            "@type": "Note",
+            "label": "历经先秦至现代，咸丰年间范氏天一阁本宋拓孤本毁于兵火，后有秦家‘宋拓本’争议，最终确认安思远藏元明间拓本及上海图书馆藏明代拓本为重要版本",
+            "noteType": "流传经历"
+          },
+          "organization": "上海图书馆",
+          "seal": "楠木面板有朱孝臧题签，内签有杨岘题写，拓纸边侧有朱蓝二色释文",
+          "shelfMark": "22BT010"
+        },
+        "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第六輯",
+        "prefaceAndPostscript": "包括朱孝臧、杨岘、頋麟士、吴东发、释达受、潘锺瑞、王国维、程镕、朱孝臧、张熙等人的题跋与观款",
+        "temporal": "明",
+        "type": "贴",
+        "tieTemporal": "明"
+      }
+    ],
+    "scriptForm": {
+      "@id": "http://data.library.sh.cn/vocab/calligraphy/zhuan-shu",
+      "@type": "Category",
+      "categoryType": "calligraphy",
+      "label": "篆书"
+    },
+    "temporalValue": "-770",
+    "title": [
+      {
+        "@language": "cht",
+        "@value": "石鼓文"
+      },
+      {
+        "@language": "chs",
+        "@value": "石鼓文"
+      },
+      {
+        "@language": "en",
+        "@value": "shi gu wen"
+      }
+    ],
+    "titleChs": {
+      "@language": "chs",
+      "@value": "石鼓文"
+    },
+    "NT": "1",
+    "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第六辑",
+    "cover": "https://img.library.sh.cn/hisdata/bt/cover/r9q3nalsobyqwq4s.jpg",
+    "iiiflink": "http://iiif.library.sh.cn/api/viewer/22BT010"
+  },
+  "detail": {
+    "datas": {
+      "@context": {
+        "@vocab": "http://www.library.sh.cn/"
+      },
+      "@id": "http://data.library.sh.cn/bt/resource/work/ehnosxt9pzf3lps5",
+      "@type": "Work",
+      "bfTitle": {
+        "@type": "Title",
+        "label": "石鼓文",
+        "variantType": "首题"
+      },
+      "creator": "张燕昌摹刻,阮元重刻",
+      "instance": [
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/3qdme6f9njfi9yot",
+          "@type": "Instance",
+          "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第六輯",
+          "temporal": "春秋",
+          "temporalValue": "-770",
+          "type": "碑",
+          "beiTemporal": "春秋"
+        },
+        {
+          "@id": "http://data.library.sh.cn/bt/resource/instance/le8za1jo61phjdlt",
+          "@type": "Instance",
+          "binding": "册装20开",
+          "dimensions": "册高45.2厘米，宽24厘米；帖芯高39.8厘米，宽19.6厘米",
+          "edition": "明代中期拓本（黄帛本）",
+          "item": {
+            "@id": "http://data.library.sh.cn/bt/resource/item/r9q3nalsobyqwq4s",
+            "@type": "Item",
+            "heldBy": {
+              "@id": "http://data.library.sh.cn/entity/organization/brvqlrg8y55v1b5q"
+            },
+            "note": {
+              "@type": "Note",
+              "label": "历经先秦至现代，咸丰年间范氏天一阁本宋拓孤本毁于兵火，后有秦家‘宋拓本’争议，最终确认安思远藏元明间拓本及上海图书馆藏明代拓本为重要版本",
+              "noteType": "流传经历"
+            },
+            "organization": "上海图书馆",
+            "seal": "楠木面板有朱孝臧题签，内签有杨岘题写，拓纸边侧有朱蓝二色释文",
+            "shelfMark": "22BT010"
+          },
+          "noteOfSource": "翰墨瓌寶：上海圖書館藏珍本碑帖叢刊.第六輯",
+          "prefaceAndPostscript": "包括朱孝臧、杨岘、頋麟士、吴东发、释达受、潘锺瑞、王国维、程镕、朱孝臧、张熙等人的题跋与观款",
+          "temporal": "明",
+          "type": "贴",
+          "tieTemporal": "明"
+        }
+      ],
+      "scriptForm": {
+        "@id": "http://data.library.sh.cn/vocab/calligraphy/zhuan-shu",
+        "@type": "Category",
+        "categoryType": "calligraphy",
+        "label": "篆书"
+      },
+      "temporalValue": "-770",
+      "title": [
+        {
+          "@language": "cht",
+          "@value": "石鼓文"
+        },
+        {
+          "@language": "chs",
+          "@value": "石鼓文"
+        },
+        {
+          "@language": "en",
+          "@value": "shi gu wen"
+        }
+      ],
+      "titleChs": {
+        "@language": "chs",
+        "@value": "石鼓文"
+      },
+      "NT": "1",
+      "briefSource": "《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第六辑",
+      "cover": "https://img.library.sh.cn/hisdata/bt/cover/r9q3nalsobyqwq4s.jpg",
+      "iiiflink": "http://iiif.library.sh.cn/api/viewer/22BT010",
+      "isFavorate": false
+    },
+    "errorMessage": "",
+    "errorCode": "0",
+    "result": "0"
+  },
+  "detail_file": "045_石鼓文.json"
+}
