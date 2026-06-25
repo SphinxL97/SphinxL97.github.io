@@ -6,15 +6,26 @@ async function loadJSON(url){
 
 let catalog = [];
 
+function padId(id){
+  return String(id || "001").padStart(3, "0");
+}
+
+function localCoverPath(item){
+  const id = padId(item.id);
+  const title = item.title || "";
+  return `assets/page_images/${id}_${title}/images/0001_一.jpg`;
+}
+
 function cardHTML(item){
-  const id = String(item.id || "001").padStart(3, "0");
+  const id = padId(item.id);
   const url = item.detail_url || `detail.html?id=${id}`;
+  const cover = localCoverPath(item);
   const meta1 = item.creator || item.script || item.dynasty || "资料待整理";
   const meta2 = item.script || item.dynasty || "";
 
   return `<a class="beitie-card" href="${url}">
     <div class="thumb">
-      ${item.cover ? `<img src="${item.cover}" alt="${item.title}" loading="lazy">` : ""}
+      <img src="${cover}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='${item.cover || ""}'">
     </div>
     <div class="card-info">
       <h3 title="${item.title}">${item.title}</h3>
