@@ -16,9 +16,15 @@ function localCoverPath(item){
   return `assets/page_images/${id}_${title}/images/0001_一.jpg`;
 }
 
-function cardHTML(item){
+function detailUrl(item){
   const id = padId(item.id);
-  const url = item.detail_url || `detail.html?id=${id}`;
+  const raw = item.detail_url || "";
+  if(!raw || raw === "#" || raw.startsWith("javascript:")) return `detail.html?id=${id}`;
+  return raw;
+}
+
+function cardHTML(item){
+  const url = detailUrl(item);
   const cover = localCoverPath(item);
   const meta1 = item.creator || item.script || item.dynasty || "资料待整理";
   const meta2 = item.script || item.dynasty || "";
