@@ -6,32 +6,15 @@ async function loadJSON(url){
 
 let catalog = [];
 
-function padId(id){
-  return String(id || "001").padStart(3, "0");
-}
-
-function localCoverPath(item){
-  const id = padId(item.id);
-  const title = item.title || "";
-  return `assets/page_images/${id}_${title}/images/0001_一.jpg`;
-}
-
-function detailUrl(item){
-  const id = padId(item.id);
-  const raw = item.detail_url || "";
-  if(!raw || raw === "#" || raw.startsWith("javascript:")) return `detail.html?id=${id}`;
-  return raw;
-}
-
 function cardHTML(item){
-  const url = detailUrl(item);
-  const cover = localCoverPath(item);
+  const id = String(item.id || "001").padStart(3, "0");
+  const url = item.detail_url || `detail.html?id=${id}`;
   const meta1 = item.creator || item.script || item.dynasty || "资料待整理";
   const meta2 = item.script || item.dynasty || "";
 
   return `<a class="beitie-card" href="${url}">
     <div class="thumb">
-      <img src="${cover}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='${item.cover || ""}'">
+      ${item.cover ? `<img src="${item.cover}" alt="${item.title}" loading="lazy">` : ""}
     </div>
     <div class="card-info">
       <h3 title="${item.title}">${item.title}</h3>

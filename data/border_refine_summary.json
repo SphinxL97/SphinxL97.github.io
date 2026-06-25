@@ -1,0 +1,9 @@
+{
+  "input": "data/glyph_records_model_aligned.json",
+  "output": "data/glyph_records_model_aligned_border_refined.json",
+  "records": 53842,
+  "pages": 1785,
+  "qa_dir": "qa_model_aligned_border_refined",
+  "errors": [],
+  "note": "Only outer glyph boxes are snapped to detected black stele boundary."
+}

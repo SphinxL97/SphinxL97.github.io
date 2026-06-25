@@ -1,0 +1,29 @@
+[
+  {
+    "method": "model_aligned_border_refined",
+    "source": "data\\glyph_records_model_aligned_border_refined.json",
+    "exists": true,
+    "records": 53842,
+    "pages": 1785,
+    "works": 42,
+    "output": "data\\glyph_boxes\\model_aligned_border_refined"
+  },
+  {
+    "method": "model_aligned",
+    "source": "data\\glyph_records_model_aligned.json",
+    "exists": true,
+    "records": 53842,
+    "pages": 1785,
+    "works": 42,
+    "output": "data\\glyph_boxes\\model_aligned"
+  },
+  {
+    "method": "iiif",
+    "source": "data\\glyph_records_iiif.json",
+    "exists": true,
+    "records": 53842,
+    "pages": 1785,
+    "works": 42,
+    "output": "data\\glyph_boxes\\iiif"
+  }
+]
