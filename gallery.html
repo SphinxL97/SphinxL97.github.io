@@ -110,35 +110,44 @@ body{background:#f6f7f8}
   width:min(1120px,calc(100% - 40px));
   margin:0 auto 60px;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(4,230px);
   gap:24px 36px;
+  justify-content:center;
+  align-items:start;
 }
 .beitie-card{
   display:block;
+  width:230px;
+  min-width:230px;
+  max-width:230px;
   background:#fff;
   border:1px solid #e4e7eb;
   box-shadow:0 8px 22px rgba(20,30,40,.09);
   transition:.18s ease;
   min-height:430px;
+  overflow:hidden;
 }
 .beitie-card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(20,30,40,.14)}
 .thumb{
+  width:100%;
   height:330px;
-  padding:16px 16px 0;
+  padding:14px 14px 0;
   display:flex;
   align-items:flex-start;
   justify-content:center;
   background:#fff;
   position:relative;
+  overflow:hidden;
 }
 .thumb img{
+  width:100%;
+  height:310px;
   max-width:100%;
   max-height:310px;
-  width:auto;
-  height:auto;
   object-fit:contain;
   display:block;
   box-shadow:0 2px 8px rgba(0,0,0,.08);
+  background:#fff;
 }
 .ribbon{
   position:absolute;right:12px;top:12px;
@@ -153,9 +162,25 @@ body{background:#f6f7f8}
 .meta .ready{color:#1a8f41}
 .card-disabled{cursor:default}
 .card-disabled:hover{transform:none}
-@media(max-width:1100px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:780px){.gallery-grid{grid-template-columns:repeat(2,1fr);gap:18px}.filter-row b{width:100%;text-align:left}}
-@media(max-width:520px){.gallery-grid{grid-template-columns:1fr}.thumb{height:auto}.thumb img{max-height:none}}
+@media(max-width:1100px){.gallery-grid{grid-template-columns:repeat(3,230px)}}
+@media(max-width:780px){.gallery-grid{grid-template-columns:repeat(2,230px);gap:18px;justify-content:center}.filter-row b{width:100%;text-align:left}}
+@media(max-width:520px){
+  .gallery-grid{grid-template-columns:230px;justify-content:center}
+  .thumb{height:330px}
+  .thumb img{height:310px;max-height:310px}
+}
+
+
+.card-info{
+  min-height:96px;
+}
+.card-info h3{
+  max-width:100%;
+}
+.meta{
+  min-height:38px;
+  align-content:flex-start;
+}
 
 .ribbon{display:none!important}
 </style>
@@ -195,6 +220,6 @@ body{background:#f6f7f8}
   <div class="sort-tools"><span>默认排序 ↓</span><span>字数 ↓</span><span>□ 仅看完整样板</span></div>
 </div>
 <main class="gallery-grid" id="galleryGrid"></main>
-<script src="js/gallery.js?v=1782355032"></script>
+<script src="js/gallery.js?v=1782355033"></script>
 </body>
 </html>

@@ -145,6 +145,41 @@ img{display:block;max-width:100%}
 }
 .meta-line span{color:#2f251f}
 .meta-line.wide{grid-column:1/-1}
+.volume-switcher{
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid #ead9c5;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  font-size:13px;
+}
+.volume-switcher b{
+  color:var(--red);
+  margin-right:2px;
+  letter-spacing:.12em;
+}
+.volume-switcher a{
+  display:inline-flex;
+  align-items:center;
+  border:1px solid #ead9c5;
+  background:#fff8eb;
+  color:#6d3b24;
+  border-radius:999px;
+  padding:4px 11px;
+  font-weight:800;
+  line-height:1.4;
+}
+.volume-switcher a:hover{
+  color:var(--red);
+  border-color:rgba(159,48,37,.45);
+}
+.volume-switcher a.active{
+  background:var(--red);
+  border-color:var(--red);
+  color:#fff;
+}
 
 /* 左侧目录：固定在最左列，与正文间距等于右侧栏间距 */
 .side{
@@ -757,8 +792,8 @@ img{display:block;max-width:100%}
       <h2 class="section-title">资料说明</h2>
       <p>
         本页优先读取 <code>data/page_images_index.json</code> 中的 page_images 全部页图；
-        单字定位优先读取 <code>data/glyph_records_model_aligned_border_refined.json</code>，
-        若不存在则回退到 <code>data/glyph_records_model_aligned.json</code>。
+        单字定位优先读取 <code>data/glyph_boxes/iiif/当前作品id/page_xxxx.json</code>，
+        普通单册作品也兼容原有 <code>data/glyph_records_model_aligned_border_refined.json</code>、<code>data/glyph_records_model_aligned.json</code> 与 <code>data/glyph_records_iiif.json</code>。
       </p>
       <div class="source-note">后续可在此补充 IIIF 数据来源、单字框生成方法、版本说明和校勘规则。</div>
     </article>
@@ -830,13 +865,16 @@ zoomBackdrop.addEventListener("wheel", e => {e.preventDefault();const delta=e.de
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeZoom();}});
 
 /* reader */
-const WORK_ID = String(new URLSearchParams(location.search).get("id") || "001").padStart(3,"0");
+const RAW_WORK_ID = String(new URLSearchParams(location.search).get("id") || "001");
+const WORK_ID = RAW_WORK_ID.includes("-") ? RAW_WORK_ID : RAW_WORK_ID.padStart(3,"0");
+const PARENT_WORK_ID = WORK_ID.includes("-") ? WORK_ID.split("-")[0] : WORK_ID;
 const DATA_CANDIDATES=[
   "data/glyph_records_model_aligned_border_refined.json",
   "data/glyph_records_model_aligned.json",
   "data/glyph_records_iiif.json"
 ];
 let currentPageIndex=0,pages=[],currentGlyphs=[],currentCanvasWidth=1,currentCanvasHeight=1;
+let loadPageToken=0;
 let selectedGlyphId=null,hoverGlyphId=null;
 const pageSelect=document.getElementById("pageSelect");
 const readerStatus=document.getElementById("readerStatus");
@@ -849,6 +887,9 @@ const readerHint=document.getElementById("readerHint");
 const readerCard=document.getElementById("reader");
 
 function getRect(g){
+  if(g.x!==undefined && g.y!==undefined && g.w!==undefined && g.h!==undefined)return{x:+g.x,y:+g.y,w:+g.w,h:+g.h};
+  if(Array.isArray(g.bbox) && g.bbox.length>=4)return{x:+g.bbox[0],y:+g.bbox[1],w:+g.bbox[2],h:+g.bbox[3]};
+  if(Array.isArray(g.bbox_xywh) && g.bbox_xywh.length>=4)return{x:+g.bbox_xywh[0],y:+g.bbox_xywh[1],w:+g.bbox_xywh[2],h:+g.bbox_xywh[3]};
   if(g.border_x!==undefined)return{x:+g.border_x,y:+g.border_y,w:+g.border_w,h:+g.border_h};
   if(g.display_x!==undefined)return{x:+g.display_x,y:+g.display_y,w:+g.display_w,h:+g.display_h};
   if(g.model_x!==undefined)return{x:+g.model_x,y:+g.model_y,w:+g.model_w,h:+g.model_h};
@@ -856,14 +897,64 @@ function getRect(g){
   return null;
 }
 function workIdOfRecord(r){
-  const s=String(r.work_id||"");
-  const m=s.match(/^(\d{3})/);
+  const virtualId = String(r.virtual_id || "");
+  if(virtualId && virtualId === WORK_ID) return WORK_ID;
+  const workId = String(r.work_id || "");
+  if(workId === WORK_ID) return WORK_ID;
+  const m=workId.match(/^(\d{3})/);
   if(m)return m[1];
   if(r.work_index!==undefined)return String(r.work_index).padStart(3,"0");
   return "";
 }
 async function tryFetchJSON(path){const res=await fetch(path,{cache:"no-store"});if(!res.ok)throw new Error(path+" "+res.status);return await res.json();}
 async function safeFetchJSON(path){try{return await tryFetchJSON(path)}catch(e){return null}}
+function pageBoxPath(id,pageNo){
+  return `data/glyph_boxes/iiif/${id}/page_${String(pageNo).padStart(4,"0")}.json`;
+}
+function normalizeGlyphBoxRecord(box,pageObj,i,total){
+  const r = getRect(box) || {x:0,y:0,w:0,h:0};
+  const ch = String(box.char || box.text || box.value || "");
+  const rows = estimateRows(total);
+  return {
+    glyph_id: box.glyph_id || `${WORK_ID}_p${pageObj.canvas_index}_b${i+1}`,
+    char: ch ? ch[0] : "",
+    text: ch ? ch[0] : "",
+    order_in_page: box.order_in_page || box.annotation_index || i + 1,
+    canvas_index: pageObj.canvas_index,
+    canvas_label: pageObj.canvas_label || pageObj.label || pageObj.canvas_index,
+    local_image: pageObj.image,
+    canvas_width: box.canvas_width || pageObj.canvas_width,
+    canvas_height: box.canvas_height || pageObj.canvas_height,
+    bbox_x: r.x,
+    bbox_y: r.y,
+    bbox_w: r.w,
+    bbox_h: r.h,
+    bbox: [r.x,r.y,r.w,r.h],
+    auto_col: box.auto_col !== undefined ? +box.auto_col : Math.floor(i/rows),
+    auto_row: box.auto_row !== undefined ? +box.auto_row : i%rows,
+    source: box.source || "glyph_boxes_iiif"
+  };
+}
+async function loadPageGlyphBoxes(id,pageObj){
+  const data = await safeFetchJSON(pageBoxPath(id,pageObj.canvas_index));
+  if(!Array.isArray(data) || !data.length) return [];
+  return data.map((box,i)=>normalizeGlyphBoxRecord(box,pageObj,i,data.length));
+}
+function renderVolumeSwitcher(pageIndex){
+  if(!pageIndex || !pageIndex.works || !WORK_ID.includes("-")) return;
+  const parent = pageIndex.works[PARENT_WORK_ID];
+  if(!parent || !Array.isArray(parent.volumes) || !parent.volumes.length) return;
+  const panel = document.querySelector(".info-panel");
+  if(!panel || panel.querySelector(".volume-switcher")) return;
+  const div = document.createElement("div");
+  div.className = "volume-switcher";
+  div.innerHTML = `<b>册次</b>` + parent.volumes.map(v=>{
+    const active = v.virtual_id === WORK_ID ? "active" : "";
+    return `<a class="${active}" href="detail.html?id=${v.virtual_id}">${v.volume_title || v.virtual_id}</a>`;
+  }).join("");
+  panel.appendChild(div);
+}
+
 function setText(selector,text){const el=document.querySelector(selector);if(el&&text!==undefined&&text!==null)el.textContent=text;}
 function updateMetaLine(label,value){
   if(!value)return;
@@ -902,15 +993,21 @@ async function loadReaderData(){
     work=pageIndex.works[WORK_ID] || pageIndex.works[String(+WORK_ID)] || null;
     if(work) pageMeta=(work.pages||[]).map(p=>({page:p.page,label:p.label,image:p.image,text_clean:p.text_clean||"",canvas_width:p.canvas_width,canvas_height:p.canvas_height}));
   }
-  const catalog=Array.isArray(catalogList)?catalogList.find(x=>String(x.id).padStart(3,"0")===WORK_ID):null;
-  const detail=detailMap ? (detailMap[WORK_ID] || detailMap[String(+WORK_ID)] || null) : null;
+  const catalog=Array.isArray(catalogList)?catalogList.find(x=>String(x.id).padStart(3,"0")===WORK_ID) || catalogList.find(x=>String(x.id).padStart(3,"0")===PARENT_WORK_ID):null;
+  const detail=detailMap ? (detailMap[WORK_ID] || detailMap[PARENT_WORK_ID] || detailMap[String(+PARENT_WORK_ID)] || null) : null;
   applyWorkInfo({work,detail,catalog});
+  renderVolumeSwitcher(pageIndex);
 
   let alignedRecords=[];
   for(const p of DATA_CANDIDATES){
     const data=await safeFetchJSON(p);
     if(data && Array.isArray(data)){
-      const filtered=data.filter(r=>workIdOfRecord(r)===WORK_ID);
+      const filtered=data.filter(r=>{
+        if(WORK_ID.includes("-")){
+          return String(r.work_id||"")===WORK_ID || String(r.virtual_id||"")===WORK_ID;
+        }
+        return workIdOfRecord(r)===WORK_ID;
+      });
       if(filtered.length){alignedRecords=filtered;break;}
     }
   }
@@ -947,13 +1044,24 @@ function buildPagesFromAligned(records){
 function estimateRows(n){if(n<=0)return 1;if(n<=10)return Math.ceil(n/2);if(n<=32)return Math.ceil(n/3);if(n<=70)return Math.ceil(n/5);return Math.ceil(Math.sqrt(n*1.8));}
 function fillPageSelect(){pageSelect.innerHTML="";pages.forEach((p,idx)=>{const opt=document.createElement("option");opt.value=idx;opt.textContent=`${p.canvas_index} / ${pages.length}`;pageSelect.appendChild(opt);});}
 function setButtonState(){const first=currentPageIndex<=0,last=currentPageIndex>=pages.length-1;document.getElementById("bottomPrevBtn").disabled=first;document.getElementById("bottomNextBtn").disabled=last;}
-function loadPage(idx){
+async function loadPage(idx){
   if(!pages.length)return;
+  const token = ++loadPageToken;
   currentPageIndex=Math.max(0,Math.min(pages.length-1,idx));
   selectedGlyphId=null;hoverGlyphId=null;
   pageSelect.value=currentPageIndex;
   const p=pages[currentPageIndex];
-  currentGlyphs=p.items||[];
+
+  const fallbackItems = p.items || [];
+  currentGlyphs = fallbackItems;
+  const perPageBoxes = await loadPageGlyphBoxes(WORK_ID,p);
+  if(token !== loadPageToken) return;
+  if(perPageBoxes.length){
+    currentGlyphs = perPageBoxes;
+  }else{
+    currentGlyphs = fallbackItems;
+  }
+
   currentCanvasWidth=+(p.canvas_width||currentGlyphs[0]?.canvas_width||1);
   currentCanvasHeight=+(p.canvas_height||currentGlyphs[0]?.canvas_height||1);
   const imgPath=p.image || currentGlyphs[0]?.local_image || "";
@@ -961,10 +1069,24 @@ function loadPage(idx){
   setButtonState();
   imageWrap.querySelectorAll(".glyph-box").forEach(e=>e.remove());
   transcriptGrid.innerHTML="";
-  readerInfo.textContent="点击图片或右侧释文字格查看详情。";
-  pageImage.onload=()=>{if(!currentCanvasWidth||currentCanvasWidth===1)currentCanvasWidth=pageImage.naturalWidth;if(!currentCanvasHeight||currentCanvasHeight===1)currentCanvasHeight=pageImage.naturalHeight;syncTranscriptPaneSize();renderImageBoxes();renderTranscriptGrid();updateActiveStates();};
+  readerInfo.textContent=perPageBoxes.length ? "已读取本页单字坐标。点击图片或右侧释文字格查看详情。" : "本页暂无单字坐标，显示逐页释文。";
+
+  const renderCurrentPage = ()=>{
+    if(token !== loadPageToken) return;
+    if(!currentCanvasWidth||currentCanvasWidth===1)currentCanvasWidth=pageImage.naturalWidth;
+    if(!currentCanvasHeight||currentCanvasHeight===1)currentCanvasHeight=pageImage.naturalHeight;
+    syncTranscriptPaneSize();
+    renderImageBoxes();
+    renderTranscriptGrid();
+    updateActiveStates();
+  };
+
+  pageImage.onload=renderCurrentPage;
   pageImage.onerror=()=>{readerInfo.innerHTML=`<div class="reader-error">图片无法打开：${imgPath}<br>请确认 assets/page_images 已复制到网站根目录，并通过本地 http.server 或 GitHub Pages 打开。</div>`;};
   pageImage.src=imgPath;
+  if(pageImage.complete && pageImage.naturalWidth){
+    renderCurrentPage();
+  }
 }
 function syncTranscriptPaneSize(){const w=pageImage.clientWidth||pageImage.naturalWidth;const h=pageImage.clientHeight||pageImage.naturalHeight;transcriptPane.style.width=w+"px";transcriptPane.style.height=h+"px";}
 function renderImageBoxes(){
