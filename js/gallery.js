@@ -10,6 +10,116 @@ function padId(id){
   return String(id || "001").padStart(3, "0");
 }
 
+const MISSING_MULTIVOLUME_WORKS = [
+  {
+    id:"014",
+    title:"颜真卿李玄靖碑",
+    cover:"assets/page_images/014_颜真卿李玄靖碑/images/01_顏真卿李玄靖碑册一/0001_一.jpg",
+    active:true,
+    has_volumes:true,
+    detail_url:"#",
+    status:"多册可选",
+    creator:"颜真卿",
+    script:"楷书",
+    dynasty:"唐",
+    shelf_mark:"22BT013",
+    subtitle:"封面、逐页图像与释文已接入。",
+    resource_uri:"http://data.library.sh.cn/bt/resource/work/zt6lmz7qu6grnw9q",
+    viewer_url:"http://iiif.library.sh.cn/api/viewer/22BT013",
+    volumes:[
+      {
+        volume_id:"01",
+        volume_title:"顏真卿李玄靖碑册一",
+        virtual_id:"014-01",
+        cover:"assets/page_images/014_颜真卿李玄靖碑/images/01_顏真卿李玄靖碑册一/0001_一.jpg",
+        detail_url:"detail.html?id=014-01"
+      },
+      {
+        volume_id:"02",
+        volume_title:"顏真卿李玄靖碑册二",
+        virtual_id:"014-02",
+        cover:"assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0001_一.jpg",
+        detail_url:"detail.html?id=014-02"
+      }
+    ]
+  },
+  {
+    id:"031",
+    title:"黄庭堅青原山诗刻石",
+    cover:"assets/page_images/031_黄庭堅青原山诗刻石/images/01_黄庭堅青原山诗刻石(第一辑)册一/0001_一.jpg",
+    active:true,
+    has_volumes:true,
+    detail_url:"#",
+    status:"多册可选",
+    creator:"黄庭坚",
+    script:"行书",
+    dynasty:"宋",
+    shelf_mark:"49B840",
+    subtitle:"封面、逐页图像与释文已接入。",
+    resource_uri:"http://data.library.sh.cn/bt/resource/work/yqhlk3zvpje37f8m",
+    viewer_url:"http://iiif.library.sh.cn/api/viewer/49B840",
+    volumes:[
+      {
+        volume_id:"01",
+        volume_title:"黄庭堅青原山诗刻石(第一辑)册一",
+        virtual_id:"031-01",
+        cover:"assets/page_images/031_黄庭堅青原山诗刻石/images/01_黄庭堅青原山诗刻石(第一辑)册一/0001_一.jpg",
+        detail_url:"detail.html?id=031-01"
+      },
+      {
+        volume_id:"02",
+        volume_title:"黄庭堅青原山诗刻石(第一辑)册二",
+        virtual_id:"031-02",
+        cover:"assets/page_images/031_黄庭堅青原山诗刻石/images/02_黄庭堅青原山诗刻石(第一辑)册二/0001_一.jpg",
+        detail_url:"detail.html?id=031-02"
+      }
+    ]
+  },
+  {
+    id:"039",
+    title:"淳化阁帖",
+    cover:"assets/page_images/039_淳化阁帖/images/01_淳化阁帖册一/0001_一.jpg",
+    active:true,
+    has_volumes:true,
+    detail_url:"#",
+    status:"多册可选",
+    creator:"资料待补",
+    script:"行书",
+    dynasty:"宋",
+    shelf_mark:"48/B843",
+    subtitle:"封面、逐页图像与释文已接入。",
+    resource_uri:"http://data.library.sh.cn/bt/resource/work/tnox7vs9zecfdmu7",
+    viewer_url:"http://iiif.library.sh.cn/api/viewer/48%2FB843",
+    volumes:[
+      {volume_id:"01",volume_title:"淳化阁帖册一",virtual_id:"039-01",cover:"assets/page_images/039_淳化阁帖/images/01_淳化阁帖册一/0001_一.jpg",detail_url:"detail.html?id=039-01"},
+      {volume_id:"02",volume_title:"淳化阁帖册二",virtual_id:"039-02",cover:"assets/page_images/039_淳化阁帖/images/02_淳化阁帖册二/0001_一.jpg",detail_url:"detail.html?id=039-02"},
+      {volume_id:"03",volume_title:"淳化阁帖册三",virtual_id:"039-03",cover:"assets/page_images/039_淳化阁帖/images/03_淳化阁帖册三/0001_一.jpg",detail_url:"detail.html?id=039-03"},
+      {volume_id:"04",volume_title:"淳化阁帖册四",virtual_id:"039-04",cover:"assets/page_images/039_淳化阁帖/images/04_淳化阁帖册四/0001_一.jpg",detail_url:"detail.html?id=039-04"},
+      {volume_id:"05",volume_title:"淳化阁帖册五",virtual_id:"039-05",cover:"assets/page_images/039_淳化阁帖/images/05_淳化阁帖册五/0001_一.jpg",detail_url:"detail.html?id=039-05"},
+      {volume_id:"06",volume_title:"淳化阁帖册六",virtual_id:"039-06",cover:"assets/page_images/039_淳化阁帖/images/06_淳化阁帖册六/0001_一.jpg",detail_url:"detail.html?id=039-06"},
+      {volume_id:"07",volume_title:"淳化阁帖册七",virtual_id:"039-07",cover:"assets/page_images/039_淳化阁帖/images/07_淳化阁帖册七/0001_一.jpg",detail_url:"detail.html?id=039-07"},
+      {volume_id:"08",volume_title:"淳化阁帖册八",virtual_id:"039-08",cover:"assets/page_images/039_淳化阁帖/images/08_淳化阁帖册八/0001_一.jpg",detail_url:"detail.html?id=039-08"},
+      {volume_id:"09",volume_title:"淳化阁帖册九",virtual_id:"039-09",cover:"assets/page_images/039_淳化阁帖/images/09_淳化阁帖册九/0001_一.jpg",detail_url:"detail.html?id=039-09"},
+      {volume_id:"10",volume_title:"淳化阁帖册十",virtual_id:"039-10",cover:"assets/page_images/039_淳化阁帖/images/10_淳化阁帖册十/0001_一.jpg",detail_url:"detail.html?id=039-10"}
+    ]
+  }
+];
+
+function mergeMissingWorks(data){
+  const map = new Map();
+  (Array.isArray(data) ? data : []).forEach(item=>{
+    if(item && item.id) map.set(padId(item.id), item);
+  });
+  MISSING_MULTIVOLUME_WORKS.forEach(item=>{
+    if(!map.has(padId(item.id))) map.set(padId(item.id), item);
+  });
+  return Array.from(map.values()).sort((a,b)=>{
+    const na = parseInt(a.id, 10) || 0;
+    const nb = parseInt(b.id, 10) || 0;
+    return na - nb || String(a.id).localeCompare(String(b.id));
+  });
+}
+
 function cardHTML(item){
   const id = padId(item.id);
   const cover = item.cover || "";
@@ -213,12 +323,14 @@ function closeVolumeModal(){
 }
 
 loadJSON("data/beitie_catalog.json").then(data=>{
-  catalog = data || [];
+  catalog = mergeMissingWorks(data || []);
   render();
 
   const input = document.getElementById("gallerySearch");
   if(input) input.addEventListener("input", e=>render(e.target.value));
 }).catch(err=>{
+  catalog = mergeMissingWorks([]);
+  render();
   const grid = document.getElementById("galleryGrid");
-  if(grid) grid.innerHTML = `<div style="padding:20px;color:#9f3025;">读取 data/beitie_catalog.json 失败：${err.message}</div>`;
+  if(grid && !catalog.length) grid.innerHTML = `<div style="padding:20px;color:#9f3025;">读取 data/beitie_catalog.json 失败：${err.message}</div>`;
 });
