@@ -17,6 +17,11 @@
       .replace(/>/g,"&gt;");
   }
 
+  function isInfoLabel(line){
+    const s = String(line || "").trim();
+    return /^(流传经历|题记|题跋|递藏|版本流传|收藏经过|背景说明|相关故事|故事)[:：]$/.test(s);
+  }
+
   function textToHtml(s){
     const lines = String(s || "")
       .replace(/\r\n/g,"\n").replace(/\r/g,"\n")
@@ -24,7 +29,10 @@
       .map(x=>x.trim())
       .filter(Boolean);
     if(!lines.length) return "";
-    return '<div class="beitie-info-text">' + lines.map(x=>`<p>${esc(x)}</p>`).join("") + '</div>';
+    return '<div class="beitie-info-text">' + lines.map(x=>{
+      const cls = isInfoLabel(x) ? ' class="beitie-info-label"' : '';
+      return `<p${cls}>${esc(x)}</p>`;
+    }).join("") + '</div>';
   }
 
   function setText(selector, text){
@@ -95,6 +103,14 @@
       .beitie-info-text{font-size:15px;line-height:1.95;color:#342820;}
       .beitie-info-text p{margin:0 0 8px!important;text-indent:0!important;}
       .beitie-info-text p:last-child{margin-bottom:0!important;}
+      .beitie-info-text .beitie-info-label{
+        font-size:19px!important;
+        font-weight:900!important;
+        color:#9f3025!important;
+        margin:6px 0 4px!important;
+        letter-spacing:.03em;
+        line-height:1.55!important;
+      }
     `;
     document.head.appendChild(style);
   }
