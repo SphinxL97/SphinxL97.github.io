@@ -19,7 +19,8 @@
 
   function isInfoLabel(line){
     const s = String(line || "").trim();
-    return /^(流传经历|题记|题跋|递藏|版本流传|收藏经过|背景说明|相关故事|故事)[:：]$/.test(s);
+    const normalized = s.replace(/\s+/g, "");
+    return /^(流传经历|题记|题跋|递藏|版本流传|收藏经过|背景说明|相关故事|故事)[:：]$/.test(normalized);
   }
 
   function textToHtml(s){
@@ -118,7 +119,7 @@
   function applyInfo(info){
     ensureStyle();
     applyBasic(info);
-    setModal("history", "收藏历史", "递藏、题记、题跋与校勘表。", info.history || "");
+    setModal("history", "收藏历史", "流传经历与题记。", info.history || "");
     setModal("story", "背景故事", "作品背景、版本线索与重要考据点。", info.story || "");
   }
 
