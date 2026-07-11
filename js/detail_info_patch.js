@@ -347,8 +347,8 @@
         display:grid!important;
         grid-template-columns:112px minmax(0,1fr);
         align-items:stretch;
-        width:100%;
-        max-width:none;
+        width:calc(100% - 56px);
+        max-width:1040px;
         min-height:54px;
         margin:12px auto 0;
         padding:0;
@@ -367,6 +367,8 @@
         padding:0 14px;
         border-right:1px solid #d8bd86;
         color:#9f3025;
+        font-family:"SimSun","Songti SC",serif;
+        font-size:19px;
         font-weight:900;
         letter-spacing:.08em;
         white-space:nowrap;
@@ -412,8 +414,8 @@
         }
         .page-status-page,.page-status-selected{padding:0 7px;}
         .page-status-selected strong{font-size:19px;}
-        .reader-info.page-transcript-bottom{grid-template-columns:82px minmax(0,1fr);}
-        .page-transcript-bottom-label{padding:0 8px;font-size:12px;}
+        .reader-info.page-transcript-bottom{width:calc(100% - 16px);max-width:none;grid-template-columns:82px minmax(0,1fr);}
+        .page-transcript-bottom-label{padding:0 8px;font-size:17px;}
         .page-transcript-bottom-inner{padding:0 14px;font-size:17px;}
       }
     `;
@@ -570,5 +572,29 @@
     document.addEventListener("DOMContentLoaded",installPageStatus);
   }else{
     installPageStatus();
+  }
+})();
+
+
+/* 全部碑帖页面统一目录文字；仅改显示名称，不改链接与栏目内容。 */
+(function(){
+  const labels=[
+    "一、碑帖浏览",
+    "二、碑文释文",
+    "三、残缺字迹展示",
+    "四、众智释读",
+    "五、书法艺术赏析"
+  ];
+
+  function applyReaderTocLabels(){
+    document.querySelectorAll(".side a").forEach((link,index)=>{
+      if(labels[index]) link.textContent=labels[index];
+    });
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",applyReaderTocLabels);
+  }else{
+    applyReaderTocLabels();
   }
 })();
