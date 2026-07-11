@@ -1,10 +1,10 @@
-# one-off conversion trigger
 name: One-off convert 014 031 039 to model boxes
 
 on:
-  push:
+  pull_request:
+    types: [opened]
     paths:
-      - '.github/workflows/oneoff-convert-014-031-039.yml'
+      - '.github/model-conversion-trigger'
 
 permissions:
   contents: write
@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
       - name: Convert three works and update only related files
         shell: bash
@@ -139,6 +140,8 @@ jobs:
 
           js_path = ROOT / 'js/detail_info_patch.js'
           js = js_path.read_text(encoding='utf-8')
+          js = js.replace('   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构.\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
+                          '   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。')
           js = js.replace('   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
                           '   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。')
           js = js.replace('const MODEL_VERSION = "20260711_model_border_v2";', 'const MODEL_VERSION = "20260711_model_border_v3";')
@@ -186,12 +189,11 @@ jobs:
           print('Total model records:', total)
           PY
 
-      - name: Commit generated model data and remove one-off workflow
+      - name: Commit generated model data to the pull-request branch
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .github/workflows/oneoff-convert-014-031-039.yml
           git add \
             data/model_boxes/glyph_model_border_011_015.json \
             data/model_boxes/glyph_model_border_031_035.json \
@@ -199,4 +201,4 @@ jobs:
             data/model_boxes/manifest.json \
             js/detail_info_patch.js
           git commit -m "Move 014 031 039 glyph data into model boxes"
-          git push
+          git push origin HEAD:${{ github.head_ref }}
