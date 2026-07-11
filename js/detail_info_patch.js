@@ -280,3 +280,214 @@
     loadAndApply();
   }
 })();
+
+/* 当前页连续释文：页码约20%，释文约80%，单行居中并支持手动横向滚动。 */
+(function(){
+  let loadPageWrapped=false;
+  let originalLoadPageForTranscript=null;
+  let refreshTimer=0;
+
+  function escapeText(value){
+    return String(value == null ? "" : value)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;");
+  }
+
+  function ensurePageTranscriptStyle(){
+    if(document.getElementById("page-transcript-status-style")) return;
+    const style=document.createElement("style");
+    style.id="page-transcript-status-style";
+    style.textContent=`
+      .reader-status.page-transcript-status{
+        width:100%;
+        max-width:none;
+        min-height:52px;
+        margin:0 auto 12px;
+        padding:0;
+        display:grid;
+        grid-template-columns:20% 80%;
+        align-items:stretch;
+        overflow:hidden;
+        border:1px solid #ead7b7;
+        border-radius:999px;
+        background:#fff8e8;
+        color:#74685c;
+        font-size:16px;
+        line-height:1;
+        text-align:center;
+      }
+      .page-transcript-page{
+        min-width:0;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:0 14px;
+        white-space:nowrap;
+        border-right:1px solid #d8bd86;
+        color:#74685c;
+      }
+      .page-transcript-scroll{
+        min-width:0;
+        width:100%;
+        overflow-x:auto;
+        overflow-y:hidden;
+        cursor:grab;
+        scrollbar-width:thin;
+        scrollbar-color:#d8bd86 transparent;
+        overscroll-behavior-x:contain;
+        touch-action:pan-x;
+      }
+      .page-transcript-scroll.dragging{
+        cursor:grabbing;
+        user-select:none;
+      }
+      .page-transcript-scroll::-webkit-scrollbar{height:5px;}
+      .page-transcript-scroll::-webkit-scrollbar-track{background:transparent;}
+      .page-transcript-scroll::-webkit-scrollbar-thumb{
+        background:#d8bd86;
+        border-radius:999px;
+      }
+      .page-transcript-inner{
+        display:block;
+        width:max-content;
+        min-width:100%;
+        padding:0 24px;
+        white-space:nowrap;
+        text-align:center;
+        font-family:"SimSun","Songti SC",serif;
+        font-size:19px;
+        line-height:47px;
+        color:#342820;
+      }
+      .page-transcript-label{
+        margin-right:.7em;
+        color:#9f3025;
+        font-family:"Microsoft YaHei","Noto Sans SC",Arial,sans-serif;
+        font-size:14px;
+        font-weight:900;
+        letter-spacing:.08em;
+      }
+      @media(max-width:760px){
+        .reader-status.page-transcript-status{font-size:13px;}
+        .page-transcript-page{padding:0 7px;}
+        .page-transcript-inner{padding:0 14px;font-size:17px;}
+        .page-transcript-label{font-size:12px;}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function getContinuousTranscript(){
+    if(typeof currentGlyphs==="undefined" || !Array.isArray(currentGlyphs)) return "";
+    return currentGlyphs
+      .map((row,index)=>({row,index}))
+      .sort((a,b)=>{
+        const ao=Number(a.row && a.row.order_in_page);
+        const bo=Number(b.row && b.row.order_in_page);
+        const av=Number.isFinite(ao) && ao>0 ? ao : a.index+1;
+        const bv=Number.isFinite(bo) && bo>0 ? bo : b.index+1;
+        return av-bv || a.index-b.index;
+      })
+      .map(item=>String((item.row && (item.row.char || item.row.text)) || "").slice(0,1))
+      .filter(Boolean)
+      .join("");
+  }
+
+  function bindManualScroll(scroller){
+    if(!scroller || scroller.dataset.manualScrollBound==="1") return;
+    scroller.dataset.manualScrollBound="1";
+
+    scroller.addEventListener("wheel",event=>{
+      if(scroller.scrollWidth<=scroller.clientWidth) return;
+      const delta=Math.abs(event.deltaX)>Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+      if(!delta) return;
+      event.preventDefault();
+      scroller.scrollLeft+=delta;
+    },{passive:false});
+
+    let dragging=false;
+    let startX=0;
+    let startLeft=0;
+
+    scroller.addEventListener("pointerdown",event=>{
+      if(event.pointerType!=="mouse" || event.button!==0 || scroller.scrollWidth<=scroller.clientWidth) return;
+      dragging=true;
+      startX=event.clientX;
+      startLeft=scroller.scrollLeft;
+      scroller.classList.add("dragging");
+      scroller.setPointerCapture(event.pointerId);
+    });
+
+    scroller.addEventListener("pointermove",event=>{
+      if(!dragging) return;
+      scroller.scrollLeft=startLeft-(event.clientX-startX);
+    });
+
+    function stopDrag(event){
+      if(!dragging) return;
+      dragging=false;
+      scroller.classList.remove("dragging");
+      try{scroller.releasePointerCapture(event.pointerId);}catch(_){ }
+    }
+
+    scroller.addEventListener("pointerup",stopDrag);
+    scroller.addEventListener("pointercancel",stopDrag);
+  }
+
+  function renderPageTranscriptStatus(){
+    const status=document.getElementById("readerStatus");
+    if(!status || typeof pages==="undefined" || !Array.isArray(pages) || !pages.length) return;
+
+    const pageNumber=(typeof currentPageIndex==="number" ? currentPageIndex : 0)+1;
+    const totalPages=pages.length;
+    const transcript=getContinuousTranscript();
+    const displayText=transcript || "本页暂无可显示释文";
+
+    status.classList.add("page-transcript-status");
+    status.innerHTML=`
+      <span class="page-transcript-page">当前第 ${pageNumber} 页，共 ${totalPages} 页</span>
+      <span class="page-transcript-scroll" title="可使用滚轮、鼠标拖动或触摸左右滑动查看完整本页释文" aria-label="本页连续释文，可横向滚动">
+        <span class="page-transcript-inner"><span class="page-transcript-label">本页释文</span>${escapeText(displayText)}</span>
+      </span>
+    `;
+
+    const scroller=status.querySelector(".page-transcript-scroll");
+    if(scroller){
+      scroller.scrollLeft=0;
+      bindManualScroll(scroller);
+    }
+  }
+
+  function scheduleTranscriptRefresh(){
+    clearTimeout(refreshTimer);
+    refreshTimer=setTimeout(()=>{
+      requestAnimationFrame(renderPageTranscriptStatus);
+    },20);
+  }
+
+  function installPageTranscriptStatus(){
+    ensurePageTranscriptStyle();
+    if(loadPageWrapped) return;
+    if(typeof loadPage!=="function"){
+      setTimeout(installPageTranscriptStatus,50);
+      return;
+    }
+
+    originalLoadPageForTranscript=loadPage;
+    loadPage=async function(...args){
+      const result=await originalLoadPageForTranscript.apply(this,args);
+      scheduleTranscriptRefresh();
+      return result;
+    };
+    loadPageWrapped=true;
+
+    [0,120,350,700].forEach(delay=>setTimeout(renderPageTranscriptStatus,delay));
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",installPageTranscriptStatus);
+  }else{
+    installPageTranscriptStatus();
+  }
+})();
