@@ -2,7 +2,7 @@ name: One-off convert 014 031 039 to model boxes
 
 on:
   pull_request:
-    types: [opened]
+    types: [synchronize]
     paths:
       - '.github/model-conversion-trigger'
 
@@ -140,8 +140,6 @@ jobs:
 
           js_path = ROOT / 'js/detail_info_patch.js'
           js = js_path.read_text(encoding='utf-8')
-          js = js.replace('   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构.\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
-                          '   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。')
           js = js.replace('   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
                           '   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。')
           js = js.replace('const MODEL_VERSION = "20260711_model_border_v2";', 'const MODEL_VERSION = "20260711_model_border_v3";')
