@@ -1,13 +1,108 @@
-/* 碑帖简介 / 收藏历史 / 背景故事补丁
-   只读取 data/beitie_info_texts.json 并覆盖详情页文字，不改变原有翻页、红框、弹窗等功能。 */
+/* 碑帖详情页补丁
+   1. 读取 data/beitie_info_texts.json 并覆盖作品简介、收藏历史、背景故事。
+   2. 42件普通碑帖优先使用深度学习最终边框坐标（border refined）。
+   3. 014、031、039继续使用原有 IIIF 坐标兜底。
+*/
 (function(){
+  const MODEL_VERSION = "20260711_model_border_v1";
+  const IIIF_ONLY_WORKS = new Set(["014","031","039"]);
+  const rawId = String(new URLSearchParams(location.search).get("id") || "001");
+  const parentId = (rawId.includes("-") ? rawId.split("-")[0] : rawId).padStart(3,"0");
+
+  let modelShardPromise = null;
+  let originalLoadPageGlyphBoxes = null;
+  let modelOverrideInstalled = false;
+
+  function modelShardUrl(id){
+    const n = Number(String(id).slice(0,3));
+    if(!Number.isFinite(n) || n < 1 || n > 45) return "";
+    const start = Math.floor((n - 1) / 5) * 5 + 1;
+    const end = Math.min(start + 4, 45);
+    const a = String(start).padStart(3,"0");
+    const b = String(end).padStart(3,"0");
+    return `data/model_boxes/glyph_model_border_${a}_${b}.json?v=${MODEL_VERSION}`;
+  }
+
+  async function loadModelShard(){
+    if(IIIF_ONLY_WORKS.has(parentId)) return [];
+    if(modelShardPromise) return modelShardPromise;
+    const url = modelShardUrl(parentId);
+    if(!url) return [];
+    modelShardPromise = fetch(url,{cache:"no-store"})
+      .then(res=>{
+        if(!res.ok) throw new Error(`${url} ${res.status}`);
+        return res.json();
+      })
+      .then(data=>Array.isArray(data)?data:[])
+      .catch(err=>{
+        console.warn("[model-boxes] shard load failed",err);
+        return [];
+      });
+    return modelShardPromise;
+  }
+
+  function normalizeModelRows(rows,pageObj){
+    return rows.map((r,i)=>({
+      ...r,
+      glyph_id:r.glyph_id || `${parentId}_p${pageObj.canvas_index}_m${i+1}`,
+      char:String(r.char || r.text || "").slice(0,1),
+      text:String(r.char || r.text || "").slice(0,1),
+      order_in_page:+(r.order_in_page || i+1),
+      canvas_index:+pageObj.canvas_index,
+      canvas_label:pageObj.canvas_label || pageObj.label || pageObj.canvas_index,
+      local_image:pageObj.image,
+      canvas_width:+(r.canvas_width || pageObj.canvas_width || 0),
+      canvas_height:+(r.canvas_height || pageObj.canvas_height || 0),
+      x:+r.x,
+      y:+r.y,
+      w:+r.w,
+      h:+r.h,
+      source:"model_border_refined"
+    }));
+  }
+
+  function installModelBoxOverride(){
+    if(modelOverrideInstalled || IIIF_ONLY_WORKS.has(parentId)) return;
+    if(typeof loadPageGlyphBoxes !== "function"){
+      setTimeout(installModelBoxOverride,50);
+      return;
+    }
+
+    originalLoadPageGlyphBoxes = loadPageGlyphBoxes;
+    loadPageGlyphBoxes = async function(id,pageObj){
+      const shard = await loadModelShard();
+      const pageNo = +(pageObj.canvas_index ?? pageObj.page ?? 0);
+      const rows = shard.filter(r=>
+        String(r.work_id || "").padStart(3,"0") === parentId &&
+        +r.canvas_index === pageNo
+      );
+      if(rows.length) return normalizeModelRows(rows,pageObj);
+      return originalLoadPageGlyphBoxes(id,pageObj);
+    };
+    modelOverrideInstalled = true;
+
+    /* 首屏可能已开始读取旧IIIF框；模型分片就绪后主动重绘当前页。 */
+    loadModelShard().then(data=>{
+      if(!data.length) return;
+      setTimeout(()=>{
+        try{
+          if(typeof loadPage === "function" && typeof currentPageIndex !== "undefined"){
+            loadPage(currentPageIndex);
+          }
+        }catch(err){
+          console.warn("[model-boxes] rerender failed",err);
+        }
+      },0);
+    });
+  }
+
+  installModelBoxOverride();
+
   const INFO_URL = "data/beitie_info_texts.json?v=20260629_info";
   let infoCache = null;
 
   function workId(){
-    const raw = String(new URLSearchParams(location.search).get("id") || "001");
-    const id = raw.includes("-") ? raw.split("-")[0] : raw.padStart(3,"0");
-    return id;
+    return parentId;
   }
 
   function esc(s){
@@ -36,17 +131,17 @@
     }).join("") + '</div>';
   }
 
-  function setText(selector, text){
-    const el = document.querySelector(selector);
-    if(el && text) el.textContent = text;
+  function setText(selector,text){
+    const el=document.querySelector(selector);
+    if(el && text) el.textContent=text;
   }
 
-  function updateMetaLine(label, value){
+  function updateMetaLine(label,value){
     if(!value) return;
     document.querySelectorAll(".meta-line").forEach(line=>{
-      const b=line.querySelector("b"), span=line.querySelector("span");
+      const b=line.querySelector("b"),span=line.querySelector("span");
       if(b && span && b.textContent.trim().includes(label)){
-        span.textContent = value;
+        span.textContent=value;
       }
     });
   }
@@ -54,53 +149,53 @@
   function applyBasic(info){
     if(!info) return;
     if(info.title){
-      document.title = info.title + " · 碑帖智能读析平台";
-      setText(".info-panel h1", info.title);
-      setText(".side .work-name", info.title);
-      setText(".cover-label", info.title);
+      document.title=info.title+" · 碑帖智能读析平台";
+      setText(".info-panel h1",info.title);
+      setText(".side .work-name",info.title);
+      setText(".cover-label",info.title);
     }
-    if(info.summary) setText(".alias", info.summary);
-    const b = info.basic || {};
-    updateMetaLine("责任者", b["责任者"]);
-    updateMetaLine("书体", b["书体"]);
-    updateMetaLine("版本", b["版本"]);
-    updateMetaLine("数量", b["数量"]);
-    updateMetaLine("尺寸", b["尺寸"]);
-    updateMetaLine("年代", b["年代"]);
-    updateMetaLine("地点", b["地点"]);
-    updateMetaLine("馆藏", b["馆藏"]);
-    updateMetaLine("来源", b["来源"]);
+    if(info.summary) setText(".alias",info.summary);
+    const b=info.basic || {};
+    updateMetaLine("责任者",b["责任者"]);
+    updateMetaLine("书体",b["书体"]);
+    updateMetaLine("版本",b["版本"]);
+    updateMetaLine("数量",b["数量"]);
+    updateMetaLine("尺寸",b["尺寸"]);
+    updateMetaLine("年代",b["年代"]);
+    updateMetaLine("地点",b["地点"]);
+    updateMetaLine("馆藏",b["馆藏"]);
+    updateMetaLine("来源",b["来源"]);
   }
 
-  function setModal(kind, title, subtitle, bodyText){
-    const btn = document.querySelector(`[data-modal="${kind}"]`);
-    const modal = document.getElementById(`modal-${kind}`);
+  function setModal(kind,title,subtitle,bodyText){
+    const btn=document.querySelector(`[data-modal="${kind}"]`);
+    const modal=document.getElementById(`modal-${kind}`);
     if(!btn || !modal) return;
 
     if(!bodyText){
-      btn.style.display = "none";
+      btn.style.display="none";
       return;
     }
 
-    btn.style.display = "";
-    const strong = btn.querySelector("strong");
-    const desc = btn.querySelector("span:last-child");
-    if(strong) strong.textContent = title;
-    if(desc) desc.textContent = subtitle;
+    btn.style.display="";
+    const strong=btn.querySelector("strong");
+    const desc=btn.querySelector("span:last-child");
+    if(strong) strong.textContent=title;
+    if(desc) desc.textContent=subtitle;
 
-    const titleEl = modal.querySelector(".modal-title");
-    const subEl = modal.querySelector(".modal-subtitle");
-    const body = modal.querySelector(".modal-body");
-    if(titleEl) titleEl.textContent = title;
-    if(subEl) subEl.textContent = subtitle;
-    if(body) body.innerHTML = textToHtml(bodyText);
+    const titleEl=modal.querySelector(".modal-title");
+    const subEl=modal.querySelector(".modal-subtitle");
+    const body=modal.querySelector(".modal-body");
+    if(titleEl) titleEl.textContent=title;
+    if(subEl) subEl.textContent=subtitle;
+    if(body) body.innerHTML=textToHtml(bodyText);
   }
 
   function ensureStyle(){
     if(document.getElementById("beitie-info-style")) return;
     const style=document.createElement("style");
     style.id="beitie-info-style";
-    style.textContent = `
+    style.textContent=`
       .alias{display:none!important;}
       .work-hero{align-items:stretch!important;}
       .work-hero .cover-panel{height:auto!important;min-height:310px!important;align-self:stretch!important;}
@@ -136,38 +231,52 @@
     document.head.appendChild(style);
   }
 
+  function updateSourceNote(){
+    const sourceParagraph=document.querySelector("#sources p");
+    if(!sourceParagraph) return;
+    if(IIIF_ONLY_WORKS.has(parentId)){
+      sourceParagraph.innerHTML="本作品暂未纳入深度学习最终坐标结果，单字定位继续读取 <code>data/glyph_boxes/iiif</code> 中的 IIIF 坐标。";
+    }else{
+      sourceParagraph.innerHTML="本作品的单字定位优先读取深度学习模型最终边框修正坐标；模型页无结果时，再读取 <code>data/glyph_boxes/iiif</code> 中的 IIIF 坐标兜底。";
+    }
+  }
+
   function applyInfo(info){
     ensureStyle();
     applyBasic(info);
-    setModal("history", "收藏历史", "流传经历与题记。", info.history || "");
-    setModal("story", "背景故事", "作品背景、版本线索与重要考据点。", info.story || "");
+    updateSourceNote();
+    setModal("history","收藏历史","流传经历与题记。",info.history || "");
+    setModal("story","背景故事","作品背景、版本线索与重要考据点。",info.story || "");
   }
 
   async function loadAndApply(){
     try{
       if(!infoCache){
-        const res = await fetch(INFO_URL, {cache:"no-store"});
+        const res=await fetch(INFO_URL,{cache:"no-store"});
         if(!res.ok) return;
-        infoCache = await res.json();
+        infoCache=await res.json();
       }
-      const info = infoCache && infoCache.items && infoCache.items[workId()];
-      if(!info) return;
+      const info=infoCache && infoCache.items && infoCache.items[workId()];
+      if(!info){
+        updateSourceNote();
+        return;
+      }
       applyInfo(info);
 
-      // detail.html 本身会异步读取旧数据，所以这里重复覆盖几次，避免被旧模板反写。
+      /* detail.html 会异步写入旧模板，短时间内重复覆盖。 */
       let n=0;
       const timer=setInterval(()=>{
         applyInfo(info);
-        n += 1;
-        if(n >= 12) clearInterval(timer);
-      }, 350);
+        n+=1;
+        if(n>=12) clearInterval(timer);
+      },350);
     }catch(e){
-      console.warn("[beitie-info] failed", e);
+      console.warn("[beitie-info] failed",e);
     }
   }
 
-  if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", loadAndApply);
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",loadAndApply);
   }else{
     loadAndApply();
   }
