@@ -1,11 +1,9 @@
 /* 碑帖详情页补丁
    1. 读取 data/beitie_info_texts.json 并覆盖作品简介、收藏历史、背景故事。
-   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。
-   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。
+   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。
 */
 (function(){
-  const MODEL_VERSION = "20260711_model_border_v2";
-  const MODEL_COMPAT_WORKS = new Set(["014","031","039"]);
+  const MODEL_VERSION = "20260711_model_border_v3";
   const rawId = String(new URLSearchParams(location.search).get("id") || "001");
   const parentId = (rawId.includes("-") ? rawId.split("-")[0] : rawId).padStart(3,"0");
 
@@ -60,30 +58,6 @@
     }));
   }
 
-  function normalizeCompatibleRows(rows,pageObj){
-    return rows.map((r,i)=>{
-      const bbox = Array.isArray(r.bbox) ? r.bbox : [];
-      const bboxXYWH = Array.isArray(r.bbox_xywh) ? r.bbox_xywh : [];
-      const x = +(r.x ?? r.border_x ?? r.display_x ?? r.model_x ?? r.bbox_x ?? bbox[0] ?? bboxXYWH[0] ?? 0);
-      const y = +(r.y ?? r.border_y ?? r.display_y ?? r.model_y ?? r.bbox_y ?? bbox[1] ?? bboxXYWH[1] ?? 0);
-      const w = +(r.w ?? r.border_w ?? r.display_w ?? r.model_w ?? r.bbox_w ?? bbox[2] ?? bboxXYWH[2] ?? 0);
-      const h = +(r.h ?? r.border_h ?? r.display_h ?? r.model_h ?? r.bbox_h ?? bbox[3] ?? bboxXYWH[3] ?? 0);
-      return {
-        ...r,
-        glyph_id:r.glyph_id || `${parentId}_p${pageObj.canvas_index}_m${i+1}`,
-        char:String(r.char || r.text || "").slice(0,1),
-        text:String(r.char || r.text || "").slice(0,1),
-        order_in_page:+(r.order_in_page || r.annotation_index || i+1),
-        canvas_index:+pageObj.canvas_index,
-        canvas_label:pageObj.canvas_label || pageObj.label || pageObj.canvas_index,
-        local_image:pageObj.image,
-        canvas_width:+(r.canvas_width || pageObj.canvas_width || 0),
-        canvas_height:+(r.canvas_height || pageObj.canvas_height || 0),
-        x,y,w,h,
-        source:"model_border_refined"
-      };
-    });
-  }
 
   function installModelBoxOverride(){
     if(modelOverrideInstalled) return;
@@ -96,23 +70,23 @@
     loadPageGlyphBoxes = async function(id,pageObj){
       const shard = await loadModelShard();
       const pageNo = +(pageObj.canvas_index ?? pageObj.page ?? 0);
-      const rows = shard.filter(r=>
-        String(r.work_id || "").padStart(3,"0") === parentId &&
-        +r.canvas_index === pageNo
-      );
+      const effectiveId = (typeof EFFECTIVE_WORK_ID !== "undefined" && EFFECTIVE_WORK_ID)
+        ? String(EFFECTIVE_WORK_ID)
+        : (rawId.includes("-") ? rawId : parentId);
+      const rows = shard.filter(r=>{
+        const recordWorkId = String(r.work_id || "").padStart(3,"0");
+        const recordVirtualId = String(r.virtual_id || "");
+        const idMatches = recordVirtualId ? recordVirtualId === effectiveId : recordWorkId === parentId;
+        return idMatches && +r.canvas_index === pageNo;
+      });
       if(rows.length) return normalizeModelRows(rows,pageObj);
-
-      const compatibleRows = await originalLoadPageGlyphBoxes(id,pageObj);
-      if(MODEL_COMPAT_WORKS.has(parentId) && compatibleRows.length){
-        return normalizeCompatibleRows(compatibleRows,pageObj);
-      }
-      return compatibleRows;
+      return originalLoadPageGlyphBoxes(id,pageObj);
     };
     modelOverrideInstalled = true;
 
     /* 首屏可能已开始读取旧字框；统一数据就绪后主动重绘当前页。 */
     loadModelShard().then(data=>{
-      if(!data.length && !MODEL_COMPAT_WORKS.has(parentId)) return;
+      if(!data.length) return;
       setTimeout(()=>{
         try{
           if(typeof loadPage === "function" && typeof currentPageIndex !== "undefined"){
@@ -263,11 +237,7 @@
   function updateSourceNote(){
     const sourceParagraph=document.querySelector("#sources p");
     if(!sourceParagraph) return;
-    if(MODEL_COMPAT_WORKS.has(parentId)){
-      sourceParagraph.innerHTML="本作品的单字定位已采用与深度学习结果一致的统一边框坐标结构。";
-    }else{
-      sourceParagraph.innerHTML="本作品的单字定位优先读取深度学习模型最终边框修正坐标；模型页无结果时，再读取备用坐标。";
-    }
+    sourceParagraph.innerHTML="本作品的单字定位读取统一的深度学习模型最终边框坐标数据。";
   }
 
   function applyInfo(info){
