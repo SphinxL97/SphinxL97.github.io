@@ -1,11 +1,11 @@
 /* 碑帖详情页补丁
    1. 读取 data/beitie_info_texts.json 并覆盖作品简介、收藏历史、背景故事。
-   2. 42件普通碑帖优先使用深度学习最终边框坐标（border refined）。
-   3. 014、031、039继续使用原有 IIIF 坐标兜底。
+   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。
+   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。
 */
 (function(){
-  const MODEL_VERSION = "20260711_model_border_v1";
-  const IIIF_ONLY_WORKS = new Set(["014","031","039"]);
+  const MODEL_VERSION = "20260711_model_border_v2";
+  const MODEL_COMPAT_WORKS = new Set(["014","031","039"]);
   const rawId = String(new URLSearchParams(location.search).get("id") || "001");
   const parentId = (rawId.includes("-") ? rawId.split("-")[0] : rawId).padStart(3,"0");
 
@@ -24,7 +24,6 @@
   }
 
   async function loadModelShard(){
-    if(IIIF_ONLY_WORKS.has(parentId)) return [];
     if(modelShardPromise) return modelShardPromise;
     const url = modelShardUrl(parentId);
     if(!url) return [];
@@ -61,8 +60,33 @@
     }));
   }
 
+  function normalizeCompatibleRows(rows,pageObj){
+    return rows.map((r,i)=>{
+      const bbox = Array.isArray(r.bbox) ? r.bbox : [];
+      const bboxXYWH = Array.isArray(r.bbox_xywh) ? r.bbox_xywh : [];
+      const x = +(r.x ?? r.border_x ?? r.display_x ?? r.model_x ?? r.bbox_x ?? bbox[0] ?? bboxXYWH[0] ?? 0);
+      const y = +(r.y ?? r.border_y ?? r.display_y ?? r.model_y ?? r.bbox_y ?? bbox[1] ?? bboxXYWH[1] ?? 0);
+      const w = +(r.w ?? r.border_w ?? r.display_w ?? r.model_w ?? r.bbox_w ?? bbox[2] ?? bboxXYWH[2] ?? 0);
+      const h = +(r.h ?? r.border_h ?? r.display_h ?? r.model_h ?? r.bbox_h ?? bbox[3] ?? bboxXYWH[3] ?? 0);
+      return {
+        ...r,
+        glyph_id:r.glyph_id || `${parentId}_p${pageObj.canvas_index}_m${i+1}`,
+        char:String(r.char || r.text || "").slice(0,1),
+        text:String(r.char || r.text || "").slice(0,1),
+        order_in_page:+(r.order_in_page || r.annotation_index || i+1),
+        canvas_index:+pageObj.canvas_index,
+        canvas_label:pageObj.canvas_label || pageObj.label || pageObj.canvas_index,
+        local_image:pageObj.image,
+        canvas_width:+(r.canvas_width || pageObj.canvas_width || 0),
+        canvas_height:+(r.canvas_height || pageObj.canvas_height || 0),
+        x,y,w,h,
+        source:"model_border_refined"
+      };
+    });
+  }
+
   function installModelBoxOverride(){
-    if(modelOverrideInstalled || IIIF_ONLY_WORKS.has(parentId)) return;
+    if(modelOverrideInstalled) return;
     if(typeof loadPageGlyphBoxes !== "function"){
       setTimeout(installModelBoxOverride,50);
       return;
@@ -77,13 +101,18 @@
         +r.canvas_index === pageNo
       );
       if(rows.length) return normalizeModelRows(rows,pageObj);
-      return originalLoadPageGlyphBoxes(id,pageObj);
+
+      const compatibleRows = await originalLoadPageGlyphBoxes(id,pageObj);
+      if(MODEL_COMPAT_WORKS.has(parentId) && compatibleRows.length){
+        return normalizeCompatibleRows(compatibleRows,pageObj);
+      }
+      return compatibleRows;
     };
     modelOverrideInstalled = true;
 
-    /* 首屏可能已开始读取旧IIIF框；模型分片就绪后主动重绘当前页。 */
+    /* 首屏可能已开始读取旧字框；统一数据就绪后主动重绘当前页。 */
     loadModelShard().then(data=>{
-      if(!data.length) return;
+      if(!data.length && !MODEL_COMPAT_WORKS.has(parentId)) return;
       setTimeout(()=>{
         try{
           if(typeof loadPage === "function" && typeof currentPageIndex !== "undefined"){
@@ -234,10 +263,10 @@
   function updateSourceNote(){
     const sourceParagraph=document.querySelector("#sources p");
     if(!sourceParagraph) return;
-    if(IIIF_ONLY_WORKS.has(parentId)){
-      sourceParagraph.innerHTML="本作品暂未纳入深度学习最终坐标结果，单字定位继续读取 <code>data/glyph_boxes/iiif</code> 中的 IIIF 坐标。";
+    if(MODEL_COMPAT_WORKS.has(parentId)){
+      sourceParagraph.innerHTML="本作品的单字定位已采用与深度学习结果一致的统一边框坐标结构。";
     }else{
-      sourceParagraph.innerHTML="本作品的单字定位优先读取深度学习模型最终边框修正坐标；模型页无结果时，再读取 <code>data/glyph_boxes/iiif</code> 中的 IIIF 坐标兜底。";
+      sourceParagraph.innerHTML="本作品的单字定位优先读取深度学习模型最终边框修正坐标；模型页无结果时，再读取备用坐标。";
     }
   }
 
