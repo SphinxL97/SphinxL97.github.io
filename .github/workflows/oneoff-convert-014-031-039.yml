@@ -71,10 +71,10 @@ jobs:
               for filename in page_files:
                   path = Path(filename)
                   virtual_id = path.parent.name
-                  m = re.search(r'page_(\d+)\.json$', path.name)
-                  if not m:
+                  match = re.search(r'page_(\d+)\.json$', path.name)
+                  if not match:
                       continue
-                  page_no = int(m.group(1))
+                  page_no = int(match.group(1))
                   try:
                       rows = json.loads(path.read_text(encoding='utf-8'))
                   except Exception:
@@ -140,45 +140,60 @@ jobs:
 
           js_path = ROOT / 'js/detail_info_patch.js'
           js = js_path.read_text(encoding='utf-8')
-          js = js.replace('   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
-                          '   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。')
+          js = js.replace(
+              '   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
+              '   2. 45件碑帖统一读取 data/model_boxes 中的 model_border_refined 字框。',
+          )
           js = js.replace('const MODEL_VERSION = "20260711_model_border_v2";', 'const MODEL_VERSION = "20260711_model_border_v3";')
           js = re.sub(r'\n  const MODEL_COMPAT_WORKS = new Set\(\["014","031","039"\]\);', '', js, count=1)
-          js = re.sub(r'\n  function normalizeCompatibleRows\(rows,pageObj\)\{.*?\n  \}\n\n  function installModelBoxOverride',
-                      '\n\n  function installModelBoxOverride', js, count=1, flags=re.S)
+          js = re.sub(
+              r'\n  function normalizeCompatibleRows\(rows,pageObj\)\{.*?\n  \}\n\n  function installModelBoxOverride',
+              '\n\n  function installModelBoxOverride',
+              js,
+              count=1,
+              flags=re.S,
+          )
 
-          old_filter = '''      const rows = shard.filter(r=>
-        String(r.work_id || "").padStart(3,"0") === parentId &&
-        +r.canvas_index === pageNo
-      );
-      if(rows.length) return normalizeModelRows(rows,pageObj);
-
-      const compatibleRows = await originalLoadPageGlyphBoxes(id,pageObj);
-      if(MODEL_COMPAT_WORKS.has(parentId) && compatibleRows.length){
-        return normalizeCompatibleRows(compatibleRows,pageObj);
-      }
-      return compatibleRows;'''
-          new_filter = '''      const effectiveId = (typeof EFFECTIVE_WORK_ID !== "undefined" && EFFECTIVE_WORK_ID)
-        ? String(EFFECTIVE_WORK_ID)
-        : (rawId.includes("-") ? rawId : parentId);
-      const rows = shard.filter(r=>{
-        const recordWorkId = String(r.work_id || "").padStart(3,"0");
-        const recordVirtualId = String(r.virtual_id || "");
-        const idMatches = recordVirtualId ? recordVirtualId === effectiveId : recordWorkId === parentId;
-        return idMatches && +r.canvas_index === pageNo;
-      });
-      if(rows.length) return normalizeModelRows(rows,pageObj);
-      return originalLoadPageGlyphBoxes(id,pageObj);'''
+          old_filter = "\n".join([
+              '      const rows = shard.filter(r=>',
+              '        String(r.work_id || "").padStart(3,"0") === parentId &&',
+              '        +r.canvas_index === pageNo',
+              '      );',
+              '      if(rows.length) return normalizeModelRows(rows,pageObj);',
+              '',
+              '      const compatibleRows = await originalLoadPageGlyphBoxes(id,pageObj);',
+              '      if(MODEL_COMPAT_WORKS.has(parentId) && compatibleRows.length){',
+              '        return normalizeCompatibleRows(compatibleRows,pageObj);',
+              '      }',
+              '      return compatibleRows;',
+          ])
+          new_filter = "\n".join([
+              '      const effectiveId = (typeof EFFECTIVE_WORK_ID !== "undefined" && EFFECTIVE_WORK_ID)',
+              '        ? String(EFFECTIVE_WORK_ID)',
+              '        : (rawId.includes("-") ? rawId : parentId);',
+              '      const rows = shard.filter(r=>{',
+              '        const recordWorkId = String(r.work_id || "").padStart(3,"0");',
+              '        const recordVirtualId = String(r.virtual_id || "");',
+              '        const idMatches = recordVirtualId ? recordVirtualId === effectiveId : recordWorkId === parentId;',
+              '        return idMatches && +r.canvas_index === pageNo;',
+              '      });',
+              '      if(rows.length) return normalizeModelRows(rows,pageObj);',
+              '      return originalLoadPageGlyphBoxes(id,pageObj);',
+          ])
           if old_filter not in js:
               raise RuntimeError('Expected compatibility filter block was not found')
           js = js.replace(old_filter, new_filter, 1)
           js = js.replace('      if(!data.length && !MODEL_COMPAT_WORKS.has(parentId)) return;', '      if(!data.length) return;', 1)
-          js = re.sub(r'''  function updateSourceNote\(\)\{\n    const sourceParagraph=document\.querySelector\("#sources p"\);\n    if\(!sourceParagraph\) return;\n    if\(MODEL_COMPAT_WORKS\.has\(parentId\)\)\{\n      sourceParagraph\.innerHTML="[^"]*";\n    \}else\{\n      sourceParagraph\.innerHTML="[^"]*";\n    \}\n  \}''',
-                      '''  function updateSourceNote(){
-    const sourceParagraph=document.querySelector("#sources p");
-    if(!sourceParagraph) return;
-    sourceParagraph.innerHTML="本作品的单字定位读取统一的深度学习模型最终边框坐标数据。";
-  }''', js, count=1)
+
+          source_note_pattern = r'  function updateSourceNote\(\)\{.*?\n  \}'
+          source_note_replacement = "\n".join([
+              '  function updateSourceNote(){',
+              '    const sourceParagraph=document.querySelector("#sources p");',
+              '    if(!sourceParagraph) return;',
+              '    sourceParagraph.innerHTML="本作品的单字定位读取统一的深度学习模型最终边框坐标数据。";',
+              '  }',
+          ])
+          js = re.sub(source_note_pattern, source_note_replacement, js, count=1, flags=re.S)
           if 'MODEL_COMPAT_WORKS' in js or 'normalizeCompatibleRows' in js:
               raise RuntimeError('Compatibility code still remains')
           js_path.write_text(js, encoding='utf-8')
