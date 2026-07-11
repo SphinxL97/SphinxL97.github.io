@@ -598,3 +598,28 @@
     applyReaderTocLabels();
   }
 })();
+
+
+/* 全部碑帖页面统一栏目标题；仅改标题文字，不改栏目内容。 */
+(function(){
+  const headingMap={
+    reader:"一、碑帖浏览",
+    calligraphy:"二、碑文释文",
+    people:"三、残缺字迹展示",
+    places:"四、众智释读",
+    sources:"五、书法艺术赏析"
+  };
+
+  function applySectionHeadings(){
+    Object.entries(headingMap).forEach(([id,title])=>{
+      const heading=document.querySelector(`#${id} > .section-title`);
+      if(heading) heading.textContent=title;
+    });
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",applySectionHeadings);
+  }else{
+    applySectionHeadings();
+  }
+})();
