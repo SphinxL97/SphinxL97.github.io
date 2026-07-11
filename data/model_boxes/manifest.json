@@ -1,6 +1,6 @@
 {
-  "version": "20260711_model_border_v1",
-  "total_records": 53842,
+  "version": "20260711_model_border_v3",
+  "total_records": 75687,
   "works": [
     "001",
     "002",
@@ -15,6 +15,7 @@
     "011",
     "012",
     "013",
+    "014",
     "015",
     "016",
     "017",
@@ -31,6 +32,7 @@
     "028",
     "029",
     "030",
+    "031",
     "032",
     "033",
     "034",
@@ -38,6 +40,7 @@
     "036",
     "037",
     "038",
+    "039",
     "040",
     "041",
     "042",
@@ -74,15 +77,16 @@
     },
     {
       "file": "data/model_boxes/glyph_model_border_011_015.json",
-      "records": 4012,
+      "records": 7286,
       "works": [
         "011",
         "012",
         "013",
+        "014",
         "015"
       ],
-      "bytes": 1063706,
-      "sha256": "9190c605f0a5fa9f00908e1942d4f0ac8638bf311b4a641cb9fbaf6dd2e4d5ef"
+      "bytes": 1940036,
+      "sha256": "52995c802c2ea22b452bbb408d57516269fbd71d9487b1ecb1f08a849c3b37be"
     },
     {
       "file": "data/model_boxes/glyph_model_border_016_020.json",
@@ -125,27 +129,29 @@
     },
     {
       "file": "data/model_boxes/glyph_model_border_031_035.json",
-      "records": 3493,
+      "records": 3734,
       "works": [
+        "031",
         "032",
         "033",
         "034",
         "035"
       ],
-      "bytes": 941100,
-      "sha256": "e805d55698d19ae955f128ec747b06496e816a6c63a140ae4788643d8f409716"
+      "bytes": 1005012,
+      "sha256": "ece9174e07b61dddd3ef2ed4acf6674eabea1906006370553bbe83f737d0f832"
     },
     {
       "file": "data/model_boxes/glyph_model_border_036_040.json",
-      "records": 4602,
+      "records": 22932,
       "works": [
         "036",
         "037",
         "038",
+        "039",
         "040"
       ],
-      "bytes": 1241063,
-      "sha256": "ce1a9c07a70d67a3ddddb6f94d61ec695ed58034aa3de37ed49e61eebed25893"
+      "bytes": 6111036,
+      "sha256": "796427ce0560a54d73ec2e9cebbd01a7643209f56c537c5289881f8704b1b5b1"
     },
     {
       "file": "data/model_boxes/glyph_model_border_041_045.json",
@@ -161,10 +167,5 @@
       "sha256": "853752b28a1a590987bd34f3411de3d9062a053d2bc01a338d5be142f407e0fb"
     }
   ],
-  "iiif_fallback": [
-    "014",
-    "031",
-    "039"
-  ],
-  "work_count": 42
+  "work_count": 45
 }
