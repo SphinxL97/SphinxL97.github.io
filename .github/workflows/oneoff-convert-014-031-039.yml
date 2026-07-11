@@ -1,3 +1,4 @@
+# one-off conversion trigger
 name: One-off convert 014 031 039 to model boxes
 
 on:
@@ -115,7 +116,6 @@ jobs:
               shard_path.write_text(json.dumps(shard, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
               added_counts[work_id] = len(converted)
 
-          # Update manifest, preserving its existing structure and file order.
           manifest_path = ROOT / 'data/model_boxes/manifest.json'
           manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
           manifest['version'] = '20260711_model_border_v3'
@@ -137,7 +137,6 @@ jobs:
           manifest['total_records'] = total
           manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
 
-          # Remove only the temporary compatibility layer from the existing patch.
           js_path = ROOT / 'js/detail_info_patch.js'
           js = js_path.read_text(encoding='utf-8')
           js = js.replace('   2. 45件碑帖统一采用与深度学习结果一致的字框表示结构。\n   3. 014、031、039沿用现有坐标数值，但在前端标准化为同样的 x/y/w/h 与 model_border_refined 表示。',
@@ -172,7 +171,6 @@ jobs:
           if old_filter not in js:
               raise RuntimeError('Expected compatibility filter block was not found')
           js = js.replace(old_filter, new_filter, 1)
-
           js = js.replace('      if(!data.length && !MODEL_COMPAT_WORKS.has(parentId)) return;', '      if(!data.length) return;', 1)
           js = re.sub(r'''  function updateSourceNote\(\)\{\n    const sourceParagraph=document\.querySelector\("#sources p"\);\n    if\(!sourceParagraph\) return;\n    if\(MODEL_COMPAT_WORKS\.has\(parentId\)\)\{\n      sourceParagraph\.innerHTML="[^"]*";\n    \}else\{\n      sourceParagraph\.innerHTML="[^"]*";\n    \}\n  \}''',
                       '''  function updateSourceNote(){
