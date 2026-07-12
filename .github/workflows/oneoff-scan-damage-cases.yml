@@ -1,0 +1,99 @@
+name: One-off scan damaged-text case locations
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '.github/damage-ai-scan-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Find exact Dao Yin case pages and model boxes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from collections import defaultdict
+
+          rows=json.loads(Path('data/model_boxes/glyph_model_border_001_005.json').read_text(encoding='utf-8'))
+          rows=[r for r in rows if str(r.get('work_id','')).zfill(3)=='001']
+          pages=defaultdict(list)
+          for r in rows:
+              pages[int(r.get('canvas_index',0))].append(r)
+          for p in pages:
+              pages[p].sort(key=lambda r:int(r.get('order_in_page',0)))
+
+          index=json.loads(Path('data/page_images_index.json').read_text(encoding='utf-8'))
+          page_map={int(p['page']):p['image'] for p in index['works']['001']['pages']}
+
+          targets={
+              'case1':['循堂室而濡涕','对几','而流恸'],
+              'case2':['逮乎初丱','方蒙落发'],
+              'case3':['沦羲','晦曜','慧日无光']
+          }
+
+          out={}
+          for name,parts in targets.items():
+              candidates=[]
+              for p,rs in sorted(pages.items()):
+                  text=''.join(str(r.get('char') or r.get('text') or '')[:1] for r in rs)
+                  score=sum(1 for part in parts if part in text)
+                  if score:
+                      candidates.append({'page':p,'image':page_map.get(p,''),'text':text,'score':score})
+              candidates.sort(key=lambda x:(-x['score'],x['page']))
+              if candidates:
+                  best=candidates[0]
+                  rs=pages[best['page']]
+                  text=best['text']
+                  if name=='case1':
+                      anchors=['循堂室而濡涕','对几','而流恸']
+                  elif name=='case2':
+                      anchors=['逮乎初丱','方蒙落发']
+                  else:
+                      anchors=['沦羲','晦曜','慧日无光']
+                  positions=[]
+                  for a in anchors:
+                      i=text.find(a)
+                      if i>=0:
+                          positions.extend(range(i,i+len(a)))
+                  if positions:
+                      selected=[rs[i] for i in sorted(set(positions)) if i<len(rs)]
+                  else:
+                      selected=[]
+                  if selected:
+                      minx=min(float(r['x']) for r in selected); miny=min(float(r['y']) for r in selected)
+                      maxx=max(float(r['x'])+float(r['w']) for r in selected); maxy=max(float(r['y'])+float(r['h']) for r in selected)
+                      pad=35
+                      cw=max(float(r.get('canvas_width') or 1) for r in selected)
+                      ch=max(float(r.get('canvas_height') or 1) for r in selected)
+                      crop={'x':max(0,minx-pad),'y':max(0,miny-pad),'w':min(cw,maxx+pad)-max(0,minx-pad),'h':min(ch,maxy+pad)-max(0,miny-pad),'canvas_width':cw,'canvas_height':ch}
+                  else:
+                      crop=None
+                  best['matched_boxes']=[{k:r.get(k) for k in ['glyph_id','char','x','y','w','h','canvas_width','canvas_height','order_in_page']} for r in selected]
+                  best['crop']=crop
+                  out[name]={'best':best,'candidates':candidates[:5]}
+              else:
+                  out[name]={'best':None,'candidates':[]}
+
+          Path('.github/damage_ai_scan_result.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+      - name: Commit scan result to branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/damage_ai_scan_result.json
+          git commit -m "Scan exact damaged-text case locations"
+          git push origin HEAD:${{ github.head_ref }}
