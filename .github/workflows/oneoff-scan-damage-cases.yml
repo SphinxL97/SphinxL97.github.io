@@ -37,55 +37,41 @@ jobs:
           index=json.loads(Path('data/page_images_index.json').read_text(encoding='utf-8'))
           page_map={int(p['page']):p['image'] for p in index['works']['001']['pages']}
 
-          targets={
-              'case1':['循堂室而濡涕','对几','而流恸'],
-              'case2':['逮乎初丱','方蒙落发'],
-              'case3':['沦羲','晦曜','慧日无光']
-          }
+          def compact(r):
+              return {k:r.get(k) for k in ['glyph_id','char','x','y','w','h','canvas_width','canvas_height','order_in_page']}
 
-          out={}
-          for name,parts in targets.items():
-              candidates=[]
-              for p,rs in sorted(pages.items()):
-                  text=''.join(str(r.get('char') or r.get('text') or '')[:1] for r in rs)
-                  score=sum(1 for part in parts if part in text)
-                  if score:
-                      candidates.append({'page':p,'image':page_map.get(p,''),'text':text,'score':score})
-              candidates.sort(key=lambda x:(-x['score'],x['page']))
-              if candidates:
-                  best=candidates[0]
-                  rs=pages[best['page']]
-                  text=best['text']
-                  if name=='case1':
-                      anchors=['循堂室而濡涕','对几','而流恸']
-                  elif name=='case2':
-                      anchors=['逮乎初丱','方蒙落发']
-                  else:
-                      anchors=['沦羲','晦曜','慧日无光']
-                  positions=[]
-                  for a in anchors:
-                      i=text.find(a)
-                      if i>=0:
-                          positions.extend(range(i,i+len(a)))
-                  if positions:
-                      selected=[rs[i] for i in sorted(set(positions)) if i<len(rs)]
-                  else:
-                      selected=[]
-                  if selected:
-                      minx=min(float(r['x']) for r in selected); miny=min(float(r['y']) for r in selected)
-                      maxx=max(float(r['x'])+float(r['w']) for r in selected); maxy=max(float(r['y'])+float(r['h']) for r in selected)
-                      pad=35
-                      cw=max(float(r.get('canvas_width') or 1) for r in selected)
-                      ch=max(float(r.get('canvas_height') or 1) for r in selected)
-                      crop={'x':max(0,minx-pad),'y':max(0,miny-pad),'w':min(cw,maxx+pad)-max(0,minx-pad),'h':min(ch,maxy+pad)-max(0,miny-pad),'canvas_width':cw,'canvas_height':ch}
-                  else:
-                      crop=None
-                  best['matched_boxes']=[{k:r.get(k) for k in ['glyph_id','char','x','y','w','h','canvas_width','canvas_height','order_in_page']} for r in selected]
-                  best['crop']=crop
-                  out[name]={'best':best,'candidates':candidates[:5]}
-              else:
-                  out[name]={'best':None,'candidates':[]}
+          def union_box(items,pad_x=70,pad_y=90):
+              minx=min(float(r['x']) for r in items); miny=min(float(r['y']) for r in items)
+              maxx=max(float(r['x'])+float(r['w']) for r in items); maxy=max(float(r['y'])+float(r['h']) for r in items)
+              cw=float(items[0].get('canvas_width') or 1); ch=float(items[0].get('canvas_height') or 1)
+              x=max(0,minx-pad_x); y=max(0,miny-pad_y)
+              return {'x':x,'y':y,'w':min(cw,maxx+pad_x)-x,'h':min(ch,maxy+pad_y)-y,'canvas_width':cw,'canvas_height':ch}
 
+          def case1():
+              p=56; rs=pages[p]; text=''.join(str(r.get('char') or '')[:1] for r in rs)
+              issue_i=text.find('对几')+2
+              target=rs[issue_i]
+              start=text.find('循堂室而濡涕'); end=text.find('而流恸')+len('而流恸')
+              context=rs[start:end]
+              return {'page':p,'image':page_map[p],'text':text,'target_box':compact(target),'context_boxes':[compact(r) for r in context],'crop':union_box(context,90,120)}
+
+          def case2():
+              p=19; rs=pages[p]; text=''.join(str(r.get('char') or '')[:1] for r in rs)
+              issue_i=text.find('逮乎初卝')+3
+              target=rs[issue_i]
+              start=text.find('逮乎初卝'); end=text.find('方蒙落发')+len('方蒙落发')
+              context=rs[start:end]
+              return {'page':p,'image':page_map[p],'text':text,'target_box':compact(target),'context_boxes':[compact(r) for r in context],'crop':union_box(context,90,120)}
+
+          def case3():
+              p=63; rs=pages[p]; text=''.join(str(r.get('char') or '')[:1] for r in rs)
+              start=text.find('沦羲'); end=text.find('光',start)+1
+              context=rs[start:end]
+              damaged=[r for r in context if str(r.get('char') or '')[:1]=='□']
+              target_items=damaged or context[2:-1] or context
+              return {'page':p,'image':page_map[p],'text':text,'target_box':union_box(target_items,0,0),'context_boxes':[compact(r) for r in context],'crop':union_box(context,120,150)}
+
+          out={'case1':case1(),'case2':case2(),'case3':case3()}
           Path('.github/damage_ai_scan_result.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
           PY
 
