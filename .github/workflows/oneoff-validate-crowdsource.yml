@@ -43,7 +43,9 @@ jobs:
           for marker in ['const TITLE="四、众智释读"','document.getElementById("places")','class="crowd-shell"']:
               if marker not in js:
                   raise SystemExit('Missing module marker: '+marker)
-          Path('.github/crowdsource-validation-result.txt').write_text(
+          out=Path('.github/crowdsource-validation-result.txt')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_text(
               'PASS\nJavaScript syntax: OK\nDetail asset references: OK\nFourth-section replacement markers: OK\n',
               encoding='utf-8'
           )
