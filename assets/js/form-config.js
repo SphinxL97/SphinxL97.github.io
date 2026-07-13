@@ -17,14 +17,14 @@ window.FORM_ENDPOINTS=Object.freeze({
   let retryStarted=false;
 
   function moduleReady(){
-    return Boolean(document.querySelector("#places .crowd-shell"));
+    return Boolean(document.querySelector('#places[data-crowdsource-ready="true"]'));
   }
 
   function retryLoad(){
     if(moduleReady()||retryStarted) return;
     retryStarted=true;
     const script=document.createElement("script");
-    script.src="assets/js/crowdsource.js?v=20260713_fix2";
+    script.src="assets/js/crowdsource.js?v=20260713_fix3";
     script.dataset.crowdsourceRetry="true";
     script.addEventListener("load",()=>{
       setTimeout(()=>{

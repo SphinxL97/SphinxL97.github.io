@@ -98,6 +98,7 @@
     const section=document.getElementById("places");
     if(!section) return null;
     section.classList.add("crowdsource-section");
+    section.dataset.crowdsourceReady="true";
     section.innerHTML=`
       <h2 class="section-title">${TITLE}</h2>
       <p class="crowd-intro">${INTRO}</p>
@@ -135,7 +136,7 @@
       <div class="crowd-workspace">
         <section class="crowd-pane">
           <h3 class="crowd-pane-title">1. 释文校订（针对单字）</h3>
-          <p class="crowd-hint">点击右侧碑帖图片中的任意字，该字将被加入修改列表，可多选并一次提交。</p>
+          <p class="crowd-hint">点击左侧碑帖图片中的任意字，该字将被加入修改列表，可多选并一次提交。</p>
           <div class="crowd-location">
             <div class="crowd-location-item">⌖ 当前位置：<b data-current-position>尚未选择</b></div>
             <div class="crowd-location-item">● 当前释文：<b data-current-text>—</b></div>
@@ -496,9 +497,17 @@
 
   function resetModule(type){
     state.contacts[type]=blankContact();
-    if(type==="transcription"){state.selected.clear();state.lastKey="";renderTranscriptionItems();renderCurrentImage();}
-    if(type==="punctuation"){state.punctuation=[blankPunctuation()];renderSimpleItems(type);}
-    if(type==="missingText"){state.missingText=[blankMissing()];renderSimpleItems(type);}
+    if(type==="transcription"){
+      state.selected.clear();state.lastKey="";
+      renderTranscriptionPanel();renderPageControls();
+    }
+    if(type==="punctuation"){
+      state.punctuation=[blankPunctuation()];renderSimplePanel(type);
+    }
+    if(type==="missingText"){
+      state.missingText=[blankMissing()];renderSimplePanel(type);
+    }
+    switchTab(type);
   }
 
   async function init(){
