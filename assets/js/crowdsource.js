@@ -1,30 +1,103 @@
 (function(){
   "use strict";
 
+  if(window.__CROWDSOURCE_WORKBENCH_V4__) return;
+  window.__CROWDSOURCE_WORKBENCH_V4__=true;
+
   const TITLE="四、众智释读";
   const INTRO="本栏目用于收集读者对碑文释文、标点整理及缺字补录的校订意见。所有提交内容将由网站管理者人工审核，不会直接修改网页或自动公开。";
   const RAW_ID=String(new URLSearchParams(location.search).get("id")||"001");
   const PARENT_ID=(RAW_ID.includes("-")?RAW_ID.split("-")[0]:RAW_ID).padStart(3,"0");
   const EFFECTIVE_ID=RAW_ID.includes("-")?RAW_ID:PARENT_ID;
   const MODEL_VERSION="20260711_model_border_v3";
+  const STORAGE_KEY=`crowdsource:${EFFECTIVE_ID}:v4`;
 
-  const state={
-    active:"transcription",
-    pages:[], glyphsByPage:new Map(), pageIndex:0, selected:new Map(), lastKey:"",
-    punctuation:[blankPunctuation()], missingText:[blankMissing()], submitting:{},
-    contacts:{transcription:blankContact(),punctuation:blankContact(),missingText:blankContact()}
-  };
-
-  const qs=(s,r=document)=>r.querySelector(s);
-  const qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const qs=(selector,root=document)=>root.querySelector(selector);
+  const qsa=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
   const uid=()=>`c_${Date.now().toString(36)}_${Math.random().toString(36).slice(2,8)}`;
-  const val=v=>String(v==null?"":v);
-  const num=v=>Number.isFinite(Number(v))?Number(v):0;
-  const clean=v=>val(v).trim();
+  const val=value=>String(value==null?"":value);
+  const num=value=>Number.isFinite(Number(value))?Number(value):0;
+  const clean=value=>val(value).trim();
 
   function blankContact(){return {email:"",name:"",note:"",agreeReview:false,agreeEmail:false,gotcha:""};}
   function blankPunctuation(){return {id:uid(),source:"",current:"",suggested:"",reason:"",reference:""};}
   function blankMissing(){return {id:uid(),type:"原碑缺字补录",position:"",current:"",ai:"",suggested:"",reason:"",reference:""};}
+
+  const state={
+    active:"transcription",
+    pages:[],
+    glyphsByPage:new Map(),
+    pageIndex:0,
+    selected:new Map(),
+    lastKey:"",
+    punctuation:[blankPunctuation()],
+    missingText:[blankMissing()],
+    submitting:{transcription:false,punctuation:false,missingText:false},
+    contacts:{transcription:blankContact(),punctuation:blankContact(),missingText:blankContact()}
+  };
+
+  function safeContact(value){
+    const base=blankContact();
+    if(!value||typeof value!=="object") return base;
+    return {
+      email:val(value.email).slice(0,160),
+      name:val(value.name).slice(0,80),
+      note:val(value.note).slice(0,300),
+      agreeReview:Boolean(value.agreeReview),
+      agreeEmail:Boolean(value.agreeEmail),
+      gotcha:""
+    };
+  }
+
+  function restoreState(){
+    try{
+      const raw=sessionStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const saved=JSON.parse(raw);
+      if(["transcription","punctuation","missingText"].includes(saved.active)) state.active=saved.active;
+      if(Number.isInteger(saved.pageIndex)&&saved.pageIndex>=0) state.pageIndex=saved.pageIndex;
+      if(Array.isArray(saved.selected)){
+        saved.selected.forEach(item=>{
+          if(!item||typeof item!=="object") return;
+          const key=clean(item.key)||uid();
+          state.selected.set(key,{...item,key,candidates:Array.isArray(item.candidates)?item.candidates.map(val).slice(0,20):[]});
+        });
+      }
+      state.lastKey=clean(saved.lastKey);
+      if(Array.isArray(saved.punctuation)&&saved.punctuation.length) state.punctuation=saved.punctuation.map(item=>({...blankPunctuation(),...item,id:clean(item.id)||uid()}));
+      if(Array.isArray(saved.missingText)&&saved.missingText.length) state.missingText=saved.missingText.map(item=>({...blankMissing(),...item,id:clean(item.id)||uid()}));
+      if(saved.contacts&&typeof saved.contacts==="object"){
+        state.contacts.transcription=safeContact(saved.contacts.transcription);
+        state.contacts.punctuation=safeContact(saved.contacts.punctuation);
+        state.contacts.missingText=safeContact(saved.contacts.missingText);
+      }
+    }catch(error){
+      console.warn("[crowdsource] session restore failed",error);
+    }
+  }
+
+  function persistState(){
+    try{
+      const contacts={};
+      Object.keys(state.contacts).forEach(type=>{contacts[type]={...state.contacts[type],gotcha:""};});
+      sessionStorage.setItem(STORAGE_KEY,JSON.stringify({
+        active:state.active,
+        pageIndex:state.pageIndex,
+        selected:Array.from(state.selected.values()),
+        lastKey:state.lastKey,
+        punctuation:state.punctuation,
+        missingText:state.missingText,
+        contacts
+      }));
+    }catch(error){
+      console.warn("[crowdsource] session save failed",error);
+    }
+  }
+
+  function touch(type){
+    persistState();
+    if(type) updateSubmitState(type);
+  }
 
   function modelShardUrl(){
     const n=Number(PARENT_ID);
@@ -37,16 +110,17 @@
     for(let i=0;i<80;i+=1){
       try{
         if(typeof pages!=="undefined"&&Array.isArray(pages)&&pages.length){
-          return pages.map((p,index)=>({...p,__display:index+1}));
+          return pages.map((page,index)=>({...page,__display:index+1}));
         }
       }catch(_){ }
       await new Promise(resolve=>setTimeout(resolve,100));
     }
     try{
       const response=await fetch("data/page_images_index.json",{cache:"no-store"});
+      if(!response.ok) throw new Error(String(response.status));
       const data=await response.json();
       const work=(data.works||{})[EFFECTIVE_ID]||(data.works||{})[PARENT_ID];
-      return Array.isArray(work&&work.pages)?work.pages.map((p,index)=>({...p,__display:index+1})):[];
+      return Array.isArray(work&&work.pages)?work.pages.map((page,index)=>({...page,__display:index+1})):[];
     }catch(error){
       console.warn("[crowdsource] page index load failed",error);
       return [];
@@ -94,6 +168,30 @@
   function glyphKey(row,pageIndex){return val(row.glyph_id)||`${EFFECTIVE_ID}_${pageIndex}_${row.order_in_page}`;}
   function currentWorkTitle(){return clean(qs(".side .work-name")?.textContent)||clean(qs(".info-panel h1")?.textContent)||`碑帖${PARENT_ID}`;}
 
+  function guideHtml(){
+    return `
+      <aside class="crowd-guide" aria-label="众智释读操作说明">
+        <section class="crowd-guide-card">
+          <h3>操作步骤</h3>
+          <ol class="crowd-steps">
+            <li><span>1</span><div><b>点击碑帖中的字</b><p>选择建议修改的字，可连续选择多个。</p></div></li>
+            <li><span>2</span><div><b>填写修改建议</b><p>在修改列表中填写建议、理由与依据。</p></div></li>
+            <li><span>3</span><div><b>填写提交信息</b><p>输入邮箱并完成两项确认。</p></div></li>
+            <li><span>4</span><div><b>提交意见</b><p>意见将发送给网站管理者人工审核。</p></div></li>
+          </ol>
+        </section>
+        <section class="crowd-guide-card crowd-notes">
+          <h3>注意事项</h3>
+          <ul>
+            <li>可以选择多个字，批量提交。</li>
+            <li>请尽量提供修改理由和参考依据。</li>
+            <li>提交不会自动修改网页释文。</li>
+            <li>当前填写内容会在本标签页会话中暂存。</li>
+          </ul>
+        </section>
+      </aside>`;
+  }
+
   function staticLayout(){
     const section=document.getElementById("places");
     if(!section) return null;
@@ -104,7 +202,7 @@
       <p class="crowd-intro">${INTRO}</p>
       <div class="crowd-shell">
         <div class="crowd-tabs" role="tablist" aria-label="众智释读类型">
-          <button class="crowd-tab active" data-tab="transcription" type="button">✎ 释文校订（针对单字）</button>
+          <button class="crowd-tab" data-tab="transcription" type="button">✎ 释文校订（针对单字）</button>
           <button class="crowd-tab" data-tab="punctuation" type="button">✎ 标点校订（针对句子）</button>
           <button class="crowd-tab" data-tab="missingText" type="button">▣ 缺字补录与争议（针对补字/缺字）</button>
         </div>
@@ -119,48 +217,60 @@
     if(fourthLink) fourthLink.textContent=TITLE;
     qsa(".crowd-tab",section).forEach(button=>button.addEventListener("click",()=>switchTab(button.dataset.tab)));
     qs("[data-close-dialog]",section).addEventListener("click",()=>qs(".crowd-dialog",section).classList.remove("show"));
-    qs(".crowd-dialog",section).addEventListener("click",event=>{if(event.target===event.currentTarget) event.currentTarget.classList.remove("show");});
+    qs(".crowd-dialog",section).addEventListener("click",event=>{if(event.target===event.currentTarget)event.currentTarget.classList.remove("show");});
     return section;
   }
 
   function switchTab(name){
+    if(!["transcription","punctuation","missingText"].includes(name)) name="transcription";
     state.active=name;
-    qsa(".crowd-tab").forEach(button=>button.classList.toggle("active",button.dataset.tab===name));
-    qsa(".crowd-panel").forEach(panel=>panel.hidden=panel.dataset.panel!==name);
-    updateSubmitState(name);
+    qsa(".crowd-tab",qs("#places")).forEach(button=>{
+      const active=button.dataset.tab===name;
+      button.classList.toggle("active",active);
+      button.setAttribute("aria-selected",String(active));
+    });
+    qsa(".crowd-panel",qs("#places")).forEach(panel=>{panel.hidden=panel.dataset.panel!==name;});
+    touch(name);
   }
 
   function renderTranscriptionPanel(){
     const panel=qs('[data-panel="transcription"]');
+    if(!panel) return;
     panel.innerHTML=`
-      <div class="crowd-workspace">
-        <section class="crowd-pane">
-          <h3 class="crowd-pane-title">1. 释文校订（针对单字）</h3>
-          <p class="crowd-hint">点击左侧碑帖图片中的任意字，该字将被加入修改列表，可多选并一次提交。</p>
-          <div class="crowd-location">
-            <div class="crowd-location-item">⌖ 当前位置：<b data-current-position>尚未选择</b></div>
-            <div class="crowd-location-item">● 当前释文：<b data-current-text>—</b></div>
+      <div class="crowd-panel-layout">
+        <div class="crowd-main-column">
+          <div class="crowd-workspace">
+            <section class="crowd-pane">
+              <h3 class="crowd-pane-title">1. 释文校订（针对单字）</h3>
+              <p class="crowd-pane-lead">点击左侧碑帖图片中的任意字，该字将被加入修改列表，可多选并一次提交。</p>
+              <div class="crowd-location">
+                <div class="crowd-location-item">⌖ 当前位置：<b data-current-position>尚未选择</b></div>
+                <div class="crowd-location-item">● 当前释文：<b data-current-text>—</b></div>
+              </div>
+              <div class="crowd-image-toolbar">
+                <div class="crowd-page-controls">
+                  <button class="crowd-icon-btn" data-page-prev type="button">上一页</button>
+                  <select class="crowd-page-select" data-page-select aria-label="选择碑帖页码"></select>
+                  <button class="crowd-icon-btn" data-page-next type="button">下一页</button>
+                </div>
+                <span class="crowd-page-summary" data-page-summary></span>
+              </div>
+              <div class="crowd-image-stage"><div class="crowd-empty-image">正在读取碑帖图片与单字坐标……</div></div>
+              <p class="crowd-hint">ⓘ 提示：点击碑帖图片中的字即可选择，已选字会显示红框。</p>
+            </section>
+            <aside class="crowd-right">
+              <div class="crowd-list-card">
+                <div class="crowd-list-head"><h3 class="crowd-list-title">已选字修改列表（可多条）</h3><button class="crowd-clear" data-clear-transcription type="button">清空全部</button></div>
+                <div class="crowd-items" data-transcription-items></div>
+                <div class="crowd-manual"><button class="crowd-btn" data-add-manual type="button">＋ 手动新增一条修改意见</button></div>
+              </div>
+            </aside>
           </div>
-          <div class="crowd-image-toolbar">
-            <div class="crowd-page-controls">
-              <button class="crowd-icon-btn" data-page-prev type="button">上一页</button>
-              <select class="crowd-page-select" data-page-select aria-label="选择碑帖页码"></select>
-              <button class="crowd-icon-btn" data-page-next type="button">下一页</button>
-            </div>
-            <span data-page-summary></span>
-          </div>
-          <div class="crowd-image-stage"><div class="crowd-empty-image">正在读取碑帖图片与单字坐标……</div></div>
-          <p class="crowd-hint">ⓘ 提示：点击碑帖图片中的字即可选择，已选字会显示红框。</p>
-        </section>
-        <aside class="crowd-right">
-          <div class="crowd-list-card">
-            <div class="crowd-list-head"><h3 class="crowd-list-title">已选字修改列表（可多条）</h3><button class="crowd-clear" data-clear-transcription type="button">清空全部</button></div>
-            <div class="crowd-items" data-transcription-items></div>
-            <div class="crowd-manual"><button class="crowd-btn" data-add-manual type="button">＋ 手动新增一条修改意见</button></div>
-          </div>
-        </aside>
+          <div data-submit-slot="transcription"></div>
+        </div>
+        ${guideHtml()}
       </div>`;
-    panel.appendChild(buildSubmitCard("transcription","提交释文校订"));
+    qs('[data-submit-slot="transcription"]',panel).appendChild(buildSubmitCard("transcription","提交释文校订"));
     bindTranscriptionControls(panel);
     renderPageControls();
     renderTranscriptionItems();
@@ -170,10 +280,12 @@
     qs("[data-page-prev]",panel).addEventListener("click",()=>changePage(state.pageIndex-1));
     qs("[data-page-next]",panel).addEventListener("click",()=>changePage(state.pageIndex+1));
     qs("[data-page-select]",panel).addEventListener("change",event=>changePage(Number(event.target.value)));
-    qs("[data-clear-transcription]",panel).addEventListener("click",()=>{state.selected.clear();state.lastKey="";renderTranscriptionItems();renderCurrentImage();});
+    qs("[data-clear-transcription]",panel).addEventListener("click",()=>{
+      state.selected.clear();state.lastKey="";touch("transcription");renderTranscriptionItems();renderCurrentImage();
+    });
     qs("[data-add-manual]",panel).addEventListener("click",()=>{
       const item={key:uid(),manual:true,pageNo:"",line:"",column:"",text:"",suggested:"",candidates:[],reason:"",reference:""};
-      state.selected.set(item.key,item);state.lastKey=item.key;renderTranscriptionItems();
+      state.selected.set(item.key,item);state.lastKey=item.key;touch("transcription");renderTranscriptionItems();
     });
   }
 
@@ -187,6 +299,7 @@
       option.textContent=`第 ${index+1} 页${page.label?`（${page.label}）`:""}`;
       select.appendChild(option);
     });
+    if(state.pages.length) state.pageIndex=Math.max(0,Math.min(state.pages.length-1,state.pageIndex));
     select.value=String(state.pageIndex);
     renderCurrentImage();
   }
@@ -194,7 +307,9 @@
   function changePage(index){
     if(!state.pages.length) return;
     state.pageIndex=Math.max(0,Math.min(state.pages.length-1,index));
-    const select=qs("[data-page-select]");if(select) select.value=String(state.pageIndex);
+    const select=qs("[data-page-select]");
+    if(select) select.value=String(state.pageIndex);
+    touch();
     renderCurrentImage();
   }
 
@@ -226,7 +341,7 @@
   }
 
   function canvasSize(glyphs,img){
-    const first=glyphs.find(g=>g.canvas_width>0&&g.canvas_height>0)||{};
+    const first=glyphs.find(glyph=>glyph.canvas_width>0&&glyph.canvas_height>0)||{};
     return {w:first.canvas_width||img.naturalWidth||1,h:first.canvas_height||img.naturalHeight||1};
   }
 
@@ -249,9 +364,8 @@
     const size=canvasSize(glyphs,img);
     const x=(event.clientX-rect.left)/rect.width*size.w;
     const y=(event.clientY-rect.top)/rect.height*size.h;
-    const hits=glyphs.filter(g=>x>=g.x&&x<=g.x+g.w&&y>=g.y&&y<=g.y+g.h).sort((a,b)=>a.w*a.h-b.w*b.h);
-    if(!hits.length) return;
-    toggleGlyph(hits[0]);
+    const hits=glyphs.filter(glyph=>x>=glyph.x&&x<=glyph.x+glyph.w&&y>=glyph.y&&y<=glyph.y+glyph.h).sort((a,b)=>a.w*a.h-b.w*b.h);
+    if(hits.length) toggleGlyph(hits[0]);
   }
 
   function toggleGlyph(row){
@@ -268,6 +382,7 @@
       };
       state.selected.set(key,item);state.lastKey=key;
     }
+    touch("transcription");
     renderTranscriptionItems();renderCurrentImage();
   }
 
@@ -280,20 +395,23 @@
     if(text) text.textContent=item?item.text||"□":"—";
   }
 
-  function field(label,input,required=false){
+  function field(labelText,control,required=false){
     const wrap=document.createElement("div");wrap.className="crowd-field";
-    const lab=document.createElement("label");lab.textContent=label;
-    if(required){const star=document.createElement("span");star.className="crowd-required";star.textContent=" *";lab.appendChild(star);}
-    wrap.append(lab,input);return wrap;
+    const label=document.createElement("label");label.textContent=labelText;
+    if(required){const star=document.createElement("span");star.className="crowd-required";star.textContent=" *";label.appendChild(star);}
+    wrap.append(label,control);return wrap;
   }
   function input(type="text",max=200){const node=document.createElement("input");node.className="crowd-input";node.type=type;node.maxLength=max;return node;}
   function textarea(max=1000){const node=document.createElement("textarea");node.className="crowd-textarea";node.maxLength=max;return node;}
 
   function renderTranscriptionItems(){
-    const root=qs("[data-transcription-items]");if(!root) return;
+    const root=qs("[data-transcription-items]");
+    if(!root) return;
     root.replaceChildren();
     const items=Array.from(state.selected.values());
-    if(!items.length){const empty=document.createElement("div");empty.className="crowd-empty-list";empty.textContent="尚未选择修改字。请点击左侧拓片中的字，或手动新增一条意见。";root.appendChild(empty);updateSubmitState("transcription");return;}
+    if(!items.length){
+      const empty=document.createElement("div");empty.className="crowd-empty-list";empty.textContent="尚未选择修改字。请点击左侧拓片中的字，或手动新增一条意见。";root.appendChild(empty);updateSubmitState("transcription");return;
+    }
     items.forEach((item,index)=>root.appendChild(buildTranscriptionCard(item,index)));
     updateCurrentSummary();updateSubmitState("transcription");
   }
@@ -304,28 +422,28 @@
     const badge=document.createElement("span");badge.className="crowd-item-index";badge.textContent=String(index+1);
     const meta=document.createElement("div");meta.className="crowd-item-meta";
     const remove=document.createElement("button");remove.className="crowd-remove";remove.type="button";remove.title="删除当前意见";remove.textContent="⌫";
-    remove.addEventListener("click",()=>{state.selected.delete(item.key);if(state.lastKey===item.key)state.lastKey="";renderTranscriptionItems();renderCurrentImage();});
+    remove.addEventListener("click",()=>{state.selected.delete(item.key);if(state.lastKey===item.key)state.lastKey="";touch("transcription");renderTranscriptionItems();renderCurrentImage();});
     head.append(badge,meta,remove);card.appendChild(head);
 
     if(item.manual){
       meta.textContent="手动新增的位置与释文";
       const grid=document.createElement("div");grid.className="crowd-grid";
-      const page=input("number",5);page.min="1";page.value=item.pageNo;page.addEventListener("input",()=>{item.pageNo=page.value;updateSubmitState("transcription")});
-      const line=input("number",5);line.min="1";line.value=item.line;line.addEventListener("input",()=>{item.line=line.value;updateSubmitState("transcription")});
-      const column=input("number",5);column.min="1";column.value=item.column;column.addEventListener("input",()=>{item.column=column.value;updateSubmitState("transcription")});
-      const current=input("text",30);current.value=item.text;current.addEventListener("input",()=>{item.text=current.value;updateSubmitState("transcription")});
+      const page=input("number",5);page.min="1";page.value=item.pageNo;page.addEventListener("input",()=>{item.pageNo=page.value;touch("transcription");});
+      const line=input("number",5);line.min="1";line.value=item.line;line.addEventListener("input",()=>{item.line=line.value;touch("transcription");});
+      const column=input("number",5);column.min="1";column.value=item.column;column.addEventListener("input",()=>{item.column=column.value;touch("transcription");});
+      const current=input("text",30);current.value=item.text;current.addEventListener("input",()=>{item.text=current.value;touch("transcription");});
       grid.append(field("页码",page,true),field("行号",line,true),field("列号",column,true),field("当前释文",current,true));card.appendChild(grid);
     }else{
       const strong=document.createElement("strong");strong.textContent=`位置：第${item.pageNo}页 第${item.line}行 第${item.column}列`;
       const current=document.createElement("div");current.textContent=`当前释文：${item.text||"□"}`;meta.append(strong,current);
     }
 
-    const suggested=input("text",80);suggested.value=item.suggested;suggested.placeholder="可输入一个字或连续多个字";suggested.addEventListener("input",()=>{item.suggested=suggested.value;updateSubmitState("transcription")});
+    const suggested=input("text",80);suggested.value=item.suggested;suggested.placeholder="可输入一个字或连续多个字";suggested.addEventListener("input",()=>{item.suggested=suggested.value;touch("transcription");});
     card.appendChild(field("建议修改为",suggested,true));
     card.appendChild(buildCandidateField(item));
-    const reason=textarea(800);reason.value=item.reason;reason.placeholder="请说明字形、上下文或其他判断理由";reason.addEventListener("input",()=>{item.reason=reason.value;updateSubmitState("transcription")});
+    const reason=textarea(800);reason.value=item.reason;reason.placeholder="请说明字形、上下文或其他判断理由";reason.addEventListener("input",()=>{item.reason=reason.value;touch("transcription");});
     card.appendChild(field("修改理由",reason,true));
-    const reference=textarea(500);reference.value=item.reference;reference.placeholder="拓本、论文、字形、上下文或其他依据";reference.addEventListener("input",()=>item.reference=reference.value);
+    const reference=textarea(500);reference.value=item.reference;reference.placeholder="拓本、论文、字形、上下文或其他依据";reference.addEventListener("input",()=>{item.reference=reference.value;touch();});
     card.appendChild(field("参考依据（可选）",reference));
     return card;
   }
@@ -340,31 +458,44 @@
       item.candidates.forEach((candidate,index)=>{
         const tag=document.createElement("span");tag.className="crowd-tag";
         const text=document.createElement("span");text.textContent=candidate;
-        const del=document.createElement("button");del.type="button";del.textContent="×";del.addEventListener("click",()=>{item.candidates.splice(index,1);renderTags()});
+        const del=document.createElement("button");del.type="button";del.textContent="×";del.setAttribute("aria-label",`删除候选字${candidate}`);
+        del.addEventListener("click",()=>{item.candidates.splice(index,1);touch();renderTags();});
         tag.append(text,del);wrap.insertBefore(tag,entry);
       });
     };
     entry.addEventListener("keydown",event=>{
       if(event.key!=="Enter") return;
-      event.preventDefault();const candidate=clean(entry.value);if(!candidate||item.candidates.includes(candidate))return;
-      item.candidates.push(candidate);entry.value="";renderTags();
+      event.preventDefault();
+      const candidate=clean(entry.value);
+      if(!candidate||item.candidates.includes(candidate)) return;
+      item.candidates.push(candidate.slice(0,30));entry.value="";touch();renderTags();
     });
     wrap.appendChild(entry);holder.append(label,wrap);renderTags();return holder;
   }
 
   function renderSimplePanel(type){
     const panel=qs(`[data-panel="${type}"]`);
+    if(!panel) return;
     const punctuation=type==="punctuation";
-    panel.innerHTML=`<div class="crowd-simple-list" data-simple-list="${type}"></div><div class="crowd-add-row"><button class="crowd-btn" data-add-simple="${type}" type="button">＋ ${punctuation?"新增一条标点意见":"新增一条缺字意见"}</button></div>`;
-    panel.appendChild(buildSubmitCard(type,punctuation?"提交标点校订":"提交缺字补录意见"));
+    panel.innerHTML=`
+      <div class="crowd-panel-layout">
+        <div class="crowd-main-column">
+          <div class="crowd-simple-list" data-simple-list="${type}"></div>
+          <div class="crowd-add-row"><button class="crowd-btn" data-add-simple="${type}" type="button">＋ ${punctuation?"新增一条标点意见":"新增一条缺字意见"}</button></div>
+          <div data-submit-slot="${type}"></div>
+        </div>
+        ${guideHtml()}
+      </div>`;
+    qs(`[data-submit-slot="${type}"]`,panel).appendChild(buildSubmitCard(type,punctuation?"提交标点校订":"提交缺字补录意见"));
     qs(`[data-add-simple="${type}"]`,panel).addEventListener("click",()=>{
-      (punctuation?state.punctuation:state.missingText).push(punctuation?blankPunctuation():blankMissing());renderSimpleItems(type);
+      (punctuation?state.punctuation:state.missingText).push(punctuation?blankPunctuation():blankMissing());touch(type);renderSimpleItems(type);
     });
     renderSimpleItems(type);
   }
 
   function renderSimpleItems(type){
-    const root=qs(`[data-simple-list="${type}"]`);if(!root)return;
+    const root=qs(`[data-simple-list="${type}"]`);
+    if(!root) return;
     root.replaceChildren();
     const list=type==="punctuation"?state.punctuation:state.missingText;
     list.forEach((item,index)=>root.appendChild(type==="punctuation"?buildPunctuationCard(item,index):buildMissingCard(item,index)));
@@ -378,31 +509,35 @@
     head.append(strong,remove);return head;
   }
 
-  function bindValue(node,item,key,type){node.value=item[key];node.addEventListener(type||"input",()=>{item[key]=node.value;updateSubmitState(state.active)});return node;}
+  function bindValue(node,item,key,type,moduleType){
+    node.value=item[key];
+    node.addEventListener(type||"input",()=>{item[key]=node.value;touch(moduleType);});
+    return node;
+  }
 
   function buildPunctuationCard(item,index){
     const card=document.createElement("article");card.className="crowd-simple-card";
-    card.appendChild(simpleHeader(`标点意见 ${index+1}`,()=>{state.punctuation.splice(index,1);if(!state.punctuation.length)state.punctuation.push(blankPunctuation());renderSimpleItems("punctuation")}));
-    card.append(field("对应原文或句子",bindValue(textarea(800),item,"source"),true));
-    card.append(field("网站当前标点版本",bindValue(textarea(800),item,"current"),true));
-    card.append(field("建议标点版本",bindValue(textarea(800),item,"suggested"),true));
-    card.append(field("修改理由",bindValue(textarea(1000),item,"reason"),true));
-    card.append(field("参考依据（可选）",bindValue(textarea(600),item,"reference")));
+    card.appendChild(simpleHeader(`标点意见 ${index+1}`,()=>{state.punctuation.splice(index,1);if(!state.punctuation.length)state.punctuation.push(blankPunctuation());touch("punctuation");renderSimpleItems("punctuation");}));
+    card.append(field("对应原文或句子",bindValue(textarea(800),item,"source","input","punctuation"),true));
+    card.append(field("网站当前标点版本",bindValue(textarea(800),item,"current","input","punctuation"),true));
+    card.append(field("建议标点版本",bindValue(textarea(800),item,"suggested","input","punctuation"),true));
+    card.append(field("修改理由",bindValue(textarea(1000),item,"reason","input","punctuation"),true));
+    card.append(field("参考依据（可选）",bindValue(textarea(600),item,"reference","input","punctuation")));
     return card;
   }
 
   function buildMissingCard(item,index){
     const card=document.createElement("article");card.className="crowd-simple-card";
-    card.appendChild(simpleHeader(`缺字意见 ${index+1}`,()=>{state.missingText.splice(index,1);if(!state.missingText.length)state.missingText.push(blankMissing());renderSimpleItems("missingText")}));
+    card.appendChild(simpleHeader(`缺字意见 ${index+1}`,()=>{state.missingText.splice(index,1);if(!state.missingText.length)state.missingText.push(blankMissing());touch("missingText");renderSimpleItems("missingText");}));
     const select=document.createElement("select");select.className="crowd-select";
-    ["原碑缺字补录","对 AI 补字有异议","疑字辨识","连续缺文补录","其他"].forEach(value=>{const option=document.createElement("option");option.value=value;option.textContent=value;select.appendChild(option)});
-    bindValue(select,item,"type","change");card.append(field("意见类型",select,true));
-    card.append(field("对应位置或原句",bindValue(textarea(700),item,"position"),true));
-    card.append(field("网站当前显示内容",bindValue(textarea(700),item,"current"),true));
-    card.append(field("网站当前 AI 补字内容（可留空）",bindValue(textarea(500),item,"ai")));
-    card.append(field("建议补录或修改内容",bindValue(textarea(700),item,"suggested"),true));
-    card.append(field("判断理由",bindValue(textarea(1000),item,"reason"),true));
-    card.append(field("参考依据（可选）",bindValue(textarea(600),item,"reference")));
+    ["原碑缺字补录","对 AI 补字有异议","疑字辨识","连续缺文补录","其他"].forEach(value=>{const option=document.createElement("option");option.value=value;option.textContent=value;select.appendChild(option);});
+    bindValue(select,item,"type","change","missingText");card.append(field("意见类型",select,true));
+    card.append(field("对应位置或原句",bindValue(textarea(700),item,"position","input","missingText"),true));
+    card.append(field("网站当前显示内容",bindValue(textarea(700),item,"current","input","missingText"),true));
+    card.append(field("网站当前 AI 补字内容（可留空）",bindValue(textarea(500),item,"ai","input","missingText")));
+    card.append(field("建议补录或修改内容",bindValue(textarea(700),item,"suggested","input","missingText"),true));
+    card.append(field("判断理由",bindValue(textarea(1000),item,"reason","input","missingText"),true));
+    card.append(field("参考依据（可选）",bindValue(textarea(600),item,"reference","input","missingText")));
     return card;
   }
 
@@ -411,23 +546,29 @@
     const title=document.createElement("h3");title.className="crowd-submit-title";title.textContent="提交信息";card.appendChild(title);
     const grid=document.createElement("div");grid.className="crowd-contact-grid";
     const contact=state.contacts[type];
-    const email=input("email",160);email.name="email";email.placeholder="请输入您的邮箱";email.addEventListener("input",()=>{contact.email=email.value;updateSubmitState(type)});
-    const name=input("text",80);name.placeholder="请输入姓名或昵称";name.addEventListener("input",()=>contact.name=name.value);
-    const note=input("text",300);note.placeholder="如有其他说明，可在此填写";note.addEventListener("input",()=>contact.note=note.value);
+    const email=input("email",160);email.name="email";email.placeholder="请输入您的邮箱";email.value=contact.email;email.addEventListener("input",()=>{contact.email=email.value;touch(type);});
+    const name=input("text",80);name.placeholder="请输入姓名或昵称";name.value=contact.name;name.addEventListener("input",()=>{contact.name=name.value;touch();});
+    const note=input("text",300);note.placeholder="如有其他说明，可在此填写";note.value=contact.note;note.addEventListener("input",()=>{contact.note=note.value;touch();});
     grid.append(field("联系邮箱",email,true),field("姓名或昵称（可选）",name),field("补充说明（可选）",note));card.appendChild(grid);
-    const hp=input("text",120);hp.name="_gotcha";hp.tabIndex=-1;hp.autocomplete="off";hp.addEventListener("input",()=>{contact.gotcha=hp.value;updateSubmitState(type)});
+    const hp=input("text",120);hp.name="_gotcha";hp.tabIndex=-1;hp.autocomplete="off";hp.addEventListener("input",()=>{contact.gotcha=hp.value;updateSubmitState(type);});
     const hpWrap=document.createElement("div");hpWrap.className="crowd-honeypot";hpWrap.appendChild(hp);card.appendChild(hpWrap);
     const checks=document.createElement("div");checks.className="crowd-checks";
-    checks.append(makeCheck("我已阅读说明，并理解提交内容将由管理员人工审核。",value=>{contact.agreeReview=value;updateSubmitState(type)}),makeCheck("我同意网站仅将所填邮箱用于本次意见的联系与核实。",value=>{contact.agreeEmail=value;updateSubmitState(type)}));card.appendChild(checks);
+    checks.append(
+      makeCheck("我已阅读说明，并理解提交内容将由管理员人工审核。",contact.agreeReview,value=>{contact.agreeReview=value;touch(type);}),
+      makeCheck("我同意网站仅将所填邮箱用于本次意见的联系与核实。",contact.agreeEmail,value=>{contact.agreeEmail=value;touch(type);})
+    );
+    card.appendChild(checks);
     const row=document.createElement("div");row.className="crowd-submit-row";
     const status=document.createElement("div");status.className="crowd-status";status.dataset.status=type;
     const submit=document.createElement("button");submit.className="crowd-submit";submit.type="button";submit.dataset.submit=type;submit.textContent=buttonText;submit.disabled=true;submit.addEventListener("click",()=>submitForm(type));
-    row.append(status,submit);card.appendChild(row);return card;
+    row.append(status,submit);card.appendChild(row);
+    const foot=document.createElement("p");foot.className="crowd-submit-note";foot.textContent="说明：提交内容仅供校订研究与人工审核，不会直接改变网站现有释文。";card.appendChild(foot);
+    return card;
   }
 
-  function makeCheck(text,onChange){
+  function makeCheck(text,checked,onChange){
     const label=document.createElement("label");label.className="crowd-check";
-    const box=document.createElement("input");box.type="checkbox";box.addEventListener("change",()=>onChange(box.checked));
+    const box=document.createElement("input");box.type="checkbox";box.checked=Boolean(checked);box.addEventListener("change",()=>onChange(box.checked));
     const span=document.createElement("span");span.textContent=text;label.append(box,span);return label;
   }
 
@@ -441,9 +582,10 @@
   function moduleValid(type){return type==="transcription"?transcriptionValid():type==="punctuation"?punctuationValid():missingValid();}
 
   function updateSubmitState(type){
-    const button=qs(`[data-submit="${type}"]`);if(!button)return;
+    const button=qs(`[data-submit="${type}"]`);
+    if(!button) return;
     const contact=state.contacts[type];
-    button.disabled=!!state.submitting[type]||!moduleValid(type)||!emailValid(contact.email)||!contact.agreeReview||!contact.agreeEmail||!!clean(contact.gotcha);
+    button.disabled=Boolean(state.submitting[type])||!moduleValid(type)||!emailValid(contact.email)||!contact.agreeReview||!contact.agreeEmail||Boolean(clean(contact.gotcha));
   }
 
   function humanText(type){
@@ -491,7 +633,8 @@
   }
 
   function showDialog(title,text){
-    const dialog=qs(".crowd-dialog");if(!dialog)return;
+    const dialog=qs(".crowd-dialog");
+    if(!dialog) return;
     qs("h3",dialog).textContent=title;qs("pre",dialog).textContent=text;dialog.classList.add("show");
   }
 
@@ -507,18 +650,20 @@
     if(type==="missingText"){
       state.missingText=[blankMissing()];renderSimplePanel(type);
     }
-    switchTab(type);
+    persistState();switchTab(type);
   }
 
   async function init(){
+    restoreState();
     if(!staticLayout()) return;
     renderTranscriptionPanel();renderSimplePanel("punctuation");renderSimplePanel("missingText");
+    switchTab(state.active);
     const [pageList]=await Promise.all([waitForReaderPages(),loadCoordinateData()]);
     state.pages=pageList;
-    try{if(typeof currentPageIndex==="number")state.pageIndex=Math.max(0,Math.min(pageList.length-1,currentPageIndex));}catch(_){ }
-    renderPageControls();
+    try{if(typeof currentPageIndex==="number"&&!sessionStorage.getItem(STORAGE_KEY))state.pageIndex=Math.max(0,Math.min(pageList.length-1,currentPageIndex));}catch(_){ }
+    renderPageControls();persistState();
   }
 
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init);
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",init,{once:true});
   else init();
 })();
