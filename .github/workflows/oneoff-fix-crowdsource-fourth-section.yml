@@ -3,8 +3,6 @@ name: One-off repair crowdsource fourth section
 on:
   pull_request:
     types: [opened, synchronize]
-    paths:
-      - '.github/crowdsource-fourth-section-trigger'
 
 permissions:
   contents: write
@@ -18,94 +16,15 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
 
-      - name: Replace old fourth-section placeholder and harden module
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
+      - name: Apply fourth-section repair
+        run: python .github/fix_crowdsource_fourth_section.py
 
-          detail_path=Path('detail.html')
-          detail=detail_path.read_text(encoding='utf-8')
-
-          fallback='''<article class="content-card crowdsource-section" id="places" data-crowdsource-static="true"><h2 class="section-title">四、众智释读</h2><p class="crowd-intro">本栏目用于收集读者对碑文释文、标点整理及缺字补录的校订意见。所有提交内容将由网站管理者人工审核，不会直接修改网页或自动公开。</p><div class="crowd-shell crowd-static-shell"><div class="crowd-tabs" role="tablist" aria-label="众智释读类型"><button class="crowd-tab active" type="button">✎ 释文校订（针对单字）</button><button class="crowd-tab" type="button">✎ 标点校订（针对句子）</button><button class="crowd-tab" type="button">▣ 缺字补录与争议（针对补字/缺字）</button></div><section class="crowd-panel"><div class="crowd-empty-list" data-crowdsource-loading>众智释读功能正在加载，请稍候……</div></section></div><noscript><p class="crowd-status error">浏览器未启用 JavaScript，暂时无法使用众智释读交互功能。</p></noscript></article>'''
-
-          pattern=r'<article class="content-card" id="places">.*?</article>'
-          detail,count=re.subn(pattern,fallback,detail,count=1,flags=re.S)
-          if count!=1 and 'data-crowdsource-static="true"' not in detail:
-              raise RuntimeError(f'Expected one old places article, replaced {count}')
-
-          for old,new in [
-              ('assets/css/crowdsource.css?v=20260713_fix2','assets/css/crowdsource.css?v=20260713_fix3'),
-              ('assets/js/form-config.js?v=20260713_fix2','assets/js/form-config.js?v=20260713_fix3'),
-              ('assets/js/crowdsource.js?v=20260713_fix2','assets/js/crowdsource.js?v=20260713_fix3')]:
-              detail=detail.replace(old,new)
-          detail_path.write_text(detail,encoding='utf-8')
-
-          js_path=Path('assets/js/crowdsource.js')
-          js=js_path.read_text(encoding='utf-8')
-          js=js.replace('点击右侧碑帖图片中的任意字','点击左侧碑帖图片中的任意字')
-          marker='section.classList.add("crowdsource-section");\n    section.innerHTML='
-          if marker in js:
-              js=js.replace(marker,'section.classList.add("crowdsource-section");\n    section.dataset.crowdsourceReady="true";\n    section.innerHTML=',1)
-          old='''  function resetModule(type){
-    state.contacts[type]=blankContact();
-    if(type==="transcription"){state.selected.clear();state.lastKey="";renderTranscriptionItems();renderCurrentImage();}
-    if(type==="punctuation"){state.punctuation=[blankPunctuation()];renderSimpleItems(type);}
-    if(type==="missingText"){state.missingText=[blankMissing()];renderSimpleItems(type);}
-  }'''
-          new='''  function resetModule(type){
-    state.contacts[type]=blankContact();
-    if(type==="transcription"){
-      state.selected.clear();state.lastKey="";
-      renderTranscriptionPanel();renderPageControls();
-    }
-    if(type==="punctuation"){
-      state.punctuation=[blankPunctuation()];renderSimplePanel(type);
-    }
-    if(type==="missingText"){
-      state.missingText=[blankMissing()];renderSimplePanel(type);
-    }
-    switchTab(type);
-  }'''
-          if old in js:
-              js=js.replace(old,new,1)
-          elif 'renderTranscriptionPanel();renderPageControls();' not in js:
-              raise RuntimeError('resetModule block not found')
-          js_path.write_text(js,encoding='utf-8')
-
-          cfg_path=Path('assets/js/form-config.js')
-          cfg=cfg_path.read_text(encoding='utf-8')
-          cfg=cfg.replace('document.querySelector("#places .crowd-shell")','document.querySelector(\'#places[data-crowdsource-ready="true"]\')')
-          cfg=cfg.replace('assets/js/crowdsource.js?v=20260713_fix2','assets/js/crowdsource.js?v=20260713_fix3')
-          cfg_path.write_text(cfg,encoding='utf-8')
-          PY
-
-      - name: Validate repaired files
-        shell: bash
+      - name: Validate JavaScript syntax
         run: |
           node --check assets/js/crowdsource.js
           node --check assets/js/form-config.js
-          python - <<'PY'
-          from pathlib import Path
-          detail=Path('detail.html').read_text(encoding='utf-8')
-          js=Path('assets/js/crowdsource.js').read_text(encoding='utf-8')
-          cfg=Path('assets/js/form-config.js').read_text(encoding='utf-8')
-          checks={
-            'static fourth section':'data-crowdsource-static="true"' in detail,
-            'old place cards removed':'重要地名' not in detail and '历史事件' not in detail,
-            'new asset version':'20260713_fix3' in detail,
-            'runtime ready marker':'crowdsourceReady="true"' in js,
-            'left image instruction':'点击左侧碑帖图片' in js,
-            'retry ready selector':'data-crowdsource-ready' in cfg,
-          }
-          failed=[name for name,ok in checks.items() if not ok]
-          if failed: raise SystemExit('Validation failed: '+', '.join(failed))
-          print('PASS',checks)
-          PY
 
-      - name: Commit repaired fourth section to pull-request branch
-        shell: bash
+      - name: Commit repaired files to pull-request branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
