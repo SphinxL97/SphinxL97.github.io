@@ -52,8 +52,25 @@ window.FORM_ENDPOINTS=Object.freeze({
     }
   }
 
+  function loadV9Enhancement(){
+    if(!document.querySelector('link[data-crowdsource-v9]')){
+      const link=document.createElement("link");
+      link.rel="stylesheet";
+      link.href="assets/css/crowdsource-v9.css?v=20260714_v9";
+      link.dataset.crowdsourceV9="true";
+      document.head.appendChild(link);
+    }
+    if(!document.querySelector('script[data-crowdsource-v9]')){
+      const script=document.createElement("script");
+      script.src="assets/js/crowdsource-v9.js?v=20260714_v9";
+      script.dataset.crowdsourceV9="true";
+      script.addEventListener("error",()=>console.error("[crowdsource-v9] 缺字恢复意见模块加载失败：",script.src));
+      document.body.appendChild(script);
+    }
+  }
+
   function scheduleRetry(){setTimeout(retryLoad,300);}
-  function scheduleEnhancement(){setTimeout(loadV8Enhancement,380);}
+  function scheduleEnhancement(){setTimeout(loadV8Enhancement,380);setTimeout(loadV9Enhancement,480);}
 
   if(document.readyState==="loading"){
     document.addEventListener("DOMContentLoaded",scheduleRetry,{once:true});
