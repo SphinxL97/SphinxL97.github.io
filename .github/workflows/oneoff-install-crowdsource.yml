@@ -19,15 +19,17 @@ jobs:
           ref: ${{ github.head_ref }}
           sparse-checkout: |
             detail.html
+            assets/js/crowdsource.js
           sparse-checkout-cone-mode: false
 
-      - name: Load crowdsource assets on detail pages
+      - name: Load and refine crowdsource assets
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          path=Path('detail.html')
-          text=path.read_text(encoding='utf-8')
+
+          detail=Path('detail.html')
+          text=detail.read_text(encoding='utf-8')
           anchor='<script defer src="js/full_transcript.js?v=20260713"></script>'
           additions='\n'.join([
               '<link rel="stylesheet" href="assets/css/crowdsource.css?v=20260713">',
@@ -38,18 +40,45 @@ jobs:
               if anchor not in text:
                   raise RuntimeError('full transcript loader anchor not found')
               text=text.replace(anchor,anchor+'\n'+additions,1)
-              path.write_text(text,encoding='utf-8')
+              detail.write_text(text,encoding='utf-8')
+
+          js_path=Path('assets/js/crowdsource.js')
+          js=js_path.read_text(encoding='utf-8')
+          js=js.replace('点击右侧碑帖图片中的任意字','点击左侧碑帖图片中的任意字')
+          old='''  function resetModule(type){
+    state.contacts[type]=blankContact();
+    if(type==="transcription"){state.selected.clear();state.lastKey="";renderTranscriptionItems();renderCurrentImage();}
+    if(type==="punctuation"){state.punctuation=[blankPunctuation()];renderSimpleItems(type);}
+    if(type==="missingText"){state.missingText=[blankMissing()];renderSimpleItems(type);}
+  }'''
+          new='''  function resetModule(type){
+    Object.assign(state.contacts[type],blankContact());
+    if(type==="transcription"){state.selected.clear();state.lastKey="";renderTranscriptionItems();renderCurrentImage();}
+    if(type==="punctuation"){state.punctuation=[blankPunctuation()];renderSimpleItems(type);}
+    if(type==="missingText"){state.missingText=[blankMissing()];renderSimpleItems(type);}
+    const card=qs(`[data-submit-card="${type}"]`);
+    if(card){
+      qsa("input",card).forEach(node=>{
+        if(node.type==="checkbox") node.checked=false;
+        else node.value="";
+      });
+    }
+  }'''
+          if old not in js:
+              raise RuntimeError('resetModule block not found')
+          js=js.replace(old,new,1)
+          js_path.write_text(js,encoding='utf-8')
           PY
 
-      - name: Commit detail page loader to pull-request branch
+      - name: Commit crowdsource loader and refinements
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add detail.html
+          git add detail.html assets/js/crowdsource.js
           if git diff --cached --quiet; then
-            echo "No loader change needed."
+            echo "No crowdsource changes needed."
           else
-            git commit -m "Load structured crowdsource module"
+            git commit -m "Refine structured crowdsource module"
             git push origin HEAD:${{ github.head_ref }}
           fi
