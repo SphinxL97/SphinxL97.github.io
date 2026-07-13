@@ -10,7 +10,7 @@
   const PARENT_ID=(RAW_ID.includes("-")?RAW_ID.split("-")[0]:RAW_ID).padStart(3,"0");
   const EFFECTIVE_ID=RAW_ID.includes("-")?RAW_ID:PARENT_ID;
   const MODEL_VERSION="20260711_model_border_v3";
-  const STORAGE_KEY=`crowdsource:${EFFECTIVE_ID}:v5`;
+  const STORAGE_KEY=`crowdsource:${EFFECTIVE_ID}:v6`;
 
   const qs=(selector,root=document)=>root.querySelector(selector);
   const qsa=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
@@ -279,11 +279,10 @@
     panel.innerHTML=`
       <div class="crowd-workspace">
         <section class="crowd-pane">
-          <h3 class="crowd-pane-title">1. 释文校订（针对单字）</h3>
           <p class="crowd-pane-lead">点击左侧碑帖图片中的任意字，该字将被加入修改列表，可多选并一次提交。</p>
           <div class="crowd-image-toolbar">
             <button class="crowd-icon-btn" data-page-prev type="button">上一页</button>
-            <span class="crowd-page-summary" data-page-summary></span>
+            <select class="crowd-page-select" data-page-select aria-label="选择碑帖页码"></select>
             <button class="crowd-icon-btn" data-page-next type="button">下一页</button>
           </div>
           <div class="crowd-image-stage"><div class="crowd-empty-image">正在读取碑帖图片与单字坐标……</div></div>
@@ -310,6 +309,7 @@
   function bindTranscriptionControls(panel){
     qs("[data-page-prev]",panel).addEventListener("click",()=>changePage(state.pageIndex-1));
     qs("[data-page-next]",panel).addEventListener("click",()=>changePage(state.pageIndex+1));
+    qs("[data-page-select]",panel).addEventListener("change",event=>changePage(Number(event.target.value)));
     qs("[data-clear-transcription]",panel).addEventListener("click",()=>{
       state.selected.clear();state.lastKey="";touch("transcription");renderTranscriptionItems();renderCurrentImage();
     });
@@ -320,13 +320,26 @@
   }
 
   function renderPageControls(){
+    const select=qs("[data-page-select]");
     if(state.pages.length) state.pageIndex=Math.max(0,Math.min(state.pages.length-1,state.pageIndex));
+    if(select){
+      select.replaceChildren();
+      state.pages.forEach((page,index)=>{
+        const option=document.createElement("option");
+        option.value=String(index);
+        option.textContent=`第 ${index+1} / ${state.pages.length} 页${page.label?`（${page.label}）`:""}`;
+        select.appendChild(option);
+      });
+      select.value=String(state.pageIndex);
+    }
     renderCurrentImage();
   }
 
   function changePage(index){
     if(!state.pages.length) return;
     state.pageIndex=Math.max(0,Math.min(state.pages.length-1,index));
+    const select=qs("[data-page-select]");
+    if(select) select.value=String(state.pageIndex);
     touch();
     renderCurrentImage();
   }
@@ -338,12 +351,12 @@
   function renderCurrentImage(){
     const stage=qs(".crowd-image-stage");
     if(!stage) return;
+    if(stage._crowdResizeObserver){stage._crowdResizeObserver.disconnect();stage._crowdResizeObserver=null;}
     const page=state.pages[state.pageIndex];
-    const prev=qs("[data-page-prev]"),next=qs("[data-page-next]"),summary=qs("[data-page-summary]");
+    const prev=qs("[data-page-prev]"),next=qs("[data-page-next]"),select=qs("[data-page-select]");
     if(prev) prev.disabled=state.pageIndex<=0;
     if(next) next.disabled=!state.pages.length||state.pageIndex>=state.pages.length-1;
-    if(summary) summary.textContent=state.pages.length?`第 ${state.pageIndex+1} / ${state.pages.length} 页`:"暂无页码";
-    updateCurrentSummary();
+    if(select) select.value=String(state.pageIndex);
     stage.replaceChildren();
     if(!page||!page.image){
       const empty=document.createElement("div");empty.className="crowd-empty-image";empty.textContent="当前页暂无可显示图片。";stage.appendChild(empty);return;
@@ -353,19 +366,48 @@
     const layer=document.createElement("div");layer.className="crowd-box-layer";
     wrap.append(img,layer);stage.appendChild(wrap);
     let bounds=null;
-    const setup=()=>{
+    let clickTimer=null;
+    const fit=()=>{
+      if(!bounds) return;
       const glyphs=pageGlyphs();
-      bounds=pageTextBounds(glyphs,img);
       const size=canvasSize(glyphs,img);
-      wrap.style.aspectRatio=`${bounds.w} / ${bounds.h}`;
-      img.style.width=`${size.w/bounds.w*100}%`;
-      img.style.left=`${-bounds.x/bounds.w*100}%`;
-      img.style.top=`${-bounds.y/bounds.h*100}%`;
+      const stageStyle=getComputedStyle(stage);
+      const padX=parseFloat(stageStyle.paddingLeft||0)+parseFloat(stageStyle.paddingRight||0);
+      const padY=parseFloat(stageStyle.paddingTop||0)+parseFloat(stageStyle.paddingBottom||0);
+      const availableW=Math.max(1,stage.clientWidth-padX);
+      const availableH=Math.max(1,stage.clientHeight-padY);
+      const scale=Math.min(availableW/bounds.w,availableH/bounds.h);
+      const displayW=Math.max(1,bounds.w*scale),displayH=Math.max(1,bounds.h*scale);
+      wrap.style.width=`${displayW}px`;
+      wrap.style.height=`${displayH}px`;
+      wrap.style.aspectRatio="auto";
+      img.style.width=`${size.w*scale}px`;
+      img.style.height=`${size.h*scale}px`;
+      img.style.left=`${-bounds.x*scale}px`;
+      img.style.top=`${-bounds.y*scale}px`;
       drawSelectedBoxes(layer,bounds);
+    };
+    const setup=()=>{
+      bounds=pageTextBounds(pageGlyphs(),img);
+      fit();
+      if("ResizeObserver" in window){
+        stage._crowdResizeObserver=new ResizeObserver(fit);
+        stage._crowdResizeObserver.observe(stage);
+      }
     };
     img.addEventListener("load",setup,{once:true});
     if(img.complete&&img.naturalWidth) setup();
-    wrap.addEventListener("click",event=>{if(bounds)handleImageClick(event,wrap,bounds);});
+    wrap.addEventListener("click",event=>{
+      if(!bounds||event.detail>1) return;
+      clearTimeout(clickTimer);
+      const clientX=event.clientX,clientY=event.clientY;
+      clickTimer=setTimeout(()=>handleImageClick({clientX,clientY},wrap,bounds),180);
+    });
+    wrap.addEventListener("dblclick",event=>{
+      event.preventDefault();event.stopPropagation();clearTimeout(clickTimer);
+      if(typeof window.openZoom==="function") window.openZoom(page.image);
+      else window.open(page.image,"_blank","noopener");
+    });
   }
 
   function canvasSize(glyphs,img){
@@ -573,7 +615,6 @@
     const status=document.createElement("div");status.className="crowd-status";status.dataset.status=type;
     const submit=document.createElement("button");submit.className="crowd-submit";submit.type="button";submit.dataset.submit=type;submit.textContent=buttonText;submit.disabled=true;submit.addEventListener("click",()=>submitForm(type));
     row.append(status,submit);card.appendChild(row);
-    const foot=document.createElement("p");foot.className="crowd-submit-note";foot.textContent="说明：提交内容仅供校订研究与人工审核，不会直接改变网站现有释文。";card.appendChild(foot);
     return card;
   }
 
