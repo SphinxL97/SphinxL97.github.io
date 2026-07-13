@@ -241,9 +241,9 @@
       <p class="crowd-intro">${INTRO}</p>
       <div class="crowd-shell">
         <div class="crowd-tabs" role="tablist" aria-label="众智释读类型">
-          <button class="crowd-tab" data-tab="transcription" type="button">✎ 释文校订（针对单字）</button>
-          <button class="crowd-tab" data-tab="punctuation" type="button">✎ 标点校订（针对句子）</button>
-          <button class="crowd-tab" data-tab="missingText" type="button">▣ 缺字补录与争议（针对补字/缺字）</button>
+          <button class="crowd-tab" data-tab="transcription" type="button"><span class="crowd-tab-icon" aria-hidden="true">字</span><span>释文校订（针对单字）</span></button>
+          <button class="crowd-tab" data-tab="punctuation" type="button"><span class="crowd-tab-icon" aria-hidden="true">。</span><span>标点校订（针对句子）</span></button>
+          <button class="crowd-tab" data-tab="missingText" type="button"><span class="crowd-tab-icon" aria-hidden="true">□</span><span>缺字补录与争议（针对补字/缺字）</span></button>
         </div>
         <section class="crowd-panel" data-panel="transcription"></section>
         <section class="crowd-panel" data-panel="punctuation" hidden></section>
@@ -456,7 +456,7 @@
     const key=glyphKey(row,state.pageIndex);
     if(state.selected.has(key)){
       state.selected.delete(key);
-      if(state.lastKey===key) state.lastKey="";
+      if(state.lastKey===key) state.lastKey=Array.from(state.selected.keys()).at(-1)||"";
     }else{
       const item={
         key,manual:false,pageIndex:state.pageIndex,pageNo:state.pageIndex+1,
@@ -501,33 +501,52 @@
   }
 
   function buildTranscriptionCard(item,index){
-    const card=document.createElement("article");card.className="crowd-item";
+    const expanded=state.lastKey===item.key;
+    const card=document.createElement("article");
+    card.className=`crowd-item${expanded?" is-expanded":" is-collapsed"}`;
+    card.dataset.itemKey=item.key;
+
     const head=document.createElement("div");head.className="crowd-item-head";
     const badge=document.createElement("span");badge.className="crowd-item-index";badge.textContent=String(index+1);
     const meta=document.createElement("div");meta.className="crowd-item-meta";
-    const remove=document.createElement("button");remove.className="crowd-remove";remove.type="button";remove.title="删除当前意见";remove.textContent="⌫";
-    remove.addEventListener("click",()=>{state.selected.delete(item.key);if(state.lastKey===item.key)state.lastKey="";touch("transcription");renderTranscriptionItems();renderCurrentImage();});
-    head.append(badge,meta,remove);card.appendChild(head);
-
     if(item.manual){
-      meta.textContent="手动新增的位置与释文";
+      const strong=document.createElement("strong");strong.textContent="手动新增的位置与释文";meta.appendChild(strong);
+      const summary=document.createElement("div");summary.textContent=item.pageNo&&item.line&&item.column?`第${item.pageNo}页 第${item.line}行 第${item.column}列｜${item.text||"待填写"}`:"请填写页码、行列与当前释文";meta.appendChild(summary);
+    }else{
+      const strong=document.createElement("strong");strong.textContent=`第${item.pageNo}页 第${item.line}行 第${item.column}列`;
+      const current=document.createElement("div");current.textContent=`当前释文：${item.text||"□"}`;meta.append(strong,current);
+    }
+
+    const actions=document.createElement("div");actions.className="crowd-item-actions";
+    const toggle=document.createElement("button");toggle.className="crowd-item-toggle";toggle.type="button";
+    toggle.textContent=expanded?"收起":"展开";toggle.setAttribute("aria-expanded",String(expanded));
+    toggle.title=expanded?"收起当前修改意见":"展开当前修改意见";
+    toggle.addEventListener("click",()=>{state.lastKey=expanded?"":item.key;touch("transcription");renderTranscriptionItems();});
+    const remove=document.createElement("button");remove.className="crowd-remove";remove.type="button";remove.title="删除当前意见";remove.textContent="⌫";
+    remove.addEventListener("click",()=>{
+      state.selected.delete(item.key);
+      if(state.lastKey===item.key) state.lastKey=Array.from(state.selected.keys()).at(-1)||"";
+      touch("transcription");renderTranscriptionItems();renderCurrentImage();
+    });
+    actions.append(toggle,remove);head.append(badge,meta,actions);card.appendChild(head);
+
+    const body=document.createElement("div");body.className="crowd-item-body";body.hidden=!expanded;
+    if(item.manual){
       const grid=document.createElement("div");grid.className="crowd-grid";
       const page=input("number",5);page.min="1";page.value=item.pageNo;page.addEventListener("input",()=>{item.pageNo=page.value;touch("transcription");});
       const line=input("number",5);line.min="1";line.value=item.line;line.addEventListener("input",()=>{item.line=line.value;touch("transcription");});
       const column=input("number",5);column.min="1";column.value=item.column;column.addEventListener("input",()=>{item.column=column.value;touch("transcription");});
       const current=input("text",30);current.value=item.text;current.addEventListener("input",()=>{item.text=current.value;touch("transcription");});
-      grid.append(field("页码",page,true),field("行号",line,true),field("列号",column,true),field("当前释文",current,true));card.appendChild(grid);
-    }else{
-      const strong=document.createElement("strong");strong.textContent=`位置：第${item.pageNo}页 第${item.line}行 第${item.column}列`;
-      const current=document.createElement("div");current.textContent=`当前释文：${item.text||"□"}`;meta.append(strong,current);
+      grid.append(field("页码",page,true),field("行号",line,true),field("列号",column,true),field("当前释文",current,true));body.appendChild(grid);
     }
 
     const suggested=input("text",80);suggested.value=item.suggested;suggested.placeholder="可输入一个字或连续多个字";suggested.addEventListener("input",()=>{item.suggested=suggested.value;touch("transcription");});
-    card.appendChild(field("建议修改为",suggested,true));
+    body.appendChild(field("建议修改为",suggested,true));
     const reason=textarea(800);reason.value=item.reason;reason.placeholder="请说明字形、上下文或其他判断理由";reason.addEventListener("input",()=>{item.reason=reason.value;touch("transcription");});
-    card.appendChild(field("修改理由",reason,true));
+    body.appendChild(field("修改理由",reason,true));
     const reference=textarea(500);reference.value=item.reference;reference.placeholder="拓本、论文、字形、上下文或其他依据";reference.addEventListener("input",()=>{item.reference=reference.value;touch();});
-    card.appendChild(field("参考依据（可选）",reference));
+    body.appendChild(field("参考依据（可选）",reference));
+    card.appendChild(body);
     return card;
   }
 
