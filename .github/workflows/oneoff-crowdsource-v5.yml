@@ -1,8 +1,8 @@
 name: One-off refine crowdsource UI v5
 
 on:
-  push:
-    branches: [crowdsource-ui-refine-v5]
+  pull_request:
+    types: [opened, synchronize]
     paths:
       - '.github/crowdsource-v5-trigger'
 
@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: crowdsource-ui-refine-v5
+          ref: ${{ github.head_ref }}
 
       - name: Apply fourth-section refinements
         run: python .github/scripts/patch_crowdsource_v5.py
@@ -45,4 +45,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/js/crowdsource.js assets/css/crowdsource.css assets/js/form-config.js detail.html .github
           git commit -m "Refine crowdsource image, controls, and side hint"
-          git push origin HEAD:crowdsource-ui-refine-v5
+          git push origin HEAD:${{ github.head_ref }}
