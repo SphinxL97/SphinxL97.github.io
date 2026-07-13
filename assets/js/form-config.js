@@ -17,36 +17,27 @@ window.FORM_ENDPOINTS=Object.freeze({
   let retryStarted=false;
 
   function moduleReady(){
-    return Boolean(document.querySelector('#places[data-crowdsource-ready="true"]'));
+    return Boolean(window.__CROWDSOURCE_WORKBENCH_V4__&&document.querySelector('#places[data-crowdsource-ready="true"]'));
   }
 
   function retryLoad(){
     if(moduleReady()||retryStarted) return;
     retryStarted=true;
     const script=document.createElement("script");
-    script.src="assets/js/crowdsource.js?v=20260713_fix3";
+    script.src="assets/js/crowdsource.js?v=20260713_fix4";
     script.dataset.crowdsourceRetry="true";
     script.addEventListener("load",()=>{
       setTimeout(()=>{
-        if(!moduleReady()){
-          console.error("[crowdsource] 模块文件已加载，但第四栏目尚未完成初始化。");
-        }
-      },100);
+        if(!moduleReady()) console.error("[crowdsource] 模块文件已加载，但第四栏目尚未完成初始化。");
+      },120);
     });
-    script.addEventListener("error",()=>{
-      console.error("[crowdsource] 众智释读模块加载失败：",script.src);
-    });
+    script.addEventListener("error",()=>console.error("[crowdsource] 众智释读模块加载失败：",script.src));
     document.body.appendChild(script);
   }
 
-  function scheduleRetry(){
-    setTimeout(retryLoad,250);
-  }
+  function scheduleRetry(){setTimeout(retryLoad,300);}
 
-  if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded",scheduleRetry,{once:true});
-  }else{
-    scheduleRetry();
-  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",scheduleRetry,{once:true});
+  else scheduleRetry();
   window.addEventListener("load",scheduleRetry,{once:true});
 })();
