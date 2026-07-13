@@ -12,6 +12,7 @@ pattern = r'<article class="content-card" id="places">.*?</article>'
 detail, count = re.subn(pattern, fallback, detail, count=1, flags=re.S)
 if count != 1 and 'data-crowdsource-static="true"' not in detail:
     raise RuntimeError(f"Expected one old places article, replaced {count}")
+detail = detail.replace('<a href="#places">四、地名与事件</a>', '<a href="#places">四、众智释读</a>')
 for old, new in (
     ("assets/css/crowdsource.css?v=20260713_fix2", "assets/css/crowdsource.css?v=20260713_fix3"),
     ("assets/js/form-config.js?v=20260713_fix2", "assets/js/form-config.js?v=20260713_fix3"),
@@ -58,6 +59,7 @@ CFG.write_text(cfg, encoding="utf-8")
 
 checks = {
     "static fourth section": 'data-crowdsource-static="true"' in detail,
+    "static directory label": '<a href="#places">四、众智释读</a>' in detail,
     "old place cards removed": "重要地名" not in detail and "历史事件" not in detail,
     "new asset version": "20260713_fix3" in detail,
     "runtime ready marker": 'crowdsourceReady="true"' in js,
