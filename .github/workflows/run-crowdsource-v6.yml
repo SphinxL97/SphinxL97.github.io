@@ -1,0 +1,49 @@
+name: Run crowdsource layout v6
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/run-crowdsource-v6'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: crowdsource-layout-v6
+
+      - name: Apply fourth-section layout patch
+        run: python .github/scripts/patch_crowdsource_v6.py
+
+      - name: Validate JavaScript and requested changes
+        shell: bash
+        run: |
+          node --check assets/js/crowdsource.js
+          grep -q 'data-page-select' assets/js/crowdsource.js
+          grep -q 'dblclick' assets/js/crowdsource.js
+          grep -q 'availableH' assets/js/crowdsource.js
+          ! grep -q 'crowd-pane-title' assets/js/crowdsource.js
+          ! grep -q 'crowd-submit-note' assets/js/crowdsource.js
+          grep -q '20260713_fix6' detail.html
+          grep -q '20260713_fix6' assets/js/form-config.js
+
+      - name: Remove branch-local temporary files
+        run: |
+          rm -f .github/crowdsource-v6-trigger
+          rm -f .github/scripts/patch_crowdsource_v6.py
+          rm -f .github/workflows/oneoff-crowdsource-v6.yml
+
+      - name: Commit refined crowdsource layout
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/crowdsource.js assets/css/crowdsource.css assets/js/form-config.js detail.html .github
+          git commit -m "Refine crowdsource symmetry, page selection, and image fit"
+          git push origin HEAD:crowdsource-layout-v6
