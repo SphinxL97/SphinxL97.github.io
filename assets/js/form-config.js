@@ -35,9 +35,33 @@ window.FORM_ENDPOINTS=Object.freeze({
     document.body.appendChild(script);
   }
 
-  function scheduleRetry(){setTimeout(retryLoad,300);}
+  function loadV8Enhancement(){
+    if(!document.querySelector('link[data-crowdsource-v8]')){
+      const link=document.createElement("link");
+      link.rel="stylesheet";
+      link.href="assets/css/crowdsource-v8.css?v=20260714_v8";
+      link.dataset.crowdsourceV8="true";
+      document.head.appendChild(link);
+    }
+    if(!document.querySelector('script[data-crowdsource-v8]')){
+      const script=document.createElement("script");
+      script.src="assets/js/crowdsource-v8.js?v=20260714_v8";
+      script.dataset.crowdsourceV8="true";
+      script.addEventListener("error",()=>console.error("[crowdsource-v8] 增强模块加载失败：",script.src));
+      document.body.appendChild(script);
+    }
+  }
 
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",scheduleRetry,{once:true});
-  else scheduleRetry();
+  function scheduleRetry(){setTimeout(retryLoad,300);}
+  function scheduleEnhancement(){setTimeout(loadV8Enhancement,380);}
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",scheduleRetry,{once:true});
+    document.addEventListener("DOMContentLoaded",scheduleEnhancement,{once:true});
+  }else{
+    scheduleRetry();
+    scheduleEnhancement();
+  }
   window.addEventListener("load",scheduleRetry,{once:true});
+  window.addEventListener("load",scheduleEnhancement,{once:true});
 })();
