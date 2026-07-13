@@ -1,0 +1,105 @@
+/* 众智释读 v9：第三个“缺字补录与争议”模块的案例导航与判断表单。 */
+#places [data-panel="missingText"] .crowd-simple-head{
+  padding-bottom:10px;
+  border-bottom:1px solid #eee2d0;
+}
+#places [data-panel="missingText"] .crowd-simple-head strong{
+  font-family:"SimSun","Songti SC",serif;
+  font-size:19px;
+  color:#392f27;
+}
+#places [data-panel="missingText"] .crowd-simple-head .crowd-remove[hidden]{display:none!important}
+#places [data-panel="missingText"] .crowd-field[data-v9-role="type"]{display:none!important}
+#places [data-panel="missingText"] .crowd-field textarea[readonly],
+#places [data-panel="missingText"] .crowd-field input[readonly]{
+  background:#f8f3eb;
+  color:#594b3f;
+  cursor:default;
+  resize:none;
+}
+#places [data-panel="missingText"] .crowd-field[data-v9-role="position"] textarea{
+  min-height:62px;
+}
+#places [data-panel="missingText"] .crowd-field[data-v9-role="current"] textarea,
+#places [data-panel="missingText"] .crowd-field[data-v9-role="ai"] textarea{
+  min-height:88px;
+  font-family:"SimSun","Songti SC",serif;
+  font-size:16px;
+  line-height:1.85;
+}
+#places [data-panel="missingText"] .crowd-field[data-v9-role="ai"] textarea{
+  border-color:#d7b99a;
+  background:#fff9ef;
+  color:#8e3025;
+  font-weight:700;
+}
+#places .missing-judgment{
+  margin:6px 0 13px;
+  padding:12px 14px 14px;
+  border:1px solid #e1d1ba;
+  border-radius:12px;
+  background:#fcf8f1;
+}
+#places .missing-judgment legend{
+  padding:0 7px;
+  color:#4f4034;
+  font-size:13px;
+  font-weight:900;
+}
+#places .missing-judgment-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+#places .missing-judgment-options label{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:46px;
+  padding:10px 12px;
+  border:1px solid #e2d4bf;
+  border-radius:10px;
+  background:#fff;
+  color:#55473b;
+  cursor:pointer;
+}
+#places .missing-judgment-options label:has(input:checked){
+  border-color:#aa6a5d;
+  background:#fff4ee;
+  color:#8e3025;
+  box-shadow:0 0 0 2px rgba(159,48,37,.07);
+}
+#places .missing-judgment-options input{
+  width:17px;
+  height:17px;
+  accent-color:#943b2e;
+  flex:0 0 auto;
+}
+#places .missing-case-nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  margin-top:14px;
+}
+#places .missing-case-nav .crowd-btn{
+  min-width:92px;
+  border-radius:999px;
+}
+#places .missing-case-status{
+  min-width:130px;
+  padding:8px 18px;
+  border:1px solid #decbae;
+  border-radius:999px;
+  background:#fbf6ed;
+  color:#6b5542;
+  font-size:13px;
+  font-weight:900;
+  text-align:center;
+}
+@media(max-width:680px){
+  #places .missing-judgment-options{grid-template-columns:1fr}
+  #places .missing-case-nav{gap:8px}
+  #places .missing-case-nav .crowd-btn{min-width:78px;padding:8px 11px}
+  #places .missing-case-status{min-width:110px;padding:8px 12px}
+}
