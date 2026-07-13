@@ -25,10 +25,7 @@
       .map(item=>item.trim())
       .filter(Boolean);
 
-    return paragraphs.map(paragraph=>{
-      const cls=paragraph==="其词曰："?" transcript-subheading":"";
-      return `<p class="${cls.trim()}">${escapeHtml(paragraph)}</p>`;
-    }).join("");
+    return paragraphs.map(paragraph=>`<p>${escapeHtml(paragraph)}</p>`).join("");
   }
 
   function setMenuTitle(){
