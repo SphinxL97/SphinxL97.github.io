@@ -1,0 +1,56 @@
+name: One-off install crowdsource workbench v4
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '.github/crowdsource-v4-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Refresh fourth-section asset versions
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('detail.html')
+          text=path.read_text(encoding='utf-8')
+          replacements={
+            'assets/css/crowdsource.css?v=20260713_fix3':'assets/css/crowdsource.css?v=20260713_fix4',
+            'assets/js/form-config.js?v=20260713_fix3':'assets/js/form-config.js?v=20260713_fix4',
+            'assets/js/crowdsource.js?v=20260713_fix3':'assets/js/crowdsource.js?v=20260713_fix4',
+          }
+          for old,new in replacements.items():
+            if old not in text and new not in text:
+              raise RuntimeError(f'missing asset reference: {old}')
+            text=text.replace(old,new)
+          path.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Validate interactive module
+        shell: bash
+        run: |
+          node --check assets/js/crowdsource.js
+          grep -q '20260713_fix4' detail.html
+          grep -q 'sessionStorage' assets/js/crowdsource.js
+          grep -q 'crowd-guide' assets/js/crowdsource.js
+
+      - name: Commit repaired fourth section
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/crowdsource-v4-trigger
+          git add detail.html assets/js/crowdsource.js assets/css/crowdsource.css assets/js/form-config.js
+          git commit -m "Complete interactive crowdsource workbench"
+          git push origin HEAD:${{ github.head_ref }}
