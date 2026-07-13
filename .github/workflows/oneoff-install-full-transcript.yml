@@ -15,8 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
           ref: ${{ github.head_ref }}
+          sparse-checkout: |
+            detail.html
+          sparse-checkout-cone-mode: false
 
       - name: Load shared transcript assets on detail pages
         shell: bash
