@@ -1,0 +1,51 @@
+name: One-off install shared full transcript
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '.github/full-transcript-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Load shared transcript assets on detail pages
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path=Path('detail.html')
+          text=path.read_text(encoding='utf-8')
+          anchor='<script defer src="js/damage_ai_reading.js?v=20260712"></script>'
+          css='<link rel="stylesheet" href="css/full_transcript.css?v=20260713">'
+          js='<script defer src="js/full_transcript.js?v=20260713"></script>'
+
+          if css not in text or js not in text:
+              if anchor not in text:
+                  raise RuntimeError('damage_ai_reading loader anchor not found')
+              text=text.replace(anchor,anchor+'\n'+css+'\n'+js,1)
+              path.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Commit detail page loader to pull-request branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detail.html
+          if git diff --cached --quiet; then
+            echo "No loader change needed."
+          else
+            git commit -m "Load shared Dao Yin transcript module"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
