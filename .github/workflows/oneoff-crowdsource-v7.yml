@@ -1,0 +1,51 @@
+name: One-off crowdsource fixed pane v7
+
+on:
+  push:
+    branches: [crowdsource-fixed-pane-v7]
+    paths:
+      - '.github/crowdsource-v7-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: crowdsource-fixed-pane-v7
+
+      - name: Apply fixed-pane and accordion patch
+        run: python .github/scripts/patch_crowdsource_v7.py
+
+      - name: Validate fourth-section changes
+        shell: bash
+        run: |
+          node --check assets/js/crowdsource.js
+          grep -q 'crowd-tab-icon' assets/js/crowdsource.js
+          grep -q 'crowd-item-toggle' assets/js/crowdsource.js
+          grep -q 'state.lastKey=expanded?"":item.key' assets/js/crowdsource.js
+          grep -q 'min-height:720px;max-height:720px' assets/css/crowdsource.css
+          grep -q 'overflow:visible' assets/css/crowdsource.css
+          grep -q '20260713_fix7' detail.html
+          grep -q '20260713_fix7' assets/js/form-config.js
+          ! grep -q '>✎ 释文校订' assets/js/crowdsource.js
+          ! grep -q '>✎ 标点校订' assets/js/crowdsource.js
+
+      - name: Remove temporary patch files
+        run: |
+          rm -f .github/crowdsource-v7-trigger
+          rm -f .github/scripts/patch_crowdsource_v7.py
+          rm -f .github/workflows/oneoff-crowdsource-v7.yml
+
+      - name: Commit crowdsource v7
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/crowdsource.js assets/css/crowdsource.css assets/js/form-config.js detail.html .github
+          git commit -m "Fix crowdsource image size and collapse edit cards"
+          git push origin HEAD:crowdsource-fixed-pane-v7
