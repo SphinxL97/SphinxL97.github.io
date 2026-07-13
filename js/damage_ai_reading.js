@@ -56,6 +56,17 @@
     }
   ];
 
+  /* 供第四栏目“缺字补录与争议”读取残损碑文恢复案例。
+   * 这里只暴露一份副本，不修改第三栏目的原始案例数据。
+   */
+  window.DAMAGE_AI_CASES=CASES.map(item=>({
+    ...item,
+    canvas:{...item.canvas},
+    crop:{...item.crop},
+    target:{...item.target},
+    e:[...item.e]
+  }));
+
   let current=0;
   let expanded=false;
 
@@ -70,7 +81,6 @@
       <button class="damage-tab${index===current?" active":""}" data-case-index="${index}" type="button" aria-pressed="${index===current}">
         <b>${item.i}</b>
         <span class="name">${esc(item.n)}</span>
-        <span class="sub">${esc(item.s)}</span>
       </button>
     `).join("");
   }
