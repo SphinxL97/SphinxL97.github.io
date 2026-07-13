@@ -1,0 +1,49 @@
+name: One-off refine crowdsource UI v5
+
+on:
+  push:
+    branches: [crowdsource-ui-refine-v5]
+    paths:
+      - '.github/crowdsource-v5-trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: crowdsource-ui-refine-v5
+
+      - name: Apply fourth-section refinements
+        run: python .github/scripts/patch_crowdsource_v5.py
+
+      - name: Validate JavaScript and expected UI changes
+        shell: bash
+        run: |
+          node --check assets/js/crowdsource.js
+          grep -q 'pageTextBounds' assets/js/crowdsource.js
+          grep -q 'installCrowdRailHint' assets/js/crowdsource.js
+          grep -q '第 ${state.pageIndex+1} / ${state.pages.length} 页' assets/js/crowdsource.js
+          ! grep -q 'data-page-select' assets/js/crowdsource.js
+          ! grep -q 'buildCandidateField' assets/js/crowdsource.js
+          grep -q '20260713_fix5' detail.html
+          grep -q '20260713_fix5' assets/js/form-config.js
+
+      - name: Remove temporary patch files
+        run: |
+          rm -f .github/crowdsource-v5-trigger
+          rm -f .github/scripts/patch_crowdsource_v5.py
+          rm -f .github/workflows/oneoff-crowdsource-v5.yml
+
+      - name: Commit refined fourth section
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/crowdsource.js assets/css/crowdsource.css assets/js/form-config.js detail.html .github
+          git commit -m "Refine crowdsource image, controls, and side hint"
+          git push origin HEAD:crowdsource-ui-refine-v5
