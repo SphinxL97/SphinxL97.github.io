@@ -24,7 +24,7 @@ window.FORM_ENDPOINTS=Object.freeze({
     if(moduleReady()||retryStarted) return;
     retryStarted=true;
     const script=document.createElement("script");
-    script.src="assets/js/crowdsource.js?v=20260713_fix4";
+    script.src="assets/js/crowdsource.js?v=20260713_fix5";
     script.dataset.crowdsourceRetry="true";
     script.addEventListener("load",()=>{
       setTimeout(()=>{
