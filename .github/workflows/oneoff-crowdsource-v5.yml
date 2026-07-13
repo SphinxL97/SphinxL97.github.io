@@ -19,7 +19,19 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Apply fourth-section refinements
-        run: python .github/scripts/patch_crowdsource_v5.py
+        shell: bash
+        run: |
+          if ! python .github/scripts/patch_crowdsource_v5.py > /tmp/crowdsource-v5.log 2>&1; then
+            cat /tmp/crowdsource-v5.log
+            cp /tmp/crowdsource-v5.log .github/crowdsource-v5-error.txt
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .github/crowdsource-v5-error.txt
+            git commit -m "Record crowdsource v5 patch error"
+            git push origin HEAD:${{ github.head_ref }}
+            exit 1
+          fi
+          cat /tmp/crowdsource-v5.log
 
       - name: Validate JavaScript and expected UI changes
         shell: bash
@@ -37,6 +49,7 @@ jobs:
           rm -f .github/crowdsource-v5-trigger
           rm -f .github/scripts/patch_crowdsource_v5.py
           rm -f .github/workflows/oneoff-crowdsource-v5.yml
+          rm -f .github/crowdsource-v5-error.txt
 
       - name: Commit refined fourth section
         shell: bash
