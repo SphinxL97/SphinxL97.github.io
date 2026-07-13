@@ -8,13 +8,45 @@ window.FORM_ENDPOINTS=Object.freeze({
   missingText:""
 });
 
-/* 统一校正界面提示语；不改变任何表单数据或交互逻辑。 */
-document.addEventListener("DOMContentLoaded",()=>{
-  setTimeout(()=>{
-    document.querySelectorAll(".crowd-pane .crowd-hint").forEach(node=>{
-      if(node.textContent.includes("点击右侧碑帖图片")){
-        node.textContent=node.textContent.replace("点击右侧碑帖图片","点击左侧碑帖图片");
-      }
+/*
+ * 兜底加载：若浏览器或 GitHub Pages 缓存导致主模块没有执行，
+ * 自动使用新的版本参数重新加载一次。只负责加载，不修改碑帖数据。
+ */
+(function(){
+  "use strict";
+  let retryStarted=false;
+
+  function moduleReady(){
+    return Boolean(document.querySelector("#places .crowd-shell"));
+  }
+
+  function retryLoad(){
+    if(moduleReady()||retryStarted) return;
+    retryStarted=true;
+    const script=document.createElement("script");
+    script.src="assets/js/crowdsource.js?v=20260713_fix2";
+    script.dataset.crowdsourceRetry="true";
+    script.addEventListener("load",()=>{
+      setTimeout(()=>{
+        if(!moduleReady()){
+          console.error("[crowdsource] 模块文件已加载，但第四栏目尚未完成初始化。");
+        }
+      },100);
     });
-  },0);
-});
+    script.addEventListener("error",()=>{
+      console.error("[crowdsource] 众智释读模块加载失败：",script.src);
+    });
+    document.body.appendChild(script);
+  }
+
+  function scheduleRetry(){
+    setTimeout(retryLoad,250);
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",scheduleRetry,{once:true});
+  }else{
+    scheduleRetry();
+  }
+  window.addEventListener("load",scheduleRetry,{once:true});
+})();
