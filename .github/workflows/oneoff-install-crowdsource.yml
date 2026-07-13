@@ -17,6 +17,9 @@ jobs:
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
+          sparse-checkout: |
+            detail.html
+          sparse-checkout-cone-mode: false
 
       - name: Load crowdsource assets on detail pages
         shell: bash
