@@ -1,50 +1,33 @@
-name: One-off install crowdsource section
+name: One-off final crowdsource patch
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
+    branches: [main]
     paths:
-      - '.github/crowdsource-trigger'
+      - '.github/crowdsource-patch-trigger'
 
 permissions:
   contents: write
 
 jobs:
-  install:
+  patch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref }}
           sparse-checkout: |
-            detail.html
             assets/js/crowdsource.js
           sparse-checkout-cone-mode: false
 
-      - name: Load and refine crowdsource assets
+      - name: Refine crowdsource copy and successful-reset behavior
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-
-          detail=Path('detail.html')
-          text=detail.read_text(encoding='utf-8')
-          anchor='<script defer src="js/full_transcript.js?v=20260713"></script>'
-          additions='\n'.join([
-              '<link rel="stylesheet" href="assets/css/crowdsource.css?v=20260713">',
-              '<script defer src="assets/js/form-config.js?v=20260713"></script>',
-              '<script defer src="assets/js/crowdsource.js?v=20260713"></script>',
-          ])
-          if additions not in text:
-              if anchor not in text:
-                  raise RuntimeError('full transcript loader anchor not found')
-              text=text.replace(anchor,anchor+'\n'+additions,1)
-              detail.write_text(text,encoding='utf-8')
-
-          js_path=Path('assets/js/crowdsource.js')
-          js=js_path.read_text(encoding='utf-8')
-          js=js.replace('点击右侧碑帖图片中的任意字','点击左侧碑帖图片中的任意字')
+          path=Path('assets/js/crowdsource.js')
+          text=path.read_text(encoding='utf-8')
+          text=text.replace('点击右侧碑帖图片中的任意字','点击左侧碑帖图片中的任意字')
           old='''  function resetModule(type){
     state.contacts[type]=blankContact();
     if(type==="transcription"){state.selected.clear();state.lastKey="";renderTranscriptionItems();renderCurrentImage();}
@@ -64,21 +47,20 @@ jobs:
       });
     }
   }'''
-          if old not in js:
-              raise RuntimeError('resetModule block not found')
-          js=js.replace(old,new,1)
-          js_path.write_text(js,encoding='utf-8')
+          if old in text:
+              text=text.replace(old,new,1)
+          path.write_text(text,encoding='utf-8')
           PY
 
-      - name: Commit crowdsource loader and refinements
+      - name: Commit final crowdsource refinements
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add detail.html assets/js/crowdsource.js
+          git add assets/js/crowdsource.js
           if git diff --cached --quiet; then
-            echo "No crowdsource changes needed."
+            echo "No crowdsource patch needed."
           else
-            git commit -m "Refine structured crowdsource module"
-            git push origin HEAD:${{ github.head_ref }}
+            git commit -m "Refine crowdsource interaction details"
+            git push origin HEAD:main
           fi
