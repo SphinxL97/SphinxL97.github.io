@@ -1,23 +1,25 @@
 /* 众智释读三个独立表单的接收地址。
- * 当前使用 FormSubmit AJAX，将三类意见发送到同一个测试邮箱，
+ * 当前使用 Web3Forms，将三类意见发送到同一个接收邮箱，
  * 再通过邮件标题区分不同提交类型。
- * 不要在本文件中填写邮箱密码、SMTP 密码或授权码。
+ * Access Key 是 Web3Forms 提供的前端公开表单标识，不是邮箱密码或授权码。
  */
-const FORM_SUBMIT_ENDPOINT="https://formsubmit.co/ajax/ceshiyouxiangSPX@163.com";
+const WEB3FORMS_ENDPOINT="https://api.web3forms.com/submit";
+const WEB3FORMS_ACCESS_KEY="4b0dcc79-378a-4994-80e5-f1ea7b6f82d3";
 window.FORM_ENDPOINTS=Object.freeze({
-  transcription:FORM_SUBMIT_ENDPOINT,
-  punctuation:FORM_SUBMIT_ENDPOINT,
-  missingText:FORM_SUBMIT_ENDPOINT
+  transcription:WEB3FORMS_ENDPOINT,
+  punctuation:WEB3FORMS_ENDPOINT,
+  missingText:WEB3FORMS_ENDPOINT
 });
 
 /*
- * FormSubmit 适配层：只处理发送到 formsubmit.co/ajax/ 的请求，
- * 不影响碑帖图片、坐标、释文和其他网络请求。
+ * Web3Forms 适配层：只处理发送到 api.web3forms.com/submit 的请求。
+ * 现有众智释读模块仍可继续使用 FormData 和原有提交按钮；
+ * 本适配层会在发送前转换为 Web3Forms 官方 AJAX JSON 格式。
  */
-(function installFormSubmitAdapter(){
+(function installWeb3FormsAdapter(){
   "use strict";
-  if(window.__CROWDSOURCE_FORMSUBMIT_ADAPTER__) return;
-  window.__CROWDSOURCE_FORMSUBMIT_ADAPTER__=true;
+  if(window.__CROWDSOURCE_WEB3FORMS_ADAPTER__) return;
+  window.__CROWDSOURCE_WEB3FORMS_ADAPTER__=true;
 
   const nativeFetch=window.fetch.bind(window);
   const subjectMap={
@@ -26,76 +28,90 @@ window.FORM_ENDPOINTS=Object.freeze({
     missingText:"【众智释读·缺字补录】"
   };
 
-  function isFormSubmitRequest(input){
+  function isWeb3FormsRequest(input){
     const url=typeof input==="string"?input:(input&&input.url)||"";
-    return /^https:\/\/formsubmit\.co\/ajax\//i.test(url);
+    return /^https:\/\/api\.web3forms\.com\/submit(?:[?#].*)?$/i.test(url);
   }
 
-  function showFormSubmitNotice(){
-    let notice=document.getElementById("formSubmitActivationNotice");
-    if(!notice){
-      notice=document.createElement("div");
-      notice.id="formSubmitActivationNotice";
-      notice.setAttribute("role","status");
-      Object.assign(notice.style,{
-        position:"fixed",left:"50%",bottom:"28px",zIndex:"3200",
-        transform:"translateX(-50%)",maxWidth:"min(720px,calc(100vw - 32px))",
-        padding:"12px 18px",border:"1px solid #d9bd8d",borderRadius:"14px",
-        background:"#fff8e8",color:"#654b36",fontSize:"14px",lineHeight:"1.7",
-        boxShadow:"0 14px 38px rgba(52,35,20,.20)",textAlign:"center"
-      });
-      document.body.appendChild(notice);
+  function formDataToObject(data){
+    const result={};
+    if(!(data instanceof FormData)) return result;
+    for(const [key,value] of data.entries()){
+      if(typeof value!=="string") continue;
+      if(Object.prototype.hasOwnProperty.call(result,key)){
+        result[key]=`${result[key]}、${value}`;
+      }else{
+        result[key]=value;
+      }
     }
-    notice.textContent="请求已发送。若这是该邮箱首次使用 FormSubmit，请前往 163 邮箱完成确认；确认后再提交一次测试内容。";
-    notice.hidden=false;
-    clearTimeout(notice._hideTimer);
-    notice._hideTimer=setTimeout(()=>{notice.hidden=true;},9000);
+    return result;
   }
 
   window.fetch=async function(input,init){
-    if(!isFormSubmitRequest(input)) return nativeFetch(input,init);
+    if(!isWeb3FormsRequest(input)) return nativeFetch(input,init);
 
     const options=init?{...init}:{};
-    const data=options.body;
-    if(data instanceof FormData){
-      const type=String(data.get("submission_type")||"");
-      const workTitle=String(data.get("work_title")||"");
-      const email=String(data.get("email")||"");
-      data.set("_subject",`${subjectMap[type]||"【众智释读·意见提交】"}${workTitle}`);
-      data.set("_template","table");
-      data.set("_replyto",email);
-      data.set("_honey","");
-      data.delete("_gotcha");
+    const originalBody=options.body;
+    let payload={};
+
+    if(originalBody instanceof FormData){
+      payload=formDataToObject(originalBody);
+    }else if(typeof originalBody==="string"){
+      try{payload=JSON.parse(originalBody)||{};}catch(_){payload={message:originalBody};}
+    }else if(originalBody&&typeof originalBody==="object"){
+      payload={...originalBody};
     }
 
-    options.headers={...(options.headers||{}),Accept:"application/json"};
+    const type=String(payload.submission_type||"");
+    const workTitle=String(payload.work_title||"");
+    const email=String(payload.email||"");
+
+    delete payload._gotcha;
+    delete payload._honey;
+    delete payload._subject;
+    delete payload._template;
+    delete payload._replyto;
+
+    payload.access_key=WEB3FORMS_ACCESS_KEY;
+    payload.subject=`${subjectMap[type]||"【众智释读·意见提交】"}${workTitle}`;
+    payload.from_name="碑帖智能读析平台";
+    payload.botcheck="";
+    if(email) payload.replyto=email;
+
+    options.method="POST";
+    options.headers={
+      ...(options.headers||{}),
+      "Content-Type":"application/json",
+      "Accept":"application/json"
+    };
+    options.body=JSON.stringify(payload);
+
     const response=await nativeFetch(input,options);
     const result=await response.clone().json().catch(()=>({}));
 
-    if(!response.ok||result.success===false){
-      const message=result.message||`HTTP ${response.status}`;
+    if(!response.ok||result.success!==true){
+      const message=result.message||result.body?.message||`HTTP ${response.status}`;
       return new Response(JSON.stringify({success:false,message}),{
         status:response.ok?422:response.status,
-        statusText:response.statusText||"FormSubmit error",
+        statusText:response.statusText||"Web3Forms error",
         headers:{"Content-Type":"application/json"}
       });
     }
 
-    setTimeout(showFormSubmitNotice,260);
     return response;
   };
 
-  function normalizeFormSubmitUi(root=document){
-    root.querySelectorAll('input[name="_gotcha"]').forEach(input=>{input.name="_honey";});
+  function normalizeWeb3FormsUi(root=document){
     root.querySelectorAll(".crowd-status").forEach(status=>{
-      if(status.textContent.includes("Formspree")) status.textContent=status.textContent.replaceAll("Formspree","FormSubmit");
+      if(status.textContent.includes("Formspree")) status.textContent=status.textContent.replaceAll("Formspree","Web3Forms");
+      if(status.textContent.includes("FormSubmit")) status.textContent=status.textContent.replaceAll("FormSubmit","Web3Forms");
     });
   }
 
   const startObserver=()=>{
-    normalizeFormSubmitUi();
+    normalizeWeb3FormsUi();
     const section=document.getElementById("places")||document.body;
-    const observer=new MutationObserver(()=>normalizeFormSubmitUi(section));
+    const observer=new MutationObserver(()=>normalizeWeb3FormsUi(section));
     observer.observe(section,{childList:true,subtree:true,characterData:true});
   };
 
@@ -120,7 +136,7 @@ window.FORM_ENDPOINTS=Object.freeze({
     if(moduleReady()||retryStarted) return;
     retryStarted=true;
     const script=document.createElement("script");
-    script.src="assets/js/crowdsource.js?v=20260714_formsubmit_v10";
+    script.src="assets/js/crowdsource.js?v=20260714_web3forms_v11";
     script.dataset.crowdsourceRetry="true";
     script.addEventListener("load",()=>{
       setTimeout(()=>{
