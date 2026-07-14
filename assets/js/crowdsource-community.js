@@ -6,6 +6,7 @@
   const config=window.COMMUNITY_CONFIG||{};
   const state={items:[],filter:"all",sort:"latest",client:null,channel:null};
   const WORK_ID=String(new URLSearchParams(location.search).get("id")||"001");
+  const PUBLIC_WORK_ID=WORK_ID.split("-")[0].padStart(3,"0");
   const VOTER_KEY="crowd-community-voter-id";
   const VOTE_KEY=`crowd-community-votes:${WORK_ID}`;
 
@@ -18,7 +19,6 @@
   function qs(selector,root=document){return root.querySelector(selector);}
   function qsa(selector,root=document){return Array.from(root.querySelectorAll(selector));}
   function clean(value){return String(value==null?"":value).trim();}
-  function workTitle(){return clean(qs(".side .work-name")?.textContent)||clean(qs(".info-panel h1")?.textContent)||`碑帖${WORK_ID}`;}
   function getVoterId(){
     let id=localStorage.getItem(VOTER_KEY);
     if(!id){id=(crypto.randomUUID?crypto.randomUUID():`v_${Date.now()}_${Math.random().toString(36).slice(2)}`);localStorage.setItem(VOTER_KEY,id);}
@@ -161,16 +161,17 @@
   }
 
   async function loadSupabase(root){
-    const {data,error}=await state.client.from("suggestions_public").select("*").eq("work_id",WORK_ID).order("created_at",{ascending:false});
+    const {data,error}=await state.client.from("suggestions_public").select("*").eq("work_id",PUBLIC_WORK_ID).order("created_at",{ascending:false});
     if(error)throw error;state.items=Array.isArray(data)?data:[];render(root);
   }
 
   async function startSupabase(root){
-    if(!clean(config.supabaseUrl)||!clean(config.supabaseAnonKey)) throw new Error("community-config.js 尚未填写 Supabase URL 和 anon key");
-    const library=await loadSupabaseLibrary();state.client=library.createClient(config.supabaseUrl,config.supabaseAnonKey);await loadSupabase(root);
+    const publicKey=clean(config.supabaseKey||config.supabaseAnonKey);
+    if(!clean(config.supabaseUrl)||!publicKey) throw new Error("community-config.js 尚未填写 Supabase URL 和 publishable key");
+    const library=await loadSupabaseLibrary();state.client=library.createClient(config.supabaseUrl,publicKey);await loadSupabase(root);
     if(config.realtime!==false){
-      state.channel=state.client.channel(`community-${WORK_ID}`)
-        .on("postgres_changes",{event:"*",schema:"public",table:"suggestion_votes"},()=>loadSupabase(root).catch(console.error))
+      state.channel=state.client.channel(`community-${PUBLIC_WORK_ID}`)
+        .on("postgres_changes",{event:"*",schema:"public",table:"suggestion_vote_totals"},()=>loadSupabase(root).catch(console.error))
         .on("postgres_changes",{event:"*",schema:"public",table:"suggestions"},()=>loadSupabase(root).catch(console.error))
         .subscribe();
     }
@@ -188,7 +189,7 @@
     const root=buildLayout(shell);if(!root)return;syncWithMainTabs(root);
     if(config.mode==="supabase"){
       try{await startSupabase(root);}catch(error){console.error("[community] supabase init failed",error);qs("[data-community-list]",root).replaceChildren(element("div","crowd-community-error",`公开意见加载失败：${error.message}`));}
-    }else{state.items=demoItems.filter(item=>item.work_id===WORK_ID.split("-")[0].padStart(3,"0"));render(root);}
+    }else{state.items=demoItems.filter(item=>item.work_id===PUBLIC_WORK_ID);render(root);}
   }
 
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
