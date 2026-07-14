@@ -257,3 +257,35 @@ window.FORM_ENDPOINTS=Object.freeze({
   window.addEventListener("load",scheduleRetry,{once:true});
   window.addEventListener("load",scheduleEnhancement,{once:true});
 })();
+
+/* 公开校订意见区：独立加载，不修改现有表单、Web3Forms 或字框逻辑。 */
+(function loadCommunitySuggestions(){
+  "use strict";
+  if(window.__CROWDSOURCE_COMMUNITY_LOADER__) return;
+  window.__CROWDSOURCE_COMMUNITY_LOADER__=true;
+
+  const addStyle=()=>{
+    if(document.querySelector('link[data-crowdsource-community]')) return;
+    const link=document.createElement("link");
+    link.rel="stylesheet";
+    link.href="assets/css/crowdsource-community.css?v=20260714_v1";
+    link.dataset.crowdsourceCommunity="true";
+    document.head.appendChild(link);
+  };
+  const addScript=(src,key,onload)=>{
+    if(document.querySelector(`script[data-${key}]`)){if(onload)onload();return;}
+    const script=document.createElement("script");
+    script.src=src;
+    script.dataset[key]="true";
+    if(onload)script.addEventListener("load",onload,{once:true});
+    script.addEventListener("error",()=>console.error("[community] 模块加载失败：",src));
+    document.body.appendChild(script);
+  };
+  const start=()=>{
+    addStyle();
+    addScript("assets/js/community-config.js?v=20260714_v1","communityConfig",()=>{
+      addScript("assets/js/crowdsource-community.js?v=20260714_v1","communityModule");
+    });
+  };
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
+})();
