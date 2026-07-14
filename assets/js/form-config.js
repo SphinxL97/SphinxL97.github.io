@@ -1,12 +1,107 @@
-/* 众智释读三个独立表单的 Formspree 地址。
- * 后续仅需把空字符串替换为对应的 Formspree endpoint。
+/* 众智释读三个独立表单的接收地址。
+ * 当前使用 FormSubmit AJAX，将三类意见发送到同一个测试邮箱，
+ * 再通过邮件标题区分不同提交类型。
  * 不要在本文件中填写邮箱密码、SMTP 密码或授权码。
  */
+const FORM_SUBMIT_ENDPOINT="https://formsubmit.co/ajax/ceshiyouxiangSPX@163.com";
 window.FORM_ENDPOINTS=Object.freeze({
-  transcription:"",
-  punctuation:"",
-  missingText:""
+  transcription:FORM_SUBMIT_ENDPOINT,
+  punctuation:FORM_SUBMIT_ENDPOINT,
+  missingText:FORM_SUBMIT_ENDPOINT
 });
+
+/*
+ * FormSubmit 适配层：只处理发送到 formsubmit.co/ajax/ 的请求，
+ * 不影响碑帖图片、坐标、释文和其他网络请求。
+ */
+(function installFormSubmitAdapter(){
+  "use strict";
+  if(window.__CROWDSOURCE_FORMSUBMIT_ADAPTER__) return;
+  window.__CROWDSOURCE_FORMSUBMIT_ADAPTER__=true;
+
+  const nativeFetch=window.fetch.bind(window);
+  const subjectMap={
+    transcription:"【众智释读·释文校订】",
+    punctuation:"【众智释读·标点校订】",
+    missingText:"【众智释读·缺字补录】"
+  };
+
+  function isFormSubmitRequest(input){
+    const url=typeof input==="string"?input:(input&&input.url)||"";
+    return /^https:\/\/formsubmit\.co\/ajax\//i.test(url);
+  }
+
+  function showFormSubmitNotice(){
+    let notice=document.getElementById("formSubmitActivationNotice");
+    if(!notice){
+      notice=document.createElement("div");
+      notice.id="formSubmitActivationNotice";
+      notice.setAttribute("role","status");
+      Object.assign(notice.style,{
+        position:"fixed",left:"50%",bottom:"28px",zIndex:"3200",
+        transform:"translateX(-50%)",maxWidth:"min(720px,calc(100vw - 32px))",
+        padding:"12px 18px",border:"1px solid #d9bd8d",borderRadius:"14px",
+        background:"#fff8e8",color:"#654b36",fontSize:"14px",lineHeight:"1.7",
+        boxShadow:"0 14px 38px rgba(52,35,20,.20)",textAlign:"center"
+      });
+      document.body.appendChild(notice);
+    }
+    notice.textContent="请求已发送。若这是该邮箱首次使用 FormSubmit，请前往 163 邮箱完成确认；确认后再提交一次测试内容。";
+    notice.hidden=false;
+    clearTimeout(notice._hideTimer);
+    notice._hideTimer=setTimeout(()=>{notice.hidden=true;},9000);
+  }
+
+  window.fetch=async function(input,init){
+    if(!isFormSubmitRequest(input)) return nativeFetch(input,init);
+
+    const options=init?{...init}:{};
+    const data=options.body;
+    if(data instanceof FormData){
+      const type=String(data.get("submission_type")||"");
+      const workTitle=String(data.get("work_title")||"");
+      const email=String(data.get("email")||"");
+      data.set("_subject",`${subjectMap[type]||"【众智释读·意见提交】"}${workTitle}`);
+      data.set("_template","table");
+      data.set("_replyto",email);
+      data.set("_honey","");
+      data.delete("_gotcha");
+    }
+
+    options.headers={...(options.headers||{}),Accept:"application/json"};
+    const response=await nativeFetch(input,options);
+    const result=await response.clone().json().catch(()=>({}));
+
+    if(!response.ok||result.success===false){
+      const message=result.message||`HTTP ${response.status}`;
+      return new Response(JSON.stringify({success:false,message}),{
+        status:response.ok?422:response.status,
+        statusText:response.statusText||"FormSubmit error",
+        headers:{"Content-Type":"application/json"}
+      });
+    }
+
+    setTimeout(showFormSubmitNotice,260);
+    return response;
+  };
+
+  function normalizeFormSubmitUi(root=document){
+    root.querySelectorAll('input[name="_gotcha"]').forEach(input=>{input.name="_honey";});
+    root.querySelectorAll(".crowd-status").forEach(status=>{
+      if(status.textContent.includes("Formspree")) status.textContent=status.textContent.replaceAll("Formspree","FormSubmit");
+    });
+  }
+
+  const startObserver=()=>{
+    normalizeFormSubmitUi();
+    const section=document.getElementById("places")||document.body;
+    const observer=new MutationObserver(()=>normalizeFormSubmitUi(section));
+    observer.observe(section,{childList:true,subtree:true,characterData:true});
+  };
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",startObserver,{once:true});
+  else startObserver();
+})();
 
 /*
  * 兜底加载：若浏览器或 GitHub Pages 缓存导致主模块没有执行，
@@ -25,7 +120,7 @@ window.FORM_ENDPOINTS=Object.freeze({
     if(moduleReady()||retryStarted) return;
     retryStarted=true;
     const script=document.createElement("script");
-    script.src="assets/js/crowdsource.js?v=20260713_fix7";
+    script.src="assets/js/crowdsource.js?v=20260714_formsubmit_v10";
     script.dataset.crowdsourceRetry="true";
     script.addEventListener("load",()=>{
       setTimeout(()=>{
