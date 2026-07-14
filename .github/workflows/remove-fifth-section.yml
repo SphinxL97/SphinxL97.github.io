@@ -1,0 +1,45 @@
+name: Remove fifth detail section
+
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-fifth-section.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  remove-fifth-section:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Remove only the fifth directory item and section
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("detail.html")
+          text = path.read_text(encoding="utf-8")
+
+          menu_target = '<a href="#sources">五、资料说明</a>'
+          section_target = '<article class="content-card" id="sources"><h2 class="section-title">资料说明</h2><p>本页优先读取 <code>data/page_images_index.json</code> 中的逐页图像；如多册虚拟 id 暂未写入索引，则按已上传图片目录自动生成页表。单字定位优先读取 <code>data/glyph_boxes/iiif/当前作品id/page_xxxx.json</code>。</p><div class="source-note">本页已加入多册兜底、按坐标排序释文网格、左图按 OCR/单字坐标文字范围放大显示。没有坐标的页面仍显示完整原图。</div></article>'
+
+          if text.count(menu_target) != 1:
+              raise SystemExit(f"Expected exactly one fifth menu item, found {text.count(menu_target)}")
+          if text.count(section_target) != 1:
+              raise SystemExit(f"Expected exactly one fifth section, found {text.count(section_target)}")
+
+          text = text.replace(menu_target, "", 1)
+          text = text.replace(section_target, "", 1)
+          path.write_text(text, encoding="utf-8")
+
+      - name: Commit the requested change and remove this one-off workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/remove-fifth-section.yml
+          git add detail.html
+          git commit -m "Remove fifth section from all detail pages"
+          git push
