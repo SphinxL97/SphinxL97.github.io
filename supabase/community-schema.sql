@@ -1,5 +1,6 @@
--- 众智释读公开意见与投票表。
--- 在 Supabase SQL Editor 中执行。当前网站提交仍走 Web3Forms；本表先用于公开展示与投票。
+-- 众智释读公开意见与实时投票表。
+-- 在 Supabase SQL Editor 中一次性执行。
+-- 当前网站提交仍走 Web3Forms；本数据库负责“已审核意见展示 + 所有访问者共享投票”。
 
 create extension if not exists pgcrypto;
 
@@ -30,31 +31,116 @@ create table if not exists public.suggestion_votes (
   unique (suggestion_id,voter_id)
 );
 
-create or replace view public.suggestions_public as
+-- 单独保存公开计数，避免把匿名 voter_id 暴露给浏览器。
+create table if not exists public.suggestion_vote_totals (
+  suggestion_id uuid primary key references public.suggestions(id) on delete cascade,
+  up_count integer not null default 0,
+  down_count integer not null default 0,
+  updated_at timestamptz not null default now()
+);
+
+create or replace function public.recount_community_votes(p_suggestion_id uuid)
+returns void
+language plpgsql
+security definer
+set search_path=public
+as $$
+begin
+  if not exists(select 1 from public.suggestions where id=p_suggestion_id) then
+    delete from public.suggestion_vote_totals where suggestion_id=p_suggestion_id;
+    return;
+  end if;
+
+  insert into public.suggestion_vote_totals(suggestion_id,up_count,down_count,updated_at)
+  select
+    p_suggestion_id,
+    count(*) filter (where vote_value=1)::int,
+    count(*) filter (where vote_value=-1)::int,
+    now()
+  from public.suggestion_votes
+  where suggestion_id=p_suggestion_id
+  on conflict(suggestion_id) do update set
+    up_count=excluded.up_count,
+    down_count=excluded.down_count,
+    updated_at=excluded.updated_at;
+end;
+$$;
+
+create or replace function public.sync_community_vote_totals()
+returns trigger
+language plpgsql
+security definer
+set search_path=public
+as $$
+begin
+  if tg_op='DELETE' then
+    perform public.recount_community_votes(old.suggestion_id);
+    return old;
+  end if;
+
+  perform public.recount_community_votes(new.suggestion_id);
+  if tg_op='UPDATE' and old.suggestion_id is distinct from new.suggestion_id then
+    perform public.recount_community_votes(old.suggestion_id);
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists community_vote_totals_trigger on public.suggestion_votes;
+create trigger community_vote_totals_trigger
+after insert or update or delete on public.suggestion_votes
+for each row execute function public.sync_community_vote_totals();
+
+-- 为已有投票补算一次计数。
+insert into public.suggestion_vote_totals(suggestion_id,up_count,down_count,updated_at)
+select
+  s.id,
+  count(v.id) filter (where v.vote_value=1)::int,
+  count(v.id) filter (where v.vote_value=-1)::int,
+  now()
+from public.suggestions s
+left join public.suggestion_votes v on v.suggestion_id=s.id
+group by s.id
+on conflict(suggestion_id) do update set
+  up_count=excluded.up_count,
+  down_count=excluded.down_count,
+  updated_at=excluded.updated_at;
+
+-- 公开视图只返回审核通过的意见和汇总票数。
+create or replace view public.suggestions_public
+with (security_invoker=true)
+as
 select
   s.id,s.work_id,s.type,s.page_no,s.line_no,s.column_no,s.glyph_id,
   s.current_text,s.suggested_text,s.reason,s.reference_text,s.nickname,s.created_at,
-  count(v.id) filter (where v.vote_value=1)::int as up_count,
-  count(v.id) filter (where v.vote_value=-1)::int as down_count
+  coalesce(t.up_count,0)::int as up_count,
+  coalesce(t.down_count,0)::int as down_count
 from public.suggestions s
-left join public.suggestion_votes v on v.suggestion_id=s.id
-where s.status='approved'
-group by s.id;
-
-grant select on public.suggestions_public to anon, authenticated;
+left join public.suggestion_vote_totals t on t.suggestion_id=s.id
+where s.status='approved';
 
 alter table public.suggestions enable row level security;
 alter table public.suggestion_votes enable row level security;
+alter table public.suggestion_vote_totals enable row level security;
 
--- 浏览者只能读取审核通过的原始意见；公开页面主要读取 suggestions_public 视图。
+-- 公众只能读取审核通过的意见。
 drop policy if exists "read approved suggestions" on public.suggestions;
 create policy "read approved suggestions" on public.suggestions
 for select to anon, authenticated
 using (status='approved');
 
--- 不直接允许匿名访问投票表，统一通过两个安全函数投票。
+-- 公众只能读取汇总数字，不读取匿名投票明细。
+drop policy if exists "read public vote totals" on public.suggestion_vote_totals;
+create policy "read public vote totals" on public.suggestion_vote_totals
+for select to anon, authenticated
+using (true);
+
+grant select on public.suggestions to anon, authenticated;
+grant select on public.suggestion_vote_totals to anon, authenticated;
+grant select on public.suggestions_public to anon, authenticated;
 revoke all on public.suggestion_votes from anon, authenticated;
 
+-- 投票统一通过安全函数完成。
 create or replace function public.cast_community_vote(
   p_suggestion_id uuid,
   p_voter_id text,
@@ -74,6 +160,7 @@ begin
   if not exists(select 1 from public.suggestions where id=p_suggestion_id and status='approved') then
     raise exception 'suggestion is not public';
   end if;
+
   insert into public.suggestion_votes(suggestion_id,voter_id,vote_value)
   values(p_suggestion_id,p_voter_id,p_vote_value)
   on conflict(suggestion_id,voter_id)
@@ -85,24 +172,42 @@ create or replace function public.remove_community_vote(
   p_suggestion_id uuid,
   p_voter_id text
 ) returns void
-language sql
+language plpgsql
 security definer
 set search_path=public
 as $$
+begin
+  if length(coalesce(p_voter_id,''))<8 or length(p_voter_id)>120 then
+    raise exception 'invalid voter id';
+  end if;
   delete from public.suggestion_votes
   where suggestion_id=p_suggestion_id and voter_id=p_voter_id;
+end;
 $$;
 
+revoke all on function public.cast_community_vote(uuid,text,smallint) from public;
+revoke all on function public.remove_community_vote(uuid,text) from public;
 grant execute on function public.cast_community_vote(uuid,text,smallint) to anon, authenticated;
 grant execute on function public.remove_community_vote(uuid,text) to anon, authenticated;
 
--- Realtime：在 Supabase Dashboard 的 Database > Replication 中，也可手动确认已启用这两张表。
-alter publication supabase_realtime add table public.suggestions;
-alter publication supabase_realtime add table public.suggestion_votes;
+-- Realtime 只公开“意见状态变化”和“汇总数字变化”，不公开 voter_id。
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname='supabase_realtime' and schemaname='public' and tablename='suggestions'
+  ) then
+    alter publication supabase_realtime add table public.suggestions;
+  end if;
 
--- 三条可选测试数据。执行后请在 Table Editor 中确认 status=approved。
-insert into public.suggestions(work_id,type,page_no,line_no,column_no,current_text,suggested_text,reason,reference_text,nickname,status)
-values
-('001','transcription',8,12,5,'德','首','根据字形上部结构及上下文判断，此处更接近“首”。','某拓本第8页','墨缘','approved'),
-('001','transcription',9,3,7,'以','之','结合句意，前后语气衔接更通顺，应为“之”。','某拓本第9页','清风','approved'),
-('001','punctuation',11,1,null,'大哉乾元，播物垂象。肇有书契，文籍生焉。','大哉乾元，播物垂象；肇有书契，文籍生焉。','前后两层语意相承，使用分号更能体现句间关系。','依据文意与骈文节奏','云中鹤','approved');
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname='supabase_realtime' and schemaname='public' and tablename='suggestion_vote_totals'
+  ) then
+    alter publication supabase_realtime add table public.suggestion_vote_totals;
+  end if;
+end;
+$$;
+
+-- 可选测试数据不要随主脚本自动写入。
+-- 建议在 Supabase Table Editor 中手动新增一条 status='approved' 的意见进行测试。
