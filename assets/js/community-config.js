@@ -5,9 +5,9 @@
  * 绝对不要填写 secret key 或 service_role key。
  */
 window.COMMUNITY_CONFIG=Object.freeze({
-  mode:"demo",
-  supabaseUrl:"",
-  supabaseKey:"",
+  mode:"supabase",
+  supabaseUrl:"https://qzosftacfgoasjucsipt.supabase.co",
+  supabaseKey:"sb_publishable_gOEOPaHSERWY4RrGlaFIZA_vqXj5sfB",
   pageSize:6,
   realtime:true
 });
