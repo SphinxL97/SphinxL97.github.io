@@ -49,8 +49,7 @@
     if(!shell||qs(".crowd-community",shell)) return qs(".crowd-community",shell);
     const root=document.createElement("section");root.className="crowd-community";root.innerHTML=`
       <div class="crowd-community-head">
-        <div><h3 class="crowd-community-title">大家的校订意见</h3><p class="crowd-community-desc">仅展示经管理员审核通过的意见。联系邮箱不会公开显示。</p></div>
-        <span class="crowd-community-mode" data-community-mode></span>
+        <div><h3 class="crowd-community-title">诸家汇校</h3><p class="crowd-community-desc">仅展示经管理员审核通过的意见。联系邮箱不会公开显示。</p></div>
       </div>
       <div class="crowd-community-toolbar">
         <div class="crowd-community-filters" aria-label="意见类型筛选">
@@ -70,7 +69,6 @@
     shell.appendChild(root);
     qsa("[data-community-filter]",root).forEach(btn=>btn.addEventListener("click",()=>{state.filter=btn.dataset.communityFilter;syncButtons(root);render(root);}));
     qsa("[data-community-sort]",root).forEach(btn=>btn.addEventListener("click",()=>{state.sort=btn.dataset.communitySort;syncButtons(root);render(root);}));
-    const mode=qs("[data-community-mode]",root);mode.textContent=config.mode==="supabase"?"共享实时数据":"界面演示模式";
     return root;
   }
 
