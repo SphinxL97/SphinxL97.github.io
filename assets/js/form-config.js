@@ -120,6 +120,160 @@ window.FORM_ENDPOINTS=Object.freeze({
 })();
 
 /*
+ * 作品002坐标适配：只在《礼器碑并阴》详情页启用。
+ * 现有众智释读模块读取分片坐标时，将已上传的逐页 IIIF 单字坐标
+ * 转换成原模块所需格式；不修改其他作品、图片或坐标文件。
+ */
+(function installLiqiCoordinateAdapter(){
+  "use strict";
+
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+  if(parentId!=="002") return;
+  if(window.__LIQI_COORDINATE_ADAPTER__) return;
+  window.__LIQI_COORDINATE_ADAPTER__=true;
+
+  const nativeFetch=window.fetch.bind(window);
+  let coordinatePromise=null;
+
+  function requestUrl(input){
+    return typeof input==="string"?input:(input&&input.url)||"";
+  }
+
+  function isModelShardRequest(input){
+    const url=requestUrl(input).split("?")[0];
+    return /data\/model_boxes\/glyph_model_border_001_005\.json$/i.test(url);
+  }
+
+  function number(value,fallback=0){
+    const result=Number(value);
+    return Number.isFinite(result)?result:fallback;
+  }
+
+  function normalizePage(boxes,pageNo){
+    const rows=(Array.isArray(boxes)?boxes:[]).map((box,index)=>{
+      const bbox=Array.isArray(box.bbox)?box.bbox:[];
+      const x=number(box.x,number(box.bbox_x,number(bbox[0])));
+      const y=number(box.y,number(box.bbox_y,number(bbox[1])));
+      const w=number(box.w,number(box.bbox_w,number(bbox[2])));
+      const h=number(box.h,number(box.bbox_h,number(bbox[3])));
+      return {
+        ...box,
+        virtual_id:"002",
+        work_id:"002",
+        canvas_index:pageNo,
+        page:pageNo,
+        glyph_id:String(box.glyph_id||`002_${pageNo}_${index+1}`),
+        char:String(box.char||box.text||"").slice(0,1),
+        text:String(box.char||box.text||"").slice(0,1),
+        order_in_page:number(box.order_in_page,index+1),
+        canvas_width:number(box.canvas_width,1473),
+        canvas_height:number(box.canvas_height,2257),
+        x,y,w,h
+      };
+    }).sort((a,b)=>a.order_in_page-b.order_in_page);
+
+    let currentCenter=NaN;
+    let currentWidth=0;
+    let column=-1;
+    let row=0;
+
+    rows.forEach(item=>{
+      const center=item.x+item.w/2;
+      const threshold=Math.max(item.w,currentWidth,1)*0.58;
+      const newColumn=!Number.isFinite(currentCenter)||Math.abs(center-currentCenter)>threshold;
+      if(newColumn){
+        column+=1;
+        row=0;
+        currentCenter=center;
+        currentWidth=item.w;
+      }else{
+        currentCenter=(currentCenter*row+center)/(row+1);
+        currentWidth=Math.max(currentWidth,item.w);
+      }
+      item.auto_col=column;
+      item.auto_row=row;
+      row+=1;
+    });
+
+    return rows;
+  }
+
+  async function buildCoordinateRows(){
+    const pageResponse=await nativeFetch("data/page_images_index.json?v=20260715_liqi_coords_v1",{cache:"no-store"});
+    if(!pageResponse.ok) throw new Error(`page index ${pageResponse.status}`);
+    const pageData=await pageResponse.json();
+    const work=(pageData.works||{})["002"]||{};
+    const pages=Array.isArray(work.pages)?work.pages:[];
+
+    const groups=await Promise.all(pages.map(async(page,index)=>{
+      const pageNo=number(page.canvas_index||page.page,index+1);
+      const path=`data/glyph_boxes/iiif/002/page_${String(pageNo).padStart(4,"0")}.json?v=20260715_liqi_coords_v1`;
+      try{
+        const response=await nativeFetch(path,{cache:"no-store"});
+        if(!response.ok) return [];
+        const boxes=await response.json();
+        return normalizePage(boxes,pageNo);
+      }catch(_){
+        return [];
+      }
+    }));
+
+    return groups.flat();
+  }
+
+  window.fetch=async function(input,init){
+    if(!isModelShardRequest(input)) return nativeFetch(input,init);
+    try{
+      coordinatePromise=coordinatePromise||buildCoordinateRows();
+      const rows=await coordinatePromise;
+      return new Response(JSON.stringify(rows),{
+        status:200,
+        headers:{"Content-Type":"application/json; charset=utf-8"}
+      });
+    }catch(error){
+      console.error("[liqi-coordinates] IIIF坐标转换失败",error);
+      return nativeFetch(input,init);
+    }
+  };
+})();
+
+/*
+ * 作品002内容模块：只在《礼器碑并阴》详情页加载，
+ * 使用与《道因法师碑》相同的栏目结构和CSS。
+ */
+(function loadLiqiContentModule(){
+  "use strict";
+
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+  if(parentId!=="002") return;
+
+  window.__WORK_002_CONTENT_PROMISE__=new Promise(resolve=>{
+    const existing=document.querySelector('script[data-work-002-liqi]');
+    if(existing){
+      if(window.__WORK_002_CONTENT_READY__) resolve();
+      else{
+        existing.addEventListener("load",resolve,{once:true});
+        existing.addEventListener("error",resolve,{once:true});
+      }
+      return;
+    }
+
+    const script=document.createElement("script");
+    script.src="js/work-002-liqi.js?v=20260715_liqi_v1";
+    script.async=false;
+    script.dataset.work002Liqi="true";
+    script.addEventListener("load",resolve,{once:true});
+    script.addEventListener("error",()=>{
+      console.error("[work-002] 礼器碑并阴内容模块加载失败：",script.src);
+      resolve();
+    },{once:true});
+    document.head.appendChild(script);
+  });
+})();
+
+/*
  * 兜底加载：若浏览器或 GitHub Pages 缓存导致主模块没有执行，
  * 自动使用新的版本参数重新加载一次。只负责加载，不修改碑帖数据。
  */
@@ -243,7 +397,15 @@ window.FORM_ENDPOINTS=Object.freeze({
   }
 
   function scheduleRetry(){setTimeout(retryLoad,300);}
-  function scheduleEnhancement(){setTimeout(loadV8Enhancement,380);setTimeout(loadV9Enhancement,480);}
+  function scheduleEnhancement(){
+    setTimeout(loadV8Enhancement,380);
+    const promise=window.__WORK_002_CONTENT_PROMISE__;
+    if(promise&&typeof promise.finally==="function"){
+      promise.finally(()=>setTimeout(loadV9Enhancement,120));
+    }else{
+      setTimeout(loadV9Enhancement,480);
+    }
+  }
 
   installSelectedGlyphToggle();
 
