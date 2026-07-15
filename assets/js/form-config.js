@@ -268,7 +268,7 @@ window.FORM_ENDPOINTS=Object.freeze({
     if(document.querySelector('link[data-crowdsource-community]')) return;
     const link=document.createElement("link");
     link.rel="stylesheet";
-    link.href="assets/css/crowdsource-community.css?v=20260714_v1";
+    link.href="assets/css/crowdsource-community.css?v=20260715_v2";
     link.dataset.crowdsourceCommunity="true";
     document.head.appendChild(link);
   };
@@ -283,8 +283,8 @@ window.FORM_ENDPOINTS=Object.freeze({
   };
   const start=()=>{
     addStyle();
-    addScript("assets/js/community-config.js?v=20260714_v1","communityConfig",()=>{
-      addScript("assets/js/crowdsource-community.js?v=20260714_v1","communityModule");
+    addScript("assets/js/community-config.js?v=20260715_v2","communityConfig",()=>{
+      addScript("assets/js/crowdsource-community.js?v=20260715_v2","communityModule");
     });
   };
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
