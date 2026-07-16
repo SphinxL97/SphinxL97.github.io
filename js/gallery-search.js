@@ -15,6 +15,47 @@
     theme:"全部"
   };
 
+  const THEME_GROUPS = {
+    "思想信仰":[
+      "佛教","道教","儒家","禅宗","华严宗","中岳信仰","许真君信仰",
+      "道教意趣","传法世系","译经","讲学","发愿文","茅山","仙坛"
+    ],
+    "人物传记":[
+      "北朝人物","北魏家族","高道传记","高僧传记","禅师传记","官员纪事",
+      "官员生平","女性生平","宋代人物","元代人物","妇德","唐太宗"
+    ],
+    "政治治理":[
+      "北魏政治","边疆治理","曹魏建国","禅让","德政颂扬","地方治理",
+      "廉政","唐代政治","政治制度"
+    ],
+    "礼制祭祀":[
+      "祭祀","孔庙","孔庙祭祀","孔庙礼制","尊孔兴学","官场礼仪",
+      "皇家祈福","祥瑞","孝道","捐资题名"
+    ],
+    "墓葬纪念":[
+      "墓碑","墓志","合葬","昭陵陪葬","功德颂扬","居士纪念",
+      "神道碑","葬鹤"
+    ],
+    "寺观营建":[
+      "寺院","寺院沿革","寺院营建","舍利塔","塔铭","宫苑","井铭"
+    ],
+    "书法文献":[
+      "北魏碑刻","汉代碑刻","隋代碑刻","法帖","集帖","集字书法",
+      "晋唐书法","唐代书法","宋代书法","赵孟頫书法","米芾书法",
+      "颜体楷书","摩崖书法","书法","书法鉴藏","书札","诗歌","诗文",
+      "小楷","行书","篆书","魏碑","奏铭","皇家序文","刻石"
+    ],
+    "历史纪事":[
+      "历史纪事","神话历史"
+    ],
+    "山川游历":[
+      "山川景观","山川游记","山林隐逸","山水游历"
+    ],
+    "画像造像":[
+      "汉画像石","造像","题榜"
+    ]
+  };
+
   const FILTER_CONFIG = [
     {key:"type",label:"碑帖类型",values:["碑","刻石","墓志","塔铭","井铭","法帖","画像石题字"]},
     {key:"dynasty",label:"刻立朝代",values:["东汉","三国魏","南朝梁","北魏","东魏","隋","唐","南唐","北宋","元","东晋"]},
@@ -22,7 +63,7 @@
     {key:"author",label:"撰文者",field:"authors",person:true,collapsible:true},
     {key:"writer",label:"书写者",field:"writers",person:true,collapsible:true},
     {key:"copy_era",label:"拓制时代",values:["北宋","南宋","宋代","元明间","明初","明代","明末清初","清初","清代","旧拓待核"]},
-    {key:"theme",label:"内容主题",field:"themes",collapsible:true}
+    {key:"theme",label:"内容主题",values:Object.keys(THEME_GROUPS)}
   ];
 
   function asArray(value){
@@ -45,6 +86,14 @@
 
   function metaFor(item){
     return metadataMap.get(padId(item.id)) || null;
+  }
+
+  function themeGroupsFor(meta){
+    if(!meta) return [];
+    const details = new Set(asArray(meta.themes));
+    return Object.entries(THEME_GROUPS)
+      .filter(([,members])=>members.some(member=>details.has(member)))
+      .map(([group])=>group);
   }
 
   function dynamicValues(config){
@@ -115,6 +164,7 @@
         ...asArray(meta.copy_era),
         ...asArray(meta.version_type),
         ...asArray(meta.themes),
+        ...themeGroupsFor(meta),
         ...asArray(meta.keywords)
       );
       if(!meta.person_search_excluded){
@@ -130,6 +180,7 @@
     if(value === "全部") return true;
     if(!meta) return false;
     if((key === "author" || key === "writer") && meta.person_search_excluded) return false;
+    if(key === "theme") return themeGroupsFor(meta).includes(value);
 
     const field = {
       type:"type",
@@ -137,8 +188,7 @@
       script:"script",
       author:"authors",
       writer:"writers",
-      copy_era:"copy_era",
-      theme:"themes"
+      copy_era:"copy_era"
     }[key];
 
     return asArray(meta[field]).includes(value);
