@@ -2,12 +2,13 @@
  * 栏目三统一规范：
  * 1. 案例类别固定为“古字识别 / 形近字纠错 / 残损碑文恢复”；
  * 2. AI补入或改正的文字统一使用〔〕并高亮；
- * 3. 适用于现有及后续沿用 damage-* 结构的碑帖栏目三。
+ * 3. 顶部统一显示“案例序号＋类别＋案例题名＋置信度”；
+ * 4. 适用于现有及后续沿用 damage-* 结构的碑帖栏目三。
  */
 (function(){
   "use strict";
-  if(window.__DAMAGE_CASE_STANDARD_PATCH_V1__) return;
-  window.__DAMAGE_CASE_STANDARD_PATCH_V1__=true;
+  if(window.__DAMAGE_CASE_STANDARD_PATCH_V2__) return;
+  window.__DAMAGE_CASE_STANDARD_PATCH_V2__=true;
 
   const CATEGORIES=Object.freeze(["古字识别","形近字纠错","残损碑文恢复"]);
   window.DAMAGE_CASE_CATEGORIES=CATEGORIES;
@@ -139,6 +140,75 @@
     return html;
   }
 
+  function activeCaseRecord(active){
+    const index=Number(active?.dataset.caseIndex);
+    if(Array.isArray(window.DAMAGE_AI_CASES)&&Number.isInteger(index)&&window.DAMAGE_AI_CASES[index]){
+      return window.DAMAGE_AI_CASES[index];
+    }
+    return null;
+  }
+
+  function normalizeConfidence(value){
+    let text=clean(value)
+      .replace(/^建议置信度\s*[:：]\s*/,"")
+      .replace(/[（）()]/g,"")
+      .replace(/置信度$/,"164");
+    if(text.endsWith("164")) text=text.slice(0,-3);
+    if(!text) return "";
+    if(/暂无法判断|无法判断|待考/.test(text)) return "暂无法判断";
+    return `${text}置信度`;
+  }
+
+  function confidenceOf(section,record){
+    const fromRecord=normalizeConfidence(record?.confidence);
+    if(fromRecord) return fromRecord;
+    const evidence=Array.from(section.querySelectorAll(".damage-evidence p,.damage-evidence-block p"))
+      .map(node=>clean(node.textContent))
+      .find(text=>text.includes("置信度"));
+    return normalizeConfidence(evidence||"");
+  }
+
+  function usefulTitle(value){
+    const text=clean(value);
+    if(!text) return "";
+    if(/^第?\s*0*\d+\s*处(?:整句缺字|缺字|整句)?$/.test(text)) return "";
+    if(/^案例\s*0*\d+$/.test(text)) return "";
+    if(/^(整句缺字待考|整句残损恢复|AI暂拟补释)(?:——)?第?\s*0*\d+处?$/.test(text)) return "";
+    return text;
+  }
+
+  function compactSegments(segments){
+    const result=[];
+    (segments||[]).forEach(segment=>{
+      const text=clean(segment).replace(/[，。；：、！？“”‘’〔〕（）()]/g,"");
+      if(!text||text.length>12||result.includes(text)) return;
+      result.push(text);
+    });
+    const joined=result.slice(0,4).join("、");
+    if(!joined) return "";
+    return joined.length>18?`${joined.slice(0,18)}…`:joined;
+  }
+
+  function caseSubject(record,detail,formatted,caseNo){
+    const recordSubject=usefulTitle(record?.s);
+    if(recordSubject) return recordSubject;
+
+    const headingSubject=usefulTitle(detail);
+    if(headingSubject) return headingSubject;
+
+    const changed=compactSegments(formatted?.segments);
+    if(changed) return `“${changed}”`;
+
+    return `第${String(caseNo||"").replace(/^0+/,"")||"一"}处`;
+  }
+
+  function renderHeading(section,heading,category,subject,confidence){
+    const signature=[category,subject,confidence].join("\u0001");
+    if(heading.dataset.standardHeadingSignature===signature) return;
+    heading.dataset.standardHeadingSignature=signature;
+    heading.innerHTML=`<span class="damage-heading-title">${esc(category)}——${esc(subject)}</span>${confidence?`<span class="damage-heading-confidence">（${esc(confidence)}）</span>`:""}`;
+  }
+
   function ensureStyle(){
     if(document.getElementById("damage-case-standard-style")) return;
     const style=document.createElement("style");
@@ -157,6 +227,20 @@
         white-space:nowrap;
       }
       .damage-restored .damage-added{background:#fff0df;}
+      .damage-heading{
+        display:flex;
+        align-items:baseline;
+        flex-wrap:wrap;
+        gap:.45em;
+        min-width:0;
+      }
+      .damage-heading-title{font-weight:900;color:#3a3028;}
+      .damage-heading-confidence{
+        color:#5f5041;
+        font-size:.82em;
+        font-weight:800;
+        white-space:nowrap;
+      }
     `;
     document.head.appendChild(style);
   }
@@ -186,21 +270,16 @@
       const activeName=active?.querySelector(".name");
       const activeCategory=categoryOf(activeName?.dataset.originalCaseLabel||activeName?.textContent);
       const caseNo=clean(active?.querySelector("b")?.textContent);
-      const heading=section.querySelector(".damage-heading");
-      if(heading){
-        if(!heading.dataset.originalCaseHeading) heading.dataset.originalCaseHeading=clean(heading.textContent);
-        const detail=titleDetail(heading.dataset.originalCaseHeading,caseNo?`案例 ${caseNo}`:"案例");
-        const standardized=`${activeCategory}——${detail}`;
-        if(heading.textContent!==standardized) heading.textContent=standardized;
-      }
+      const record=activeCaseRecord(active);
 
       const original=section.querySelector(".damage-flow .damage-text:not(.damage-new)");
       const corrected=section.querySelector(".damage-flow .damage-text.damage-new");
       const restored=section.querySelector(".damage-flow .damage-restored");
+      let formatted=null;
       if(original&&corrected){
         if(!original.dataset.standardRawText) original.dataset.standardRawText=clean(original.textContent);
         if(!corrected.dataset.standardRawText) corrected.dataset.standardRawText=clean(corrected.textContent);
-        const formatted=lcsMarkedHtml(original.dataset.standardRawText,corrected.dataset.standardRawText);
+        formatted=lcsMarkedHtml(original.dataset.standardRawText,corrected.dataset.standardRawText);
         if(corrected.innerHTML!==formatted.html) corrected.innerHTML=formatted.html;
         corrected.setAttribute("aria-label",formatted.plain);
 
@@ -209,6 +288,15 @@
           const restoredHtml=markSegmentsInContext(restored.dataset.standardRawText,formatted);
           if(restored.innerHTML!==restoredHtml) restored.innerHTML=restoredHtml;
         }
+      }
+
+      const heading=section.querySelector(".damage-heading");
+      if(heading){
+        if(!heading.dataset.originalCaseHeading) heading.dataset.originalCaseHeading=clean(heading.textContent);
+        const detail=titleDetail(heading.dataset.originalCaseHeading,caseNo?`案例 ${caseNo}`:"案例");
+        const subject=caseSubject(record,detail,formatted,caseNo);
+        const confidence=confidenceOf(section,record);
+        renderHeading(section,heading,activeCategory,subject,confidence);
       }
     }finally{
       applying=false;
