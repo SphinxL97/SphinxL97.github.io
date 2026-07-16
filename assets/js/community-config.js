@@ -24,3 +24,16 @@ window.COMMUNITY_CONFIG=Object.freeze({
   script.addEventListener("error",()=>console.error("[liqi-reader-fix] 修正模块加载失败：",script.src));
   document.head.appendChild(script);
 })();
+
+/* 作品001、002的第三栏目问题句，在第二栏目原文中加粗。 */
+(function loadTranscriptProblemHighlight(){
+  "use strict";
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+  if(!["001","002"].includes(parentId)||document.querySelector('script[data-transcript-problem-highlight]')) return;
+  const script=document.createElement("script");
+  script.src="js/transcript-problem-highlight.js?v=20260716_v1";
+  script.dataset.transcriptProblemHighlight="true";
+  script.addEventListener("error",()=>console.error("[transcript-highlight] 问题句加粗模块加载失败：",script.src));
+  document.head.appendChild(script);
+})();
