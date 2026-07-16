@@ -49,12 +49,14 @@ function appendModule(src,dataKey,onload){
   });
 })();
 
-/* 作品004：同一句中的全部缺字合并为一处，共16处。 */
+/* 作品004：同一句中的全部缺字合并为一处，并补入第97页残字案例。 */
 (function loadLushansiModules(){
   "use strict";
   if(currentParentWorkId()!=="004") return;
   appendModule("js/work-004-coordinate-adapter.js?v=20260716_lushansi_v1","work004CoordinateAdapter");
-  appendModule("js/work-004-lushansi.js?v=20260716_lushansi_v2","work004Lushansi");
+  appendModule("js/work-004-lushansi.js?v=20260716_lushansi_v2","work004Lushansi",()=>{
+    appendModule("js/work-004-page97-case.js?v=20260717_page97_v1","work004Page97Case");
+  });
 })();
 
 /* 作品001—004的第三栏目问题句，在第二栏目原文中加粗。 */
