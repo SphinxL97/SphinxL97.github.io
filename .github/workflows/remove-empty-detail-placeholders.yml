@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -41,10 +43,8 @@ jobs:
               raise SystemExit('没有找到 applyWorkInfo 元数据原代码，停止修改。')
           text = text.replace(old_apply, new_apply, 1)
 
-          # 多册兜底数据中不再显示“资料待补”。
           text = text.replace('creator:"资料待补"', 'creator:""')
 
-          # 首屏静态骨架不再出现占位文字，避免 JavaScript 执行前闪现。
           for old in (
               '<span>资料待补</span>',
               '<span>册页尺寸待补充</span>',
@@ -56,7 +56,6 @@ jobs:
 
           path.write_text(text, encoding='utf-8')
 
-          # 清除两个主数据文件中可能遗留的纯占位字段；只删除占位值，其他字段不动。
           placeholder_values = {
               '资料待补', '资料待补充', '地点信息待补充',
               '册页尺寸待补充', '尺寸待补充', '待补', '待补充'
