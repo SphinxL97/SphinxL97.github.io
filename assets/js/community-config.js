@@ -54,7 +54,7 @@ function appendModule(src,dataKey,onload){
   "use strict";
   if(currentParentWorkId()!=="004") return;
   appendModule("js/work-004-coordinate-adapter.js?v=20260716_lushansi_v1","work004CoordinateAdapter");
-  appendModule("js/work-004-lushansi.js?v=20260716_lushansi_v1","work004Lushansi");
+  appendModule("js/work-004-lushansi.js?v=20260716_lushansi_v2","work004Lushansi");
 })();
 
 /* 作品001—004的第三栏目问题句，在第二栏目原文中加粗。 */
