@@ -69,7 +69,7 @@
     const n=original.length;
     const m=corrected.length;
     const dp=Array.from({length:n+1},()=>new Uint16Array(m+1));
-    const equal=(a,b)=>a===b&&!/[□?？]/.test(a);
+    const equal=(a,b)=>a===b&&!/[□?]/.test(a);
 
     for(let i=n-1;i>=0;i-=1){
       for(let j=m-1;j>=0;j-=1){
