@@ -1,0 +1,346 @@
+name: Clean Daoyin template contamination
+
+on:
+  push:
+    paths:
+      - ".github/workflows/clean-daoyin-contamination.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Remove copied Daoyin content only
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import copy
+          import json
+          import re
+          from pathlib import Path
+
+          ROOT = Path('.')
+          CATALOG_PATH = ROOT / 'data' / 'beitie_catalog.json'
+          DETAILS_PATH = ROOT / 'data' / 'beitie_details.json'
+          META_PATH = ROOT / 'data' / 'beitie_search_metadata.json'
+
+          def load(path):
+              return json.loads(path.read_text(encoding='utf-8'))
+
+          def save(path, obj):
+              path.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          catalog = load(CATALOG_PATH)
+          details = load(DETAILS_PATH)
+          metadata_list = load(META_PATH) if META_PATH.exists() else []
+          metadata = {str(x.get('id', '')).zfill(3): x for x in metadata_list if x.get('id') is not None}
+
+          if '001' not in details:
+              raise SystemExit('data/beitie_details.json 缺少 001，停止清理。')
+
+          daoyin = copy.deepcopy(details['001'])
+          daoyin_basic = daoyin.get('basic', {})
+          removed = []
+
+          PLACEHOLDER_PHRASES = (
+              '说明文字暂以《道因法师碑》模板占位。',
+              '说明文字暂以《道因法师碑》信息作占位，后续可逐件替换。',
+              '其余说明暂以《道因法师碑》信息作占位。',
+          )
+
+          STRONG_MARKERS = (
+              '道因法师',
+              '故大德因法师碑',
+              '大唐故翻经大德益州多宝寺道因法师碑文',
+              '道因碑校勘表',
+              '长安怀德坊慧日寺',
+              '王存善藏本',
+              '馆藏号17A331',
+              '馆藏号：17A331',
+          )
+
+          DAOYIN_PEOPLE = {'道因法师', '玄奘', '王存善', '何绍基', '潘宁'}
+          CONDITIONAL_PEOPLE = {'李俨', '欧阳通'}
+
+          def log(wid, path, value):
+              preview = value
+              if isinstance(value, (dict, list)):
+                  preview = json.dumps(value, ensure_ascii=False)
+              preview = str(preview).replace('\n', ' ')[:180]
+              removed.append({'id': wid, 'path': path, 'preview': preview})
+
+          def cleanup_placeholder(text):
+              if not isinstance(text, str):
+                  return text
+              old = text
+              for phrase in PLACEHOLDER_PHRASES:
+                  text = text.replace(phrase, '')
+              text = re.sub(r'\s*；\s*。', '。', text)
+              text = re.sub(r'。{2,}', '。', text)
+              text = text.strip(' ；;，,')
+              if text and not text.endswith(('。', '！', '？', '.', '!', '?')):
+                  text += '。'
+              return text if text != old else old
+
+          def arrays(meta, key):
+              value = meta.get(key, []) if meta else []
+              return value if isinstance(value, list) else [value]
+
+          def expected_names(meta):
+              return [str(x) for x in arrays(meta, 'authors') + arrays(meta, 'writers') if x]
+
+          def name_expected(name, meta):
+              compact = re.sub(r'[（）()·\s，,、/]', '', str(name))
+              for item in expected_names(meta):
+                  item_compact = re.sub(r'[（）()·\s，,、/]', '', item)
+                  if compact and (compact in item_compact or item_compact in compact):
+                      return True
+              return False
+
+          def metadata_confirms_date(meta, value):
+              if not meta:
+                  return False
+              reign = str(meta.get('reign', ''))
+              year = str(meta.get('year', ''))
+              value = str(value)
+              years = re.findall(r'(?<!\d)(\d{3,4})(?!\d)', value)
+              if reign and reign in value:
+                  return True
+              if years and any(y == year for y in years):
+                  return True
+              return False
+
+          def metadata_confirms_dynasty(meta, value):
+              return str(value) in [str(x) for x in arrays(meta, 'dynasty')]
+
+          def metadata_confirms_script(meta, value):
+              scripts = [str(x) for x in arrays(meta, 'script')]
+              return any(s and (s in str(value) or str(value) in s) for s in scripts)
+
+          def metadata_confirms_copy_era(meta, value):
+              eras = [str(x) for x in arrays(meta, 'copy_era')]
+              return any(e and (e in str(value) or str(value) in e) for e in eras)
+
+          def metadata_confirms_responsibility(meta, value):
+              names = expected_names(meta)
+              if not names:
+                  return False
+              text = re.sub(r'[（）()\s，,、/]', '', str(value))
+              return all(re.sub(r'[（）()\s，,、/]', '', n) in text for n in names if n)
+
+          def has_strong_marker(value):
+              if not isinstance(value, str):
+                  return False
+              return any(marker in value for marker in STRONG_MARKERS)
+
+          def remove_cloned_list_items(wid, key, value, clone_value, meta):
+              if not isinstance(value, list):
+                  return value
+              if value == clone_value:
+                  log(wid, key, value)
+                  return None
+
+              clone_serialized = {
+                  json.dumps(x, ensure_ascii=False, sort_keys=True)
+                  for x in clone_value
+              } if isinstance(clone_value, list) else set()
+
+              kept = []
+              for index, item in enumerate(value):
+                  serial = json.dumps(item, ensure_ascii=False, sort_keys=True)
+                  text = json.dumps(item, ensure_ascii=False)
+                  remove = False
+
+                  if serial in clone_serialized:
+                      if key == 'people' and isinstance(item, dict):
+                          person = str(item.get('name', ''))
+                          if person in CONDITIONAL_PEOPLE and name_expected(person, meta):
+                              # 人名可能确实属于本碑，但复制来的证据仍可能错误；
+                              # 只有不含道因专属标志时才保留。
+                              remove = has_strong_marker(text)
+                          else:
+                              remove = True
+                      else:
+                          remove = True
+
+                  if not remove and has_strong_marker(text):
+                      remove = True
+
+                  if key == 'people' and isinstance(item, dict):
+                      person = str(item.get('name', ''))
+                      if person in DAOYIN_PEOPLE:
+                          remove = True
+                      elif person in CONDITIONAL_PEOPLE and not name_expected(person, meta):
+                          remove = True
+
+                  if remove:
+                      log(wid, f'{key}[{index}]', item)
+                  else:
+                      kept.append(item)
+              return kept
+
+          # 1. 清理总览目录中可确认由 001 模板复制的字段。
+          catalog_001 = next((x for x in catalog if str(x.get('id', '')).zfill(3) == '001'), {})
+          for item in catalog:
+              wid = str(item.get('id', '')).zfill(3)
+              if wid == '001':
+                  continue
+              meta = metadata.get(wid, {})
+
+              if isinstance(item.get('subtitle'), str):
+                  old = item['subtitle']
+                  new = cleanup_placeholder(old)
+                  if new != old:
+                      item['subtitle'] = new
+                      log(wid, 'catalog.subtitle', old)
+
+              if item.get('dynasty') == catalog_001.get('dynasty') and not metadata_confirms_date(meta, item.get('dynasty')):
+                  log(wid, 'catalog.dynasty', item.get('dynasty'))
+                  item['dynasty'] = ''
+
+              if str(item.get('year', '')) == str(catalog_001.get('year', '')) and str(meta.get('year', '')) != str(item.get('year', '')):
+                  log(wid, 'catalog.year', item.get('year'))
+                  item['year'] = ''
+
+              creator = item.get('creator')
+              creator_is_daoyin = creator == catalog_001.get('creator') or (
+                  isinstance(creator, str) and '李俨' in creator and '欧阳通' in creator
+              )
+              if creator_is_daoyin and not metadata_confirms_responsibility(meta, creator):
+                  log(wid, 'catalog.creator', creator)
+                  item['creator'] = ''
+
+              if item.get('script') == catalog_001.get('script') and not metadata_confirms_script(meta, item.get('script')):
+                  log(wid, 'catalog.script', item.get('script'))
+                  item['script'] = ''
+
+              if item.get('shelf_mark') == catalog_001.get('shelf_mark'):
+                  log(wid, 'catalog.shelf_mark', item.get('shelf_mark'))
+                  item['shelf_mark'] = ''
+
+          # 2. 清理详情数据：优先删除与 001 完全相同的整块内容，再处理混合字段。
+          protected = {'id', 'title', 'cover', 'summary', 'basic'}
+          for wid, obj in details.items():
+              wid = str(wid).zfill(3)
+              if wid == '001' or not isinstance(obj, dict):
+                  continue
+              meta = metadata.get(wid, {})
+
+              if isinstance(obj.get('summary'), str):
+                  old = obj['summary']
+                  new = cleanup_placeholder(old)
+                  if new != old:
+                      obj['summary'] = new
+                      log(wid, 'details.summary', old)
+
+              for key in list(obj.keys()):
+                  if key in protected or key not in daoyin:
+                      continue
+                  value = obj.get(key)
+                  clone_value = daoyin.get(key)
+
+                  if value == clone_value:
+                      log(wid, f'details.{key}', value)
+                      del obj[key]
+                      continue
+
+                  if isinstance(value, list):
+                      cleaned = remove_cloned_list_items(wid, key, value, clone_value, meta)
+                      if cleaned is None:
+                          obj.pop(key, None)
+                      else:
+                          obj[key] = cleaned
+                      continue
+
+                  if isinstance(value, str) and has_strong_marker(value):
+                      log(wid, f'details.{key}', value)
+                      del obj[key]
+
+              basic = obj.get('basic')
+              if isinstance(basic, dict):
+                  if basic.get('时代') == daoyin_basic.get('时代') and not metadata_confirms_dynasty(meta, basic.get('时代')):
+                      log(wid, 'details.basic.时代', basic.get('时代'))
+                      basic.pop('时代', None)
+
+                  if basic.get('年代') == daoyin_basic.get('年代') and not metadata_confirms_date(meta, basic.get('年代')):
+                      log(wid, 'details.basic.年代', basic.get('年代'))
+                      basic.pop('年代', None)
+
+                  if basic.get('书体') == daoyin_basic.get('书体') and not metadata_confirms_script(meta, basic.get('书体')):
+                      log(wid, 'details.basic.书体', basic.get('书体'))
+                      basic.pop('书体', None)
+
+                  responsibility = basic.get('责任者')
+                  responsibility_is_daoyin = responsibility == daoyin_basic.get('责任者') or (
+                      isinstance(responsibility, str) and '李俨' in responsibility and '欧阳通' in responsibility
+                  )
+                  if responsibility_is_daoyin and not metadata_confirms_responsibility(meta, responsibility):
+                      log(wid, 'details.basic.责任者', responsibility)
+                      basic.pop('责任者', None)
+
+                  if basic.get('版本') == daoyin_basic.get('版本') and not metadata_confirms_copy_era(meta, basic.get('版本')):
+                      log(wid, 'details.basic.版本', basic.get('版本'))
+                      basic.pop('版本', None)
+
+                  if basic.get('馆藏号') == daoyin_basic.get('馆藏号'):
+                      log(wid, 'details.basic.馆藏号', basic.get('馆藏号'))
+                      basic.pop('馆藏号', None)
+
+                  # 删除 basic 中任何仍直接出现道因专属标志的值，其他键和值不动。
+                  for key in list(basic.keys()):
+                      value = basic[key]
+                      if isinstance(value, str) and has_strong_marker(value):
+                          log(wid, f'details.basic.{key}', value)
+                          del basic[key]
+
+              # 对已知人物、时间线等混合列表再做一次定向筛查。
+              for key in ('people', 'timeline', 'places', 'events'):
+                  if key in obj and isinstance(obj[key], list):
+                      clone_value = daoyin.get(key, [])
+                      cleaned = remove_cloned_list_items(wid, key, obj[key], clone_value, meta)
+                      if cleaned is None:
+                          obj.pop(key, None)
+                      else:
+                          obj[key] = cleaned
+
+          save(CATALOG_PATH, catalog)
+          save(DETAILS_PATH, details)
+
+          # 校验文件仍为合法 JSON，并输出审计摘要到 Actions 日志，不新增网站数据文件。
+          load(CATALOG_PATH)
+          load(DETAILS_PATH)
+          print(f'清理完成：删除/清空 {len(removed)} 处可确认的道因模板内容。')
+          by_id = {}
+          for row in removed:
+              by_id[row['id']] = by_id.get(row['id'], 0) + 1
+          for wid in sorted(by_id):
+              print(f'  {wid}: {by_id[wid]} 处')
+          print('前 80 条审计记录：')
+          for row in removed[:80]:
+              print(json.dumps(row, ensure_ascii=False))
+          PY
+
+      - name: Commit cleaned data
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/beitie_catalog.json data/beitie_details.json
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+          else
+            git commit -m "筛查并删除非001碑帖中的道因模板内容"
+            git push
+          fi
