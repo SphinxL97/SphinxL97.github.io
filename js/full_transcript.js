@@ -71,3 +71,14 @@
     renderTranscript();
   }
 })();
+
+/* 加载左侧目录下方的碑帖地点地图。 */
+(function(){
+  "use strict";
+  if(document.querySelector('script[data-beitie-location-map]')) return;
+  const script=document.createElement("script");
+  script.src="js/beitie_location_map.js?v=20260716_map_v1";
+  script.async=false;
+  script.dataset.beitieLocationMap="true";
+  document.head.appendChild(script);
+})();
