@@ -1,0 +1,93 @@
+name: Import complete stele header information
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/import-header-info.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Merge 45 information cards and update card renderer
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          payload_path = Path('data/header_info_import.json')
+          details_path = Path('data/beitie_details.json')
+          html_path = Path('detail.html')
+
+          payload = json.loads(payload_path.read_text(encoding='utf-8'))
+          details = json.loads(details_path.read_text(encoding='utf-8'))
+
+          if len(payload) != 45:
+              raise SystemExit(f'应有45件碑帖，实际为{len(payload)}件，停止导入。')
+
+          missing = [wid for wid in payload if wid not in details]
+          if missing:
+              raise SystemExit(f'详情数据缺少以下ID：{missing}')
+
+          updated = []
+          for wid, incoming in payload.items():
+              obj = details[wid]
+              basic = obj.setdefault('basic', {})
+              if not isinstance(basic, dict):
+                  basic = {}
+                  obj['basic'] = basic
+              for key, value in incoming.get('basic', {}).items():
+                  if isinstance(value, str) and value.strip():
+                      basic[key] = value.strip()
+              updated.append(wid)
+
+          details_path.write_text(
+              json.dumps(details, ensure_ascii=False, indent=2) + '\n',
+              encoding='utf-8'
+          )
+
+          html = html_path.read_text(encoding='utf-8')
+          replacement = r'''function setText(selector,text){const el=document.querySelector(selector);if(el&&text!==undefined&&text!==null)el.textContent=text}
+function renderMetaLines({work,detail,catalog,meta,title}){const box=document.querySelector(".meta-lines");if(!box)return;const basic=(detail&&detail.basic)||{};const clean=value=>String(value??"").trim();const first=(...values)=>{for(const value of values){const text=clean(value);if(text)return text}return""};const rows=[];const push=(label,value)=>{const text=clean(value);if(text)rows.push([label,text])};const firstTitle=first(basic["首题"]);if(firstTitle&&firstTitle!==title)push("首题",firstTitle);push("其他题名",basic["其他题名"]);push("额题",basic["额题"]);push("责任者",first(basic["责任者"],catalog&&catalog.creator,work&&work.creator,meta&&meta.creator));push("书体",first(basic["书体"],catalog&&catalog.script,work&&work.script,meta&&meta.script));push("版本",basic["版本"]);push("影印版本",basic["影印版本"]);push("版本说明",basic["版本说明"]);push("数量",basic["数量"]);push("尺寸",basic["尺寸"]);push("年代",first(basic["刻立年代"],basic["年代"],basic["时代"],catalog&&catalog.dynasty,work&&work.dynasty,meta&&meta.dynasty));push("刻立地点",first(basic["刻立地点"],basic["地点"]));push("出土地点",basic["出土地点"]);push("馆藏",basic["馆藏"]);push("镌刻特征",basic["镌刻特征"]);push("铭文行款",basic["铭文行款"]);push("来源",first(basic["来源"],catalog&&catalog.brief_source,work&&work.brief_source));box.replaceChildren();const alwaysWide=new Set(["其他题名","版本说明","尺寸","镌刻特征","铭文行款","来源"]);rows.forEach(([label,value])=>{const line=document.createElement("div");line.className="meta-line";if(alwaysWide.has(label)||value.length>38)line.classList.add("wide");const b=document.createElement("b");b.textContent=label;const span=document.createElement("span");span.textContent=value;line.append(b,span);box.appendChild(line)})}
+function applyWorkInfo({work,detail,catalog}){const meta=MULTIVOLUME_PAGE_FALLBACKS[EFFECTIVE_WORK_ID]||{};const title=(detail&&detail.title)||(catalog&&catalog.title)||(work&&work.title)||meta.title||"碑帖详情";document.title=title+" · 碑帖智能读析平台";setText(".info-panel h1",title);setText(".side .work-name",title.split(" · ")[0]);setText(".cover-label",title.split(" · ")[0]);const summary=(detail&&detail.summary)||(catalog&&catalog.subtitle)||`《${title}》已接入逐页图像与释文。`;setText(".alias",summary);renderMetaLines({work,detail,catalog,meta,title})}
+async function loadReaderData'''
+
+          pattern = re.compile(r'function setText\(selector,text\)\{.*?\}async function loadReaderData', re.S)
+          html_new, count = pattern.subn(replacement, html, count=1)
+          if count != 1:
+              raise SystemExit(f'详情页信息卡渲染代码定位失败，匹配数={count}')
+          html_path.write_text(html_new, encoding='utf-8')
+
+          # Final validation: all 45 records retain their non-basic content and now have card data.
+          check = json.loads(details_path.read_text(encoding='utf-8'))
+          if any(wid not in check or not isinstance(check[wid].get('basic'), dict) for wid in payload):
+              raise SystemExit('导入后校验失败。')
+          if 'renderMetaLines' not in html_path.read_text(encoding='utf-8'):
+              raise SystemExit('详情页渲染器更新失败。')
+          print(f'已更新{len(updated)}件碑帖的信息卡；未改动收藏历史、背景故事及其他模块。')
+          PY
+
+      - name: Remove temporary import files and commit
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm data/header_info_import.json .github/workflows/import-header-info.yml
+          git add data/beitie_details.json detail.html
+          git commit -m "补全45件碑帖详情页顶部信息卡"
+          git push
