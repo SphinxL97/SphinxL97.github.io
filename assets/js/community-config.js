@@ -11,3 +11,16 @@ window.COMMUNITY_CONFIG=Object.freeze({
   pageSize:6,
   realtime:true
 });
+
+/* 仅在作品002详情页加载阅读顺序与字框修正，不影响其他碑帖或汇校配置。 */
+(function loadLiqiReaderFix(){
+  "use strict";
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+  if(parentId!=="002"||document.querySelector('script[data-liqi-reader-fix]')) return;
+  const script=document.createElement("script");
+  script.src="js/liqi-reader-fix.js?v=20260716_liqi_reader_v1";
+  script.dataset.liqiReaderFix="true";
+  script.addEventListener("error",()=>console.error("[liqi-reader-fix] 修正模块加载失败：",script.src));
+  document.head.appendChild(script);
+})();
