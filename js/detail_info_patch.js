@@ -15,7 +15,7 @@
 
       const rawId=String(new URLSearchParams(location.search).get("id")||"001");
       const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-      const dataUrl="data/header_info_import.json?v=20260716_complete_v1";
+      const dataUrl="data/beitie_header_info.json?v=20260716_complete_v1";
       let headerData=null;
       let applyTimer=0;
 
