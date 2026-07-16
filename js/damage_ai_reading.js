@@ -1,12 +1,12 @@
-/* 栏目三入口：保留原有内容模块，并在其后加载统一分类与补字显示规范。 */
+/* 栏目三入口：保留原有内容模块，并在其后加载统一分类、补字显示与案例标题规范。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ENTRY_V2__) return;
-  window.__DAMAGE_AI_READING_ENTRY_V2__=true;
+  if(window.__DAMAGE_AI_READING_ENTRY_V3__) return;
+  window.__DAMAGE_AI_READING_ENTRY_V3__=true;
 
   const queue=[
     "js/damage_ai_reading_core.js?v=20260716_category_v1",
-    "js/damage_case_standard_patch.js?v=20260716_category_v1"
+    "js/damage_case_standard_patch.js?v=20260717_heading_v2"
   ];
 
   function load(index){
