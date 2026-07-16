@@ -1,4 +1,4 @@
-name: Restore non-Daoyin generic fields
+name: Remove mistakenly restored Daoyin fields
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  restore:
+  correct:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Restore generic fields that were not uniquely Daoyin content
+      - name: Undo only mistaken era and version restoration
         shell: bash
         run: |
           python - <<'PY'
@@ -30,95 +30,50 @@ jobs:
           import subprocess
           from pathlib import Path
 
-          PRE_CLEAN_COMMIT = '32dd31ea0aad1e7be0e2cd0d55c602fce836377a'
-          CATALOG_PATH = Path('data/beitie_catalog.json')
-          DETAILS_PATH = Path('data/beitie_details.json')
-          META_PATH = Path('data/beitie_search_metadata.json')
+          BEFORE_RESTORE = 'd0fa49acb0a2a812a1e8e2cd70c0ddadce6d4027'
+          PATH = Path('data/beitie_details.json')
 
-          def load(path):
-              return json.loads(path.read_text(encoding='utf-8'))
+          current = json.loads(PATH.read_text(encoding='utf-8'))
+          previous = json.loads(subprocess.check_output(
+              ['git', 'show', f'{BEFORE_RESTORE}:{PATH.as_posix()}'],
+              text=True,
+              encoding='utf-8'
+          ))
 
-          def old_json(path):
-              raw = subprocess.check_output(
-                  ['git', 'show', f'{PRE_CLEAN_COMMIT}:{path.as_posix()}'],
-                  text=True,
-                  encoding='utf-8'
-              )
-              return json.loads(raw)
-
-          def save(path, value):
-              path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-
-          current_catalog = load(CATALOG_PATH)
-          current_details = load(DETAILS_PATH)
-          old_catalog = old_json(CATALOG_PATH)
-          old_details = old_json(DETAILS_PATH)
-          metadata_list = load(META_PATH) if META_PATH.exists() else []
-          metadata = {str(x.get('id', '')).zfill(3): x for x in metadata_list if x.get('id') is not None}
-
-          old_catalog_map = {str(x.get('id', '')).zfill(3): x for x in old_catalog}
-          restored = []
-
-          def has_values(meta, key):
-              if not meta or key not in meta:
-                  return False
-              value = meta.get(key)
-              if isinstance(value, list):
-                  return bool([x for x in value if x not in (None, '')])
-              return value not in (None, '')
-
-          # “楷书”本身不是道因专属内容。第一次筛查中，只有这一类通用字段
-          # 可能因元数据缺项而被清空，因此从清理前版本恢复。
-          for item in current_catalog:
-              wid = str(item.get('id', '')).zfill(3)
-              if wid == '001':
-                  continue
-              old = old_catalog_map.get(wid, {})
-              if item.get('script', '') == '' and old.get('script'):
-                  item['script'] = old['script']
-                  restored.append((wid, 'catalog.script', old['script']))
-
-          # 对详情 basic 中的“时代 / 书体 / 版本”，只有在现有检索元数据明确
-          # 给出相反信息时才允许删除；元数据缺失时恢复原值，避免误删其他内容。
-          for raw_wid, obj in current_details.items():
+          removed = []
+          for raw_wid, obj in current.items():
               wid = str(raw_wid).zfill(3)
               if wid == '001' or not isinstance(obj, dict):
                   continue
-              old_obj = old_details.get(raw_wid) or old_details.get(wid) or {}
+              old_obj = previous.get(raw_wid) or previous.get(wid) or {}
+              basic = obj.get('basic')
               old_basic = old_obj.get('basic', {}) if isinstance(old_obj, dict) else {}
-              basic = obj.setdefault('basic', {})
-              meta = metadata.get(wid, {})
+              if not isinstance(basic, dict):
+                  continue
 
-              restore_rules = (
-                  ('时代', 'dynasty'),
-                  ('书体', 'script'),
-                  ('版本', 'copy_era'),
-              )
-              for basic_key, meta_key in restore_rules:
-                  if basic_key not in basic and basic_key in old_basic and not has_values(meta, meta_key):
-                      basic[basic_key] = old_basic[basic_key]
-                      restored.append((wid, f'details.basic.{basic_key}', old_basic[basic_key]))
+              # 只撤销上一轮新增、且清理前已被判定为 001 模板复制的两类字段。
+              # “书体”不撤销，因为它是各碑帖自身的通用信息。
+              for key in ('时代', '版本'):
+                  if key in basic and key not in old_basic:
+                      removed.append((wid, key, basic[key]))
+                      del basic[key]
 
-          save(CATALOG_PATH, current_catalog)
-          save(DETAILS_PATH, current_details)
-
-          # JSON 完整性校验。
-          load(CATALOG_PATH)
-          load(DETAILS_PATH)
-          print(f'恢复 {len(restored)} 处无法确认属于道因污染的通用字段：')
-          for row in restored:
+          PATH.write_text(json.dumps(current, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          json.loads(PATH.read_text(encoding='utf-8'))
+          print(f'精确撤销 {len(removed)} 处误恢复字段：')
+          for row in removed:
               print(row)
           PY
 
-      - name: Commit correction
+      - name: Commit final correction
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/beitie_catalog.json data/beitie_details.json
+          git add data/beitie_details.json
           if git diff --cached --quiet; then
-            echo "No correction needed."
+            echo "No final correction needed."
           else
-            git commit -m "恢复误删的非道因通用字段"
+            git commit -m "删除误恢复的道因模板时代与版本字段"
             git push
           fi
