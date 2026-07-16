@@ -5,7 +5,7 @@
  */
 (function loadExistingDetailPatch(){
   "use strict";
-  const coreUrl="js/detail_info_patch_core.js?v=20260716_header_v1";
+  const coreUrl="js/detail_info_patch_core.js?v=20260716_header_v2";
 
   function startHeaderCardPatch(){
     (function installCompleteHeaderCards(){
@@ -15,9 +15,11 @@
 
       const rawId=String(new URLSearchParams(location.search).get("id")||"001");
       const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-      const dataUrl="data/beitie_header_info.json?v=20260716_complete_v1";
+      const dataUrl="data/beitie_header_info.json?v=20260716_complete_v2";
       let headerData=null;
-      let applyTimer=0;
+      let headerObserver=null;
+      let rendering=false;
+      let pendingRender=false;
 
       function clean(value){
         return String(value==null?"":value).trim();
@@ -64,10 +66,47 @@
         return rows;
       }
 
+      function desiredSignature(rows){
+        return rows.map(item=>`${item.label}\u0001${item.value}\u0001${item.wide?1:0}`).join("\u0002");
+      }
+
+      function currentSignature(box){
+        return Array.from(box.querySelectorAll(":scope > .meta-line")).map(line=>{
+          const label=clean(line.querySelector("b")?.textContent);
+          const value=clean(line.querySelector("span")?.textContent);
+          return `${label}\u0001${value}\u0001${line.classList.contains("wide")?1:0}`;
+        }).join("\u0002");
+      }
+
+      function observeHeader(record){
+        const box=document.querySelector(".info-panel .meta-lines");
+        if(!box) return;
+        if(headerObserver) headerObserver.disconnect();
+        headerObserver=new MutationObserver(()=>{
+          if(rendering||pendingRender) return;
+          pendingRender=true;
+          queueMicrotask(()=>{
+            pendingRender=false;
+            render(record);
+          });
+        });
+        headerObserver.observe(box,{childList:true,subtree:true,characterData:true});
+      }
+
       function render(record){
         const box=document.querySelector(".info-panel .meta-lines");
         if(!box||!record) return;
         const rows=buildRows(record);
+        const signature=desiredSignature(rows);
+
+        if(currentSignature(box)===signature){
+          box.dataset.completeHeaderWork=workId;
+          box.dataset.headerSignature=signature;
+          return;
+        }
+
+        rendering=true;
+        if(headerObserver) headerObserver.disconnect();
         const fragment=document.createDocumentFragment();
 
         rows.forEach(item=>{
@@ -86,17 +125,14 @@
 
         box.replaceChildren(fragment);
         box.dataset.completeHeaderWork=workId;
+        box.dataset.headerSignature=signature;
+        rendering=false;
+        observeHeader(record);
       }
 
-      function applyRepeatedly(record){
+      function applyStably(record){
         render(record);
-        let count=0;
-        clearInterval(applyTimer);
-        applyTimer=window.setInterval(()=>{
-          render(record);
-          count+=1;
-          if(count>=24) clearInterval(applyTimer);
-        },300);
+        observeHeader(record);
         window.addEventListener("load",()=>render(record),{once:true});
       }
 
@@ -107,7 +143,7 @@
           headerData=await response.json();
           const record=headerData&&headerData[workId];
           if(!record) return;
-          applyRepeatedly(record);
+          applyStably(record);
         }catch(error){
           console.error("[header-card] 完整信息卡加载失败",error);
         }
