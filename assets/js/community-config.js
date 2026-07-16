@@ -19,7 +19,7 @@ window.COMMUNITY_CONFIG=Object.freeze({
   const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   if(parentId!=="002"||document.querySelector('script[data-liqi-reader-fix]')) return;
   const script=document.createElement("script");
-  script.src="js/liqi-reader-fix.js?v=20260716_liqi_reader_v1";
+  script.src="js/liqi-reader-fix.js?v=20260716_liqi_reader_v2";
   script.dataset.liqiReaderFix="true";
   script.addEventListener("error",()=>console.error("[liqi-reader-fix] 修正模块加载失败：",script.src));
   document.head.appendChild(script);
