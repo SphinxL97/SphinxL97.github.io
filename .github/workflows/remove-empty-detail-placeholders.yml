@@ -1,0 +1,89 @@
+name: Remove empty detail placeholders
+
+on:
+  push:
+    paths:
+      - ".github/workflows/remove-empty-detail-placeholders.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Hide missing metadata rows and remove placeholder text
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          path = Path('detail.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_update = '''function setText(selector,text){const el=document.querySelector(selector);if(el&&text!==undefined&&text!==null)el.textContent=text}function updateMetaLine(label,value){if(!value)return;document.querySelectorAll(".meta-line").forEach(line=>{const b=line.querySelector("b"),span=line.querySelector("span");if(b&&span&&b.textContent.trim().includes(label))span.textContent=value})}'''
+          new_update = '''function setText(selector,text){const el=document.querySelector(selector);if(el&&text!==undefined&&text!==null)el.textContent=text}function updateMetaLine(label,value){document.querySelectorAll(".meta-line").forEach(line=>{const b=line.querySelector("b"),span=line.querySelector("span");if(!b||!span||!b.textContent.trim().includes(label))return;const clean=String(value??"").trim();const placeholders=new Set(["资料待补","资料待补充","地点信息待补充","册页尺寸待补充","尺寸待补充","待补","待补充"]);if(!clean||placeholders.has(clean)){line.remove();return}span.textContent=clean})}'''
+          if old_update not in text:
+              raise SystemExit('没有找到 updateMetaLine 原代码，停止修改。')
+          text = text.replace(old_update, new_update, 1)
+
+          old_apply = '''updateMetaLine("责任者",(catalog&&catalog.creator)||basic["责任者"]||work?.creator||meta.creator||"");updateMetaLine("书体",(catalog&&catalog.script)||basic["书体"]||work?.script||meta.script||"");updateMetaLine("版本",basic["版本"]||"资料待补");updateMetaLine("数量",basic["数量"]||`${work?.pages?.length||catalog?.canvas_count||meta.pages||""} 开`);updateMetaLine("尺寸",basic["尺寸"]||"册页尺寸待补充");updateMetaLine("年代",(catalog&&catalog.dynasty)||basic["年代"]||work?.dynasty||meta.dynasty||"");updateMetaLine("地点",basic["刻立地点"]||basic["地点"]||"地点信息待补充");updateMetaLine("馆藏",basic["馆藏"]||"上海图书馆");updateMetaLine("来源",(catalog&&catalog.brief_source)||work?.brief_source||"上海图书馆开放数据与本项目整理")'''
+          new_apply = '''updateMetaLine("责任者",(catalog&&catalog.creator)||basic["责任者"]||work?.creator||meta.creator||"");updateMetaLine("书体",(catalog&&catalog.script)||basic["书体"]||work?.script||meta.script||"");updateMetaLine("版本",basic["版本"]||"");const pageCount=work?.pages?.length||catalog?.canvas_count||meta.pages||"";updateMetaLine("数量",basic["数量"]||(pageCount?`${pageCount} 开`:""));updateMetaLine("尺寸",basic["尺寸"]||"");updateMetaLine("年代",(catalog&&catalog.dynasty)||basic["年代"]||work?.dynasty||meta.dynasty||"");updateMetaLine("地点",basic["刻立地点"]||basic["地点"]||"");updateMetaLine("馆藏",basic["馆藏"]||"");updateMetaLine("来源",(catalog&&catalog.brief_source)||work?.brief_source||"")'''
+          if old_apply not in text:
+              raise SystemExit('没有找到 applyWorkInfo 元数据原代码，停止修改。')
+          text = text.replace(old_apply, new_apply, 1)
+
+          # 多册兜底数据中不再显示“资料待补”。
+          text = text.replace('creator:"资料待补"', 'creator:""')
+
+          # 首屏静态骨架不再出现占位文字，避免 JavaScript 执行前闪现。
+          for old in (
+              '<span>资料待补</span>',
+              '<span>册页尺寸待补充</span>',
+              '<span>地点信息待补充</span>',
+              '<span>上海图书馆开放数据与本项目整理</span>',
+              '<span>开</span>',
+          ):
+              text = text.replace(old, '<span></span>')
+
+          path.write_text(text, encoding='utf-8')
+
+          # 清除两个主数据文件中可能遗留的纯占位字段；只删除占位值，其他字段不动。
+          placeholder_values = {
+              '资料待补', '资料待补充', '地点信息待补充',
+              '册页尺寸待补充', '尺寸待补充', '待补', '待补充'
+          }
+          for json_path in (Path('data/beitie_catalog.json'), Path('data/beitie_details.json')):
+              data = json.loads(json_path.read_text(encoding='utf-8'))
+              def clean(value):
+                  if isinstance(value, dict):
+                      return {k: clean(v) for k, v in value.items() if not (isinstance(v, str) and v.strip() in placeholder_values)}
+                  if isinstance(value, list):
+                      return [clean(v) for v in value if not (isinstance(v, str) and v.strip() in placeholder_values)]
+                  return value
+              data = clean(data)
+              json_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          print('已删除详情页缺失资料占位，并设置空字段整行隐藏。')
+          PY
+
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detail.html data/beitie_catalog.json data/beitie_details.json
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "删除全部碑帖详情页的缺失资料占位"
+            git push
+          fi
