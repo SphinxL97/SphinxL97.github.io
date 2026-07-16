@@ -73,7 +73,6 @@ async function loadReaderData'''
               raise SystemExit(f'详情页信息卡渲染代码定位失败，匹配数={count}')
           html_path.write_text(html_new, encoding='utf-8')
 
-          # Final validation: all 45 records retain their non-basic content and now have card data.
           check = json.loads(details_path.read_text(encoding='utf-8'))
           if any(wid not in check or not isinstance(check[wid].get('basic'), dict) for wid in payload):
               raise SystemExit('导入后校验失败。')
@@ -91,3 +90,5 @@ async function loadReaderData'''
           git add data/beitie_details.json detail.html
           git commit -m "补全45件碑帖详情页顶部信息卡"
           git push
+
+# retrigger
