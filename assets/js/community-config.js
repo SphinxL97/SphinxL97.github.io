@@ -42,7 +42,6 @@ function appendModule(src,dataKey,onload){
   if(currentParentWorkId()!=="003") return;
   appendModule("js/work-003-coordinate-adapter.js?v=20260716_longzangsi_v1","work003CoordinateAdapter");
   appendModule("js/work-003-longzangsi.js?v=20260716_longzangsi_v2","work003Longzangsi",()=>{
-    /* 删除误案后，003的八处有效缺字案例全部进入栏目四缺字补录。 */
     if(Array.isArray(window.DAMAGE_AI_CASES)){
       window.DAMAGE_AI_CASES=window.DAMAGE_AI_CASES.map(item=>({...item,n:"残损碑文恢复"}));
       window.dispatchEvent(new CustomEvent("work-003-recovery-cases-ready"));
@@ -50,10 +49,18 @@ function appendModule(src,dataKey,onload){
   });
 })();
 
-/* 作品001、002、003的第三栏目问题句，在第二栏目原文中加粗。 */
+/* 作品004：同一句中的全部缺字合并为一处，共16处。 */
+(function loadLushansiModules(){
+  "use strict";
+  if(currentParentWorkId()!=="004") return;
+  appendModule("js/work-004-coordinate-adapter.js?v=20260716_lushansi_v1","work004CoordinateAdapter");
+  appendModule("js/work-004-lushansi.js?v=20260716_lushansi_v1","work004Lushansi");
+})();
+
+/* 作品001—004的第三栏目问题句，在第二栏目原文中加粗。 */
 (function loadTranscriptProblemHighlight(){
   "use strict";
   const parentId=currentParentWorkId();
-  if(!["001","002","003"].includes(parentId)) return;
-  appendModule("js/transcript-problem-highlight.js?v=20260716_v3","transcriptProblemHighlight");
+  if(!["001","002","003","004"].includes(parentId)) return;
+  appendModule("js/transcript-problem-highlight.js?v=20260716_v4","transcriptProblemHighlight");
 })();
