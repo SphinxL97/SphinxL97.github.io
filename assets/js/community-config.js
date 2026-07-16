@@ -12,28 +12,42 @@ window.COMMUNITY_CONFIG=Object.freeze({
   realtime:true
 });
 
+function currentParentWorkId(){
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  return (rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+}
+
+function appendModule(src,dataKey,onload){
+  const selector=`script[data-${dataKey}]`;
+  if(document.querySelector(selector)) return;
+  const script=document.createElement("script");
+  script.src=src;
+  script.async=false;
+  script.dataset[dataKey]="true";
+  if(onload) script.addEventListener("load",onload,{once:true});
+  script.addEventListener("error",()=>console.error("[work-module] 模块加载失败：",src));
+  document.head.appendChild(script);
+}
+
 /* 仅在作品002详情页加载阅读顺序与字框修正，不影响其他碑帖或汇校配置。 */
 (function loadLiqiReaderFix(){
   "use strict";
-  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
-  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-  if(parentId!=="002"||document.querySelector('script[data-liqi-reader-fix]')) return;
-  const script=document.createElement("script");
-  script.src="js/liqi-reader-fix.js?v=20260716_liqi_reader_v3";
-  script.dataset.liqiReaderFix="true";
-  script.addEventListener("error",()=>console.error("[liqi-reader-fix] 修正模块加载失败：",script.src));
-  document.head.appendChild(script);
+  if(currentParentWorkId()!=="002") return;
+  appendModule("js/liqi-reader-fix.js?v=20260716_liqi_reader_v3","liqiReaderFix");
 })();
 
-/* 作品001、002的第三栏目问题句，在第二栏目原文中加粗。 */
+/* 作品003：先加载栏目四坐标适配，再加载专属栏目二、三内容。 */
+(function loadLongzangsiModules(){
+  "use strict";
+  if(currentParentWorkId()!=="003") return;
+  appendModule("js/work-003-coordinate-adapter.js?v=20260716_longzangsi_v1","work003CoordinateAdapter");
+  appendModule("js/work-003-longzangsi.js?v=20260716_longzangsi_v1","work003Longzangsi");
+})();
+
+/* 作品001、002、003的第三栏目问题句，在第二栏目原文中加粗。 */
 (function loadTranscriptProblemHighlight(){
   "use strict";
-  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
-  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-  if(!["001","002"].includes(parentId)||document.querySelector('script[data-transcript-problem-highlight]')) return;
-  const script=document.createElement("script");
-  script.src="js/transcript-problem-highlight.js?v=20260716_v1";
-  script.dataset.transcriptProblemHighlight="true";
-  script.addEventListener("error",()=>console.error("[transcript-highlight] 问题句加粗模块加载失败：",script.src));
-  document.head.appendChild(script);
+  const parentId=currentParentWorkId();
+  if(!["001","002","003"].includes(parentId)) return;
+  appendModule("js/transcript-problem-highlight.js?v=20260716_v2","transcriptProblemHighlight");
 })();
