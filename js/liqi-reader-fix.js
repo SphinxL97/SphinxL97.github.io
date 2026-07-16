@@ -3,7 +3,8 @@
  * 1. 直接读取作品002已上传的逐页 IIIF 单字坐标；
  * 2. 按“从上到下、从右到左”重新计算列、行与连续释文顺序；
  * 3. 根据相邻字中心缩小重叠字框，使选中字与拓片位置准确对应；
- * 4. 修正第49页“内温朱”被误拆成四个字框的问题。
+ * 4. 修正第49页“内温朱”被误拆成四个字框的问题；
+ * 5. 修正第49页“从事蕃”及第50页“加”的释文标注。
  * 不修改其他碑帖、页面样式或栏目功能。
  */
 (function(){
@@ -15,7 +16,7 @@
   if(window.__LIQI_READER_SPATIAL_FIX__) return;
   window.__LIQI_READER_SPATIAL_FIX__=true;
 
-  const VERSION="20260716_liqi_reader_v2";
+  const VERSION="20260716_liqi_reader_v3";
   const nativeFetch=window.fetch.bind(window);
   const pageCache=new Map();
 
@@ -89,8 +90,33 @@
     return boxes.filter(box=>!isProblem(box)).concat(repaired);
   }
 
+  /*
+   * 已由拓片人工核定的两处释文：
+   * 第49页左列 c011-c013 为“从事蕃”；第50页右列首字 c001 为“加”。
+   * 此处只修正字符，不改变原始坐标。
+   */
+  function repairKnownCharacters(boxes,pageNo){
+    if(!Array.isArray(boxes)) return boxes;
+    const corrections=pageNo===49
+      ?{
+          "002_礼器碑并阴_p0049_c011":"从",
+          "002_礼器碑并阴_p0049_c012":"事",
+          "002_礼器碑并阴_p0049_c013":"蕃"
+        }
+      :pageNo===50
+        ?{"002_礼器碑并阴_p0050_c001":"加"}
+        :null;
+    if(!corrections) return boxes;
+
+    return boxes.map(box=>{
+      const id=String(box?.glyph_id||"");
+      const char=corrections[id];
+      return char?{...box,char,text:char,source:"iiif_annotation_character_fixed"}:box;
+    });
+  }
+
   function rawRows(boxes,pageObj,pageNo){
-    const repairedBoxes=repairPage49NeiWenZhu(boxes,pageNo);
+    const repairedBoxes=repairKnownCharacters(repairPage49NeiWenZhu(boxes,pageNo),pageNo);
     return (Array.isArray(repairedBoxes)?repairedBoxes:[]).map((box,index)=>{
       const bbox=Array.isArray(box.bbox)?box.bbox:[];
       const x=finite(box.x,finite(box.bbox_x,finite(bbox[0])));
@@ -180,7 +206,9 @@
           order_in_page:order,
           source:String(row.source||"").includes("page49_neiwenzhu_fixed")
             ?"iiif_spatial_order_page49_neiwenzhu_fixed"
-            :"iiif_spatial_order_fixed"
+            :String(row.source||"").includes("character_fixed")
+              ?"iiif_spatial_order_character_fixed"
+              :"iiif_spatial_order_fixed"
         });
         order+=1;
       });
