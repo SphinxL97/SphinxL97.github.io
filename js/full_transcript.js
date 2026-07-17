@@ -1,8 +1,11 @@
-/* 45件碑帖详情页共用的第二栏目“碑文释文”。
- * 当前阶段统一展示《道因法师碑》释文，后续可逐件替换。
- */
+/* 001《道因法师碑》专用的第二栏目“碑文释文”。 */
 (function(){
   "use strict";
+
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+  if(parentId!=="001"||window.__DAOYIN_FULL_TRANSCRIPT__) return;
+  window.__DAOYIN_FULL_TRANSCRIPT__=true;
 
   const SECTION_TITLE="二、碑文释文";
   const WORK_TITLE="道因法师碑";
@@ -66,7 +69,7 @@
   }
 
   if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded",renderTranscript);
+    document.addEventListener("DOMContentLoaded",renderTranscript,{once:true});
   }else{
     renderTranscript();
   }
