@@ -23,8 +23,18 @@
       const style=document.createElement("style");style.id="detail-route-pending-style";style.textContent=`html.detail-content-pending #calligraphy,html.detail-content-pending #people,html.detail-header-pending .work-hero{visibility:hidden!important}`;document.head.appendChild(style);
     }
     document.documentElement.classList.add("detail-content-pending","detail-header-pending");
+    const releaseHeader=()=>{
+      const box=document.querySelector(".info-panel .meta-lines");
+      const correct=box?.dataset.completeHeaderWork===parentId;
+      if(correct) document.documentElement.classList.remove("detail-header-pending");
+      return Boolean(correct);
+    };
     window.addEventListener("beitie-header-ready",()=>document.documentElement.classList.remove("detail-header-pending"),{once:true});
-    setTimeout(()=>document.documentElement.classList.remove("detail-header-pending"),4000);
+    const headerTarget=document.querySelector(".work-hero")||document.documentElement;
+    const headerObserver=new MutationObserver(()=>{if(releaseHeader())headerObserver.disconnect();});
+    headerObserver.observe(headerTarget,{childList:true,subtree:true,characterData:true,attributes:true});
+    releaseHeader();
+    setTimeout(()=>{headerObserver.disconnect();document.documentElement.classList.remove("detail-header-pending");},4000);
   }
 
   async function fetchTitle(){
