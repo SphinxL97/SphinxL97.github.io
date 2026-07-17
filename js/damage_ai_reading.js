@@ -4,29 +4,34 @@
  */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V4__) return;
-  window.__DAMAGE_AI_READING_ROUTER_V4__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V5__) return;
+  window.__DAMAGE_AI_READING_ROUTER_V5__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   const routes={
-    "001":[{src:"js/damage_ai_reading_core.js?v=20260717_audit_v1",key:"damageAiCore",ready:()=>Boolean(window.__DAMAGE_AI_CORE_READY__)}],
-    "002":[{src:"js/work-002-liqi.js?v=20260717_audit_v1",key:"work002Liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)}],
-    "003":[{src:"js/work-003-longzangsi.js?v=20260717_audit_v1",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
+    "001":[{src:"js/damage_ai_reading_core.js?v=20260717_audit_v2",key:"damageAiCore",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)}],
+    "002":[{src:"js/work-002-liqi.js?v=20260717_audit_v2",key:"work002Liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)}],
+    "003":[{src:"js/work-003-longzangsi.js?v=20260717_audit_v2",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
     "004":[
-      {src:"js/work-004-coordinate-adapter.js?v=20260717_audit_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
-      {src:"js/work-004-lushansi.js?v=20260717_audit_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
-      {src:"js/work-004-page97-case.js?v=20260717_audit_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
+      {src:"js/work-004-coordinate-adapter.js?v=20260717_audit_v2",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
+      {src:"js/work-004-lushansi.js?v=20260717_audit_v2",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
+      {src:"js/work-004-page97-case.js?v=20260717_audit_v2",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
     ]
   };
 
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴"};
+  const initialTitle=()=>{
+    const value=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
+    if(value&&value!=="碑帖详情") return value;
+    return fallbackTitles[parentId]||`碑帖${parentId}`;
+  };
 
   async function fetchTitle(){
-    const domTitle=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
-    if(domTitle&&domTitle!=="碑帖详情") return domTitle;
+    const domTitle=initialTitle();
+    if(domTitle&&!/^碑帖\d{3}$/.test(domTitle)) return domTitle;
     try{
-      const response=await fetch("data/beitie_header_info.json?v=20260717_router_titles_v1",{cache:"no-store"});
+      const response=await fetch("data/beitie_header_info.json?v=20260717_router_titles_v2",{cache:"no-store"});
       if(response.ok){
         const data=await response.json();
         const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();
@@ -34,7 +39,7 @@
       }
     }catch(_){ }
     try{
-      const response=await fetch("data/beitie_catalog.json?v=20260717_router_titles_v1",{cache:"no-store"});
+      const response=await fetch("data/beitie_catalog.json?v=20260717_router_titles_v2",{cache:"no-store"});
       if(response.ok){
         const data=await response.json();
         const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);
@@ -42,7 +47,7 @@
         if(title) return title;
       }
     }catch(_){ }
-    return fallbackTitles[parentId]||`碑帖${parentId}`;
+    return domTitle;
   }
 
   function renderLoading(title){
@@ -63,10 +68,8 @@
   }
 
   function renderPending(title){
-    const transcript=document.getElementById("calligraphy");
-    const damage=document.getElementById("people");
-    const tLoading=transcript?.querySelector(".full-transcript-loading");
-    const dLoading=damage?.querySelector(".full-transcript-loading");
+    const tLoading=document.getElementById("calligraphy")?.querySelector(".full-transcript-loading");
+    const dLoading=document.getElementById("people")?.querySelector(".full-transcript-loading");
     if(tLoading) tLoading.textContent=`《${title}》碑文释文尚未整理发布。`;
     if(dLoading) dLoading.textContent=`《${title}》释读案例尚未整理发布。`;
   }
@@ -100,20 +103,18 @@
   }
 
   async function start(){
-    const title=await fetchTitle();
+    let title=initialTitle();
     renderLoading(title);
+    const resolved=await fetchTitle();
+    if(resolved&&resolved!==title){title=resolved;renderLoading(title);}
+
     const route=routes[parentId]||[];
-    if(!route.length){
-      setTimeout(()=>renderPending(title),260);
-      return;
-    }
+    if(!route.length){setTimeout(()=>renderPending(title),260);return;}
 
     let success=true;
     for(const item of route) success=(await loadScript(item))&&success;
-
-    await loadScript({src:"js/damage_case_audit.js?v=20260717_audit_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V1__)});
-    await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_audit_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V3__)});
-
+    await loadScript({src:"js/damage_case_audit.js?v=20260717_audit_v2",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V1__)});
+    await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_audit_v2",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V3__)});
     if(!success) renderError(title);
   }
 
