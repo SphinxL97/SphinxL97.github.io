@@ -120,8 +120,9 @@
       const html=record.e.map(item=>`<li>${esc(item)}</li>`).join("");
       if(list.innerHTML!==html) list.innerHTML=html;
     }
-    const confidence=section.querySelector(".damage-evidence p strong")?.parentElement;
-    if(confidence&&clean(confidence.textContent).includes("置信度")&&record?.confidence){
+    const confidence=Array.from(section.querySelectorAll(".damage-evidence p,.damage-evidence-block p"))
+      .find(node=>clean(node.textContent).includes("置信度"));
+    if(confidence&&record?.confidence){
       confidence.innerHTML=`<strong>建议置信度：</strong>${esc(record.confidence)}`;
     }
   }
