@@ -1,5 +1,5 @@
 /* 第二栏目问题句加粗。
- * 仅在作品001《道因法师碑》、002《礼器碑并阴》、003《龙藏寺碑》和004《麓山寺碑并阴》中启用，
+ * 仅在作品001—005已完成碑帖中启用，
  * 将第三栏目已经展示的问题句在第二栏目原文中加粗。
  * 不改变原文文字、标点、段落或其他栏目功能。
  */
@@ -46,64 +46,71 @@
       "政□癸也，岁四月十□日□□□□□。",
       "梁国虞王□□阅□□。",
       "通义程暭，明迪稽山石彦和子，惠朝请大夫□城宰张守昚。"
+    ],
+    "005":[
+      "唐故特进尚书右仆射上柱国虞恭公温公碑。",
+      "昔者帝妫升历，九官奋其庸；有周诞命，六卿扬其职。",
+      "若夫昴宿丽天，感其灵者人杰；嵩岳镇地，降其神者国桢。",
+      "公太原祁人，讳大临，系姬文之远胄，派唐叔之遥源。",
+      "食邑河内，世功开其绪；著姓晋阳，【阙文】。",
+      "祖裕，魏太中大夫，言为准的，行成表缀，廊庙翘首，搢绅结辙。",
+      "颍川陈君，哀荣无间于异代，能兼之者，不亦优乎？",
+      "洋洋焉若洪河之东注，岩岩焉犹华岳之西峙。",
+      "若乃三德六行，列圣之所□也。",
+      "是以平津筮仕，由宾王而佩印；文终创业，【阙文】牢笼多士。",
+      "大业之始，以亲丧去官，孺慕之感，哀毁之极。",
+      "诏公衔命蕃境，申明臣节，陈之以逆顺，畅之以祸福。",
+      "又以公为东北道招慰大使，属天地横溃，华戎版荡，【阙文】。",
+      "岂蹉□于吴阪；清越振响，终特达于章台。",
+      "十万之师，方绝大汉；五饵之术，必系单于。",
+      "麟阁图形，鸟□腾实。"
     ]
   };
 
   const phrases=TARGETS[parentId];
-  if(!phrases||window.__TRANSCRIPT_PROBLEM_HIGHLIGHT__) return;
+  if(!phrases||window.__TRANSCRIPT_PROBLEM_HIGHLIGHT__)return;
   window.__TRANSCRIPT_PROBLEM_HIGHLIGHT__=true;
 
   function highlightParagraph(paragraph){
-    if(!paragraph||paragraph.dataset.problemHighlightReady==="true") return;
+    if(!paragraph||paragraph.dataset.problemHighlightReady==="true")return;
     const text=paragraph.textContent||"";
     const matches=[];
-
     phrases.forEach(phrase=>{
       let start=0;
       while(start<text.length){
         const index=text.indexOf(phrase,start);
-        if(index<0) break;
+        if(index<0)break;
         matches.push({index,end:index+phrase.length});
         start=index+phrase.length;
       }
     });
-
-    if(!matches.length) return;
+    if(!matches.length)return;
     matches.sort((a,b)=>a.index-b.index||b.end-a.end);
-    const accepted=[];
-    let cursor=-1;
+    const accepted=[];let cursor=-1;
     matches.forEach(match=>{if(match.index>=cursor){accepted.push(match);cursor=match.end;}});
-
-    const fragment=document.createDocumentFragment();
-    let offset=0;
+    const fragment=document.createDocumentFragment();let offset=0;
     accepted.forEach(match=>{
-      if(match.index>offset) fragment.appendChild(document.createTextNode(text.slice(offset,match.index)));
-      const strong=document.createElement("strong");
-      strong.className="transcript-problem-sentence";
-      strong.textContent=text.slice(match.index,match.end);
-      fragment.appendChild(strong);
-      offset=match.end;
+      if(match.index>offset)fragment.appendChild(document.createTextNode(text.slice(offset,match.index)));
+      const strong=document.createElement("strong");strong.className="transcript-problem-sentence";strong.textContent=text.slice(match.index,match.end);fragment.appendChild(strong);offset=match.end;
     });
-    if(offset<text.length) fragment.appendChild(document.createTextNode(text.slice(offset)));
-    paragraph.replaceChildren(fragment);
-    paragraph.dataset.problemHighlightReady="true";
+    if(offset<text.length)fragment.appendChild(document.createTextNode(text.slice(offset)));
+    paragraph.replaceChildren(fragment);paragraph.dataset.problemHighlightReady="true";
   }
 
   function apply(){
     const body=document.querySelector("#calligraphy .full-transcript-body");
-    if(!body) return false;
+    if(!body)return false;
     body.querySelectorAll("p").forEach(highlightParagraph);
     return true;
   }
-
   function start(){
     apply();
     const section=document.getElementById("calligraphy")||document.body;
     const observer=new MutationObserver(()=>apply());
     observer.observe(section,{childList:true,subtree:true});
-    setTimeout(()=>observer.disconnect(),8000);
+    window.addEventListener("work-005-transcript-ready",apply);
+    setTimeout(()=>observer.disconnect(),10000);
   }
-
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start,{once:true});
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
   else start();
 })();
