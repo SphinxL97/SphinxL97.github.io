@@ -1,122 +1,76 @@
-/*
- * 全部碑帖栏目二、三内容路由。
- * 任何编号都先显示当前碑帖自己的加载状态；绝不使用001内容作为其他碑帖占位。
- */
+/* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V5__) return;
-  window.__DAMAGE_AI_READING_ROUTER_V5__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V6__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V6__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   const routes={
-    "001":[{src:"js/damage_ai_reading_core.js?v=20260717_audit_v2",key:"damageAiCore",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)}],
-    "002":[{src:"js/work-002-liqi.js?v=20260717_audit_v2",key:"work002Liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)}],
-    "003":[{src:"js/work-003-longzangsi.js?v=20260717_audit_v2",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
+    "001":[{src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"damageAiCore",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)}],
+    "002":[{src:"js/work-002-liqi.js?v=20260717_stable_v1",key:"work002Liqi",marker:"data-work-002-liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)}],
+    "003":[{src:"js/work-003-longzangsi.js?v=20260717_stable_v1",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
     "004":[
-      {src:"js/work-004-coordinate-adapter.js?v=20260717_audit_v2",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
-      {src:"js/work-004-lushansi.js?v=20260717_audit_v2",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
-      {src:"js/work-004-page97-case.js?v=20260717_audit_v2",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
+      {src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
+      {src:"js/work-004-lushansi.js?v=20260717_stable_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
+      {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
     ]
   };
-
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴"};
-  const initialTitle=()=>{
-    const value=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
-    if(value&&value!=="碑帖详情") return value;
-    return fallbackTitles[parentId]||`碑帖${parentId}`;
-  };
+
+  function installPendingMask(){
+    if(!document.getElementById("detail-route-pending-style")){
+      const style=document.createElement("style");style.id="detail-route-pending-style";style.textContent=`html.detail-route-pending #calligraphy,html.detail-route-pending #people,html.detail-route-pending .work-hero{visibility:hidden!important}`;document.head.appendChild(style);
+    }
+    document.documentElement.classList.add("detail-route-pending");
+    window.addEventListener("beitie-header-ready",()=>document.documentElement.classList.remove("detail-route-pending"),{once:true});
+    setTimeout(()=>document.documentElement.classList.remove("detail-route-pending"),4000);
+  }
 
   async function fetchTitle(){
-    const domTitle=initialTitle();
-    if(domTitle&&!/^碑帖\d{3}$/.test(domTitle)) return domTitle;
-    try{
-      const response=await fetch("data/beitie_header_info.json?v=20260717_router_titles_v2",{cache:"no-store"});
-      if(response.ok){
-        const data=await response.json();
-        const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();
-        if(title) return title;
-      }
-    }catch(_){ }
-    try{
-      const response=await fetch("data/beitie_catalog.json?v=20260717_router_titles_v2",{cache:"no-store"});
-      if(response.ok){
-        const data=await response.json();
-        const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);
-        const title=String(item?.title||"").trim();
-        if(title) return title;
-      }
-    }catch(_){ }
-    return domTitle;
+    const dom=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
+    if(dom&&dom!=="碑帖详情")return dom;
+    if(fallbackTitles[parentId])return fallbackTitles[parentId];
+    try{const response=await fetch("data/beitie_header_info.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();if(title)return title;}}catch(_){}
+    try{const response=await fetch("data/beitie_catalog.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);const title=String(item?.title||"").trim();if(title)return title;}}catch(_){}
+    return `碑帖${parentId}`;
   }
 
   function renderLoading(title){
-    const transcript=document.getElementById("calligraphy");
-    const damage=document.getElementById("people");
-    const secondLink=document.querySelector(".side a:nth-of-type(2)");
-    const thirdLink=document.querySelector(".side a:nth-of-type(3)");
-    if(secondLink) secondLink.textContent="二、碑文释文";
-    if(thirdLink) thirdLink.textContent="三、碑文残损与AI释读";
-    if(transcript){
-      transcript.className="content-card full-transcript-section";
-      transcript.innerHTML=`<h2 class="section-title">二、碑文释文</h2><div class="full-transcript-card"><div class="full-transcript-loading">正在读取《${title}》碑文释文……</div></div>`;
-    }
-    if(damage){
-      damage.className="content-card damage-ai";
-      damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${title}》释读案例……</div></div>`;
-    }
+    const transcript=document.getElementById("calligraphy"),damage=document.getElementById("people");
+    const second=document.querySelector(".side a:nth-of-type(2)"),third=document.querySelector(".side a:nth-of-type(3)");
+    if(second)second.textContent="二、碑文释文";if(third)third.textContent="三、碑文残损与AI释读";
+    if(transcript){transcript.className="content-card full-transcript-section";transcript.innerHTML=`<h2 class="section-title">二、碑文释文</h2><div class="full-transcript-card"><div class="full-transcript-loading">正在读取《${title}》碑文释文……</div></div>`;}
+    if(damage){damage.className="content-card damage-ai";damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${title}》释读案例……</div></div>`;}
   }
-
-  function renderPending(title){
-    const tLoading=document.getElementById("calligraphy")?.querySelector(".full-transcript-loading");
-    const dLoading=document.getElementById("people")?.querySelector(".full-transcript-loading");
-    if(tLoading) tLoading.textContent=`《${title}》碑文释文尚未整理发布。`;
-    if(dLoading) dLoading.textContent=`《${title}》释读案例尚未整理发布。`;
-  }
-
-  function renderError(title){
-    [document.getElementById("calligraphy"),document.getElementById("people")].forEach(section=>{
-      const loading=section?.querySelector(".full-transcript-loading");
-      if(loading) loading.textContent=`《${title}》专属内容加载失败，请刷新页面后重试。`;
-    });
-  }
+  function renderPending(title){const a=document.getElementById("calligraphy")?.querySelector(".full-transcript-loading"),b=document.getElementById("people")?.querySelector(".full-transcript-loading");if(a)a.textContent=`《${title}》碑文释文尚未整理发布。`;if(b)b.textContent=`《${title}》释读案例尚未整理发布。`;}
+  function renderError(title){[document.getElementById("calligraphy"),document.getElementById("people")].forEach(section=>{const loading=section?.querySelector(".full-transcript-loading");if(loading)loading.textContent=`《${title}》专属内容加载失败，请刷新页面后重试。`;});}
 
   function loadScript(item){
     return new Promise(resolve=>{
       if(item.ready?.()){resolve(true);return;}
       const path=item.src.split("?")[0];
       const existing=Array.from(document.scripts).find(script=>(script.getAttribute("src")||"").split("?")[0].endsWith(path));
-      if(existing){
-        let settled=false;
-        const finish=value=>{if(settled)return;settled=true;resolve(value);};
-        existing.addEventListener("load",()=>finish(true),{once:true});
-        existing.addEventListener("error",()=>finish(false),{once:true});
-        setTimeout(()=>finish(Boolean(item.ready?.())),2200);
-        return;
-      }
-      const script=document.createElement("script");
-      script.src=item.src;script.async=false;script.dataset[item.key]="true";
-      script.addEventListener("load",()=>resolve(true),{once:true});
-      script.addEventListener("error",()=>{console.error("[work-router] 模块加载失败：",item.src);resolve(false);},{once:true});
-      document.head.appendChild(script);
+      if(existing){let settled=false;const finish=value=>{if(settled)return;settled=true;resolve(value);};existing.addEventListener("load",()=>finish(true),{once:true});existing.addEventListener("error",()=>finish(false),{once:true});setTimeout(()=>finish(Boolean(item.ready?.())),2200);return;}
+      const script=document.createElement("script");script.src=item.src;script.async=false;script.dataset[item.key]="true";if(item.marker)script.setAttribute(item.marker,"true");script.addEventListener("load",()=>resolve(true),{once:true});script.addEventListener("error",()=>{console.error("[work-router] 模块加载失败：",item.src);resolve(false);},{once:true});document.head.appendChild(script);
     });
   }
 
   async function start(){
-    let title=initialTitle();
+    installPendingMask();
+    const title=await fetchTitle();
     renderLoading(title);
-    const resolved=await fetchTitle();
-    if(resolved&&resolved!==title){title=resolved;renderLoading(title);}
+    document.documentElement.classList.remove("detail-route-pending");
+
+    await loadScript({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
+    await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
 
     const route=routes[parentId]||[];
-    if(!route.length){setTimeout(()=>renderPending(title),260);return;}
-
-    let success=true;
-    for(const item of route) success=(await loadScript(item))&&success;
-    await loadScript({src:"js/damage_case_audit.js?v=20260717_audit_v2",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V1__)});
-    await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_audit_v2",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V3__)});
-    if(!success) renderError(title);
+    if(!route.length){renderPending(title);return;}
+    let success=true;for(const item of route)success=(await loadScript(item))&&success;if(!success)renderError(title);
   }
 
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
+  if(document.getElementById("calligraphy")&&document.getElementById("people"))start();
+  else if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
+  else start();
 })();
