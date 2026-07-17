@@ -3,6 +3,7 @@
   "use strict";
   if(window.__DETAIL_INFO_STABLE_ENTRY_V1__)return;
   window.__DETAIL_INFO_STABLE_ENTRY_V1__=true;
+  document.documentElement.classList.add("detail-header-pending");
 
   /* 旧核心曾每350毫秒重复覆盖信息卡12次；精准拦截这一历史轮询，避免闪烁。 */
   if(!window.__DETAIL_REPEAT_INTERVAL_GUARD__){
@@ -39,14 +40,14 @@
     const titleNodes=[document.querySelector(".info-panel h1"),document.querySelector(".side .work-name"),document.querySelector(".cover-label")];titleNodes.forEach(node=>{if(node&&clean(node.textContent)!==title)node.textContent=title;});
     if(currentSignature(box)!==signature){const fragment=document.createDocumentFragment();rows.forEach(item=>{const line=document.createElement("div");line.className="meta-line";if(item.wide||item.value.length>38)line.classList.add("wide");const term=document.createElement("b");term.textContent=item.label;const value=document.createElement("span");value.textContent=item.value;line.append(term,value);fragment.appendChild(line);});box.replaceChildren(fragment);}
     box.dataset.completeHeaderWork=workId;box.dataset.headerSignature=signature;rendering=false;observe();
-    document.documentElement.classList.remove("beitie-header-pending");window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,title}}));
+    document.documentElement.classList.remove("beitie-header-pending","detail-header-pending");window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,title}}));
   }
   function observe(){
     const panel=document.querySelector(".work-hero");if(!panel||!recordCache)return;if(observer)observer.disconnect();observer=new MutationObserver(()=>{if(rendering||pending)return;pending=true;queueMicrotask(()=>{pending=false;render(recordCache);});});observer.observe(panel,{childList:true,subtree:true,characterData:true});
   }
   async function loadHeader(){
     document.documentElement.classList.add("beitie-header-pending");
-    try{const response=await fetch(dataUrl,{cache:"no-store"});if(!response.ok)throw new Error(`${dataUrl} ${response.status}`);const data=await response.json();recordCache=data?.[workId]||null;if(recordCache)render(recordCache);else throw new Error(`missing header ${workId}`);}catch(error){console.error("[header-card] 当前碑帖信息卡加载失败",error);document.documentElement.classList.remove("beitie-header-pending");window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,error:true}}));}
+    try{const response=await fetch(dataUrl,{cache:"no-store"});if(!response.ok)throw new Error(`${dataUrl} ${response.status}`);const data=await response.json();recordCache=data?.[workId]||null;if(recordCache)render(recordCache);else throw new Error(`missing header ${workId}`);}catch(error){console.error("[header-card] 当前碑帖信息卡加载失败",error);document.documentElement.classList.remove("beitie-header-pending","detail-header-pending");window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,error:true}}));}
   }
 
   try{

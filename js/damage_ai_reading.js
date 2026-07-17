@@ -20,11 +20,11 @@
 
   function installPendingMask(){
     if(!document.getElementById("detail-route-pending-style")){
-      const style=document.createElement("style");style.id="detail-route-pending-style";style.textContent=`html.detail-route-pending #calligraphy,html.detail-route-pending #people,html.detail-route-pending .work-hero{visibility:hidden!important}`;document.head.appendChild(style);
+      const style=document.createElement("style");style.id="detail-route-pending-style";style.textContent=`html.detail-content-pending #calligraphy,html.detail-content-pending #people,html.detail-header-pending .work-hero{visibility:hidden!important}`;document.head.appendChild(style);
     }
-    document.documentElement.classList.add("detail-route-pending");
-    window.addEventListener("beitie-header-ready",()=>document.documentElement.classList.remove("detail-route-pending"),{once:true});
-    setTimeout(()=>document.documentElement.classList.remove("detail-route-pending"),4000);
+    document.documentElement.classList.add("detail-content-pending","detail-header-pending");
+    window.addEventListener("beitie-header-ready",()=>document.documentElement.classList.remove("detail-header-pending"),{once:true});
+    setTimeout(()=>document.documentElement.classList.remove("detail-header-pending"),4000);
   }
 
   async function fetchTitle(){
@@ -60,7 +60,7 @@
     installPendingMask();
     const title=await fetchTitle();
     renderLoading(title);
-    document.documentElement.classList.remove("detail-route-pending");
+    document.documentElement.classList.remove("detail-content-pending");
 
     await loadScript({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
     await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
