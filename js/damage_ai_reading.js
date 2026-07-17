@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V6__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V6__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V7__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V7__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -14,32 +14,32 @@
       {src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
       {src:"js/work-004-lushansi.js?v=20260717_stable_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
       {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
-    ]
+    ],
+    "005":[{src:"js/work-005-yugonggong.js?v=20260717_yugonggong_v1",key:"work005Yugonggong",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}]
   };
-  const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴"};
+  const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑"};
+
+  function headerReadyForCurrentWork(){
+    return document.querySelector(".info-panel .meta-lines")?.dataset.completeHeaderWork===parentId;
+  }
 
   function installPendingMask(){
     if(!document.getElementById("detail-route-pending-style")){
-      const style=document.createElement("style");style.id="detail-route-pending-style";style.textContent=`html.detail-content-pending #calligraphy,html.detail-content-pending #people,html.detail-header-pending .work-hero{visibility:hidden!important}`;document.head.appendChild(style);
+      const style=document.createElement("style");
+      style.id="detail-route-pending-style";
+      style.textContent=`html.detail-content-pending #calligraphy,html.detail-content-pending #people,html.detail-header-pending .work-hero{visibility:hidden!important}`;
+      document.head.appendChild(style);
     }
     document.documentElement.classList.add("detail-content-pending","detail-header-pending");
-    const releaseHeader=()=>{
-      const box=document.querySelector(".info-panel .meta-lines");
-      const correct=box?.dataset.completeHeaderWork===parentId;
-      if(correct) document.documentElement.classList.remove("detail-header-pending");
-      return Boolean(correct);
-    };
-    window.addEventListener("beitie-header-ready",()=>document.documentElement.classList.remove("detail-header-pending"),{once:true});
-    const headerTarget=document.querySelector(".work-hero")||document.documentElement;
-    const headerObserver=new MutationObserver(()=>{if(releaseHeader())headerObserver.disconnect();});
-    headerObserver.observe(headerTarget,{childList:true,subtree:true,characterData:true,attributes:true});
-    releaseHeader();
-    setTimeout(()=>{headerObserver.disconnect();document.documentElement.classList.remove("detail-header-pending");},4000);
+    const release=()=>{if(headerReadyForCurrentWork())document.documentElement.classList.remove("detail-header-pending");};
+    window.addEventListener("beitie-header-ready",release);
+    const timer=setInterval(()=>{if(headerReadyForCurrentWork()){clearInterval(timer);release();}},50);
+    setTimeout(()=>{clearInterval(timer);release();},5000);
   }
 
   async function fetchTitle(){
     const dom=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
-    if(dom&&dom!=="碑帖详情")return dom;
+    if(dom&&dom!=="碑帖详情"&&headerReadyForCurrentWork())return dom;
     if(fallbackTitles[parentId])return fallbackTitles[parentId];
     try{const response=await fetch("data/beitie_header_info.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();if(title)return title;}}catch(_){}
     try{const response=await fetch("data/beitie_catalog.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);const title=String(item?.title||"").trim();if(title)return title;}}catch(_){}
@@ -77,7 +77,9 @@
 
     const route=routes[parentId]||[];
     if(!route.length){renderPending(title);return;}
-    let success=true;for(const item of route)success=(await loadScript(item))&&success;if(!success)renderError(title);
+    let success=true;
+    for(const item of route)success=(await loadScript(item))&&success;
+    if(!success)renderError(title);
   }
 
   if(document.getElementById("calligraphy")&&document.getElementById("people"))start();
