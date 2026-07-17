@@ -1,212 +1,129 @@
-/*
- * 栏目三统一规范：
- * 1. 案例类别固定为“古字识别 / 形近字纠错 / 残损碑文恢复”；
- * 2. AI补入或改正的文字统一使用〔〕并高亮；
- * 3. 顶部统一显示“案例序号＋类别＋案例题名＋置信度”；
- * 4. 适用于现有及后续沿用 damage-* 结构的碑帖栏目三。
- */
+/* 栏目三统一显示层：固定类别、补字高亮、案例标题、置信度与恢复依据。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_CASE_STANDARD_PATCH_V2__) return;
-  window.__DAMAGE_CASE_STANDARD_PATCH_V2__=true;
+  if(window.__DAMAGE_CASE_STANDARD_PATCH_V3__) return;
+  window.__DAMAGE_CASE_STANDARD_PATCH_V3__=true;
 
   const CATEGORIES=Object.freeze(["古字识别","形近字纠错","残损碑文恢复"]);
   window.DAMAGE_CASE_CATEGORIES=CATEGORIES;
-
-  const esc=value=>String(value==null?"":value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-
+  const esc=value=>String(value==null?"":value).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clean=value=>String(value==null?"":value).trim();
-  const stripGuessPrefix=value=>clean(value).replace(/^AI\s*推测为\s*[:：]\s*/i,"");
   const stripMarks=value=>String(value==null?"":value).replace(/〔([^〕]*)〕/g,"$1");
+  const stripPrefix=value=>clean(value).replace(/^AI\s*推测为\s*[:：]\s*/i,"").replace(/^暂不恢复\s*[:：]\s*/,"");
 
   function categoryOf(value){
     const text=clean(value);
     if(CATEGORIES.includes(text)) return text;
-    if(/古字|生僻字|古文字|异体字/.test(text)) return "古字识别";
+    if(/古字|生僻字|异体字/.test(text)) return "古字识别";
     if(/形近|纠错|误识|误读|校正/.test(text)) return "形近字纠错";
     return "残损碑文恢复";
   }
 
-  function titleDetail(value,fallback){
-    const text=clean(value);
-    const separator=text.match(/——|—{2,}|--/);
-    if(separator){
-      const index=text.indexOf(separator[0]);
-      const detail=clean(text.slice(index+separator[0].length));
-      if(detail) return detail;
-    }
-    const reduced=clean(text.replace(/^(古字识别|形近字纠错|残损碑文恢复|历史人物识别|缺字推测|AI暂拟补释|整句残损恢复|整句缺字待考|整句补释|AI暂拟|缺字待考)[：:\s-]*/,""));
-    return reduced||fallback||"案例";
-  }
-
-  function markedTextHtml(value){
+  function marked(value){
     const text=String(value==null?"":value);
-    let html="";
-    let cursor=0;
+    let html="",cursor=0;
     const segments=[];
     const pattern=/〔([^〕]*)〕/g;
     let match;
     while((match=pattern.exec(text))){
       html+=esc(text.slice(cursor,match.index));
-      const added=match[1];
-      segments.push(added);
-      html+=`<span class="damage-added">〔${esc(added)}〕</span>`;
+      segments.push(match[1]);
+      html+=`<span class="damage-added">〔${esc(match[1])}〕</span>`;
       cursor=match.index+match[0].length;
     }
     html+=esc(text.slice(cursor));
     return {html,plain:text,segments,base:stripMarks(text)};
   }
 
-  function lcsMarkedHtml(originalValue,correctedValue){
+  function lcsMarked(originalValue,correctedValue){
     const original=Array.from(stripMarks(originalValue));
-    const correctedText=stripGuessPrefix(correctedValue);
-    if(/〔[^〕]*〕/.test(correctedText)) return markedTextHtml(correctedText);
+    const correctedText=stripPrefix(correctedValue);
+    if(/〔[^〕]*〕/.test(correctedText)) return marked(correctedText);
+    if(correctedText===String(originalValue==null?"":originalValue)) return marked(correctedText);
 
-    const corrected=Array.from(correctedText);
-    const n=original.length;
-    const m=corrected.length;
+    const corrected=Array.from(correctedText),n=original.length,m=corrected.length;
     const dp=Array.from({length:n+1},()=>new Uint16Array(m+1));
     const equal=(a,b)=>a===b&&!/[□?]/.test(a);
-
-    for(let i=n-1;i>=0;i-=1){
-      for(let j=m-1;j>=0;j-=1){
-        dp[i][j]=equal(original[i],corrected[j])
-          ? 1+dp[i+1][j+1]
-          : Math.max(dp[i+1][j],dp[i][j+1]);
+    for(let i=n-1;i>=0;i--){
+      for(let j=m-1;j>=0;j--){
+        dp[i][j]=equal(original[i],corrected[j])?1+dp[i+1][j+1]:Math.max(dp[i+1][j],dp[i][j+1]);
       }
     }
-
     const matched=new Set();
     let i=0,j=0;
     while(i<n&&j<m){
-      if(equal(original[i],corrected[j])&&dp[i][j]===1+dp[i+1][j+1]){
-        matched.add(j);
-        i+=1;
-        j+=1;
-      }else if(dp[i+1][j]>=dp[i][j+1]){
-        i+=1;
-      }else{
-        j+=1;
-      }
+      if(equal(original[i],corrected[j])&&dp[i][j]===1+dp[i+1][j+1]){matched.add(j);i++;j++;}
+      else if(dp[i+1][j]>=dp[i][j+1]) i++; else j++;
     }
-
-    let html="";
-    let plain="";
+    let html="",plain="";
     const segments=[];
-    for(let index=0;index<m;){
-      if(matched.has(index)){
-        html+=esc(corrected[index]);
-        plain+=corrected[index];
-        index+=1;
-        continue;
-      }
-      let end=index+1;
-      while(end<m&&!matched.has(end)) end+=1;
-      const added=corrected.slice(index,end).join("");
-      segments.push(added);
-      html+=`<span class="damage-added">〔${esc(added)}〕</span>`;
-      plain+=`〔${added}〕`;
-      index=end;
+    for(let k=0;k<m;){
+      if(matched.has(k)){html+=esc(corrected[k]);plain+=corrected[k];k++;continue;}
+      let end=k+1;while(end<m&&!matched.has(end))end++;
+      const added=corrected.slice(k,end).join("");
+      segments.push(added);html+=`<span class="damage-added">〔${esc(added)}〕</span>`;plain+=`〔${added}〕`;k=end;
     }
-
     return {html,plain,segments,base:correctedText};
   }
 
-  function markSegmentsInContext(contextValue,formatted){
-    const context=String(contextValue==null?"":contextValue);
-    if(/〔[^〕]*〕/.test(context)) return markedTextHtml(context).html;
-
-    const correctedBase=formatted.base;
-    if(correctedBase&&context.includes(correctedBase)){
-      const index=context.indexOf(correctedBase);
-      return esc(context.slice(0,index))+formatted.html+esc(context.slice(index+correctedBase.length));
+  function contextHtml(value,formatted){
+    const text=String(value==null?"":value);
+    if(/〔[^〕]*〕/.test(text)) return marked(text).html;
+    if(!formatted||!formatted.segments.length) return esc(text);
+    if(formatted.base&&text.includes(formatted.base)){
+      const index=text.indexOf(formatted.base);
+      return esc(text.slice(0,index))+formatted.html+esc(text.slice(index+formatted.base.length));
     }
-
-    let html="";
-    let cursor=0;
-    formatted.segments.forEach(segment=>{
-      if(!segment) return;
-      const index=context.indexOf(segment,cursor);
-      if(index<0) return;
-      html+=esc(context.slice(cursor,index));
-      html+=`<span class="damage-added">〔${esc(segment)}〕</span>`;
-      cursor=index+segment.length;
-    });
-    html+=esc(context.slice(cursor));
-    return html;
+    return esc(text);
   }
 
-  function activeCaseRecord(active){
+  function activeRecord(active){
     const index=Number(active?.dataset.caseIndex);
-    if(Array.isArray(window.DAMAGE_AI_CASES)&&Number.isInteger(index)&&window.DAMAGE_AI_CASES[index]){
-      return window.DAMAGE_AI_CASES[index];
-    }
-    return null;
+    return Array.isArray(window.DAMAGE_AI_CASES)&&Number.isInteger(index)?window.DAMAGE_AI_CASES[index]||null:null;
   }
 
   function normalizeConfidence(value){
-    let text=clean(value)
-      .replace(/^建议置信度\s*[:：]\s*/,"")
-      .replace(/[（）()]/g,"")
-      .replace(/置信度$/,"164");
-    if(text.endsWith("164")) text=text.slice(0,-3);
+    const text=clean(value).replace(/^建议置信度\s*[:：]\s*/,"").replace(/[（）()]/g,"").replace(/置信度$/,"");
     if(!text) return "";
     if(/暂无法判断|无法判断|待考/.test(text)) return "暂无法判断";
     return `${text}置信度`;
   }
 
-  function confidenceOf(section,record){
-    const fromRecord=normalizeConfidence(record?.confidence);
-    if(fromRecord) return fromRecord;
-    const evidence=Array.from(section.querySelectorAll(".damage-evidence p,.damage-evidence-block p"))
-      .map(node=>clean(node.textContent))
-      .find(text=>text.includes("置信度"));
-    return normalizeConfidence(evidence||"");
+  function subjectOf(record,formatted,caseNo){
+    const raw=clean(record?.s||record?.t||"").replace(/^(古字识别|形近字纠错|残损碑文恢复|整句残损恢复|整句缺字待考|AI暂拟补释|缺字推测)[—－:：\s]*/,"");
+    if(raw&&!/^第?0*\d+处/.test(raw)) return raw;
+    const changed=(formatted?.segments||[]).map(x=>clean(x)).filter(Boolean).slice(0,4).join("、");
+    return changed?`“${changed}”`:`第${String(caseNo||"1").replace(/^0+/,"")||"1"}处`;
   }
 
-  function usefulTitle(value){
-    const text=clean(value);
-    if(!text) return "";
-    if(/^第?\s*0*\d+\s*处(?:整句缺字|缺字|整句)?$/.test(text)) return "";
-    if(/^案例\s*0*\d+$/.test(text)) return "";
-    if(/^(整句缺字待考|整句残损恢复|AI暂拟补释)(?:——)?第?\s*0*\d+处?$/.test(text)) return "";
-    return text;
+  function ensureBasis(section,record){
+    const flow=section.querySelector(".damage-flow");
+    if(!flow) return;
+    let block=flow.querySelector(".damage-basis-block");
+    if(!block){
+      block=document.createElement("div");
+      block.className="damage-block damage-basis-block";
+      const evidence=flow.querySelector(".damage-evidence-block");
+      if(evidence) flow.insertBefore(block,evidence); else flow.appendChild(block);
+    }
+    const type=clean(record?.recoveryBasisType||"证据状态");
+    const basis=clean(record?.recoveryBasis||"本例尚未完成独立证据审核。");
+    const signature=`${type}\u0001${basis}`;
+    if(block.dataset.signature===signature) return;
+    block.dataset.signature=signature;
+    block.innerHTML=`<span class="damage-label">恢复依据</span><div class="damage-basis"><span class="damage-basis-type">${esc(type)}</span><p>${esc(basis)}</p></div>`;
   }
 
-  function compactSegments(segments){
-    const result=[];
-    (segments||[]).forEach(segment=>{
-      const text=clean(segment).replace(/[，。；：、！？“”‘’〔〕（）()]/g,"");
-      if(!text||text.length>12||result.includes(text)) return;
-      result.push(text);
-    });
-    const joined=result.slice(0,4).join("、");
-    if(!joined) return "";
-    return joined.length>18?`${joined.slice(0,18)}…`:joined;
-  }
-
-  function caseSubject(record,detail,formatted,caseNo){
-    const recordSubject=usefulTitle(record?.s);
-    if(recordSubject) return recordSubject;
-
-    const headingSubject=usefulTitle(detail);
-    if(headingSubject) return headingSubject;
-
-    const changed=compactSegments(formatted?.segments);
-    if(changed) return `“${changed}”`;
-
-    return `第${String(caseNo||"").replace(/^0+/,"")||"一"}处`;
-  }
-
-  function renderHeading(section,heading,category,subject,confidence){
-    const signature=[category,subject,confidence].join("\u0001");
-    if(heading.dataset.standardHeadingSignature===signature) return;
-    heading.dataset.standardHeadingSignature=signature;
-    heading.innerHTML=`<span class="damage-heading-title">${esc(category)}——${esc(subject)}</span>${confidence?`<span class="damage-heading-confidence">（${esc(confidence)}）</span>`:""}`;
+  function updateEvidence(section,record){
+    const list=section.querySelector(".damage-evidence ol");
+    if(list&&Array.isArray(record?.e)){
+      const html=record.e.map(item=>`<li>${esc(item)}</li>`).join("");
+      if(list.innerHTML!==html) list.innerHTML=html;
+    }
+    const confidence=section.querySelector(".damage-evidence p strong")?.parentElement;
+    if(confidence&&clean(confidence.textContent).includes("置信度")&&record?.confidence){
+      confidence.innerHTML=`<strong>建议置信度：</strong>${esc(record.confidence)}`;
+    }
   }
 
   function ensureStyle(){
@@ -214,117 +131,79 @@
     const style=document.createElement("style");
     style.id="damage-case-standard-style";
     style.textContent=`
-      .damage-text.damage-new{color:#2e251e!important;font-weight:400!important;}
-      .damage-added{
-        display:inline;
-        margin:0 .05em;
-        padding:0 .12em;
-        border-radius:4px;
-        border-bottom:2px solid #a53529;
-        background:#f8e1cf;
-        color:#9f3025!important;
-        font-weight:900!important;
-        white-space:nowrap;
-      }
-      .damage-restored .damage-added{background:#fff0df;}
-      .damage-heading{
-        display:flex;
-        align-items:baseline;
-        flex-wrap:wrap;
-        gap:.45em;
-        min-width:0;
-      }
-      .damage-heading-title{font-weight:900;color:#3a3028;}
-      .damage-heading-confidence{
-        color:#5f5041;
-        font-size:.82em;
-        font-weight:800;
-        white-space:nowrap;
-      }
+      .damage-text.damage-new{color:#2e251e!important;font-weight:400!important}
+      .damage-added{display:inline;margin:0 .05em;padding:0 .12em;border-radius:4px;border-bottom:2px solid #a53529;background:#f8e1cf;color:#9f3025!important;font-weight:900!important;white-space:nowrap}
+      .damage-restored .damage-added{background:#fff0df}
+      .damage-heading{display:flex;align-items:baseline;flex-wrap:wrap;gap:.45em;min-width:0}
+      .damage-heading-title{font-weight:900;color:#3a3028}
+      .damage-heading-confidence{color:#5f5041;font-size:.82em;font-weight:800;white-space:nowrap}
+      .damage-basis{margin-top:8px;padding:12px 14px;border:1px solid #dfc79b;border-radius:12px;background:#fff8e8;color:#51443a;line-height:1.8}
+      .damage-basis p{margin:7px 0 0}
+      .damage-basis-type{display:inline-block;padding:2px 9px;border-radius:999px;background:#8d7747;color:#fff;font-size:12px;font-weight:800}
     `;
     document.head.appendChild(style);
   }
 
-  let applying=false;
-  let scheduled=false;
-  let observer=null;
-
-  function normalizeSection(){
+  let applying=false,scheduled=false,observer=null;
+  function normalize(){
     if(applying) return;
     const section=document.getElementById("people");
     if(!section||!section.classList.contains("damage-ai")) return;
     applying=true;
-
     try{
       const tabs=Array.from(section.querySelectorAll(".damage-tab"));
-      tabs.forEach(tab=>{
-        const name=tab.querySelector(".name");
-        if(!name) return;
-        if(!name.dataset.originalCaseLabel) name.dataset.originalCaseLabel=clean(name.textContent);
-        const category=categoryOf(name.dataset.originalCaseLabel);
-        name.dataset.standardCategory=category;
-        if(name.textContent!==category) name.textContent=category;
-      });
-
       const active=section.querySelector(".damage-tab.active")||tabs[0];
-      const activeName=active?.querySelector(".name");
-      const activeCategory=categoryOf(activeName?.dataset.originalCaseLabel||activeName?.textContent);
-      const caseNo=clean(active?.querySelector("b")?.textContent);
-      const record=activeCaseRecord(active);
+      const record=activeRecord(active);
+      if(!active||!record) return;
+
+      tabs.forEach((tab,index)=>{
+        const name=tab.querySelector(".name");
+        const item=Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES[index]:null;
+        if(name&&item){const category=categoryOf(item.n);if(name.textContent!==category)name.textContent=category;}
+      });
 
       const original=section.querySelector(".damage-flow .damage-text:not(.damage-new)");
       const corrected=section.querySelector(".damage-flow .damage-text.damage-new");
       const restored=section.querySelector(".damage-flow .damage-restored");
       let formatted=null;
       if(original&&corrected){
-        if(!original.dataset.standardRawText) original.dataset.standardRawText=clean(original.textContent);
-        if(!corrected.dataset.standardRawText) corrected.dataset.standardRawText=clean(corrected.textContent);
-        formatted=lcsMarkedHtml(original.dataset.standardRawText,corrected.dataset.standardRawText);
+        const originalText=String(record.o??original.textContent??"");
+        const correctedText=String(record.c??corrected.textContent??"");
+        if(original.textContent!==originalText) original.textContent=originalText;
+        formatted=lcsMarked(originalText,correctedText);
         if(corrected.innerHTML!==formatted.html) corrected.innerHTML=formatted.html;
         corrected.setAttribute("aria-label",formatted.plain);
-
         if(restored){
-          if(!restored.dataset.standardRawText) restored.dataset.standardRawText=clean(restored.textContent);
-          const restoredHtml=markSegmentsInContext(restored.dataset.standardRawText,formatted);
-          if(restored.innerHTML!==restoredHtml) restored.innerHTML=restoredHtml;
+          const restoredText=String(record.r??restored.textContent??"");
+          const html=contextHtml(restoredText,formatted);
+          if(restored.innerHTML!==html) restored.innerHTML=html;
         }
       }
 
+      const category=categoryOf(record.n);
+      const caseNo=clean(active.querySelector("b")?.textContent||record.i||"");
       const heading=section.querySelector(".damage-heading");
       if(heading){
-        if(!heading.dataset.originalCaseHeading) heading.dataset.originalCaseHeading=clean(heading.textContent);
-        const detail=titleDetail(heading.dataset.originalCaseHeading,caseNo?`案例 ${caseNo}`:"案例");
-        const subject=caseSubject(record,detail,formatted,caseNo);
-        const confidence=confidenceOf(section,record);
-        renderHeading(section,heading,activeCategory,subject,confidence);
+        const confidence=normalizeConfidence(record.confidence);
+        const subject=subjectOf(record,formatted,caseNo);
+        const html=`<span class="damage-heading-title">${esc(category)}——${esc(subject)}</span>${confidence?`<span class="damage-heading-confidence">（${esc(confidence)}）</span>`:""}`;
+        if(heading.innerHTML!==html) heading.innerHTML=html;
       }
-    }finally{
-      applying=false;
-    }
+      updateEvidence(section,record);
+      ensureBasis(section,record);
+    }finally{applying=false;}
   }
 
-  function schedule(){
-    if(scheduled) return;
-    scheduled=true;
-    requestAnimationFrame(()=>{
-      scheduled=false;
-      normalizeSection();
-    });
-  }
-
+  function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;normalize();});}
   function start(){
     ensureStyle();
     const section=document.getElementById("people");
-    if(!section){
-      setTimeout(start,80);
-      return;
-    }
-    if(observer) observer.disconnect();
+    if(!section){setTimeout(start,80);return;}
+    if(observer)observer.disconnect();
     observer=new MutationObserver(schedule);
     observer.observe(section,{childList:true,subtree:true,characterData:true});
+    window.addEventListener("damage-case-audit-ready",schedule);
     schedule();
   }
-
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",start,{once:true});
-  else start();
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
 })();
