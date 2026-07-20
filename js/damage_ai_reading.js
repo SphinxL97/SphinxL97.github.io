@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V8__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V8__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V9__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V9__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -17,28 +17,22 @@
     ],
     "005":[
       {src:"js/work-005-yugonggong.js?v=20260717_yugonggong_v1",key:"work005Yugonggong",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
-      {src:"js/work-005-content-correction.js?v=20260718_copy_v1",key:"work005ContentCorrection",ready:()=>Boolean(window.__WORK_005_CONTENT_CORRECTION_V1__)}
+      {src:"js/work-005-content-correction.js?v=20260718_copy_v1",key:"work005ContentCorrection",ready:()=>Boolean(window.__WORK_005_CONTENT_CORRECTION_V1__)},
+      {src:"js/work-005-transcript-highlight.js?v=20260718_highlight_v1",key:"work005TranscriptHighlight",ready:()=>Boolean(window.__WORK_005_TRANSCRIPT_HIGHLIGHT_V1__)}
     ]
   };
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑"};
 
-  function headerReadyForCurrentWork(){
-    return document.querySelector(".info-panel .meta-lines")?.dataset.completeHeaderWork===parentId;
-  }
+  function headerReadyForCurrentWork(){return document.querySelector(".info-panel .meta-lines")?.dataset.completeHeaderWork===parentId;}
 
   function installPendingMask(){
     if(!document.getElementById("detail-route-pending-style")){
-      const style=document.createElement("style");
-      style.id="detail-route-pending-style";
+      const style=document.createElement("style");style.id="detail-route-pending-style";
       style.textContent=`html.detail-content-pending #calligraphy,html.detail-content-pending #people,html.detail-header-pending .work-hero{visibility:hidden!important}`;
       document.head.appendChild(style);
     }
     document.documentElement.classList.add("detail-content-pending","detail-header-pending");
-    const releaseHeader=()=>{
-      const correct=headerReadyForCurrentWork();
-      if(correct)document.documentElement.classList.remove("detail-header-pending");
-      return Boolean(correct);
-    };
+    const releaseHeader=()=>{const correct=headerReadyForCurrentWork();if(correct)document.documentElement.classList.remove("detail-header-pending");return Boolean(correct);};
     window.addEventListener("beitie-header-ready",()=>{if(headerReadyForCurrentWork())document.documentElement.classList.remove("detail-header-pending");},{once:true});
     const headerTarget=document.querySelector(".work-hero")||document.documentElement;
     const headerObserver=new MutationObserver(()=>{if(releaseHeader())headerObserver.disconnect();});
@@ -78,14 +72,10 @@
 
   async function start(){
     installPendingMask();
-    const title=await fetchTitle();
-    renderLoading(title);
-    document.documentElement.classList.remove("detail-content-pending");
-
+    const title=await fetchTitle();renderLoading(title);document.documentElement.classList.remove("detail-content-pending");
     await loadScript({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"readerBoxAlignment",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
     await loadScript({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
     await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
-
     const route=routes[parentId]||[];
     if(!route.length){renderPending(title);return;}
     let success=true;for(const item of route)success=(await loadScript(item))&&success;if(!success)renderError(title);
