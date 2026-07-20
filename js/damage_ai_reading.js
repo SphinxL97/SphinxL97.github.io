@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V12__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V12__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V13__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V13__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -17,7 +17,8 @@
     ],
     "005":[
       {src:"js/work-005-case-data-patch-v3.js?v=20260720_review_v3",key:"work005CaseDataPatchV3",ready:()=>Boolean(window.__WORK_005_CASE_DATA_PATCH_V3__)},
-      {src:"js/work-005-yugonggong-all-v2.js?v=20260720_review_v3",key:"work005AllDamageReview",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}
+      {src:"js/work-005-yugonggong-all-v2.js?v=20260720_review_v3",key:"work005AllDamageReview",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
+      {src:"js/work-005-column4-highlight.js?v=20260720_final_v1",key:"work005Column4Highlight",ready:()=>Boolean(window.__WORK_005_COLUMN4_HIGHLIGHT_V1__)}
     ]
   };
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑"};
