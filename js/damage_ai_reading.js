@@ -1,35 +1,41 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V26__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V26__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V27__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V27__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   const integrity={src:"js/damage-case-integrity-v2.js?v=20260721_integrity_v2",key:"damageCaseIntegrityV2",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_V2__)};
+  const partialStatus={src:"js/damage-case-partial-status.js?v=20260721_partial_v1",key:"damageCasePartialStatus",ready:()=>Boolean(window.__DAMAGE_CASE_PARTIAL_STATUS__)};
 
   const routes={
     "001":[
       {src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"damageAiCore",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)},
-      integrity
+      integrity,
+      partialStatus
     ],
     "002":[
       {src:"js/work-002-liqi.js?v=20260717_stable_v1",key:"work002Liqi",marker:"data-work-002-liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)},
-      integrity
+      integrity,
+      partialStatus
     ],
     "003":[
       {src:"js/work-003-longzangsi.js?v=20260717_stable_v1",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)},
-      integrity
+      integrity,
+      partialStatus
     ],
     "004":[
       {src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
       {src:"js/work-004-lushansi.js?v=20260717_stable_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
       {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)},
-      integrity
+      integrity,
+      partialStatus
     ],
     "005":[
       {src:"js/work-005-yugonggong-stable.js?v=20260720_stable_v2",key:"work005YugonggongStable",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
       integrity,
+      partialStatus,
       {src:"js/work-005-crowdsource-cases.js?v=20260720_crowd_v2",key:"work005CrowdsourceCases",ready:()=>Boolean(window.__WORK_005_CROWDSOURCE_CASES__)}
     ],
     "006":[
@@ -37,12 +43,14 @@
       {src:"js/work-006-punctuation-sync.js?v=20260720_work006_punctuation_v1",key:"work006PunctuationSync",ready:()=>Boolean(window.__WORK_006_PUNCTUATION_SYNC__)},
       {src:"js/work-006-shichenhou.js?v=20260720_work006_v2",key:"work006Shichenhou",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},
       integrity,
+      partialStatus,
       {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ],
     "007":[
       {src:"js/work-007-coordinate-adapter.js?v=20260720_work007_v2",key:"work007CoordinateAdapter",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER__)},
       {src:"js/work-007-yique.js?v=20260720_work007_v2",key:"work007Yique",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},
       integrity,
+      partialStatus,
       {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work007CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ]
   };
