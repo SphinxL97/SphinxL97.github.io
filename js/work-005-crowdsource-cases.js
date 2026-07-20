@@ -10,10 +10,8 @@
   if(parentId!=="005"||window.__WORK_005_CROWDSOURCE_CASES__)return;
   window.__WORK_005_CROWDSOURCE_CASES__=true;
 
-  function adapt(){
-    const cases=window.DAMAGE_AI_CASES;
-    if(!Array.isArray(cases)||!cases.length)return false;
-
+  function normalize(cases){
+    if(!Array.isArray(cases))return cases;
     cases.forEach((item,index)=>{
       if(!item||typeof item!=="object")return;
       item.n=String(item.n||item.category||"");
@@ -22,19 +20,38 @@
       item.c=String(item.c||item.corrected||"");
       item.page=item.page||item.canvas_index||item.locations?.[0]?.page||"—";
     });
-
-    window.dispatchEvent(new CustomEvent("work-005-crowdsource-cases-ready"));
-    return true;
+    return cases;
   }
 
-  if(adapt())return;
+  let current=normalize(window.DAMAGE_AI_CASES);
 
-  const onReady=()=>adapt();
-  window.addEventListener("work-005-content-ready",onReady,{once:true});
+  try{
+    Object.defineProperty(window,"DAMAGE_AI_CASES",{
+      configurable:true,
+      enumerable:true,
+      get(){return current;},
+      set(value){
+        current=normalize(value);
+        window.dispatchEvent(new CustomEvent("work-005-crowdsource-cases-ready"));
+      }
+    });
+    if(current)window.DAMAGE_AI_CASES=current;
+  }catch(error){
+    console.warn("[work-005-crowdsource-cases] 无法安装字段兼容器",error);
+  }
+
+  const adaptCurrent=()=>{
+    if(!Array.isArray(window.DAMAGE_AI_CASES)||!window.DAMAGE_AI_CASES.length)return false;
+    window.DAMAGE_AI_CASES=window.DAMAGE_AI_CASES;
+    return true;
+  };
+
+  if(adaptCurrent())return;
+  window.addEventListener("work-005-content-ready",adaptCurrent,{once:true});
 
   let attempts=0;
   const timer=setInterval(()=>{
     attempts+=1;
-    if(adapt()||attempts>=40)clearInterval(timer);
+    if(adaptCurrent()||attempts>=40)clearInterval(timer);
   },125);
 })();
