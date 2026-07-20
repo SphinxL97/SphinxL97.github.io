@@ -178,11 +178,22 @@
     return modelPromise;
   }
 
+  function firstDirectTarget(item,target){
+    const output={x:Number(target.x??0),y:Number(target.y??0),w:Number(target.w??0),h:Number(target.h??0)};
+    const gs=groups(String(item.o||""));
+    if(!gs.length)return output;
+    const count=item.targets?.length?Math.max(1,gs[0].count):Math.max(1,gs.reduce((n,g)=>n+g.count,0));
+    if(count<=1)return output;
+    if(output.h>=output.w){output.h=output.h/count;}
+    else{const part=output.w/count;output.x=output.x+output.w-part;output.w=part;}
+    return output;
+  }
+
   async function locate(item){
     if(item._visual!==undefined)return item._visual;
     if(!MODELS[workId]&&item.locations?.[0]){item._visual=item.locations[0];return item._visual;}
     const direct=item.target||item.targets?.[0];
-    if(item.image&&item.canvas&&direct){item._visual={page:Number(item.page||0),image:item.image,canvas:item.canvas,target:direct};return item._visual;}
+    if(item.image&&item.canvas&&direct){item._visual={page:Number(item.page||0),image:item.image,canvas:item.canvas,target:firstDirectTarget(item,direct)};return item._visual;}
     if(!String(item.o||"").includes("□")||!MODELS[workId]){item._visual=null;return null;}
 
     const data=await model();if(!data.seq.length){item._visual=null;return null;}
