@@ -1,18 +1,12 @@
-/* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
+/* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V18__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V18__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V19__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V19__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
 
-  /*
-   * 005修复说明：
-   * 之前为了延迟加载栏目三、四，在这里全局拦截了005逐页字框请求。
-   * 栏目一也使用完全相同的字框地址，因此被一并阻塞，最终形成栏目一等待字框、
-   * 栏目三等待滚动的死锁。现在彻底移除全局 fetch 拦截，各栏目恢复独立加载。
-   */
   const routes={
     "001":[{src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"damageAiCore",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)}],
     "002":[{src:"js/work-002-liqi.js?v=20260717_stable_v1",key:"work002Liqi",marker:"data-work-002-liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)}],
@@ -23,10 +17,7 @@
       {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
     ],
     "005":[
-      {src:"js/work-005-case-data-patch-v3.js?v=20260720_review_v4",key:"work005CaseDataPatchV3",ready:()=>Boolean(window.__WORK_005_CASE_DATA_PATCH_V3__)},
-      {src:"js/work-005-performance-patch.js?v=20260720_recovery_v2",key:"work005PerformancePatch",ready:()=>Boolean(window.__WORK_005_PERFORMANCE_PATCH_V1__)},
-      {src:"js/work-005-yugonggong-all-v2.js?v=20260720_recovery_v3",key:"work005AllDamageReview",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
-      {src:"js/work-005-column4-highlight.js?v=20260720_final_v3",key:"work005Column4Highlight",ready:()=>Boolean(window.__WORK_005_COLUMN4_HIGHLIGHT_V1__)}
+      {src:"js/work-005-yugonggong-stable.js?v=20260720_stable_v1",key:"work005YugonggongStable",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}
     ]
   };
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑"};
@@ -52,9 +43,7 @@
       if(headerReadyForCurrentWork())document.documentElement.classList.remove("detail-header-pending");
     },{once:true});
     const headerTarget=document.querySelector(".work-hero")||document.documentElement;
-    const headerObserver=new MutationObserver(()=>{
-      if(releaseHeader())headerObserver.disconnect();
-    });
+    const headerObserver=new MutationObserver(()=>{if(releaseHeader())headerObserver.disconnect();});
     headerObserver.observe(headerTarget,{childList:true,subtree:true,characterData:true,attributes:true});
     releaseHeader();
     setTimeout(()=>{
@@ -135,10 +124,7 @@
       script.dataset[item.key]="true";
       if(item.marker)script.setAttribute(item.marker,"true");
       script.addEventListener("load",()=>resolve(true),{once:true});
-      script.addEventListener("error",()=>{
-        console.error("[work-router] 模块加载失败：",item.src);
-        resolve(false);
-      },{once:true});
+      script.addEventListener("error",()=>{console.error("[work-router] 模块加载失败：",item.src);resolve(false);},{once:true});
       document.head.appendChild(script);
     });
   }
