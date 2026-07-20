@@ -118,6 +118,7 @@
     const out=clone(item),id=String(index+1).padStart(2,"0");
     out.id=id;out.i=id;out.n=category||"残损碑文恢复";out.category=out.n;
     out.o=original;out.original=original;
+    if(original.includes("□")&&MODELS[workId])delete out.locations;
 
     if(original.includes("□")){
       const fixed=restrict(original,String(item.c??item.corrected??original));
@@ -179,7 +180,7 @@
 
   async function locate(item){
     if(item._visual!==undefined)return item._visual;
-    if(item.locations?.[0]){item._visual=item.locations[0];return item._visual;}
+    if(!MODELS[workId]&&item.locations?.[0]){item._visual=item.locations[0];return item._visual;}
     const direct=item.target||item.targets?.[0];
     if(item.image&&item.canvas&&direct){item._visual={page:Number(item.page||0),image:item.image,canvas:item.canvas,target:direct};return item._visual;}
     if(!String(item.o||"").includes("□")||!MODELS[workId]){item._visual=null;return null;}
@@ -260,7 +261,7 @@
     if(syncing)return false;
     const source=window.DAMAGE_AI_CASES;if(!Array.isArray(source)||!source.length)return false;
     const next=normalizeAll(source);
-    const nextSignature=JSON.stringify(next.map(x=>[x.id,x.o,x.c,x.page,x.locations?.[0]?.page]));
+    const nextSignature=JSON.stringify(next.map(x=>[x.id,x.o,x.c,x.page]));
     if(nextSignature===signature&&getSection()?.querySelector("[data-integrity-v2-root]"))return true;
     syncing=true;signature=nextSignature;cases=next;if(current>=cases.length)current=Math.max(0,cases.length-1);
     window.DAMAGE_AI_CASES=cases.map(clone);syncing=false;render();
