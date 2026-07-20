@@ -1,6 +1,6 @@
 /* 006《史晨后碑》题签页过滤。
  * 第11页为题签、题记与后人书写，不纳入碑文释文、残损案例及AI补字意见。
- * 本脚本只过滤006案例数据，不修改其他碑帖。
+ * 本脚本只过滤006相关数据，不修改其他碑帖。
  */
 (function(){
   "use strict";
@@ -16,18 +16,29 @@
   window.fetch=async function(input,init){
     const response=await nativeFetch(input,init);
     const url=requestUrl(input);
+
+    if(/data\/shichenhou_full_text\.txt(?:\?|$)/i.test(url)){
+      try{
+        const text=await response.clone().text();
+        const withoutTitlePage=text.replace(/^.*?(?:\r?\n){2}/s,"");
+        return new Response(withoutTitlePage,{
+          status:response.status,
+          statusText:response.statusText,
+          headers:{"Content-Type":"text/plain; charset=utf-8"}
+        });
+      }catch(error){
+        console.warn("[work-006-title-page-filter] 释文过滤失败",error);
+        return response;
+      }
+    }
+
     if(!/data\/shichenhou_damage_cases\.json(?:\?|$)/i.test(url))return response;
 
     try{
       const rows=await response.clone().json();
       if(!Array.isArray(rows))return response;
 
-      const filtered=rows.filter(item=>{
-        const original=String(item?.o||item?.original||"");
-        const originalId=String(item?.id||"").padStart(2,"0");
-        return originalId!=="01"&&!original.includes("惜道味齋");
-      });
-
+      const filtered=rows.filter(item=>String(item?.id||"").padStart(2,"0")!=="01");
       filtered.forEach((item,index)=>{
         item.id=String(index+1).padStart(2,"0");
       });
@@ -38,7 +49,7 @@
         headers:{"Content-Type":"application/json; charset=utf-8"}
       });
     }catch(error){
-      console.warn("[work-006-title-page-filter]",error);
+      console.warn("[work-006-title-page-filter] 案例过滤失败",error);
       return response;
     }
   };
