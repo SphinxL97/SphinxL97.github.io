@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V7__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V7__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V8__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V8__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -15,7 +15,10 @@
       {src:"js/work-004-lushansi.js?v=20260717_stable_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
       {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)}
     ],
-    "005":[{src:"js/work-005-yugonggong.js?v=20260717_yugonggong_v1",key:"work005Yugonggong",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}]
+    "005":[
+      {src:"js/work-005-yugonggong.js?v=20260717_yugonggong_v1",key:"work005Yugonggong",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
+      {src:"js/work-005-content-correction.js?v=20260718_copy_v1",key:"work005ContentCorrection",ready:()=>Boolean(window.__WORK_005_CONTENT_CORRECTION_V1__)}
+    ]
   };
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑"};
 
@@ -31,15 +34,22 @@
       document.head.appendChild(style);
     }
     document.documentElement.classList.add("detail-content-pending","detail-header-pending");
-    const release=()=>{if(headerReadyForCurrentWork())document.documentElement.classList.remove("detail-header-pending");};
-    window.addEventListener("beitie-header-ready",release);
-    const timer=setInterval(()=>{if(headerReadyForCurrentWork()){clearInterval(timer);release();}},50);
-    setTimeout(()=>{clearInterval(timer);release();},5000);
+    const releaseHeader=()=>{
+      const correct=headerReadyForCurrentWork();
+      if(correct)document.documentElement.classList.remove("detail-header-pending");
+      return Boolean(correct);
+    };
+    window.addEventListener("beitie-header-ready",()=>{if(headerReadyForCurrentWork())document.documentElement.classList.remove("detail-header-pending");},{once:true});
+    const headerTarget=document.querySelector(".work-hero")||document.documentElement;
+    const headerObserver=new MutationObserver(()=>{if(releaseHeader())headerObserver.disconnect();});
+    headerObserver.observe(headerTarget,{childList:true,subtree:true,characterData:true,attributes:true});
+    releaseHeader();
+    setTimeout(()=>{headerObserver.disconnect();document.documentElement.classList.remove("detail-header-pending");},4000);
   }
 
   async function fetchTitle(){
     const dom=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
-    if(dom&&dom!=="碑帖详情"&&headerReadyForCurrentWork())return dom;
+    if(dom&&dom!=="碑帖详情")return dom;
     if(fallbackTitles[parentId])return fallbackTitles[parentId];
     try{const response=await fetch("data/beitie_header_info.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();if(title)return title;}}catch(_){}
     try{const response=await fetch("data/beitie_catalog.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);const title=String(item?.title||"").trim();if(title)return title;}}catch(_){}
@@ -72,14 +82,13 @@
     renderLoading(title);
     document.documentElement.classList.remove("detail-content-pending");
 
+    await loadScript({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"readerBoxAlignment",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
     await loadScript({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
     await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
 
     const route=routes[parentId]||[];
     if(!route.length){renderPending(title);return;}
-    let success=true;
-    for(const item of route)success=(await loadScript(item))&&success;
-    if(!success)renderError(title);
+    let success=true;for(const item of route)success=(await loadScript(item))&&success;if(!success)renderError(title);
   }
 
   if(document.getElementById("calligraphy")&&document.getElementById("people"))start();
