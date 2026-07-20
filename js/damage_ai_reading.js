@@ -1,12 +1,12 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V25__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V25__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V26__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V26__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
-  const integrity={src:"js/damage-case-integrity-renderer.js?v=20260721_integrity_v1",key:"damageCaseIntegrity",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_RENDERER__)};
+  const integrity={src:"js/damage-case-integrity-v2.js?v=20260721_integrity_v2",key:"damageCaseIntegrityV2",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_V2__)};
 
   const routes={
     "001":[
@@ -37,13 +37,13 @@
       {src:"js/work-006-punctuation-sync.js?v=20260720_work006_punctuation_v1",key:"work006PunctuationSync",ready:()=>Boolean(window.__WORK_006_PUNCTUATION_SYNC__)},
       {src:"js/work-006-shichenhou.js?v=20260720_work006_v2",key:"work006Shichenhou",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},
       integrity,
-      {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v1",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
+      {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ],
     "007":[
       {src:"js/work-007-coordinate-adapter.js?v=20260720_work007_v2",key:"work007CoordinateAdapter",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER__)},
       {src:"js/work-007-yique.js?v=20260720_work007_v2",key:"work007Yique",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},
       integrity,
-      {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v1",key:"work007CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
+      {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work007CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ]
   };
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑"};
