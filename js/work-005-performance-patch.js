@@ -7,7 +7,8 @@
   "use strict";
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
-  if(parentId!=="005"||window.__WORK_005_PERFORMANCE_PATCH_V1__)return;
+  if(parentId!=="005"||window.__WORK_005_PERFORMANCE_PATCH_V2__)return;
+  window.__WORK_005_PERFORMANCE_PATCH_V2__=true;
   window.__WORK_005_PERFORMANCE_PATCH_V1__=true;
 
   /* 仅匹配栏目三脚本自己的请求参数，栏目一读取同一路径时不会进入此队列。 */
@@ -40,13 +41,15 @@
   /*
    * work-005-yugonggong-all-v2.js 的初始化末尾使用：
    * Promise.all([renderTranscript(cases), resolveLocations(cases)])。
-   * 内层坐标工作池是8个 Promise，因此这里只接管长度恰为2的外层等待一次。
+   * 内层坐标工作池是8个 Promise，因此这里只接管来自该脚本、长度恰为2的外层等待一次。
    */
   const nativeAll=Promise.all.bind(Promise);
   let outerReleased=false;
   Promise.all=function(iterable){
     const values=Array.from(iterable||[]);
-    if(!outerReleased&&values.length===2&&values.every(value=>value&&typeof value.then==="function")){
+    const stack=String(new Error().stack||"");
+    const fromWork005=/work-005-yugonggong-all-v2\.js/i.test(stack);
+    if(!outerReleased&&fromWork005&&values.length===2&&values.every(value=>value&&typeof value.then==="function")){
       outerReleased=true;
       Promise.all=nativeAll;
       const transcriptPromise=values[0];
