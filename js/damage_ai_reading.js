@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载审核后的专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V14__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V14__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V15__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V15__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -11,7 +11,7 @@
    * 005性能优化：
    * - 栏目三原来会在页面刚打开时立即请求55页逐字坐标；
    * - 栏目四会同时请求001—005整合坐标分片。
-   * 两套大数据解析并发执行会阻塞首屏。现在只有滚动到相应栏目附近时才真正发起请求。
+   * 两套大数据解析并发执行会阻塞首屏。现在只有释文完成排版、且用户滚动到相应栏目附近时才真正发起请求。
    */
   function install005LazyCoordinateGate(){
     if(parentId!=="005"||window.__WORK_005_LAZY_COORDINATE_GATE__)return;
@@ -24,22 +24,25 @@
 
     function waitUntilNear(sectionId,anchorName){
       return new Promise(resolve=>{
-        let done=false,observer=null;
+        let done=false,armed=false,observer=null,armTimer=0;
         const finish=()=>{
           if(done)return;
           done=true;
+          clearTimeout(armTimer);
           observer?.disconnect();
           window.removeEventListener("scroll",check);
           window.removeEventListener("resize",check);
           window.removeEventListener("hashchange",checkHash);
+          window.removeEventListener("work-005-transcript-ready",arm);
           document.removeEventListener("click",checkClick,true);
           resolve();
         };
         const check=()=>{
+          if(!armed)return;
           const section=document.getElementById(sectionId);
           if(!section)return;
           const rect=section.getBoundingClientRect();
-          const margin=Math.max(500,window.innerHeight*.65);
+          const margin=Math.min(320,window.innerHeight*.35);
           if(rect.top<=window.innerHeight+margin&&rect.bottom>=-margin)finish();
         };
         const checkHash=()=>{if(location.hash===`#${anchorName}`||location.hash===`#${sectionId}`)finish();};
@@ -47,17 +50,21 @@
           const link=event.target instanceof Element?event.target.closest(`a[href="#${anchorName}"],a[href="#${sectionId}"]`):null;
           if(link)finish();
         };
+        const arm=()=>{
+          if(done||armed)return;
+          armed=true;
+          const section=document.getElementById(sectionId);
+          if(section&&"IntersectionObserver" in window){
+            observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting))finish();},{rootMargin:"280px 0px"});
+            observer.observe(section);
+          }
+          check();
+        };
 
         checkHash();
         if(done)return;
-        check();
-        if(done)return;
-
-        const section=document.getElementById(sectionId);
-        if(section&&"IntersectionObserver" in window){
-          observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting))finish();},{rootMargin:"700px 0px"});
-          observer.observe(section);
-        }
+        window.addEventListener("work-005-transcript-ready",arm,{once:true});
+        armTimer=setTimeout(arm,2200);
         window.addEventListener("scroll",check,{passive:true});
         window.addEventListener("resize",check,{passive:true});
         window.addEventListener("hashchange",checkHash);
@@ -89,7 +96,7 @@
     ],
     "005":[
       {src:"js/work-005-case-data-patch-v3.js?v=20260720_review_v3",key:"work005CaseDataPatchV3",ready:()=>Boolean(window.__WORK_005_CASE_DATA_PATCH_V3__)},
-      {src:"js/work-005-yugonggong-all-v2.js?v=20260720_review_v4",key:"work005AllDamageReview",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
+      {src:"js/work-005-yugonggong-all-v2.js?v=20260720_review_v5",key:"work005AllDamageReview",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
       {src:"js/work-005-column4-highlight.js?v=20260720_final_v1",key:"work005Column4Highlight",ready:()=>Boolean(window.__WORK_005_COLUMN4_HIGHLIGHT_V1__)}
     ]
   };
@@ -110,15 +117,15 @@
     const headerObserver=new MutationObserver(()=>{if(releaseHeader())headerObserver.disconnect();});
     headerObserver.observe(headerTarget,{childList:true,subtree:true,characterData:true,attributes:true});
     releaseHeader();
-    setTimeout(()=>{headerObserver.disconnect();document.documentElement.classList.remove("detail-header-pending");},1800);
+    setTimeout(()=>{headerObserver.disconnect();document.documentElement.classList.remove("detail-header-pending");},1500);
   }
 
   async function fetchTitle(){
     const dom=String(document.querySelector(".info-panel h1")?.textContent||document.querySelector(".side .work-name")?.textContent||"").trim();
     if(dom&&dom!=="碑帖详情")return dom;
     if(fallbackTitles[parentId])return fallbackTitles[parentId];
-    try{const response=await fetch("data/beitie_header_info.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();if(title)return title;}}catch(_){}
-    try{const response=await fetch("data/beitie_catalog.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);const title=String(item?.title||"").trim();if(title)return title;}}catch(_){}
+    try{const response=await fetch("data/beitie_header_info.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const title=String(data?.[parentId]?.title||data?.[parentId]?.basic?.首题||"").trim();if(title)return title;}}catch(_){ }
+    try{const response=await fetch("data/beitie_catalog.json?v=20260717_stable_titles_v1",{cache:"no-store"});if(response.ok){const data=await response.json();const item=(Array.isArray(data)?data:[]).find(row=>String(row.id||"").padStart(3,"0")===parentId);const title=String(item?.title||"").trim();if(title)return title;}}catch(_){ }
     return `碑帖${parentId}`;
   }
 
@@ -127,7 +134,7 @@
     const second=document.querySelector(".side a:nth-of-type(2)"),third=document.querySelector(".side a:nth-of-type(3)");
     if(second)second.textContent="二、碑文释文";if(third)third.textContent="三、碑文残损与AI释读";
     if(transcript){transcript.className="content-card full-transcript-section";transcript.innerHTML=`<h2 class="section-title">二、碑文释文</h2><div class="full-transcript-card"><div class="full-transcript-loading">正在读取《${title}》碑文释文……</div></div>`;}
-    if(damage){damage.className="content-card damage-ai";damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${title}》释读案例……</div></div>`;}
+    if(damage){damage.className="content-card damage-ai";damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">向下浏览到本栏目后，将读取《${title}》释读案例与字框……</div></div>`;}
   }
   function renderPending(title){const a=document.getElementById("calligraphy")?.querySelector(".full-transcript-loading"),b=document.getElementById("people")?.querySelector(".full-transcript-loading");if(a)a.textContent=`《${title}》碑文释文尚未整理发布。`;if(b)b.textContent=`《${title}》释读案例尚未整理发布。`;}
   function renderError(title){[document.getElementById("calligraphy"),document.getElementById("people")].forEach(section=>{const loading=section?.querySelector(".full-transcript-loading");if(loading)loading.textContent=`《${title}》专属内容加载失败，请刷新页面后重试。`;});}
