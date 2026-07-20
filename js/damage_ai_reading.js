@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V22__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V22__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V23__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V23__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -22,8 +22,9 @@
     ],
     "006":[
       {src:"js/work-006-coordinate-adapter.js?v=20260720_work006_v1",key:"work006CoordinateAdapter",ready:()=>Boolean(window.__WORK_006_COORDINATE_ADAPTER__)},
-      {src:"js/work-006-shichenhou.js?v=20260720_work006_v1",key:"work006Shichenhou",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},
-      {src:"assets/js/crowdsource-v9.js?v=20260720_work006_v1",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
+      {src:"js/work-006-punctuation-sync.js?v=20260720_work006_punctuation_v1",key:"work006PunctuationSync",ready:()=>Boolean(window.__WORK_006_PUNCTUATION_SYNC__)},
+      {src:"js/work-006-shichenhou.js?v=20260720_work006_v2",key:"work006Shichenhou",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},
+      {src:"assets/js/crowdsource-v9.js?v=20260720_work006_v2",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ]
   };
   const fallbackTitles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑"};
