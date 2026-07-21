@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V28__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V28__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V29__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V29__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -13,52 +13,37 @@
   const routes={
     "001":[
       {src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"damageAiCore",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)},
-      legacyAdapter,
-      integrity,
-      partialStatus
+      legacyAdapter,integrity,partialStatus
     ],
     "002":[
-      {src:"js/work-002-liqi.js?v=20260717_stable_v1",key:"work002Liqi",marker:"data-work-002-liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)},
-      legacyAdapter,
-      integrity,
-      partialStatus
+      {src:"js/work-002-liqi.js?v=20260721_liqi_analysis_v2",key:"work002Liqi",marker:"data-work-002-liqi",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)},
+      legacyAdapter,integrity,partialStatus
     ],
     "003":[
-      {src:"js/work-003-longzangsi.js?v=20260717_stable_v1",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)},
-      legacyAdapter,
-      integrity,
-      partialStatus
+      {src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v2",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}
     ],
     "004":[
       {src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
       {src:"js/work-004-lushansi.js?v=20260717_stable_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
       {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)},
-      legacyAdapter,
-      integrity,
-      partialStatus
+      legacyAdapter,integrity,partialStatus
     ],
     "005":[
       {src:"js/work-005-yugonggong-stable.js?v=20260720_stable_v2",key:"work005YugonggongStable",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
-      legacyAdapter,
-      integrity,
-      partialStatus,
+      legacyAdapter,integrity,partialStatus,
       {src:"js/work-005-crowdsource-cases.js?v=20260720_crowd_v2",key:"work005CrowdsourceCases",ready:()=>Boolean(window.__WORK_005_CROWDSOURCE_CASES__)}
     ],
     "006":[
       {src:"js/work-006-coordinate-adapter.js?v=20260720_work006_v1",key:"work006CoordinateAdapter",ready:()=>Boolean(window.__WORK_006_COORDINATE_ADAPTER__)},
       {src:"js/work-006-punctuation-sync.js?v=20260720_work006_punctuation_v1",key:"work006PunctuationSync",ready:()=>Boolean(window.__WORK_006_PUNCTUATION_SYNC__)},
       {src:"js/work-006-shichenhou.js?v=20260720_work006_v2",key:"work006Shichenhou",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},
-      legacyAdapter,
-      integrity,
-      partialStatus,
+      legacyAdapter,integrity,partialStatus,
       {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ],
     "007":[
       {src:"js/work-007-coordinate-adapter.js?v=20260720_work007_v2",key:"work007CoordinateAdapter",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER__)},
       {src:"js/work-007-yique.js?v=20260720_work007_v2",key:"work007Yique",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},
-      legacyAdapter,
-      integrity,
-      partialStatus,
+      legacyAdapter,integrity,partialStatus,
       {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work007CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ]
   };
@@ -72,7 +57,14 @@
     if(!document.getElementById("detail-route-pending-style")){
       const style=document.createElement("style");
       style.id="detail-route-pending-style";
-      style.textContent=`html.detail-content-pending #calligraphy,html.detail-content-pending #people,html.detail-header-pending .work-hero{visibility:hidden!important}`;
+      style.textContent=`
+        html.detail-content-pending #calligraphy,
+        html.detail-content-pending #people,
+        html.detail-header-pending .work-hero{visibility:hidden!important}
+        .damage-basis-block,
+        .damage-basis-card,
+        [data-damage-basis]{display:none!important}
+      `;
       document.head.appendChild(style);
     }
     document.documentElement.classList.add("detail-content-pending","detail-header-pending");
