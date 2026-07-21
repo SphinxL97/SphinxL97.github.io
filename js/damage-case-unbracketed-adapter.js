@@ -12,6 +12,7 @@
 
   const ignored=/[\s，。；：、？！“”‘’（）《》【】〈〉,.!?;:—－…〔〕]/;
   const clean=value=>Array.from(String(value||"")).filter(ch=>!ignored.test(ch)).join("");
+  const takeChars=(value,count)=>Array.from(String(value||"")).slice(0,count).join("");
 
   function groups(text){
     const result=[];let match;const re=/□+/g;
@@ -32,8 +33,8 @@
           const rightAt=correctedClean.indexOf(right,candidateStart);
           if(rightAt<0)continue;
           const between=correctedClean.slice(candidateStart,rightAt);
-          if(between.length>=1&&between.length<=Math.max(8,count+4)){
-            return {text:between.slice(0,count),next:rightAt};
+          if(Array.from(between).length>=1&&Array.from(between).length<=Math.max(8,count+4)){
+            return {text:takeChars(between,count),next:rightAt};
           }
         }
         leftAt=correctedClean.indexOf(left,leftAt+1);
@@ -64,7 +65,8 @@
       const candidate=candidates[index];
       if(candidate){
         rebuilt+=`〔${candidate}〕`;
-        if(candidate.length<group.count)rebuilt+="□".repeat(group.count-candidate.length);
+        const candidateCount=Array.from(candidate).length;
+        if(candidateCount<group.count)rebuilt+="□".repeat(group.count-candidateCount);
       }else rebuilt+="□".repeat(group.count);
       cursor=group.end;
     });
