@@ -13,7 +13,7 @@
   function relativePath(value){
     let text=String(value||"").trim();
     if(!text)return "";
-    if(text.startsWith(BASE))return text.slice(BASE.length).split("?")[0].split("#")[0];
+    if(text.startsWith(BASE))return decodeURIComponent(text.slice(BASE.length).split("?")[0].split("#")[0]);
     try{
       const url=new URL(text,location.href);
       if(url.origin===location.origin)text=decodeURIComponent(url.pathname.replace(/^\/+/,""));
@@ -59,28 +59,42 @@
     if(patchReaderPages()||attempts>=100)clearInterval(timer);
   },100);
 
-  function patchImage(image){
-    if(!(image instanceof HTMLImageElement))return;
-    const next=remoteUrl(image.getAttribute("src")||image.src);
-    if(next&&next!==image.src&&next!==image.getAttribute("src"))image.src=next;
+  function patchVisual(node){
+    if(!(node instanceof Element))return;
+    if(node instanceof HTMLImageElement){
+      const current=node.getAttribute("src")||node.src;
+      const next=remoteUrl(current);
+      if(next&&next!==current)node.setAttribute("src",next);
+      return;
+    }
+    if(node.tagName&&node.tagName.toLowerCase()==="image"){
+      const current=node.getAttribute("href")||node.getAttribute("xlink:href")||"";
+      const next=remoteUrl(current);
+      if(next&&next!==current){node.setAttribute("href",next);node.setAttributeNS("http://www.w3.org/1999/xlink","href",next);}
+    }
   }
 
-  function installCrowdsourceImagePatch(){
-    const root=document.getElementById("places");
-    if(!root){setTimeout(installCrowdsourceImagePatch,120);return;}
-    root.querySelectorAll("img").forEach(patchImage);
-    const observer=new MutationObserver(records=>{
-      records.forEach(record=>{
-        if(record.type==="attributes")patchImage(record.target);
-        record.addedNodes.forEach(node=>{
-          if(node instanceof HTMLImageElement)patchImage(node);
-          else if(node instanceof Element)node.querySelectorAll("img").forEach(patchImage);
+  function patchTree(root){
+    if(!(root instanceof Element))return;
+    patchVisual(root);
+    root.querySelectorAll("img,svg image").forEach(patchVisual);
+  }
+
+  function installDynamicImagePatch(){
+    const roots=[document.getElementById("people"),document.getElementById("places")].filter(Boolean);
+    if(roots.length<2){setTimeout(installDynamicImagePatch,120);return;}
+    roots.forEach(patchTree);
+    roots.forEach(root=>{
+      const observer=new MutationObserver(records=>{
+        records.forEach(record=>{
+          if(record.type==="attributes")patchVisual(record.target);
+          record.addedNodes.forEach(node=>{if(node instanceof Element)patchTree(node);});
         });
       });
+      observer.observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:["src","href"]});
     });
-    observer.observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:["src"]});
   }
 
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",installCrowdsourceImagePatch,{once:true});
-  else installCrowdsourceImagePatch();
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",installDynamicImagePatch,{once:true});
+  else installDynamicImagePatch();
 })();
