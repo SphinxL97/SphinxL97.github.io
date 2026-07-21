@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V30__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V30__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V31__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V31__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -24,9 +24,7 @@
     ],
     "004":[
       {src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
-      {src:"js/work-004-lushansi.js?v=20260717_stable_v1",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)},
-      {src:"js/work-004-page97-case.js?v=20260717_stable_v1",key:"work004Page97Case",ready:()=>Boolean(window.__WORK_004_PAGE97_CASE_PATCH__)},
-      legacyAdapter,integrity,partialStatus
+      {src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}
     ],
     "005":[
       {src:"js/work-005-yugonggong-stable.js?v=20260720_stable_v2",key:"work005YugonggongStable",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
@@ -41,7 +39,7 @@
       {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work006CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
     ],
     "007":[
-      {src:"js/work-007-coordinate-adapter.js?v=20260720_work007_v2",key:"work007CoordinateAdapter",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER__)},
+      {src:"js/work-007-coordinate-adapter.js?v=20260720_work007_v2",key:"work007CoordinateAdapter",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},
       {src:"js/work-007-yique.js?v=20260720_work007_v2",key:"work007Yique",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},
       legacyAdapter,integrity,partialStatus,
       {src:"assets/js/crowdsource-v9.js?v=20260721_integrity_v2",key:"work007CrowdsourceCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)}
@@ -169,7 +167,7 @@
     renderLoading(title);
     document.documentElement.classList.remove("detail-content-pending");
     await loadScript({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"readerBoxAlignment",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
-    if(!["003","005","006","007"].includes(parentId)){
+    if(!["003","004","005","006","007"].includes(parentId)){
       await loadScript({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
       await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
     }
