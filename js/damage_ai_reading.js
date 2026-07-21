@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V31__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V31__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V32__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V32__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -27,9 +27,7 @@
       {src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"work004Lushansi",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}
     ],
     "005":[
-      {src:"js/work-005-yugonggong-stable.js?v=20260720_stable_v2",key:"work005YugonggongStable",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},
-      legacyAdapter,integrity,partialStatus,
-      {src:"js/work-005-crowdsource-cases.js?v=20260720_crowd_v2",key:"work005CrowdsourceCases",ready:()=>Boolean(window.__WORK_005_CROWDSOURCE_CASES__)}
+      {src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"work005YugonggongStable",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}
     ],
     "006":[
       {src:"js/work-006-coordinate-adapter.js?v=20260720_work006_v1",key:"work006CoordinateAdapter",ready:()=>Boolean(window.__WORK_006_COORDINATE_ADAPTER__)},
