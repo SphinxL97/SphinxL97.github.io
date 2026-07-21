@@ -1,28 +1,32 @@
 /* 全部碑帖栏目二、三路由：专属碑帖不再经过共享分析模板。 */
 (function(){
 "use strict";
-if(window.__DAMAGE_AI_READING_ROUTER_V33__)return;
-window.__DAMAGE_AI_READING_ROUTER_V33__=true;
+if(window.__DAMAGE_AI_READING_ROUTER_V34__)return;
+window.__DAMAGE_AI_READING_ROUTER_V34__=true;
 const raw=String(new URLSearchParams(location.search).get("id")||"001"),id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
 const legacy={src:"js/damage-case-unbracketed-adapter.js?v=20260721_legacy_v1",key:"legacy",ready:()=>Boolean(window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__)};
 const integrity={src:"js/damage-case-integrity-v2.js?v=20260721_integrity_v2",key:"integrity",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_V2__)};
 const partial={src:"js/damage-case-partial-status.js?v=20260721_partial_v1",key:"partial",ready:()=>Boolean(window.__DAMAGE_CASE_PARTIAL_STATUS__)};
+const crowdCases={src:"assets/js/crowdsource-v9.js?v=20260721_dedicated_v2",key:"crowdCases",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)};
+const unlockCrowd={src:"js/work-dedicated-crowdsource-unlock.js?v=20260721_dedicated_v2",key:"unlockCrowd",ready:()=>Boolean(window.__WORK_DEDICATED_CROWDSOURCE_UNLOCK__)};
 const routes={
 "001":[{src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"core",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)},legacy,integrity,partial],
 "002":[{src:"js/work-002-liqi.js?v=20260721_liqi_analysis_v2",key:"w002",ready:()=>Boolean(window.__WORK_002_CONTENT_READY__)},legacy,integrity,partial],
 "003":[{src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v3",key:"w003",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
 "004":[{src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"w004c",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},{src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"w004",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}],
-"005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}],
+"005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)},crowdCases],
 "006":[
  {src:"js/work-006-coordinate-adapter.js?v=20260720_work006_v1",key:"w006c",ready:()=>Boolean(window.__WORK_006_COORDINATE_ADAPTER__)},
  {src:"js/work-006-punctuation-sync.js?v=20260720_work006_punctuation_v1",key:"w006p",ready:()=>Boolean(window.__WORK_006_PUNCTUATION_SYNC__)},
  {src:"js/work-006-dedicated-config.js?v=20260721_shichenhou_analysis_v3",key:"w006cfg",ready:()=>Boolean(window.__WORK_006_DEDICATED_CONFIG__)},
- {src:"js/work-dedicated-renderer.js?v=20260721_dedicated_v1",key:"dedicated006",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)}
+ {src:"js/work-dedicated-renderer.js?v=20260721_dedicated_v1",key:"dedicated006",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},
+ unlockCrowd,crowdCases
 ],
 "007":[
  {src:"js/work-007-coordinate-adapter.js?v=20260720_work007_v2",key:"w007c",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER__)},
  {src:"js/work-007-dedicated-config.js?v=20260721_yique_analysis_v4",key:"w007cfg",ready:()=>Boolean(window.__WORK_007_DEDICATED_CONFIG__)},
- {src:"js/work-dedicated-renderer.js?v=20260721_dedicated_v1",key:"dedicated007",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)}
+ {src:"js/work-dedicated-renderer.js?v=20260721_dedicated_v1",key:"dedicated007",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},
+ unlockCrowd,crowdCases
 ]};
 const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑"};
 function mask(){
