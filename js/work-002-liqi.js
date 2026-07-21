@@ -115,9 +115,46 @@
     section.querySelector(".damage-viewport")?.addEventListener("dblclick",event=>{const src=event.currentTarget.dataset.image;if(src&&typeof window.openZoom==="function")window.openZoom(src);});
   }
 
+  function patchSharedAnalysis(){
+    const root=document.querySelector("#people [data-integrity-v2-root]");
+    if(!root)return;
+    const originalNode=Array.from(root.querySelectorAll(".damage-text")).find(node=>!node.classList.contains("damage-new"));
+    const original=String(originalNode?.textContent||"");
+    const item=CASES.find(value=>original===value.o||original.includes(value.o)||value.o.includes(original));
+    if(!item)return;
+
+    const signature=`${item.i}:${item.e.join("|")}`;
+    const evidence=root.querySelector(".damage-evidence ol");
+    if(evidence&&root.dataset.liqiAnalysis!==signature){
+      evidence.innerHTML=item.e.map(line=>`<li>${esc(line)}</li>`).join("");
+      root.dataset.liqiAnalysis=signature;
+    }
+
+    const shared=Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.find(row=>String(row?.o??row?.original??"")===item.o):null;
+    if(shared){
+      shared.e=[...item.e];
+      shared.analysis=[...item.e];
+    }
+  }
+
+  function installSharedAnalysisPatch(){
+    window.addEventListener("damage-case-integrity-ready",()=>setTimeout(patchSharedAnalysis,0));
+    const section=document.getElementById("people");
+    if(section){
+      let scheduled=false;
+      new MutationObserver(()=>{
+        if(scheduled)return;
+        scheduled=true;
+        requestAnimationFrame(()=>{scheduled=false;patchSharedAnalysis();});
+      }).observe(section,{childList:true,subtree:true});
+    }
+    setTimeout(patchSharedAnalysis,0);
+  }
+
   function init(){
     renderTranscript();
     renderDamage();
+    installSharedAnalysisPatch();
     window.__WORK_002_CONTENT_READY__=true;
     window.dispatchEvent(new CustomEvent("work-002-content-ready"));
   }
