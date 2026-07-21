@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：先锁定当前碑帖，再加载对应专属内容。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V29__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V29__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V30__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V30__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const parentId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -20,7 +20,7 @@
       legacyAdapter,integrity,partialStatus
     ],
     "003":[
-      {src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v2",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}
+      {src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v3",key:"work003Longzangsi",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}
     ],
     "004":[
       {src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"work004CoordinateAdapter",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},
@@ -169,7 +169,7 @@
     renderLoading(title);
     document.documentElement.classList.remove("detail-content-pending");
     await loadScript({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"readerBoxAlignment",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
-    if(!["005","006","007"].includes(parentId)){
+    if(!["003","005","006","007"].includes(parentId)){
       await loadScript({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"damageCaseAudit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
       await loadScript({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"damageCaseStandard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
     }
