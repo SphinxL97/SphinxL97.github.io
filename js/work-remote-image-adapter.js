@@ -61,6 +61,11 @@
 
   function patchVisual(node){
     if(!(node instanceof Element))return;
+    if(node.hasAttribute("data-image")){
+      const current=node.getAttribute("data-image")||"";
+      const next=remoteUrl(current);
+      if(next&&next!==current)node.setAttribute("data-image",next);
+    }
     if(node instanceof HTMLImageElement){
       const current=node.getAttribute("src")||node.src;
       const next=remoteUrl(current);
@@ -77,7 +82,7 @@
   function patchTree(root){
     if(!(root instanceof Element))return;
     patchVisual(root);
-    root.querySelectorAll("img,svg image").forEach(patchVisual);
+    root.querySelectorAll("img,svg image,[data-image]").forEach(patchVisual);
   }
 
   function installDynamicImagePatch(){
@@ -91,7 +96,7 @@
           record.addedNodes.forEach(node=>{if(node instanceof Element)patchTree(node);});
         });
       });
-      observer.observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:["src","href"]});
+      observer.observe(root,{childList:true,subtree:true,attributes:true,attributeFilter:["src","href","data-image"]});
     });
   }
 
