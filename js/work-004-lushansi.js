@@ -1,159 +1,342 @@
-/* 作品004《麓山寺碑并阴》栏目二、三专属内容。 */
-(function(){
-"use strict";
-const raw=String(new URLSearchParams(location.search).get("id")||"001");
-const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
-if(id!=="004"||window.__WORK_004_LUSHANSI_CONTENT__)return;
-window.__WORK_004_LUSHANSI_CONTENT__=true;
-const TITLE="麓山寺碑并阴";
-const TEXT_URL="data/lushansi_full_text.txt?v=20260716_lushansi_v2";
-const CASE_URL="data/lushansi_damage_cases.json?v=20260716_lushansi_v1";
-const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-const INTRO="碑刻文字在长期保存、传拓与数字化整理过程中，常因石面风化、剥蚀、漫漶、拓印差异及古文字字形复杂等因素出现残损或识读偏差。本栏目以完整句子为单位，按照原文中的出现顺序展示疑难文字。同一句中不论有一组还是多组“□”，均合并为一个案例。每一处均提供AI暂拟候选；其中题名、人名与官职残损多缺乏唯一依据，低置信度候选使用〔〕标明，仅供讨论，不作为确定释文。";
-
-/* 第03—16处必须给出可供讨论的AI猜想。
- * 〔〕内均为低置信度暂拟字，不直接替换栏目二的原始缺字符号。
+/* 作品004《麓山寺碑并阴》栏目二、三专属内容。
+ * 只在原释文明确标出的“□”或残字位置提出候选；
+ * AI分析只解释为什么判断为当前候选字，不使用共享操作模板。
  */
-const OVERRIDES={
-  "03":{
-    nav:"AI暂拟",t:"AI暂拟补释——第03处",
-    c:"军刘制器，军参军尔朱浚，录事王敬〔之道〕，李博士张长卿，博士王元礼，〔监〕市令程〔元道〕。",
-    r:"军刘制器，军参军尔朱浚，录事王敬〔之道〕，李博士张长卿，博士王元礼，〔监〕市令程〔元道〕。",
-    e:["本句缺损集中在人名和官职位置，无法仅凭上下文唯一确定。","“监市令”属于可能的官职结构，因此将“□市令”暂拟为“监市令”。","“之道”“元道”仅按唐代常见人名用字提出候选，未获得字形或著录支持。","所有〔〕内文字均为低置信度猜想，后续需逐字核对拓片。"],confidence:"低"
-  },
-  "04":{
-    nav:"AI暂拟",t:"AI暂拟补释——第04处",
-    c:"赞曰：〔文武兼资崇〕礼乐，仕门贤才，君子同〔归道〕。",
-    r:"赞曰：〔文武兼资崇〕礼乐，仕门贤才，君子同〔归道〕。",
-    e:["本句为赞辞，前后内容均在称颂人物才德。","“文武兼资”可与“仕门贤才”相应，“崇礼乐”也符合赞辞语境。","句末暂拟“同归道”，用于承接君子共同归向正道之意。","该补法主要依据文意与对偶结构，缺乏可靠字形证据。"],confidence:"低"
-  },
-  "05":{
-    nav:"AI暂拟",t:"AI暂拟补释——第05处",
-    c:"参军〔张元礼〕，曹〔参〕军功曹员外同正〔录〕功军，仓曹员外同正李曹参军〔王士亨〕，军士曹参军〔李元〕亨，参军赵挹。",
-    r:"参军〔张元礼〕，曹〔参〕军功曹员外同正〔录〕功军，仓曹员外同正李曹参军〔王士亨〕，军士曹参军〔李元〕亨，参军赵挹。",
-    e:["该句是官员题名，多个缺损分别落在人名和官职内部。","“参军”“功曹”“员外同正”等结构可帮助判断词类，但不能确定具体姓名。","“张元礼”“王士亨”“李元亨”等仅按同段常见姓名形式暂拟。","整句候选置信度很低，应优先以原拓和旧录校核。"],confidence:"低"
-  },
-  "07":{
-    nav:"AI暂拟",t:"AI暂拟补释——第07处",
-    c:"康椘元同正成麟，尉上柱国〔王〕怀靖，卢元尉员外同正，皇甫尉员外同正，刘思义，前主簿五思〔文〕。",
-    r:"康椘元同正成麟，尉上柱国〔王〕怀靖，卢元尉员外同正，皇甫尉员外同正，刘思义，前主簿五思〔文〕。",
-    e:["两处缺字均位于人名中。","“王怀靖”与“五思文”在音节和姓名结构上可成立，因此作为暂拟候选。","现有上下文无法排除其他姓氏或名字用字。","〔王〕与〔文〕均须结合第95、96页拓片核验。"],confidence:"低"
-  },
-  "08":{
-    nav:"AI暂拟",t:"AI暂拟补释——第08处",
-    c:"醴陵令李仁瓒，〔丞〕张〔玄〕道〔正〕，主簿张思已，李灵尉张光庭〔县〕尉。",
-    r:"醴陵令李仁瓒，〔丞〕张〔玄〕道〔正〕，主簿张思已，李灵尉张光庭〔县〕尉。",
-    e:["本句依次列举县令、属官和尉职，缺字应主要属于官衔或姓名。","句首暂拟“丞”，以形成县令之后接县丞的官员排列。","“张玄道”按唐代常见人名结构暂拟，“正”可能属于后续衔名。","“县尉”是常见官职，但该处具体语序仍需拓片核对。"],confidence:"低"
-  },
-  "09":{
-    nav:"AI暂拟",t:"AI暂拟补释——第09处",
-    c:"衡令刘威之，刘员外〔同正〕，刘之尉，员员外尉王光大，尉周待徵。",
-    r:"衡令刘威之，刘员外〔同正〕，刘之尉，员员外尉王光大，尉周待徵。",
-    e:["同段题名多次出现“员外同正”这一官衔结构。","“刘员外□□”补作“刘员外同正”与前后官职排列相符。","该判断主要依据同碑内部用语，而非单纯凭空补名。","仍需检查缺损处是否确为“同正”二字。"],confidence:"中"
-  },
-  "10":{
-    nav:"AI暂拟",t:"AI暂拟补释——第10处",
-    c:"湘乡令王武信，主簿〔张承庆员外〕，尉〔李元礼正〕。",
-    r:"湘乡令王武信，主簿〔张承庆员外〕，尉〔李元礼正〕。",
-    e:["本句为湘乡县官员题名，缺损均位于主簿和县尉姓名、衔名处。","“张承庆”“李元礼”仅按唐代常见姓名形式提出。","“员外”“正”用于尝试解释缺字数量，未能由现有上下文独立验证。","本案属于开放式低置信度候选，主要供栏目四继续讨论。"],confidence:"低"
-  },
-  "11":{
-    nav:"AI暂拟",t:"AI暂拟补释——第11处",
-    c:"益阳令孟〔昭〕，主簿张〔元礼〕。",
-    r:"益阳令孟〔昭〕，主簿张〔元礼〕。",
-    e:["两处缺损均在人名位置，句法结构本身比较明确。","“孟昭”与“张元礼”均符合唐代双字或三字姓名的常见形式。","候选只解决姓名结构，不代表已经从拓片辨认出相应笔画。","需要结合第100页拓片和地方官员资料复核。"],confidence:"低"
-  },
-  "12":{
-    nav:"AI暂拟",t:"AI暂拟补释——第12处",
-    c:"赞曰：华宗旧德，利器良播；〔仁风〕政震，雷和〔雨〕。有典有则，惟始惟终。",
-    r:"赞曰：华宗旧德，利器良播；〔仁风〕政震，雷和〔雨〕。有典有则，惟始惟终。",
-    e:["该段为赞辞，语义集中在德政与教化。","“仁风”可与“政震”组成德政远播之意。","“雷和雨”借雷雨比喻政令与恩泽，和上下文较为协调。","候选依据语义和对偶关系提出，字形仍需核实。"],confidence:"中"
-  },
-  "13":{
-    nav:"AI暂拟",t:"AI暂拟补释——第13处",
-    c:"大夫〔武〕城宰张守日〔新〕，安主簿盛老〔成〕，邓洪敏〔王〕思〔玄德〕，梁元〔礼之〕，祝仁期〔之〕，张文远、石泰、张恽〔之〕，朱封禅〔员外同正〕，桓嗣宗、杨庭训、罗元〔礼之〕，邓希、王晁〔之〕，王暠〔任〕西同〔正〕，庶苑道林，景德晚〔成〕。",
-    r:"大夫〔武〕城宰张守日〔新〕，安主簿盛老〔成〕，邓洪敏〔王〕思〔玄德〕，梁元〔礼之〕，祝仁期〔之〕，张文远、石泰、张恽〔之〕，朱封禅〔员外同正〕，桓嗣宗、杨庭训、罗元〔礼之〕，邓希、王晁〔之〕，王暠〔任〕西同〔正〕，庶苑道林，景德晚〔成〕。",
-    e:["该句包含大量题名，缺损跨越人名、地名和官衔，无法形成唯一恢复。","“武城宰”与第16处相同结构相互参照，因此暂拟“武”。","“员外同正”是同段反复出现的官衔，可作为“朱封禅□□□□”的结构候选。","其余姓名用字均为低置信度试拟，目的在于提供可讨论文本，而非宣布定论。"],confidence:"低"
-  },
-  "14":{
-    nav:"AI暂拟",t:"AI暂拟补释——第14处",
-    c:"政〔在〕癸也，岁四月十〔五〕日〔甲子朔日建〕。",
-    r:"政〔在〕癸也，岁四月十〔五〕日〔甲子朔日建〕。",
-    e:["本句属于纪年纪日文字，缺字应服务于时间表达。","“四月十五日”是完整日期结构，因此单字暂拟为“五”。","句末五字暂拟“甲子朔日建”，用以形成干支、朔日和建刻信息。","“政在癸也”的“在”仅为语义试补，整句仍需旧拓或著录确认。"],confidence:"低至中"
-  },
-  "15":{
-    nav:"AI暂拟",t:"AI暂拟补释——第15处",
-    c:"梁国虞王〔亲临〕阅〔碑文〕。",
-    r:"梁国虞王〔亲临〕阅〔碑文〕。",
-    e:["“梁国虞王”之后应接动作或身份说明，“阅”后应有宾语。","暂拟“亲临阅碑文”，可形成语义完整的题记。","该候选主要依靠句法补全，不能据此确认原字。","建议在栏目四中保留其他读者提出不同候选的空间。"],confidence:"低"
-  },
-  "16":{
-    nav:"AI暂拟",t:"AI暂拟补释——第16处",
-    c:"通义程暭，明迪稽山石彦和子，惠朝请大夫〔武〕城宰张守昚。",
-    r:"通义程暭，明迪稽山石彦和子，惠朝请大夫〔武〕城宰张守昚。",
-    e:["缺字位于“□城宰”这一官职或地名结构中。","第13处同样出现“大夫□城宰”，两处可相互参照。","暂拟“武城宰”，将“武城”理解为地名，“宰”为县令。","该候选具有一定结构依据，但仍需拓片与官员资料核实。"],confidence:"中"
-  }
-};
+(function(){
+  "use strict";
 
-let CASES=[],current=0,expanded=false,listScrollTop=0;
-const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-const title=(n,t)=>{const a=document.querySelector(`.side a:nth-of-type(${n})`);if(a)a.textContent=t;};
-const paras=t=>String(t||"").replace(/\r\n?/g,"\n").split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean).map(s=>`<p>${esc(s)}</p>`).join("");
-function crop(item){
-  const px=150,py=250,left=Math.min(...item.targets.map(t=>t.x)),top=Math.min(...item.targets.map(t=>t.y));
-  const right=Math.max(...item.targets.map(t=>t.x+t.w)),bottom=Math.max(...item.targets.map(t=>t.y+t.h));
-  const x=Math.max(0,left-px),y=Math.max(0,top-py);
-  return{x,y,w:Math.min(item.canvas.w-x,Math.max(420,right-left+px*2)),h:Math.min(item.canvas.h-y,Math.max(900,bottom-top+py*2))};
-}
-async function transcript(){
-  const s=document.getElementById("calligraphy");if(!s)return;
-  title(2,"二、碑文释文");s.classList.add("full-transcript-section");
-  s.innerHTML=`<h2 class="section-title">二、碑文释文</h2><p class="full-transcript-note">${NOTE}</p><div class="full-transcript-card"><div class="full-transcript-loading">正在读取碑文释文……</div></div>`;
-  const card=s.querySelector(".full-transcript-card");
-  try{
-    const r=await fetch(TEXT_URL,{cache:"no-store"});if(!r.ok)throw Error(r.status);
-    card.innerHTML=`<header class="full-transcript-header"><h3>${TITLE}</h3><span class="full-transcript-ornament" aria-hidden="true"></span></header><div class="full-transcript-body">${paras(await r.text())}</div>`;
-  }catch(e){console.warn("[work-004] transcript",e);card.innerHTML='<div class="full-transcript-error">碑文释文暂时无法读取，请刷新页面后重试。</div>';}
-}
-const tabs=()=>CASES.map((x,i)=>`<button class="damage-tab${i===current?" active":""}" data-case-index="${i}" type="button"><b>${x.i}</b><span class="name">${esc(x.nav||x.n)}</span></button>`).join("");
-function image(item){
-  const c=crop(item),rects=item.targets.map(t=>`<rect class="damage-box" x="${t.x}" y="${t.y}" width="${t.w}" height="${t.h}"></rect>`).join("");
-  return`<div class="damage-viewport" data-image="${esc(item.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${c.x} ${c.y} ${c.w} ${c.h}" preserveAspectRatio="xMidYMid meet"><image href="${esc(item.image)}" x="0" y="0" width="${item.canvas.w}" height="${item.canvas.h}" preserveAspectRatio="none"></image>${rects}</svg></div>`;
-}
-function panel(item){
-  const ev=item.e.map(x=>`<li>${esc(x)}</li>`).join("");
-  return`<div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${CASES.length}</span><div class="damage-heading">${esc(item.t)}</div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${CASES.length}</span><button data-action="next" type="button" ${current===CASES.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list">${tabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${image(item)}<p class="damage-caption">《${TITLE}》第${item.page}页，本句缺字局部</p></section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别（OCR结果）</span><div class="damage-text">${esc(item.o)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">修正结果（AI识别）</span><div class="damage-text damage-new">${esc(item.c)}</div></div><div class="damage-block"><span class="damage-label">恢复后的上下文</span><div class="damage-restored">${esc(item.r)}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${ev}</ol><p><strong>本句缺字：</strong>${item.groupCount}组，共${item.boxCount}个“□”</p><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div>`;
-}
-function remember(s){const l=s?.querySelector(".damage-list");if(l)listScrollTop=l.scrollTop;}
-function restore(s){
-  const l=s.querySelector(".damage-list");if(!l)return;l.scrollTop=listScrollTop;
-  l.addEventListener("scroll",()=>listScrollTop=l.scrollTop,{passive:true});
-  requestAnimationFrame(()=>{const a=l.querySelector(".damage-tab.active");if(!a)return;const t=a.offsetTop,b=t+a.offsetHeight,vt=l.scrollTop,vb=vt+l.clientHeight;if(t<vt)l.scrollTop=t;else if(b>vb)l.scrollTop=b-l.clientHeight;listScrollTop=l.scrollTop;});
-}
-function bind(s){
-  s.querySelectorAll("[data-case-index]").forEach(b=>b.onclick=()=>{remember(s);current=Number(b.dataset.caseIndex)||0;expanded=false;render();});
-  s.querySelectorAll("[data-action]").forEach(b=>b.onclick=()=>{remember(s);const a=b.dataset.action;if(a==="prev"&&current>0)current--;if(a==="next"&&current<CASES.length-1)current++;if(a==="expand")expanded=!expanded;else expanded=false;render();});
-  const v=s.querySelector(".damage-viewport");if(v)v.ondblclick=()=>{if(typeof window.openZoom==="function")window.openZoom(v.dataset.image);};
-}
-function render(){
-  const s=document.getElementById("people");if(!s||!CASES.length)return;
-  title(3,"三、碑文残损与AI释读");s.classList.add("damage-ai");
-  s.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell">${panel(CASES[current])}</div>`;
-  bind(s);restore(s);
-}
-async function init(){
-  transcript();
-  try{
-    const r=await fetch(CASE_URL,{cache:"no-store"});if(!r.ok)throw Error(r.status);
-    CASES=(await r.json()).map(item=>{
-      const override=OVERRIDES[item.i];
-      return override?{...item,...override,e:[...override.e]}:item;
+  const raw=String(new URLSearchParams(location.search).get("id")||"001");
+  const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
+  if(id!=="004"||window.__WORK_004_LUSHANSI_CONTENT__)return;
+  window.__WORK_004_LUSHANSI_CONTENT__=true;
+
+  /* 004完全使用自己的案例、图片和分析，阻止旧共享脚本二次覆盖。 */
+  window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__=true;
+  window.__DAMAGE_CASE_INTEGRITY_V2__=true;
+  window.__DAMAGE_CASE_PARTIAL_STATUS__=true;
+  window.__DAMAGE_CASE_AUDIT_V2__=true;
+  window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
+
+  const TITLE="麓山寺碑并阴";
+  const TEXT_URL="data/lushansi_full_text.txt?v=20260716_lushansi_v2";
+  const CASE_URL="data/lushansi_damage_cases.json?v=20260721_lushansi_analysis_v3";
+  const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
+  const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的缺字或残字提出校读意见。AI分析重点说明为什么判断为当前候选字，包括纪年结构、固定词语、官职题名、人名格式、上下句对偶及拓片残存字形等依据。";
+
+  const OVERRIDES={
+    "01":{
+      nav:"残损碑文恢复",t:"残损碑文恢复——“岁次庚□□月壬子□”",
+      c:"大唐开元十八年，岁次庚〔午正〕月壬子〔朔〕十一日壬戌建。",
+      confidence:"高",
+      e:[
+        "“庚□□月”中的两个缺字分别处在干支和月份位置；补作“午正”后形成“岁次庚午、正月”的完整纪年结构。",
+        "“壬子□十一日”中的单字位于日干支之后，补“朔”可组成碑刻纪日常见的“壬子朔”。",
+        "若初一为壬子，顺推十日后十一日正为壬戌，与句末现存“十一日壬戌”能够相互验证。",
+        "因此三处候选为“午、正、朔”，核心依据是干支、月份和朔日三层纪日关系彼此吻合。"
+      ]
+    },
+    "02":{
+      nav:"残损碑文恢复",t:"残损碑文恢复——“其□□烁”",
+      c:"赞曰：英英披雾，其〔华灼〕烁；卓立㑺寸，标举明略。",
+      confidence:"低至中",
+      e:[
+        "第二个缺字紧接“烁”，补“灼”后组成“灼烁”，是表示光彩鲜明的常见连用。",
+        "第一个缺字补“华”后形成“其华灼烁”，其中“华”指光华，能够作为“灼烁”的主语。",
+        "“英英披雾”与“其华灼烁”都描写才华显露、光彩焕发，前后意象相互照应。",
+        "因此两字暂拟为“华灼”；语义和词语结构较顺，但拓片残损较重，仍保留低至中置信度。"
+      ]
+    },
+    "03":{
+      nav:"AI暂拟",t:"AI暂拟补释——“王敬□□、□市令程□□□”",
+      c:"军刘制器，军参军尔朱浚，录事王敬〔之道〕，李博士张长卿，博士王元礼，〔监〕市令程〔元道〕□。",
+      confidence:"低",
+      e:[
+        "“录事王敬□□”位于官员题名中，“王”为姓，“敬”后两格应继续构成人名；“之道”仅从三字名字的结构上可以成立。",
+        "“□市令”前只缺一字，补“监”后形成“监市令”这一官职式结构，与本句连续列举官员的语境相符。",
+        "“程□□□”位于姓氏“程”之后；“元道”可构成两字名字，但原处共有三个缺字，因此最后一格继续保留“□”，不强行补足。",
+        "本例中“监”的官职结构依据相对较强，“之道、元道”主要来自姓名格式，故整体仅作低置信度候选。"
+      ]
+    },
+    "04":{
+      nav:"AI暂拟",t:"AI暂拟补释——“□□□□□礼乐，君子同□□”",
+      c:"赞曰：〔文武兼资崇〕礼乐，仕门贤才，君子同〔归道〕。",
+      confidence:"低",
+      e:[
+        "第一组五个缺字位于“礼乐”之前；“文武兼资”概括才德，“崇”可直接支配“礼乐”，合为“文武兼资崇礼乐”。",
+        "第二组两个缺字位于“君子同□□”，补“归道”后成为“君子同归道”，语义为君子共同归向正道。",
+        "补后全句依次称颂文武才具、礼乐修养、仕门贤才和君子归道，符合赞辞连续褒扬的语气。",
+        "两组候选主要依靠赞辞语义和句法补全，缺少清晰字形支持，因此只作低置信度暂拟。"
+      ]
+    },
+    "05":{
+      nav:"AI暂拟",t:"AI暂拟补释——官员题名残损",
+      c:"参军〔张元礼〕，曹〔参〕军功曹员外同正〔录〕功军，仓曹员外同正李曹参军〔王士亨〕，军士曹参军〔李元〕亨，参军赵挹。",
+      confidence:"低",
+      e:[
+        "“参军□□□”在官职之后连续缺三字，位置应为姓名；“张元礼”符合姓氏加两字名的长度。",
+        "“曹□军”中间只缺一字，补“参”后可组成“曹参军”；“同正□功军”中的“录”则是依据官职语汇作的弱候选。",
+        "“李曹参军□□□”后缺三字，暂拟“王士亨”；“军士曹参军□□亨”已有末字“亨”，补“李元”后可组成三字姓名“李元亨”。",
+        "这些位置均属于官员题名，姓名可替代方案很多；候选主要满足官职后接姓名及缺字数量，不能视为确定人名。"
+      ]
+    },
+    "06":{
+      nav:"残损碑文恢复",t:"残损碑文恢复——“克□□祀□□”",
+      c:"有力豊碑，克〔昌百〕祀〔无疆〕。",
+      confidence:"中",
+      e:[
+        "第一组两个缺字位于“克□□祀”，“昌百”补入后形成“克昌百祀”，意为使百世祭祀昌盛。",
+        "第二组两个缺字位于句末，补“无疆”后形成碑铭祝颂中常见的“无疆”，表示绵延无尽。",
+        "“克昌百祀”与“无疆”共同构成对碑祀长久、功德不绝的祝愿，符合赞铭结尾语气。",
+        "两组各补两字，数量与原有“□□”完全对应，因此暂拟为“昌百、无疆”。"
+      ]
+    },
+    "07":{
+      nav:"AI暂拟",t:"AI暂拟补释——“□怀靖、五思□”",
+      c:"康椘元同正成麟，尉上柱国〔王〕怀靖，卢元尉员外同正，皇甫尉员外同正，刘思义，前主簿五思〔文〕。",
+      confidence:"低",
+      e:[
+        "“上柱国□怀靖”中的缺字位于两字名“怀靖”之前，语法位置应为姓氏；“王怀靖”在姓名结构上可以成立。",
+        "“五思□”中的缺字位于姓名末尾，补“文”后形成“思文”这一常见名字组合。",
+        "整句连续列举官员和姓名，两个缺字都应属于人名而非官职用字。",
+        "由于现有拓片不能清楚辨出姓氏和末字笔画，“王、文”只根据姓名位置和音节结构暂拟。"
+      ]
+    },
+    "08":{
+      nav:"AI暂拟",t:"AI暂拟补释——醴陵官员题名",
+      c:"醴陵令李仁瓒，〔丞〕张〔玄〕道〔正〕，主簿张思已，李灵尉张光庭〔县〕尉。",
+      confidence:"低",
+      e:[
+        "“醴陵令李仁瓒”之后的一字缺位处于下一名属官之前，补“丞”可形成县令之后列县丞的官员次序。",
+        "“张□道”中间缺一字，补“玄”后形成三字姓名“张玄道”；其后的“正”仅按附衔或题名残字暂拟。",
+        "“张光庭□尉”在姓名之后、‘尉’之前缺一字，补“县”可组成官名“县尉”，说明张光庭的职任。",
+        "三个候选分别来自县级官员排列、姓名结构和“县尉”官名，但原句语序仍有疑点，所以整体置信度低。"
+      ]
+    },
+    "09":{
+      nav:"AI暂拟",t:"AI暂拟补释——“刘员外□□”",
+      c:"衡令刘威之，刘员外〔同正〕，刘之尉，员员外尉王光大，尉周待徵。",
+      confidence:"中",
+      e:[
+        "缺损位于“刘员外□□”，连续缺两字；同一题名段中多次出现“员外同正”这一固定附衔。",
+        "补“同正”后成为“刘员外同正”，与邻近的“员外同正”官衔写法完全一致。",
+        "候选字数正好对应两个“□”，且不需要改动前后现存文字。",
+        "因此本处判断为“同正”，主要依据是同碑内部反复出现的官衔格式。"
+      ]
+    },
+    "10":{
+      nav:"AI暂拟",t:"AI暂拟补释——湘乡官员题名",
+      c:"湘乡令王武信，主簿〔张承庆员外〕，尉〔李元礼正〕。",
+      confidence:"低",
+      e:[
+        "“主簿”之后的缺损应包含主簿姓名或附衔；“张承庆”符合三字姓名结构，“员外”用于解释其后可能存在的附衔。",
+        "“尉”之后的缺损同样应为县尉姓名或附衔；“李元礼”符合姓名格式，末字“正”可能与同段常见的“同正”有关。",
+        "两组候选都遵循“官名＋姓名／附衔”的题名排列方式，并按原缺字位置依次填入。",
+        "现有上下文不能确认具体姓名，尤其“员外、正”的归属仍有疑问，因此只作低置信度试拟。"
+      ]
+    },
+    "11":{
+      nav:"AI暂拟",t:"AI暂拟补释——“益阳令孟□、主簿张□□□”",
+      c:"益阳令孟〔昭〕，主簿张〔元礼〕。",
+      confidence:"低",
+      e:[
+        "“益阳令孟□”中缺字位于姓氏“孟”之后，补“昭”可组成两字姓名“孟昭”。",
+        "“主簿张□□□”位于官名之后，缺损应为姓名；“张元礼”符合姓氏加两字名的常见结构。",
+        "两处候选都使题名恢复为“官职＋姓名”的平行格式。",
+        "姓名无法仅凭句法唯一确定；若第二处实际缺字多于“元礼”两字，剩余位置应继续保留，不据此强补。"
+      ]
+    },
+    "12":{
+      nav:"AI暂拟",t:"AI暂拟补释——“□□政震，雷和□”",
+      c:"赞曰：华宗旧德，利器良播；〔仁风〕政震，雷和〔雨〕。有典有则，惟始惟终。",
+      confidence:"中",
+      e:[
+        "“□□政震”前缺两字，补“仁风”后形成“仁风政震”，以仁德之风形容政教传播，符合赞颂德政的语境。",
+        "“雷和□”末缺一字，补“雨”后与“雷”构成自然气象意象，也可比喻政令威严与恩泽调和。",
+        "前句“华宗旧德、利器良播”与后句“有典有则”都在称美德政，补入“仁风、雨”后主题连续。",
+        "两字和一字分别对应原来的两组缺损，候选主要依据德政语汇和上下文意象。"
+      ]
+    },
+    "13":{
+      nav:"AI暂拟",t:"AI暂拟补释——大段题名残损",
+      c:"大夫〔武〕城宰张守日〔新〕，安主簿盛老〔成〕，邓洪敏〔王〕思〔玄德〕，梁元〔礼之〕，祝仁期〔之〕，张文远、石泰、张恽〔之〕，朱封禅〔员外同正〕，桓嗣宗、杨庭训、罗元〔礼之〕，邓希、王晁〔之〕，王暠〔任〕西同〔正〕，庶苑道林，景德晚〔成〕。",
+      confidence:"低",
+      e:[
+        "“□城宰”与本碑后文再次出现的同一结构相互参照，补“武”后成为地名加官职“武城宰”，这是本例相对较有结构依据的一处。",
+        "“朱封禅□□□□”连续缺四字，而同段多次使用“员外同正”附衔，因此暂拟为“员外同正”。",
+        "其余缺损多位于姓氏之后或姓名中间，分别用“新、成、王、玄德、礼之、之、任、正”等补成可读姓名或附衔。",
+        "除“武城宰”和“员外同正”有同碑内部参照外，其余人名用字缺少唯一证据，全部仅作为低置信度讨论候选。"
+      ]
+    },
+    "14":{
+      nav:"AI暂拟",t:"AI暂拟补释——纪日题记",
+      c:"政〔在〕癸也，岁四月十〔五〕日〔甲子朔日建〕。",
+      confidence:"低至中",
+      e:[
+        "“四月十□日”中的单字应构成具体日期，补“五”后成为“四月十五日”，句法完整。",
+        "句末连续五个缺字位于日期之后，暂拟“甲子朔日建”，尝试恢复干支、朔日和建刻题记的格式。",
+        "“政□癸也”中补“在”仅使语句能够连读，但这一小句的原义仍不清楚。",
+        "本例只有“五”具有较直接的日期结构依据，其余候选主要来自纪日题记格式，因此整体置信度低至中。"
+      ]
+    },
+    "15":{
+      nav:"AI暂拟",t:"AI暂拟补释——“梁国虞王□□阅□□”",
+      c:"梁国虞王〔亲临〕阅〔碑文〕。",
+      confidence:"低",
+      e:[
+        "“梁国虞王”是句中主体，后面的两个缺字应连接动作“阅”；补“亲临”后形成主体亲自到场阅看的语义。",
+        "“阅”后连续缺两字，需要一个宾语；补“碑文”后成为“阅碑文”，与石刻题记场景相符。",
+        "两组各补两字，形成“人物＋动作修饰＋阅＋对象”的完整句法。",
+        "“亲临、碑文”主要是句法和场景推测，拓片未能提供清晰字形，因此只作低置信度候选。"
+      ]
+    },
+    "16":{
+      nav:"AI暂拟",t:"AI暂拟补释——“□城宰张守昚”",
+      c:"通义程暭，明迪稽山石彦和子，惠朝请大夫〔武〕城宰张守昚。",
+      confidence:"中",
+      e:[
+        "缺字位于“□城宰”，从结构看应与“城”共同构成地名，“宰”表示该地县令。",
+        "本碑第13处同样出现“大夫□城宰”，两处文字能够相互参照。",
+        "补“武”后成为“武城宰”，即武城县令，官职结构完整。",
+        "因此本处候选为“武”，主要依据是同碑重复结构和“地名＋宰”的官名格式。"
+      ]
+    }
+  };
+
+  const RADICAL="";
+  const PAGE97={
+    i:"08",n:"残损碑文恢复",nav:"残字推测",s:"“蔚”字推测",t:"残损碑文恢复——“蔚众木”",
+    o:`赞曰：名家意，君子心；${RADICAL}众木，繁林。阶下无讼，堂上有琴；大经既雅，小绮不淫。`,
+    c:"赞曰：名家意，君子心；〔蔚〕众木，繁林。阶下无讼，堂上有琴；大经既雅，小绮不淫。",
+    r:"赞曰：名家意，君子心；蔚众木，繁林。阶下无讼，堂上有琴；大经既雅，小绮不淫。",
+    image:"assets/page_images/004_麓山寺碑并阴/images/0097_九十七.jpg",page:97,canvas:{w:1482,h:2212},targets:[{x:1109,y:1706,w:186,h:224}],
+    e:[
+      `拓片只剩可显示为“${RADICAL}”的残存部件，说明OCR并非完全空白，而是未能恢复完整字形。`,
+      "该字位于“□众木，繁林”中，后文连续描写树木繁茂，缺字应当能够修饰“众木”。",
+      "“蔚”有草木茂盛、繁密之义，补作“蔚众木，繁林”后，两部分共同表现林木蓊郁。",
+      "现存笔画不足以单独确认全字，因此“蔚”主要依据残部位置和草木语境暂拟，置信度为中。"
+    ],confidence:"中",groupCount:1,boxCount:1
+  };
+
+  const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  const clone=v=>JSON.parse(JSON.stringify(v));
+  const setTitle=(n,t)=>{const a=document.querySelector(`.side a:nth-of-type(${n})`);if(a)a.textContent=t;};
+  const paras=t=>String(t||"").replace(/\r\n?/g,"\n").split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean).map(s=>`<p>${esc(s)}</p>`).join("");
+  const chars=v=>Array.from(String(v||""));
+  const boxGroups=text=>{const out=[];let m;const re=/□+/g;while((m=re.exec(String(text||""))))out.push({start:m.index,end:m.index+m[0].length,count:m[0].length});return out;};
+  const bracketGroups=text=>{const out=[];let m;const re=/〔([^〕]*)〕/g;while((m=re.exec(String(text||""))))out.push(chars(m[1]));return out;};
+
+  function markedHtml(value){
+    const text=String(value||"");let html="",cursor=0,match;const re=/〔([^〕]*)〕/g;
+    while((match=re.exec(text))){html+=esc(text.slice(cursor,match.index));html+=`<span class="damage-added">〔${esc(match[1])}〕</span>`;cursor=match.index+match[0].length;}
+    return html+esc(text.slice(cursor));
+  }
+
+  function restrictToOriginal(item){
+    const original=String(item.o||item.original||"");
+    if(!original.includes("□"))return item;
+    const groups=boxGroups(original),candidates=bracketGroups(item.c||item.corrected||"");
+    let marked="",plain="",cursor=0;
+    groups.forEach((group,index)=>{
+      marked+=original.slice(cursor,group.start);plain+=original.slice(cursor,group.start);
+      const candidate=(candidates[index]||[]).slice(0,group.count);
+      if(candidate.length){marked+=`〔${candidate.join("")}〕`;plain+=candidate.join("");}
+      if(candidate.length<group.count){const rest="□".repeat(group.count-candidate.length);marked+=rest;plain+=rest;}
+      cursor=group.end;
     });
-    window.DAMAGE_AI_CASES=CASES.map(x=>({...x,canvas:{...x.canvas},targets:x.targets.map(t=>({...t})),e:[...x.e]}));
-    render();
-    window.__WORK_004_CONTENT_READY__=true;
-    window.dispatchEvent(new CustomEvent("work-004-content-ready"));
-  }catch(e){console.error("[work-004] cases",e);}
-}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+    marked+=original.slice(cursor);plain+=original.slice(cursor);
+    item.c=marked;item.corrected=marked;item.r=plain;item.restored=plain;
+    return item;
+  }
+
+  function firstTarget(item){
+    const source=item.targets?.[0]||item.target;if(!source)return null;
+    const target={x:Number(source.x||0),y:Number(source.y||0),w:Number(source.w||0),h:Number(source.h||0)};
+    const firstCount=boxGroups(item.o||"")[0]?.count||1;
+    if(firstCount>1){
+      if(target.h>=target.w)target.h=target.h/firstCount;
+      else{const part=target.w/firstCount;target.x=target.x+target.w-part;target.w=part;}
+    }
+    return target;
+  }
+
+  function crop(item,target){
+    if(!target)return{x:0,y:0,w:item.canvas?.w||1,h:item.canvas?.h||1};
+    const px=190,py=330,x=Math.max(0,target.x-px),y=Math.max(0,target.y-py);
+    return{x,y,w:Math.min(item.canvas.w-x,Math.max(460,target.w+px*2)),h:Math.min(item.canvas.h-y,Math.max(900,target.h+py*2))};
+  }
+
+  let CASES=[],current=0,expanded=false,listScrollTop=0,rendering=false;
+
+  async function renderTranscript(){
+    const section=document.getElementById("calligraphy");if(!section)return;
+    setTitle(2,"二、碑文释文");section.className="content-card full-transcript-section";
+    section.innerHTML=`<h2 class="section-title">二、碑文释文</h2><p class="full-transcript-note">${NOTE}</p><div class="full-transcript-card"><div class="full-transcript-loading">正在读取碑文释文……</div></div>`;
+    const card=section.querySelector(".full-transcript-card");
+    try{
+      const response=await fetch(TEXT_URL,{cache:"no-store"});if(!response.ok)throw new Error(String(response.status));
+      card.innerHTML=`<header class="full-transcript-header"><h3>${TITLE}</h3><span class="full-transcript-ornament" aria-hidden="true"></span></header><div class="full-transcript-body">${paras(await response.text())}</div>`;
+    }catch(error){console.warn("[work-004] transcript",error);card.innerHTML='<div class="full-transcript-error">碑文释文暂时无法读取，请刷新页面后重试。</div>';}
+  }
+
+  const tabs=()=>CASES.map((item,index)=>`<button class="damage-tab${index===current?" active":""}" data-case-index="${index}" type="button"><b>${item.i}</b><span class="name">${esc(item.nav||item.n)}</span></button>`).join("");
+
+  function imageHtml(item){
+    const target=firstTarget(item),area=crop(item,target);
+    if(!target)return'<div class="damage-location-missing"><p>当前案例尚未保存可靠的拓片坐标。</p></div>';
+    return `<div class="damage-viewport" data-image="${esc(item.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${area.x} ${area.y} ${area.w} ${area.h}" preserveAspectRatio="xMidYMid meet"><image href="${esc(item.image)}" x="0" y="0" width="${item.canvas.w}" height="${item.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${target.x}" y="${target.y}" width="${target.w}" height="${target.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${item.page}页，本句第一个问题字局部</p>`;
+  }
+
+  function panel(item){
+    const evidence=(item.e||[]).map(line=>`<li>${esc(line)}</li>`).join("");
+    return `<div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${CASES.length}</span><div class="damage-heading">${esc(item.t)} <span class="damage-heading-confidence">（${esc(item.confidence)}）</span></div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${CASES.length}</span><button data-action="next" type="button" ${current===CASES.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list">${tabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${imageHtml(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别（OCR结果）</span><div class="damage-text">${esc(item.o)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${item.confidence==="暂无法判断"?"暂未恢复":"AI暂拟补全"}</span><div class="damage-text damage-new">${markedHtml(item.c)}</div></div><div class="damage-block"><span class="damage-label">恢复后的上下文</span><div class="damage-restored">${esc(item.r)}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${evidence}</ol><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div>`;
+  }
+
+  function renderDamage(){
+    const section=document.getElementById("people");if(!section||!CASES.length)return;
+    rendering=true;setTitle(3,"三、碑文残损与AI释读");section.className="content-card damage-ai";section.dataset.work004Dedicated="true";
+    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell">${panel(CASES[current])}</div>`;
+    const list=section.querySelector(".damage-list");if(list){list.scrollTop=listScrollTop;list.addEventListener("scroll",()=>{listScrollTop=list.scrollTop;},{passive:true});requestAnimationFrame(()=>list.querySelector(".damage-tab.active")?.scrollIntoView({block:"nearest"}));}
+    section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{current=Number(button.dataset.caseIndex)||0;expanded=false;renderDamage();}));
+    section.querySelectorAll("[data-action]").forEach(button=>button.addEventListener("click",()=>{const action=button.dataset.action;if(action==="prev"&&current>0)current--;else if(action==="next"&&current<CASES.length-1)current++;else if(action==="expand")expanded=!expanded;renderDamage();}));
+    section.querySelector(".damage-viewport")?.addEventListener("dblclick",event=>{const src=event.currentTarget.dataset.image;if(src&&typeof window.openZoom==="function")window.openZoom(src);});
+    rendering=false;
+  }
+
+  function prepare(rows){
+    const prepared=(Array.isArray(rows)?rows:[]).map(item=>{
+      const override=OVERRIDES[item.i]||{};
+      const merged={...clone(item),...clone(override)};
+      merged.original=merged.o;merged.corrected=merged.c;merged.analysis=[...(merged.e||[])];
+      return restrictToOriginal(merged);
+    });
+    const insertAt=prepared.findIndex(item=>Number(item.page)>97);
+    prepared.splice(insertAt<0?prepared.length:insertAt,0,clone(PAGE97));
+    return prepared.map((item,index)=>{item.i=String(index+1).padStart(2,"0");item.id=item.i;item.original=item.o;item.corrected=item.c;item.analysis=[...(item.e||[])];return item;});
+  }
+
+  async function init(){
+    renderTranscript();
+    try{
+      const response=await fetch(CASE_URL,{cache:"no-store"});if(!response.ok)throw new Error(String(response.status));
+      CASES=prepare(await response.json());
+      window.DAMAGE_AI_CASES=CASES.map(clone);
+      renderDamage();
+      window.__WORK_004_CONTENT_READY__=true;
+      window.dispatchEvent(new CustomEvent("work-004-content-ready"));
+      window.dispatchEvent(new CustomEvent("work-004-cases-ready",{detail:{count:CASES.length}}));
+
+      const section=document.getElementById("people");
+      if(section){
+        const observer=new MutationObserver(()=>{
+          if(rendering)return;
+          const generic=section.textContent?.includes("当前原释文包含")||section.textContent?.includes("其他录文仅作为判断缺字候选");
+          if(section.dataset.work004Dedicated!=="true"||generic)renderDamage();
+        });
+        observer.observe(section,{childList:true,subtree:true});
+        setTimeout(()=>observer.disconnect(),15000);
+      }
+    }catch(error){console.error("[work-004] cases",error);}
+  }
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
