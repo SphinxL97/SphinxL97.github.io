@@ -10,10 +10,15 @@
   if(parentId!=="003"||window.__WORK_003_LONGZANGSI_CONTENT__)return;
   window.__WORK_003_LONGZANGSI_CONTENT__=true;
 
+  /* 旧路由可能仍尝试加载这些共享脚本。003必须完全使用自己的案例和分析。 */
+  window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__=true;
+  window.__DAMAGE_CASE_INTEGRITY_V2__=true;
+  window.__DAMAGE_CASE_PARTIAL_STATUS__=true;
+
   const WORK_TITLE="龙藏寺碑";
   const TEXT_URL="data/longzangsi_full_text.txt?v=20260716_longzangsi_v2";
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-  const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的缺字或疑难字提出校读意见。AI分析重点说明候选字与拓片字形、句法结构、对偶关系及文献语境之间的联系。";
+  const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的缺字或疑难字提出校读意见。AI分析重点说明为什么判断为当前候选字，包括拓片字形、句法结构、对偶关系、人物地名与佛教用语等依据。";
 
   const CASES=[
     {
@@ -23,11 +28,11 @@
       r:"若论乾闼之城皆妄，巴蕉之树尽空，应化讵真，权假宁实？释迦文非说法之主，须菩提岂证果之人？然则习因之指安归？求道之趣奚向？",
       image:"assets/page_images/003_龙藏寺碑/images/0011_十一.jpg",page:11,canvas:{w:1539,h:2250},crop:{x:600,y:760,w:330,h:1220},target:{x:640,y:1510,w:210,h:430},
       e:[
-        "第一处缺字位于“说□”之间，“说法”是佛教语境中表示宣说佛法的固定搭配，能够直接承接主语“释迦文”。",
-        "第二处缺字位于“之□”，后句对应位置是“之人”；补作“主”后形成“说法之主—证果之人”的同构对举。",
-        "两处原释文各缺一字，“法”“主”在字数上分别与两个“□”一一对应，没有增加原句未标缺的文字。",
-        "因此本例判断为“说法之主”，主要依据是佛教固定用语和上下句的句法对偶。"
-      ],analysis:null,confidence:"中高"
+        "第一处缺字位于“说□”，在佛教语境中“说法”是表示宣讲佛法的固定搭配，能够直接承接主语“释迦文”。",
+        "第二处缺字位于“之□”，后句对应位置为“之人”；补作“主”后形成“说法之主—证果之人”的同构对举。",
+        "两处原释文各缺一字，“法”“主”分别与两个“□”一一对应，没有增加原句其他位置的文字。",
+        "因此本例判断为“法、主”，核心依据是佛教固定用语和上下句句法对偶。"
+      ],confidence:"中高"
     },
     {
       i:"02",id:"02",n:"残损碑文恢复",category:"残损碑文恢复",t:"残损碑文恢复——“持律□□”",title:"持律沙门",
@@ -36,11 +41,11 @@
       r:"李园之内，结其恶党；竹林之下，亡其善聚。护戒比丘，翻同雹草；持律沙门，忽等霜莲。慧殿仙宫，寂寥安在。",
       image:"assets/page_images/003_龙藏寺碑/images/0018_十八.jpg",page:18,canvas:{w:1539,h:2250},crop:{x:650,y:760,w:300,h:1050},target:{x:675,y:790,w:230,h:430},
       e:[
-        "原句前半以“护戒”修饰“比丘”，后半“持律□□”也需要一个两字僧侣称谓，才能形成相同的语法结构。",
-        "“沙门”是佛教碑铭中常见的两字僧人称谓，与“比丘”词性相同，正好对应原释文连续两个“□”。",
-        "补作“持律沙门”后，与“护戒比丘”形成“行为特征＋僧侣称谓”的整齐对偶，后面的“雹草—霜莲”也保持成对。",
-        "因此判断为“沙门”，依据是缺字数量、佛教称谓和全句对偶结构三者一致。"
-      ],analysis:null,confidence:"中"
+        "原句前半是“护戒比丘”，后半“持律□□”也需要一个两字僧侣称谓，才能形成相同的语法结构。",
+        "“沙门”是佛教碑铭中常见的两字僧人称谓，与“比丘”词性相同，也正好对应连续两个“□”。",
+        "补作“持律沙门”后，与“护戒比丘”形成“行为特征＋僧侣称谓”的对偶，后面的“雹草—霜莲”也保持对应。",
+        "因此判断为“沙门”，依据是缺字数量、佛教称谓和全句对偶三者一致。"
+      ],confidence:"中"
     },
     {
       i:"03",id:"03",n:"残损碑文恢复",category:"残损碑文恢复",t:"残损碑文恢复——“途通□而指卫”",title:"途通赵而指卫",
@@ -50,10 +55,10 @@
       image:"assets/page_images/003_龙藏寺碑/images/0036_三十六.jpg",page:36,canvas:{w:1539,h:2250},crop:{x:650,y:760,w:300,h:1220},target:{x:730,y:1535,w:180,h:220},
       e:[
         "缺字位于“通□而指卫”中，只缺一字，并且应当是能够与“卫”并列的地域名称。",
-        "上句“晋—秦”列举两个古国名；下句若补“赵”，便形成“晋秦—赵卫”两组古国名称的对应关系。",
+        "上句“晋—秦”列举两个古国名；下句补“赵”后，形成“晋秦—赵卫”两组古国名称的对应关系。",
         "龙藏寺所在区域与古赵地相近，“途通赵而指卫”也符合道路通向赵、卫方向的地理叙述。",
-        "因此本处判断为“赵”，主要依据是单字缺位、古国名对举和地域语境。"
-      ],analysis:null,confidence:"中"
+        "因此判断为“赵”，主要依据是单字缺位、古国名对举和地域语境。"
+      ],confidence:"中"
     },
     {
       i:"04",id:"04",n:"残损碑文恢复",category:"残损碑文恢复",t:"残损碑文恢复——“□□之落”",title:"邯郸之落",
@@ -65,8 +70,8 @@
         "“□□之落”开头连续缺两字，语法上应是一个两字地名，用来修饰后面的“落”。",
         "前一句刚出现“赵”，邯郸是赵地最具代表性的都城名称，地理关系能够自然承接。",
         "后半句以“平原之楼”领起；补作“邯郸之落”后，两句都形成“地名＋之＋处所名词”的结构。",
-        "因此两字暂判断为“邯郸”；这一结论主要来自地名长度、赵地语境和上下句结构，置信度仍较低。"
-      ],analysis:null,confidence:"低"
+        "因此两字暂判断为“邯郸”，主要依据是地名长度、赵地语境和上下句结构；因拓片残损较重，置信度仍较低。"
+      ],confidence:"低"
     },
     {
       i:"05",id:"05",n:"历史人物识别",category:"历史人物识别",t:"历史人物识别——“王孝?”",title:"金城王孝仙",
@@ -76,10 +81,10 @@
       image:"assets/page_images/003_龙藏寺碑/images/0039_三十九.jpg",page:39,canvas:{w:1539,h:2250},crop:{x:900,y:760,w:340,h:1220},target:{x:990,y:1535,w:200,h:230},
       e:[
         "疑难字位于完整官爵之后的“王孝?”，位置明确属于人物姓名的末字，而不是官名或地名。",
-        "相关人物著录保存“王孝仙”这一姓名，与碑中“恒州刺史、鄂国公、金城”的官爵组合可以对应。",
+        "相关人物著录保存“王孝仙”这一姓名，与碑中“恒州刺史、鄂国公、金城”的官爵组合能够对应。",
         "补作“仙”后，姓名“王孝仙”完整，后接“世业重于金张”也能顺畅转入对其家世的赞述。",
-        "因此本处识为“仙”，依据是人物著录、姓名位置和官爵链条的对应关系。"
-      ],analysis:null,confidence:"高"
+        "因此识为“仙”，依据是人物著录、姓名位置和官爵链条的对应关系。"
+      ],confidence:"高"
     },
     {
       i:"06",id:"06",n:"残损碑文恢复",category:"残损碑文恢复",t:"残损碑文恢复——“领袖诸□”",title:"领袖诸蕃",
@@ -88,11 +93,11 @@
       r:"军府号为飞将，朝廷称为虎臣。领袖诸蕃，冠冕群俊。探赜索隐，应变知机。",
       image:"assets/page_images/003_龙藏寺碑/images/0040_四十.jpg",page:40,canvas:{w:1539,h:2250},crop:{x:300,y:760,w:330,h:1220},target:{x:325,y:1155,w:230,h:240},
       e:[
-        "“诸□”只缺一字，且“诸”后需要接一个表示群体或区域的名词，作为“领袖”的宾语。",
+        "“诸□”只缺一字，“诸”后需要接一个表示群体或区域的名词，作为“领袖”的宾语。",
         "“蕃”可指各地属部或边地群体，与前文“军府”“飞将”“虎臣”的军政身份语境相合。",
         "“领袖诸蕃”与“冠冕群俊”形成“动词＋群体名词”的对举，语义分别为统领诸蕃、冠绝群俊。",
         "因此候选为“蕃”，依据是单字缺位、军政语境和上下句对偶。"
-      ],analysis:null,confidence:"中"
+      ],confidence:"中"
     },
     {
       i:"07",id:"07",n:"残损碑文恢复",category:"残损碑文恢复",t:"残损碑文恢复——“张公礼之□”",title:"张公礼之书",
@@ -104,8 +109,8 @@
         "缺字位于碑末题署，前面已经完整列出官职、籍贯和姓名“九门张公礼”，末字应说明其与碑文的关系。",
         "碑刻题署常用“某某之书”或“某某书”标明书写者，“书”在这一位置属于常见格式用语。",
         "原释文只缺一个字，补“书”后成为“张公礼之书”，能够完整表达张公礼书写此碑。",
-        "因此本处判断为“书”，主要依据是题署位置、碑刻署名格式和单字缺位。"
-      ],analysis:null,confidence:"低至中"
+        "因此判断为“书”，主要依据是题署位置、碑刻署名格式和单字缺位。"
+      ],confidence:"低至中"
     },
     {
       i:"08",id:"08",n:"残损碑文恢复",category:"残损碑文恢复",t:"残损碑文恢复——“□然饮食”",title:"自然饮食",
@@ -117,8 +122,8 @@
         "缺字位于“□然饮食”，只缺一字；补入后需要组成能够修饰“饮食”的双音词。",
         "“自然”在这里可理解为饮食自有供给、不必忧虑，与前句“不求床坐，来会之众何忧”共同说明寺院接待条件完备。",
         "上下两句分别围绕“床坐”和“饮食”，并以“何忧—奚念”形成反问对偶；补“自”后句法和对偶都完整。",
-        "因此本处判断为“自”，依据是“自然”的词语结构、供养语境和前后句对应关系。"
-      ],analysis:null,confidence:"中高"
+        "因此判断为“自”，依据是“自然”的词语结构、供养语境和前后句对应关系。"
+      ],confidence:"中高"
     }
   ];
 
@@ -146,7 +151,7 @@
   }
 
   window.DAMAGE_AI_CASES=CASES.map(item=>JSON.parse(JSON.stringify(item)));
-  let current=0,expanded=false,listScrollTop=0;
+  let current=0,expanded=false,listScrollTop=0,rendering=false;
   const tabs=()=>CASES.map((item,index)=>`<button class="damage-tab${index===current?" active":""}" data-case-index="${index}" type="button"><b>${item.i}</b><span class="name">${esc(item.n)}</span></button>`).join("");
   const imageHtml=item=>`<div class="damage-viewport" data-image="${esc(item.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${item.crop.x} ${item.crop.y} ${item.crop.w} ${item.crop.h}" preserveAspectRatio="xMidYMid meet"><image href="${esc(item.image)}" x="0" y="0" width="${item.canvas.w}" height="${item.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${item.target.x}" y="${item.target.y}" width="${item.target.w}" height="${item.target.h}"></rect></svg></div><p class="damage-caption">《${WORK_TITLE}》第${item.page}页，对应问题字局部</p>`;
 
@@ -156,18 +161,33 @@
   }
 
   function renderDamage(){
-    const section=document.getElementById("people");if(!section)return;
+    const section=document.getElementById("people");if(!section||rendering)return;
+    rendering=true;
     setMenuTitle(3,"三、碑文残损与AI释读");
     section.className="content-card damage-ai";
-    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell">${panel(CASES[current])}</div>`;
+    section.innerHTML=`<div data-work003-root><h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell">${panel(CASES[current])}</div></div>`;
     const list=section.querySelector(".damage-list");if(list){list.scrollTop=listScrollTop;list.addEventListener("scroll",()=>{listScrollTop=list.scrollTop;},{passive:true});}
     section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{current=Number(button.dataset.caseIndex)||0;expanded=false;renderDamage();}));
     section.querySelectorAll("[data-action]").forEach(button=>button.addEventListener("click",()=>{const action=button.dataset.action;if(action==="prev"&&current>0)current--;else if(action==="next"&&current<CASES.length-1)current++;else if(action==="expand")expanded=!expanded;renderDamage();}));
     section.querySelector(".damage-viewport")?.addEventListener("dblclick",event=>{const src=event.currentTarget.dataset.image;if(src&&typeof window.openZoom==="function")window.openZoom(src);});
+    rendering=false;
+  }
+
+  function protectOwnPanel(){
+    const section=document.getElementById("people");if(!section)return;
+    let scheduled=false;
+    new MutationObserver(()=>{
+      if(rendering||section.querySelector("[data-work003-root]"))return;
+      if(scheduled)return;
+      scheduled=true;
+      requestAnimationFrame(()=>{scheduled=false;renderDamage();});
+    }).observe(section,{childList:true,subtree:false});
   }
 
   function init(){
-    renderTranscript();renderDamage();
+    renderTranscript();
+    renderDamage();
+    protectOwnPanel();
     window.__WORK_003_CONTENT_READY__=true;
     window.dispatchEvent(new CustomEvent("work-003-content-ready"));
     window.dispatchEvent(new CustomEvent("work-003-cases-ready",{detail:{count:CASES.length}}));
