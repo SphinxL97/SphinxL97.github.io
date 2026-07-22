@@ -1,0 +1,56 @@
+name: Generate work011 coordinates
+
+on:
+  push:
+    branches:
+      - agent/work011-huangfudan
+    paths:
+      - .github/workflows/generate-work011.yml
+      - scripts/generate_work011_coordinates.py
+      - data/work011_full_text.txt
+      - data/work011_damage_cases.json
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.event_name == 'workflow_dispatch' || github.event.head_commit.message != '生成011静态坐标与案例位置'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout required files
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            .github/workflows/generate-work011.yml
+            scripts/generate_work011_coordinates.py
+            data/model_boxes/glyph_model_border_011_015.json
+            data/work011_full_text.txt
+            data/work011_damage_cases.json
+            data/work011_coordinate_report.json
+            data/glyph_boxes/iiif/011
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate coordinate shards and static locations
+        run: python scripts/generate_work011_coordinates.py
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "4189826+github-actions[bot]@users.noreply.github.com"
+          git add --sparse data/glyph_boxes/iiif/011 data/work011_damage_cases.json data/work011_coordinate_report.json
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "生成011静态坐标与案例位置"
+          git push
