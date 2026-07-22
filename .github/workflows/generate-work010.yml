@@ -1,0 +1,52 @@
+name: Generate work010 coordinates
+
+on:
+  push:
+    branches:
+      - agent/work010-zhaoqingxian
+    paths:
+      - .github/workflows/generate-work010.yml
+      - scripts/generate_work010_coordinates.py
+      - data/work010_full_text.txt
+      - data/work010_damage_cases.json
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    if: github.event.head_commit.message != '生成010静态坐标与案例位置'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout required files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            .github/workflows/generate-work010.yml
+            scripts/generate_work010_coordinates.py
+            data/model_boxes/glyph_model_border_006_010.json
+            data/work010_full_text.txt
+            data/work010_damage_cases.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generate coordinate shards and static locations
+        run: python scripts/generate_work010_coordinates.py
+
+      - name: Commit generated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/glyph_boxes/iiif/010 data/work010_damage_cases.json data/work010_coordinate_report.json
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "生成010静态坐标与案例位置"
+          git push
