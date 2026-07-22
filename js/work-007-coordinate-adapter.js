@@ -184,8 +184,8 @@
         try{
           rows=await loadPageRows(page);
         }catch(secondError){
-          console.warn("[work-007-coordinate-adapter] 跳过失败页",page,secondError);
-          rows=[];
+          console.warn("[work-007-coordinate-adapter] 保留失败页等待下次重试",page,secondError);
+          throw secondError;
         }
       }
       rows.forEach(row=>{
