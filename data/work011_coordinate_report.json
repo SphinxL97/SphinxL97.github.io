@@ -9,10 +9,8 @@
   "text_squares": 5,
   "case_squares": 5,
   "cases": 5,
-  "located_cases": 4,
-  "unmapped_case_ids": [
-    "02"
-  ],
+  "located_cases": 5,
+  "unmapped_case_ids": [],
   "location_order_monotonic": true,
   "case_audit": [
     {
@@ -43,20 +41,22 @@
         "轻",
         "于"
       ],
-      "candidate_count": 2,
-      "located": false,
-      "matches": [
-        {
-          "kind": "gap",
-          "page": 19,
-          "order": 7
-        },
-        {
-          "kind": "gap",
-          "page": 36,
-          "order": 18
-        }
-      ]
+      "candidate_count_before_order_filter": 2,
+      "located": true,
+      "page": 19,
+      "match_method": "offline-anchor-order-gap-inference",
+      "bbox_source": "adjacent-real-glyph-geometry",
+      "order_constraint": "案例02须位于案例03“建—玉”锚点之前",
+      "left": {
+        "page": 19,
+        "order": 7,
+        "char": "轻"
+      },
+      "right": {
+        "page": 19,
+        "order": 8,
+        "char": "于"
+      }
     },
     {
       "id": "03",

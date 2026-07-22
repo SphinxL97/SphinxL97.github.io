@@ -60,18 +60,21 @@
     "locations": [
       {
         "page": 19,
-        "glyph_id": "011_皇甫诞碑_p0019_c007",
+        "glyph_id": "011_gap_011_皇甫诞碑_p0019_c007_011_皇甫诞碑_p0019_c008",
         "canvas": {
           "w": 1205,
           "h": 1931
         },
         "bbox": {
-          "x": 900.0,
-          "y": 1376.0,
-          "w": 206.0,
-          "h": 274.0
+          "x": 809.0,
+          "y": 861.75,
+          "w": 202.0,
+          "h": 201.0
         },
-        "match_method": "offline-context-alignment",
+        "match_method": "offline-anchor-order-gap-inference",
+        "bbox_source": "adjacent-real-glyph-geometry",
+        "left_glyph_id": "011_皇甫诞碑_p0019_c007",
+        "right_glyph_id": "011_皇甫诞碑_p0019_c008",
         "target_square_ordinal": 1,
         "target_kind": "restored",
         "restored_text": "訬"
