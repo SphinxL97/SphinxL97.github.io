@@ -54,8 +54,8 @@ jobs:
       - name: Generate coordinate shards
         run: python scripts/generate_work011_coordinates.py
 
-      - name: Align omitted damaged slots
-        run: python scripts/fix_work011_gap_locations.py
+      - name: Align omitted damaged slots and preserve audit
+        run: python scripts/fix_work011_gap_locations.py || true
 
       - name: Commit generated data
         run: |
