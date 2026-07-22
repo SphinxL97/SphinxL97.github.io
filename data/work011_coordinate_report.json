@@ -1,0 +1,128 @@
+{
+  "work_id": "011",
+  "title": "皇甫诞碑",
+  "source_model": "data/model_boxes/glyph_model_border_011_015.json",
+  "coordinate_rows": 1541,
+  "pages_with_rows": 40,
+  "page_files_written": 54,
+  "direct_square_glyphs": 1,
+  "text_squares": 5,
+  "case_squares": 5,
+  "cases": 5,
+  "located_cases": 5,
+  "unmapped_case_ids": [],
+  "location_order_monotonic": true,
+  "case_audit": [
+    {
+      "id": "01",
+      "anchors": [
+        "锋",
+        "犀"
+      ],
+      "candidate_count": 1,
+      "located": true,
+      "page": 16,
+      "match_method": "offline-anchor-boundary-slot",
+      "bbox_source": "reading-boundary-real-slot",
+      "left": {
+        "page": 15,
+        "order": 40,
+        "char": "锋"
+      },
+      "right": {
+        "page": 16,
+        "order": 1,
+        "char": "犀"
+      }
+    },
+    {
+      "id": "02",
+      "anchors": [
+        "轻",
+        "于"
+      ],
+      "candidate_count_before_order_filter": 2,
+      "located": true,
+      "page": 19,
+      "match_method": "offline-anchor-order-gap-inference",
+      "bbox_source": "adjacent-real-glyph-geometry",
+      "order_constraint": "案例02须位于案例03“建—玉”锚点之前",
+      "left": {
+        "page": 19,
+        "order": 7,
+        "char": "轻"
+      },
+      "right": {
+        "page": 19,
+        "order": 8,
+        "char": "于"
+      }
+    },
+    {
+      "id": "03",
+      "anchors": [
+        "建",
+        "玉"
+      ],
+      "candidate_count": 1,
+      "located": true,
+      "page": 19,
+      "match_method": "offline-anchor-boundary-slot",
+      "bbox_source": "reading-boundary-real-slot",
+      "left": {
+        "page": 19,
+        "order": 31,
+        "char": "建"
+      },
+      "right": {
+        "page": 19,
+        "order": 32,
+        "char": "玉"
+      }
+    },
+    {
+      "id": "04",
+      "anchors": [
+        "公",
+        "轩"
+      ],
+      "candidate_count": 1,
+      "located": true,
+      "page": 27,
+      "match_method": "offline-anchor-gap-inference",
+      "bbox_source": "adjacent-real-glyph-geometry",
+      "left": {
+        "page": 27,
+        "order": 10,
+        "char": "公"
+      },
+      "right": {
+        "page": 27,
+        "order": 11,
+        "char": "轩"
+      }
+    },
+    {
+      "id": "05",
+      "anchors": [
+        "磨",
+        "救"
+      ],
+      "candidate_count": 1,
+      "located": true,
+      "page": 35,
+      "match_method": "offline-anchor-boundary-slot",
+      "bbox_source": "reading-boundary-real-slot",
+      "left": {
+        "page": 35,
+        "order": 16,
+        "char": "磨"
+      },
+      "right": {
+        "page": 35,
+        "order": 17,
+        "char": "救"
+      }
+    }
+  ]
+}
