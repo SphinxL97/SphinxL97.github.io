@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：006、007使用各自稳定专属入口。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V37__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V37__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V38__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V38__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -16,7 +16,7 @@
     "003":[{src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v3",key:"w003",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
     "004":[{src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"w004c",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},{src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"w004",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}],
     "005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}],
-    "006":[{src:"js/work-006-shichenhou-stable.js?v=20260722_stable_v2",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
+    "006":[{src:"js/work-006-shichenhou-stable.js?v=20260722_shichenhou_final_v1",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
     "007":[{src:"js/work-007-yique-stable.js?v=20260722_stable_v2",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}]
   };
 
