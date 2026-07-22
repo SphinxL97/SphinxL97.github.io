@@ -1,13 +1,15 @@
-/* 007《伊阙佛龛碑》栏目一按页坐标与栏目三按需定位适配。 */
+/* 007《伊阙佛龛碑》栏目一按页坐标、真实分列与栏目三按需定位适配。 */
 (function(){
   "use strict";
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
-  if(workId!=="007"||window.__WORK_007_COORDINATE_ADAPTER__)return;
+  if(workId!=="007"||window.__WORK_007_COORDINATE_ADAPTER_V8__)return;
+  window.__WORK_007_COORDINATE_ADAPTER_V8__=true;
+  window.__WORK_007_COORDINATE_ADAPTER__=true;
 
   const PAGE_COUNT=124;
-  const CACHE_TAG="20260722_yique_demand_v7";
+  const CACHE_TAG="20260722_yique_columns_v8";
   const PAGE_BOX_ROOT="data/glyph_boxes/iiif/007";
   const RAW_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
   const IMAGE_PREFIX="assets/page_images/007_伊阙佛龛碑/";
@@ -17,6 +19,24 @@
   const squareEntries=[];
   let nextScanPage=1;
   let scanQueue=Promise.resolve();
+  let activeRows=[];
+  let activePage=0;
+  let transcriptObserver=null;
+  let transcriptPatching=false;
+  let transcriptPatchQueued=false;
+
+  const KNOWN_CASE_LOCATIONS={
+    "01":{
+      page:13,
+      glyph_id:"007_伊阙佛龛碑_p0013_c001",
+      canvas:{w:2932,h:4434},
+      bbox:{x:2230,y:964,w:325,h:402},
+      match_method:"verified-page-0013",
+      target_square_ordinal:1,
+      target_kind:"restored",
+      restored_text:"則"
+    }
+  };
 
   const variants={
     "扵":"於","於":"於","乗":"乘","乘":"乘","髙":"高","高":"高",
@@ -171,6 +191,106 @@
     return promise;
   }
 
+  function median(values){
+    const nums=values.filter(Number.isFinite).sort((a,b)=>a-b);
+    if(!nums.length)return 0;
+    const middle=Math.floor(nums.length/2);
+    return nums.length%2?nums[middle]:(nums[middle-1]+nums[middle])/2;
+  }
+
+  function geometryColumns(rows){
+    const items=(Array.isArray(rows)?rows:[]).map(row=>{
+      const box=rect(row);
+      return {row,box,cx:box.x+box.w/2,cy:box.y+box.h/2};
+    }).filter(item=>item.box.w>0&&item.box.h>0);
+    if(!items.length)return [];
+    const medW=median(items.map(item=>item.box.w));
+    const threshold=Math.max(80,Math.min(220,medW*.7));
+    const columns=[];
+    items.sort((a,b)=>b.cx-a.cx).forEach(item=>{
+      let best=null,bestDistance=Infinity;
+      columns.forEach(column=>{
+        const distance=Math.abs(item.cx-column.cx);
+        if(distance<bestDistance){best=column;bestDistance=distance;}
+      });
+      if(best&&bestDistance<=threshold){
+        best.items.push(item);
+        best.cx=best.items.reduce((sum,current)=>sum+current.cx,0)/best.items.length;
+      }else{
+        columns.push({cx:item.cx,items:[item]});
+      }
+    });
+    columns.sort((a,b)=>b.cx-a.cx);
+    columns.forEach((column,columnIndex)=>{
+      column.items.sort((a,b)=>a.cy-b.cy);
+      column.items.forEach((item,rowIndex)=>{
+        item.row.auto_col=columnIndex;
+        item.row.auto_row=rowIndex;
+      });
+    });
+    return columns.map(column=>column.items.map(item=>item.row));
+  }
+
+  function patchTranscriptGrid(){
+    transcriptPatchQueued=false;
+    if(transcriptPatching||!activeRows.length)return;
+    const grid=document.getElementById("transcriptGrid");
+    if(!grid||!grid.querySelector(".reader-char"))return;
+    const status=document.getElementById("readerStatus")?.textContent||"";
+    if(activePage&&!status.includes(`第 ${activePage} 页`))return;
+    const columns=geometryColumns(activeRows);
+    if(!columns.length)return;
+    const signature=`${activePage}|${columns.map(column=>column.map(row=>row.glyph_id).join(",")).join("|")}`;
+    if(grid.dataset.work007ColumnSignature===signature)return;
+
+    const existing=new Map();
+    grid.querySelectorAll(".reader-char[data-glyph-id]").forEach(cell=>existing.set(cell.dataset.glyphId,cell));
+    const sample=grid.querySelector(".reader-char[data-glyph-id]");
+    const fontSize=sample?.style.fontSize||"";
+    const maxRows=Math.max(...columns.map(column=>column.length),1);
+    const fragment=document.createDocumentFragment();
+
+    columns.forEach(column=>{
+      const columnElement=document.createElement("div");
+      columnElement.className="reader-col";
+      columnElement.style.width=`${100/columns.length}%`;
+      columnElement.style.gridTemplateRows=`repeat(${maxRows}, 1fr)`;
+      for(let rowIndex=0;rowIndex<maxRows;rowIndex+=1){
+        const row=column[rowIndex];
+        let cell=row?existing.get(String(row.glyph_id)):null;
+        if(!cell){
+          cell=document.createElement("div");
+          cell.className="reader-char";
+          cell.style.pointerEvents="none";
+        }
+        if(fontSize)cell.style.fontSize=fontSize;
+        columnElement.appendChild(cell);
+      }
+      fragment.appendChild(columnElement);
+    });
+
+    transcriptPatching=true;
+    grid.replaceChildren(fragment);
+    grid.dataset.work007ColumnSignature=signature;
+    transcriptPatching=false;
+  }
+
+  function queueTranscriptPatch(){
+    if(transcriptPatchQueued)return;
+    transcriptPatchQueued=true;
+    requestAnimationFrame(()=>requestAnimationFrame(patchTranscriptGrid));
+  }
+
+  function installTranscriptColumnPatch(){
+    const grid=document.getElementById("transcriptGrid");
+    if(!grid)return;
+    transcriptObserver=new MutationObserver(()=>{
+      if(!transcriptPatching)queueTranscriptPatch();
+    });
+    transcriptObserver.observe(grid,{childList:true,subtree:true});
+    queueTranscriptPatch();
+  }
+
   async function scanUntilSquare(index){
     const target=Math.max(0,Number(index||0));
     while(squareEntries.length<=target&&nextScanPage<=PAGE_COUNT){
@@ -189,9 +309,7 @@
         }
       }
       rows.forEach(row=>{
-        if(canonical(row.char||row.text||"")==="□"){
-          squareEntries.push({row,page,key:"□"});
-        }
+        if(canonical(row.char||row.text||"")==="□")squareEntries.push({row,page,key:"□"});
       });
       nextScanPage+=1;
       if(nextScanPage%4===0)await sleep(0);
@@ -225,12 +343,22 @@
   async function locateCase(item,index,items){
     const currentLocations=Array.isArray(item?.locations)?item.locations:[];
     if(currentLocations.length)return item;
+    const caseId=String(item?.id||index+1).padStart(2,"0");
+    const known=KNOWN_CASE_LOCATIONS[caseId];
+    if(known){
+      const location=JSON.parse(JSON.stringify(known));
+      const report={requestedCase:caseId,located:true,matchMethod:location.match_method,scannedThroughPage:nextScanPage-1,coordinateSquares:squareEntries.length,failedPages:Array.from(pageFailures).sort((a,b)=>a-b)};
+      window.WORK_007_LOCATION_REPORT=report;
+      window.dispatchEvent(new CustomEvent("work-007-location-audit",{detail:report}));
+      return {...item,locations:[location],page:location.page};
+    }
+
     const descriptor=caseSquareDescriptor(items,index);
     if(!descriptor.squareCount)return item;
     const entry=await ensureSquareIndex(descriptor.globalIndex);
     const location=locationFromEntry(entry,descriptor.target);
     const report={
-      requestedCase:String(item?.id||index+1).padStart(2,"0"),
+      requestedCase:caseId,
       requestedSquareIndex:descriptor.globalIndex,
       located:Boolean(location),
       scannedThroughPage:nextScanPage-1,
@@ -246,9 +374,7 @@
   async function locateCases(items){
     const source=Array.isArray(items)?items:[];
     const resolved=[];
-    for(let index=0;index<source.length;index+=1){
-      resolved.push(await locateCase(source[index],index,source));
-    }
+    for(let index=0;index<source.length;index+=1)resolved.push(await locateCase(source[index],index,source));
     return resolved;
   }
 
@@ -304,9 +430,7 @@
             (page.items||[]).forEach(item=>{if(item.local_image)item.local_image=remoteImage(item.local_image);});
           });
           if(heroCover&&pages[0]?.image&&!heroCover.src.includes("raw.githubusercontent.com"))heroCover.src=pages[0].image;
-          if(pageImage&&(!pageImage.src||!pageImage.src.includes("raw.githubusercontent.com"))&&typeof loadPage==="function"){
-            loadPage(typeof currentPageIndex==="number"?currentPageIndex:0);
-          }
+          if(pageImage&&(!pageImage.src||!pageImage.src.includes("raw.githubusercontent.com"))&&typeof loadPage==="function")loadPage(typeof currentPageIndex==="number"?currentPageIndex:0);
           return;
         }
       }catch(error){
@@ -327,11 +451,20 @@
     const page=Number(pageObj?.canvas_index||pageObj?.page||0);
     try{
       const rows=(await loadPageRows(page)).map(row=>({...row,local_image:pageObj?.image||row.local_image||""}));
-      if(rows.length)return rows;
+      if(rows.length){
+        activeRows=rows;
+        activePage=page;
+        queueTranscriptPatch();
+        return rows;
+      }
     }catch(error){
       console.warn("[work-007-coordinate-adapter] 当前页坐标最终失败",page,error);
     }
-    return original?original(id,pageObj):[];
+    const fallback=original?await original(id,pageObj):[];
+    activeRows=Array.isArray(fallback)?fallback:[];
+    activePage=page;
+    queueTranscriptPatch();
+    return fallback;
   };
 
   window.WORK_007_COORDINATES={
@@ -339,10 +472,14 @@
     locateCase,
     locateCases,
     caseTarget,
+    geometryColumns,
     getReport:()=>window.WORK_007_LOCATION_REPORT||null
   };
-  window.__WORK_007_COORDINATE_ADAPTER__=true;
 
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",installReaderImageStability,{once:true});
-  else installReaderImageStability();
+  function install(){
+    installReaderImageStability();
+    installTranscriptColumnPatch();
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",install,{once:true});
+  else install();
 })();
