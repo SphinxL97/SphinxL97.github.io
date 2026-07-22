@@ -1,17 +1,14 @@
-/* 全部碑帖栏目二、三路由：专属碑帖不再经过共享分析模板。 */
+/* 全部碑帖栏目二、三路由：006、007使用各自稳定专属入口。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V35__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V35__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V36__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V36__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   const legacy={src:"js/damage-case-unbracketed-adapter.js?v=20260721_legacy_v1",key:"legacy",ready:()=>Boolean(window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__)};
   const integrity={src:"js/damage-case-integrity-v2.js?v=20260721_integrity_v2",key:"integrity",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_V2__)};
   const partial={src:"js/damage-case-partial-status.js?v=20260721_partial_v1",key:"partial",ready:()=>Boolean(window.__DAMAGE_CASE_PARTIAL_STATUS__)};
-  const remote={src:"js/work-remote-image-adapter.js?v=20260722_remote_v1",key:"remote",ready:()=>Boolean(window.__WORK_REMOTE_IMAGE_ADAPTER__)};
-  const unlock={src:"js/work-dedicated-crowdsource-unlock.js?v=20260722_remote_v1",key:"unlock",ready:()=>Boolean(window.__WORK_DEDICATED_CROWDSOURCE_UNLOCK__)};
-  const crowd={src:"assets/js/crowdsource-v9.js?v=20260722_remote_v1",key:"crowd",ready:()=>Boolean(window.__CROWDSOURCE_MISSING_V10__)};
 
   const routes={
     "001":[{src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"w001",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)},legacy,integrity,partial],
@@ -19,8 +16,8 @@
     "003":[{src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v3",key:"w003",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
     "004":[{src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"w004c",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},{src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"w004",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}],
     "005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}],
-    "006":[remote,{src:"js/work-006-dedicated-config.js?v=20260722_shichenhou_v4",key:"w006cfg",ready:()=>Boolean(window.__WORK_006_DEDICATED_CONFIG__)},{src:"js/work-dedicated-renderer.js?v=20260722_dedicated_v2",key:"w006",ready:()=>Boolean(window.__WORK_006_CONTENT_READY__)},unlock,crowd],
-    "007":[remote,{src:"js/work-007-dedicated-config.js?v=20260722_yique_v5",key:"w007cfg",ready:()=>Boolean(window.__WORK_007_DEDICATED_CONFIG__)},{src:"js/work-dedicated-renderer.js?v=20260722_dedicated_v2",key:"w007",ready:()=>Boolean(window.__WORK_007_CONTENT_READY__)},unlock,crowd]
+    "006":[{src:"js/work-006-shichenhou-stable.js?v=20260722_stable_v1",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
+    "007":[{src:"js/work-007-yique-stable.js?v=20260722_stable_v1",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}]
   };
 
   const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑"};
@@ -47,9 +44,11 @@
       if(item.ready?.()){resolve(true);return;}
       const path=item.src.split("?")[0];
       const existing=Array.from(document.scripts).find(script=>(script.getAttribute("src")||"").split("?")[0].endsWith(path));
-      if(existing){setTimeout(()=>resolve(Boolean(item.ready?.())),120);return;}
+      if(existing){setTimeout(()=>resolve(true),80);return;}
       const script=document.createElement("script");
-      script.src=item.src;script.async=false;script.dataset[item.key]="true";
+      script.src=item.src;
+      script.async=false;
+      script.dataset[item.key]="true";
       script.onload=()=>resolve(true);
       script.onerror=()=>{console.error("[work-router]",item.src);resolve(false);};
       document.head.appendChild(script);
