@@ -6,7 +6,7 @@
   window.GALLERY_VISIBLE_IDS=ALL_IDS;
 
   const IMAGE_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
-  const remotePath=path=>IMAGE_BASE+String(path||"").split("/").map(encodeURIComponent).join("/");
+  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/,"").split("/").map(encodeURIComponent).join("/");
   const missingEntries=[
     {
       id:"006",title:"史晨后碑",
@@ -33,6 +33,16 @@
       canvas_count:124,has_volumes:false
     }
   ];
+
+  function useRemoteCover(item){
+    if(!item||typeof item!=="object")return item;
+    const id=String(item.id||"").padStart(3,"0");
+    if(!["006","007"].includes(id))return item;
+    const fallback=id==="006"?"assets/page_images/006_史晨后碑/images/0001_一.jpg":"assets/page_images/007_伊阙佛龛碑/images/0001_一.jpg";
+    const current=String(item.cover||fallback);
+    const cover=current.startsWith(IMAGE_BASE)?current:(/^https?:\/\//i.test(current)?current:remotePath(current));
+    return {...item,cover};
+  }
 
   document.querySelector(".filter-note")?.remove();
 
@@ -98,13 +108,13 @@
   function restoreCompleteCatalog(){
     const map=new Map(catalog.map(item=>[String(item?.id||"").padStart(3,"0"),item]));
     missingEntries.forEach(item=>{if(!map.has(item.id))map.set(item.id,item);});
-    catalog=ALL_IDS.map(id=>map.get(id)).filter(Boolean);
+    catalog=ALL_IDS.map(id=>map.get(id)).filter(Boolean).map(useRemoteCover);
   }
 
   function loadSearchModule(){
     if(document.querySelector('script[data-gallery-search-core]'))return;
     const script=document.createElement("script");
-    script.src="js/gallery-search-core.js?v=20260722_gallery45_v1";
+    script.src="js/gallery-search-core.js?v=20260722_gallery45_v2";
     script.async=false;script.dataset.gallerySearchCore="true";
     script.addEventListener("error",()=>console.error("[gallery] 检索脚本加载失败：",script.src),{once:true});
     document.head.appendChild(script);
