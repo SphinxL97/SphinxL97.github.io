@@ -9,120 +9,120 @@
   "text_squares": 5,
   "case_squares": 5,
   "cases": 5,
-  "located_cases": 1,
+  "located_cases": 4,
   "unmapped_case_ids": [
-    "01",
-    "02",
-    "03",
-    "05"
+    "02"
   ],
   "location_order_monotonic": true,
   "case_audit": [
     {
       "id": "01",
-      "located": false,
+      "anchors": [
+        "锋",
+        "犀"
+      ],
       "candidate_count": 1,
-      "top_candidates": [
-        {
-          "page": 39,
-          "char": "□",
-          "order_in_page": 37,
-          "kind": "row",
-          "matched": 0,
-          "compared": 19,
-          "ratio": 0.0
-        }
-      ]
+      "located": true,
+      "page": 16,
+      "match_method": "offline-anchor-boundary-slot",
+      "bbox_source": "reading-boundary-real-slot",
+      "left": {
+        "page": 15,
+        "order": 40,
+        "char": "锋"
+      },
+      "right": {
+        "page": 16,
+        "order": 1,
+        "char": "犀"
+      }
     },
     {
       "id": "02",
+      "anchors": [
+        "轻",
+        "于"
+      ],
+      "candidate_count": 2,
       "located": false,
-      "candidate_count": 1,
-      "top_candidates": [
+      "matches": [
         {
-          "page": 39,
-          "char": "□",
-          "order_in_page": 37,
-          "kind": "row",
-          "matched": 0,
-          "compared": 19,
-          "ratio": 0.0
+          "kind": "gap",
+          "page": 19,
+          "order": 7
+        },
+        {
+          "kind": "gap",
+          "page": 36,
+          "order": 18
         }
       ]
     },
     {
       "id": "03",
-      "located": false,
+      "anchors": [
+        "建",
+        "玉"
+      ],
       "candidate_count": 1,
-      "top_candidates": [
-        {
-          "page": 39,
-          "char": "□",
-          "order_in_page": 37,
-          "kind": "row",
-          "matched": 0,
-          "compared": 25,
-          "ratio": 0.0
-        }
-      ]
+      "located": true,
+      "page": 19,
+      "match_method": "offline-anchor-boundary-slot",
+      "bbox_source": "reading-boundary-real-slot",
+      "left": {
+        "page": 19,
+        "order": 31,
+        "char": "建"
+      },
+      "right": {
+        "page": 19,
+        "order": 32,
+        "char": "玉"
+      }
     },
     {
       "id": "04",
-      "located": true,
-      "candidate_count": 2,
-      "top_candidates": [
-        {
-          "page": 27,
-          "between": [
-            "公",
-            "轩"
-          ],
-          "between_orders": [
-            10,
-            11
-          ],
-          "kind": "gap",
-          "matched": 36,
-          "compared": 36,
-          "ratio": 1.0
-        },
-        {
-          "page": 39,
-          "char": "□",
-          "order_in_page": 37,
-          "kind": "row",
-          "matched": 0,
-          "compared": 36,
-          "ratio": 0.0
-        }
+      "anchors": [
+        "公",
+        "轩"
       ],
+      "candidate_count": 1,
+      "located": true,
       "page": 27,
-      "glyph_id": "011_gap_011_皇甫诞碑_p0027_c010_011_皇甫诞碑_p0027_c011",
-      "match_method": "offline-context-gap-inference",
-      "geometry": {
-        "left_char": "公",
-        "right_char": "轩",
-        "left_glyph_id": "011_皇甫诞碑_p0027_c010",
-        "right_glyph_id": "011_皇甫诞碑_p0027_c011",
-        "center_distance": 343.0,
-        "median_height": 202.0
+      "match_method": "offline-anchor-gap-inference",
+      "bbox_source": "adjacent-real-glyph-geometry",
+      "left": {
+        "page": 27,
+        "order": 10,
+        "char": "公"
+      },
+      "right": {
+        "page": 27,
+        "order": 11,
+        "char": "轩"
       }
     },
     {
       "id": "05",
-      "located": false,
+      "anchors": [
+        "磨",
+        "救"
+      ],
       "candidate_count": 1,
-      "top_candidates": [
-        {
-          "page": 39,
-          "char": "□",
-          "order_in_page": 37,
-          "kind": "row",
-          "matched": 1,
-          "compared": 30,
-          "ratio": 0.0333
-        }
-      ]
+      "located": true,
+      "page": 35,
+      "match_method": "offline-anchor-boundary-slot",
+      "bbox_source": "reading-boundary-real-slot",
+      "left": {
+        "page": 35,
+        "order": 16,
+        "char": "磨"
+      },
+      "right": {
+        "page": 35,
+        "order": 17,
+        "char": "救"
+      }
     }
   ]
 }

@@ -5,7 +5,7 @@
     "t": "锋剸犀象",
     "o": "锋□犀象，百练挺于昆吾；翼掩鸳鸿，九万奋于溟海。",
     "c": "锋〔剸〕犀象，百练挺于昆吾；翼掩鸳鸿，九万奋于溟海。",
-    "page": 15,
+    "page": 16,
     "category": "残损碑文恢复",
     "title": "锋剸犀象",
     "original": "锋□犀象，百练挺于昆吾；翼掩鸳鸿，九万奋于溟海。",
@@ -18,19 +18,22 @@
     ],
     "locations": [
       {
-        "page": 15,
-        "glyph_id": "011_皇甫诞碑_p0015_c040",
+        "page": 16,
+        "glyph_id": "011_boundary_011_皇甫诞碑_p0015_c040_011_皇甫诞碑_p0016_c001",
         "canvas": {
           "w": 1205,
           "h": 1931
         },
         "bbox": {
-          "x": 184.0,
-          "y": 1554.0,
-          "w": 200.0,
-          "h": 215.0
+          "x": 826.0,
+          "y": 379.0,
+          "w": 203.0,
+          "h": 297.0
         },
-        "match_method": "offline-context-alignment",
+        "match_method": "offline-anchor-boundary-slot",
+        "bbox_source": "reading-boundary-real-slot",
+        "left_glyph_id": "011_皇甫诞碑_p0015_c040",
+        "right_glyph_id": "011_皇甫诞碑_p0016_c001",
         "target_square_ordinal": 1,
         "target_kind": "restored",
         "restored_text": "剸"
@@ -81,7 +84,7 @@
     "t": "建旟玉垒",
     "o": "蜀王地处维城，寄深磐石，建□玉垒，作镇铜梁，妙择奇材，以为僚佐。",
     "c": "蜀王地处维城，寄深磐石，建〔旟〕玉垒，作镇铜梁，妙择奇材，以为僚佐。",
-    "page": "—",
+    "page": 19,
     "category": "残损碑文恢复",
     "title": "建旟玉垒",
     "original": "蜀王地处维城，寄深磐石，建□玉垒，作镇铜梁，妙择奇材，以为僚佐。",
@@ -92,7 +95,29 @@
       "传世录文作“建旟玉垒”，“旟”为古代绘有鸟隼图案的军旗，可代指建旗设镇。",
       "“建旟玉垒”与“作镇铜梁”构成对偶，符合蜀王出镇益州的语境。"
     ],
-    "locations": []
+    "locations": [
+      {
+        "page": 19,
+        "glyph_id": "011_boundary_011_皇甫诞碑_p0019_c031_011_皇甫诞碑_p0019_c032",
+        "canvas": {
+          "w": 1205,
+          "h": 1931
+        },
+        "bbox": {
+          "x": 172.0,
+          "y": 423.0,
+          "w": 207.0,
+          "h": 251.0
+        },
+        "match_method": "offline-anchor-boundary-slot",
+        "bbox_source": "reading-boundary-real-slot",
+        "left_glyph_id": "011_皇甫诞碑_p0019_c031",
+        "right_glyph_id": "011_皇甫诞碑_p0019_c032",
+        "target_square_ordinal": 1,
+        "target_kind": "restored",
+        "restored_text": "旟"
+      }
+    ]
   },
   {
     "id": "04",
@@ -125,7 +150,7 @@
           "w": 191.0,
           "h": 202.0
         },
-        "match_method": "offline-context-gap-inference",
+        "match_method": "offline-anchor-gap-inference",
         "bbox_source": "adjacent-real-glyph-geometry",
         "left_glyph_id": "011_皇甫诞碑_p0027_c010",
         "right_glyph_id": "011_皇甫诞碑_p0027_c011",
@@ -141,7 +166,7 @@
     "t": "磨礲",
     "o": "譬越箭达犀，饰之以括羽；楚金切玉，加之以磨□。救乏同于指囷，亲识待其举火。",
     "c": "譬越箭达犀，饰之以括羽；楚金切玉，加之以磨〔礲〕。救乏同于指囷，亲识待其举火。",
-    "page": "—",
+    "page": 35,
     "category": "残损碑文恢复",
     "title": "磨礲",
     "original": "譬越箭达犀，饰之以括羽；楚金切玉，加之以磨□。救乏同于指囷，亲识待其举火。",
@@ -152,6 +177,28 @@
       "“磨礲”即磨砺、琢磨，传世录文亦见“磨礱”或今字“磨砻”。",
       "“楚金切玉，加之以磨礲”与前句“越箭达犀，饰之以括羽”构成完整对偶。"
     ],
-    "locations": []
+    "locations": [
+      {
+        "page": 35,
+        "glyph_id": "011_boundary_011_皇甫诞碑_p0035_c016_011_皇甫诞碑_p0035_c017",
+        "canvas": {
+          "w": 1205,
+          "h": 1931
+        },
+        "bbox": {
+          "x": 535.0,
+          "y": 411.0,
+          "w": 189.0,
+          "h": 280.0
+        },
+        "match_method": "offline-anchor-boundary-slot",
+        "bbox_source": "reading-boundary-real-slot",
+        "left_glyph_id": "011_皇甫诞碑_p0035_c016",
+        "right_glyph_id": "011_皇甫诞碑_p0035_c017",
+        "target_square_ordinal": 1,
+        "target_kind": "restored",
+        "restored_text": "礲"
+      }
+    ]
   }
 ]
