@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V2__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V3__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V3__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V2__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V1__=true;
   document.documentElement.classList.add("detail-header-pending");
@@ -21,20 +22,21 @@
   const coreUrl="js/detail_info_patch_core.js?v=20260717_stable_header_v1";
   const dataUrl="data/beitie_header_info.json?v=20260717_stable_header_v1";
 
-  /* detail.html 长期保留了旧路由查询串。007在最先执行的补丁中主动移除旧脚本，强制载入当前版本。 */
-  function force007Router(){
-    if(workId!=="007"||document.querySelector("script[data-work007-forced-router='true']"))return;
+  /* detail.html 长期保留旧路由查询串；专属作品在最先执行的补丁中强制载入当前版本。 */
+  function forceDedicatedRouter(){
+    if(!["007","010"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
     window.__DAMAGE_AI_READING_ROUTER_V42__=true;
     window.__DAMAGE_AI_READING_ROUTER_V47__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V48__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260722_yique_columns_v8";
+    script.src="js/damage_ai_reading.js?v=20260722_zhaoqingxian_v1";
     script.async=false;
-    script.dataset.work007ForcedRouter="true";
-    script.addEventListener("error",()=>console.error("[detail-patch] 007当前路由加载失败",script.src),{once:true});
+    script.dataset.dedicatedForcedRouter=workId;
+    script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});
     document.head.appendChild(script);
   }
-  force007Router();
+  forceDedicatedRouter();
 
   function clean(value){return String(value==null?"":value).trim();}
   function first(...values){for(const value of values){const text=clean(value);if(text)return text;}return "";}

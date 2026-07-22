@@ -1,8 +1,8 @@
-/* 全部碑帖栏目二、三路由：006、007均使用单一专属模块。 */
+/* 全部碑帖栏目二、三路由：006、007、010使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V48__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V48__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V49__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V49__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -20,13 +20,17 @@
     "007":[
       {src:"js/work-007-coordinate-adapter.js?v=20260722_yique_columns_v8",key:"w007c",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER_V8__)},
       {src:"js/work-007.js?v=20260722_yique_columns_v8",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}
+    ],
+    "010":[
+      {src:"js/work-010-coordinate-adapter.js?v=20260722_zhaoqingxian_v1",key:"w010c",ready:()=>Boolean(window.__WORK_010_COORDINATE_ADAPTER__)},
+      {src:"js/work-010.js?v=20260722_zhaoqingxian_v1",key:"w010",ready:()=>Boolean(window.__WORK_010_STABLE_READY__)}
     ]
   };
 
-  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑"};
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑"};
 
   function installMask(){
-    if(id==="007"||document.getElementById("detail-route-pending-style"))return;
+    if(["007","010"].includes(id)||document.getElementById("detail-route-pending-style"))return;
     const style=document.createElement("style");
     style.id="detail-route-pending-style";
     style.textContent=".damage-basis-block,.damage-basis-card,[data-damage-basis]{display:none!important}";
@@ -75,7 +79,7 @@
     const title=titles[id]||`碑帖${id}`;
     renderLoading(title);
     await load({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"align",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
-    if(!["003","004","005","006","007"].includes(id)){
+    if(!["003","004","005","006","007","010"].includes(id)){
       await load({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"audit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
       await load({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"standard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
     }
