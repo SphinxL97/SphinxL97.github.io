@@ -6,7 +6,7 @@
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="007"||window.__WORK_007_COORDINATE_ADAPTER__)return;
 
-  const MODEL_URL="data/model_boxes/glyph_model_border_006_010.json?v=20260722_yique_fix_v2";
+  const MODEL_URL="data/model_boxes/glyph_model_border_006_010.json?v=20260722_yique_fix_v3";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   let groupedPromise=null;
 
@@ -26,6 +26,67 @@
 
   function compact(value){
     return Array.from(String(value||"")).map(canonical).filter(Boolean);
+  }
+
+  function correctedTokens(value){
+    const text=String(value||"");
+    const tokens=[];
+    let index=0;
+    while(index<text.length){
+      if(text[index]==="〔"){
+        const end=text.indexOf("〕",index+1);
+        const close=end<0?text.length:end;
+        const restored=Array.from(text.slice(index+1,close)).map(canonical).filter(Boolean).join("");
+        tokens.push({type:"restored",value:restored});
+        index=end<0?text.length:end+1;
+        continue;
+      }
+      const key=canonical(text[index]);
+      index+=1;
+      if(!key)continue;
+      tokens.push({type:key==="□"?"square":"char",value:key});
+    }
+    return tokens;
+  }
+
+  function targetSquareOrdinal(item){
+    const originalPattern=compact(item?.original||item?.o||"");
+    const corrected=correctedTokens(item?.corrected||item?.c||"");
+    let tokenIndex=0;
+    let squareOrdinal=0;
+    let firstRecovered=0;
+
+    for(const expected of originalPattern){
+      if(expected==="□"){
+        squareOrdinal+=1;
+        const token=corrected[tokenIndex];
+        if(token?.type==="restored"&&token.value&&!firstRecovered)firstRecovered=squareOrdinal;
+        if(token?.type==="restored"||token?.type==="square")tokenIndex+=1;
+        continue;
+      }
+
+      while(tokenIndex<corrected.length){
+        const token=corrected[tokenIndex];
+        if(token.type==="char"&&token.value===expected){
+          tokenIndex+=1;
+          break;
+        }
+        if(token.type==="restored"||token.type==="square")break;
+        tokenIndex+=1;
+      }
+    }
+
+    return firstRecovered||1;
+  }
+
+  function nthSquareIndex(pattern,ordinal){
+    let seen=0;
+    for(let index=0;index<pattern.length;index+=1){
+      if(pattern[index]!=="□")continue;
+      seen+=1;
+      if(seen===ordinal)return index;
+    }
+    return pattern.indexOf("□");
   }
 
   function rect(row){
@@ -92,36 +153,39 @@
     return stream;
   }
 
-  function exactCandidates(pattern,firstSquare,stream){
+  function exactCandidates(pattern,targetSquare,stream){
     const hits=[];
     for(let start=0;start+pattern.length<=stream.length;start+=1){
-      const target=stream[start+firstSquare];
-      if(!target||target.key!=="□")continue;
+      const target=stream[start+targetSquare];
+      if(!target)continue;
       let ok=true;
-      for(let j=0;j<pattern.length;j+=1){
-        const expected=pattern[j];
+      for(let index=0;index<pattern.length;index+=1){
+        const expected=pattern[index];
         if(expected==="□")continue;
-        if(stream[start+j]?.key!==expected){ok=false;break;}
+        if(stream[start+index]?.key!==expected){
+          ok=false;
+          break;
+        }
       }
-      if(ok)hits.push(start+firstSquare);
+      if(ok)hits.push(start+targetSquare);
     }
     return hits;
   }
 
-  function fuzzyCandidate(pattern,firstSquare,stream){
+  function fuzzyCandidate(pattern,targetSquare,stream){
     const relative=[];
-    const from=Math.max(0,firstSquare-18);
-    const to=Math.min(pattern.length-1,firstSquare+18);
-    for(let i=from;i<=to;i+=1){
-      if(i===firstSquare||pattern[i]==="□")continue;
-      relative.push({offset:i-firstSquare,key:pattern[i]});
+    const from=Math.max(0,targetSquare-18);
+    const to=Math.min(pattern.length-1,targetSquare+18);
+    for(let index=from;index<=to;index+=1){
+      if(index===targetSquare||pattern[index]==="□")continue;
+      relative.push({offset:index-targetSquare,key:pattern[index]});
     }
     if(relative.length<4)return -1;
 
     const ranked=[];
     for(let index=0;index<stream.length;index+=1){
-      if(stream[index].key!=="□")continue;
-      let compared=0,matched=0;
+      let compared=0;
+      let matched=0;
       for(const item of relative){
         const candidate=stream[index+item.offset];
         if(!candidate)continue;
@@ -131,8 +195,10 @@
       if(compared<Math.min(6,relative.length))continue;
       ranked.push({index,matched,compared,ratio:matched/compared});
     }
+
     ranked.sort((a,b)=>b.matched-a.matched||b.ratio-a.ratio||b.compared-a.compared);
-    const best=ranked[0],second=ranked[1];
+    const best=ranked[0];
+    const second=ranked[1];
     if(!best)return -1;
     const minimum=relative.length<=7?relative.length:Math.max(7,Math.ceil(best.compared*.82));
     if(best.matched<minimum||best.ratio<.82)return -1;
@@ -140,17 +206,23 @@
     return best.index;
   }
 
-  function locationFromEntry(entry,method){
+  function locationFromEntry(entry,method,ordinal,item){
     if(!entry)return null;
     const row=entry.row;
     const box=rect(row);
     if(box.w<=0||box.h<=0)return null;
+    const restored=correctedTokens(item?.corrected||item?.c||"")
+      .filter(token=>token.type==="restored"&&token.value)
+      .map(token=>token.value)[0]||"";
     return {
       page:Number(entry.page||row.canvas_index||0),
       glyph_id:String(row.glyph_id||""),
       canvas:{w:Number(row.canvas_width||2943),h:Number(row.canvas_height||4429)},
       bbox:{x:box.x,y:box.y,w:box.w,h:box.h},
-      match_method:method
+      match_method:method,
+      target_square_ordinal:ordinal,
+      target_kind:restored?"restored":"first-missing",
+      restored_text:restored
     };
   }
 
@@ -159,44 +231,46 @@
     const stream=buildStream(groups);
     const squareEntries=stream.filter(entry=>entry.key==="□");
     const source=Array.isArray(items)?items:[];
-    let squareOrdinal=0;
+    let globalSquareOrdinal=0;
     let located=0;
 
     const resolved=source.map(item=>{
       const currentLocations=Array.isArray(item?.locations)?item.locations:[];
       const pattern=compact(item?.original||item?.o||"");
-      const squareCount=pattern.filter(ch=>ch==="□").length;
-      const firstOrdinal=squareOrdinal;
-      squareOrdinal+=squareCount;
+      const squareCount=pattern.filter(char=>char==="□").length;
+      const caseStartOrdinal=globalSquareOrdinal;
+      globalSquareOrdinal+=squareCount;
       if(currentLocations.length||!squareCount)return item;
 
-      const firstSquare=pattern.indexOf("□");
+      const localOrdinal=Math.max(1,Math.min(squareCount,targetSquareOrdinal(item)));
+      const targetSquare=nthSquareIndex(pattern,localOrdinal);
       let targetIndex=-1;
       let method="";
-      const exact=exactCandidates(pattern,firstSquare,stream);
+
+      const exact=exactCandidates(pattern,targetSquare,stream);
       if(exact.length===1){
         targetIndex=exact[0];
         method="context-exact";
       }else{
-        targetIndex=fuzzyCandidate(pattern,firstSquare,stream);
+        targetIndex=fuzzyCandidate(pattern,targetSquare,stream);
         if(targetIndex>=0)method="context-fuzzy";
       }
 
-      if(targetIndex<0&&[67,69].includes(squareEntries.length)&&firstOrdinal<67){
-        const ordinalEntry=squareEntries[firstOrdinal];
+      if(targetIndex<0&&[67,69].includes(squareEntries.length)){
+        const ordinalEntry=squareEntries[caseStartOrdinal+localOrdinal-1];
         if(ordinalEntry){
           targetIndex=stream.indexOf(ordinalEntry);
           method="square-order";
         }
       }
 
-      const location=locationFromEntry(stream[targetIndex],method);
+      const location=locationFromEntry(stream[targetIndex],method,localOrdinal,item);
       if(!location)return item;
       located+=1;
       return {...item,locations:[location],page:location.page};
     });
 
-    console.info(`[work-007-coordinate-adapter] 已定位 ${located}/${source.length} 例；坐标方框 ${squareEntries.length} 个。`);
+    console.info(`[work-007-coordinate-adapter] 已定位 ${located}/${source.length} 例；坐标字框 ${stream.length} 个，方框标记 ${squareEntries.length} 个。`);
     return resolved;
   }
 
@@ -210,6 +284,6 @@
     return original?original(id,pageObj):[];
   };
 
-  window.WORK_007_COORDINATES={loadGroupedRows,locateCases};
+  window.WORK_007_COORDINATES={loadGroupedRows,locateCases,targetSquareOrdinal};
   window.__WORK_007_COORDINATE_ADAPTER__=true;
 })();
