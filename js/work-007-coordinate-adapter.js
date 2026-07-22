@@ -1,14 +1,32 @@
-/* 007《伊阙佛龛碑》栏目一真实逐字坐标适配。 */
+/* 007《伊阙佛龛碑》栏目一真实逐字坐标与栏目三案例定位适配。 */
 (function(){
   "use strict";
+
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="007"||window.__WORK_007_COORDINATE_ADAPTER__)return;
-  window.__WORK_007_COORDINATE_ADAPTER__=true;
 
-  const MODEL_URL="data/model_boxes/glyph_model_border_006_010.json?v=20260722_yique_final_v1";
+  const MODEL_URL="data/model_boxes/glyph_model_border_006_010.json?v=20260722_yique_fix_v2";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   let groupedPromise=null;
+
+  const variants={
+    "扵":"於","於":"於","乗":"乘","乘":"乘","髙":"高","高":"高",
+    "圡":"土","土":"土","邱":"丘","丘":"丘","无":"無","無":"無",
+    "祕":"秘","秘":"秘","峯":"峰","峰":"峰","羣":"群","群":"群",
+    "衆":"眾","眾":"眾","爲":"為","為":"為","裏":"裡","裡":"裡"
+  };
+  const ignored=/[\s\u3000，。；：、！？,.!?;:“”‘’'"（）()《》〈〉【】〔〕［］—–…·]/u;
+
+  function canonical(value){
+    const ch=String(value||"").slice(0,1);
+    if(!ch||ignored.test(ch))return "";
+    return variants[ch]||ch;
+  }
+
+  function compact(value){
+    return Array.from(String(value||"")).map(canonical).filter(Boolean);
+  }
 
   function rect(row){
     return {
@@ -22,7 +40,10 @@
   function loadGroupedRows(){
     if(!groupedPromise){
       groupedPromise=fetch(MODEL_URL,{cache:"force-cache"})
-        .then(response=>{if(!response.ok)throw new Error(`伊阙佛龛碑坐标 ${response.status}`);return response.json();})
+        .then(response=>{
+          if(!response.ok)throw new Error(`伊阙佛龛碑坐标 ${response.status}`);
+          return response.json();
+        })
         .then(rows=>{
           const groups=new Map();
           (Array.isArray(rows)?rows:[])
@@ -35,20 +56,148 @@
               if(!groups.has(page))groups.set(page,[]);
               const text=String(row.char||row.text||"").slice(0,1);
               groups.get(page).push({
-                ...row,work_id:"007",canvas_index:page,
+                ...row,
+                work_id:"007",
+                canvas_index:page,
                 glyph_id:String(row.glyph_id||`007_${page}_${index+1}`),
-                char:text,text,
+                char:text,
+                text,
                 order_in_page:Number(row.order_in_page||index+1),
-                bbox_x:box.x,bbox_y:box.y,bbox_w:box.w,bbox_h:box.h,
+                bbox_x:box.x,
+                bbox_y:box.y,
+                bbox_w:box.w,
+                bbox_h:box.h,
                 bbox:[box.x,box.y,box.w,box.h]
               });
             });
           groups.forEach(list=>list.sort((a,b)=>a.order_in_page-b.order_in_page));
           return groups;
         })
-        .catch(error=>{console.error("[work-007-coordinate-adapter]",error);return new Map();});
+        .catch(error=>{
+          console.error("[work-007-coordinate-adapter]",error);
+          return new Map();
+        });
     }
     return groupedPromise;
+  }
+
+  function buildStream(groups){
+    const stream=[];
+    Array.from(groups.keys()).sort((a,b)=>a-b).forEach(page=>{
+      (groups.get(page)||[]).forEach(row=>{
+        const key=canonical(row.char||row.text||"");
+        if(key)stream.push({key,row,page});
+      });
+    });
+    return stream;
+  }
+
+  function exactCandidates(pattern,firstSquare,stream){
+    const hits=[];
+    for(let start=0;start+pattern.length<=stream.length;start+=1){
+      const target=stream[start+firstSquare];
+      if(!target||target.key!=="□")continue;
+      let ok=true;
+      for(let j=0;j<pattern.length;j+=1){
+        const expected=pattern[j];
+        if(expected==="□")continue;
+        if(stream[start+j]?.key!==expected){ok=false;break;}
+      }
+      if(ok)hits.push(start+firstSquare);
+    }
+    return hits;
+  }
+
+  function fuzzyCandidate(pattern,firstSquare,stream){
+    const relative=[];
+    const from=Math.max(0,firstSquare-18);
+    const to=Math.min(pattern.length-1,firstSquare+18);
+    for(let i=from;i<=to;i+=1){
+      if(i===firstSquare||pattern[i]==="□")continue;
+      relative.push({offset:i-firstSquare,key:pattern[i]});
+    }
+    if(relative.length<4)return -1;
+
+    const ranked=[];
+    for(let index=0;index<stream.length;index+=1){
+      if(stream[index].key!=="□")continue;
+      let compared=0,matched=0;
+      for(const item of relative){
+        const candidate=stream[index+item.offset];
+        if(!candidate)continue;
+        compared+=1;
+        if(candidate.key===item.key)matched+=1;
+      }
+      if(compared<Math.min(6,relative.length))continue;
+      ranked.push({index,matched,compared,ratio:matched/compared});
+    }
+    ranked.sort((a,b)=>b.matched-a.matched||b.ratio-a.ratio||b.compared-a.compared);
+    const best=ranked[0],second=ranked[1];
+    if(!best)return -1;
+    const minimum=relative.length<=7?relative.length:Math.max(7,Math.ceil(best.compared*.82));
+    if(best.matched<minimum||best.ratio<.82)return -1;
+    if(second&&best.matched===second.matched&&Math.abs(best.ratio-second.ratio)<.08)return -1;
+    return best.index;
+  }
+
+  function locationFromEntry(entry,method){
+    if(!entry)return null;
+    const row=entry.row;
+    const box=rect(row);
+    if(box.w<=0||box.h<=0)return null;
+    return {
+      page:Number(entry.page||row.canvas_index||0),
+      glyph_id:String(row.glyph_id||""),
+      canvas:{w:Number(row.canvas_width||2943),h:Number(row.canvas_height||4429)},
+      bbox:{x:box.x,y:box.y,w:box.w,h:box.h},
+      match_method:method
+    };
+  }
+
+  async function locateCases(items){
+    const groups=await loadGroupedRows();
+    const stream=buildStream(groups);
+    const squareEntries=stream.filter(entry=>entry.key==="□");
+    const source=Array.isArray(items)?items:[];
+    let squareOrdinal=0;
+    let located=0;
+
+    const resolved=source.map(item=>{
+      const currentLocations=Array.isArray(item?.locations)?item.locations:[];
+      const pattern=compact(item?.original||item?.o||"");
+      const squareCount=pattern.filter(ch=>ch==="□").length;
+      const firstOrdinal=squareOrdinal;
+      squareOrdinal+=squareCount;
+      if(currentLocations.length||!squareCount)return item;
+
+      const firstSquare=pattern.indexOf("□");
+      let targetIndex=-1;
+      let method="";
+      const exact=exactCandidates(pattern,firstSquare,stream);
+      if(exact.length===1){
+        targetIndex=exact[0];
+        method="context-exact";
+      }else{
+        targetIndex=fuzzyCandidate(pattern,firstSquare,stream);
+        if(targetIndex>=0)method="context-fuzzy";
+      }
+
+      if(targetIndex<0&&[67,69].includes(squareEntries.length)&&firstOrdinal<67){
+        const ordinalEntry=squareEntries[firstOrdinal];
+        if(ordinalEntry){
+          targetIndex=stream.indexOf(ordinalEntry);
+          method="square-order";
+        }
+      }
+
+      const location=locationFromEntry(stream[targetIndex],method);
+      if(!location)return item;
+      located+=1;
+      return {...item,locations:[location],page:location.page};
+    });
+
+    console.info(`[work-007-coordinate-adapter] 已定位 ${located}/${source.length} 例；坐标方框 ${squareEntries.length} 个。`);
+    return resolved;
   }
 
   window.loadPageGlyphBoxes=async function(id,pageObj){
@@ -60,4 +209,7 @@
     if(rows.length)return rows;
     return original?original(id,pageObj):[];
   };
+
+  window.WORK_007_COORDINATES={loadGroupedRows,locateCases};
+  window.__WORK_007_COORDINATE_ADAPTER__=true;
 })();
