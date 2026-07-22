@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/generate-work011.yml
       - scripts/generate_work011_coordinates.py
+      - scripts/fix_work011_gap_locations.py
       - data/work011_full_text.txt
       - data/work011_damage_cases.json
   pull_request:
@@ -15,6 +16,7 @@ on:
     paths:
       - .github/workflows/generate-work011.yml
       - scripts/generate_work011_coordinates.py
+      - scripts/fix_work011_gap_locations.py
       - data/work011_full_text.txt
       - data/work011_damage_cases.json
   workflow_dispatch:
@@ -37,6 +39,7 @@ jobs:
           sparse-checkout: |
             .github/workflows/generate-work011.yml
             scripts/generate_work011_coordinates.py
+            scripts/fix_work011_gap_locations.py
             data/model_boxes/glyph_model_border_011_015.json
             data/work011_full_text.txt
             data/work011_damage_cases.json
@@ -48,8 +51,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate coordinate shards and static locations
+      - name: Generate coordinate shards
         run: python scripts/generate_work011_coordinates.py
+
+      - name: Align omitted damaged slots
+        run: python scripts/fix_work011_gap_locations.py
 
       - name: Commit generated data
         run: |
