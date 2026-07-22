@@ -17,8 +17,7 @@
   const TITLE="伊阙佛龛碑";
   const TEXT_URL="data/work007_full_text.txt?v=20260722_yique_final_v1";
   const CASE_URL="data/work007_damage_cases.json?v=20260722_yique_final_v1";
-  const PAGE_INDEX_URL="data/page_images_index.json?v=20260722_yique_final_v1";
-  const CROWD_URL="assets/js/crowdsource-v9.js?v=20260722_yique_final_v1";
+  const PAGE_INDEX_URL="data/page_images_index.json?v=20260722_yique_fix_v2";
   const RAW_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
   const IMAGE_PREFIX="assets/page_images/007_伊阙佛龛碑/";
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
@@ -26,7 +25,6 @@
 
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=value=>JSON.parse(JSON.stringify(value));
-  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
   function remoteImage(value){
     const source=String(value||"").trim();
@@ -42,7 +40,9 @@
       if(typeof pages!=="undefined"&&Array.isArray(pages)&&pages.length){
         pages.forEach(page=>{
           if(page.image)page.image=remoteImage(page.image);
-          (page.items||[]).forEach(item=>{if(item.local_image)item.local_image=remoteImage(item.local_image);});
+          (page.items||[]).forEach(item=>{
+            if(item.local_image)item.local_image=remoteImage(item.local_image);
+          });
         });
         const cover=document.getElementById("heroCover");
         if(cover&&pages[0]?.image)cover.src=pages[0].image;
@@ -52,7 +52,9 @@
         }
         ready=true;
       }
-    }catch(error){console.warn("[work-007] reader image patch",error);}
+    }catch(error){
+      console.warn("[work-007] reader image patch",error);
+    }
     if(!ready&&attempt<60)setTimeout(()=>patchReaderImages(attempt+1),80);
   }
 
@@ -79,14 +81,15 @@
     const title=String(row?.title||row?.t||`第${id}处缺字`);
     const original=String(row?.original||row?.o||"");
     const corrected=String(row?.corrected||row?.c||original);
+    const locations=Array.isArray(row?.locations)?row.locations:[];
     return {
       ...row,id,n:category,t:title,o:original,c:corrected,
       category,title,original,corrected,
       mode:String(row?.mode||"unresolved"),
       confidence:String(row?.confidence||"暂无法判断"),
       analysis:Array.isArray(row?.analysis)?row.analysis.map(String):[],
-      locations:Array.isArray(row?.locations)?row.locations:[],
-      page:row?.page||row?.locations?.[0]?.page||"—"
+      locations,
+      page:row?.page||locations[0]?.page||"—"
     };
   }
 
@@ -121,7 +124,9 @@
       if(!matches.length)return;
       matches.sort((a,b)=>a.start-b.start||b.end-a.end);
       const accepted=[];let end=-1;
-      matches.forEach(item=>{if(item.start>=end){accepted.push(item);end=item.end;}});
+      matches.forEach(item=>{
+        if(item.start>=end){accepted.push(item);end=item.end;}
+      });
       const fragment=document.createDocumentFragment();let offset=0;
       accepted.forEach(item=>{
         if(item.start>offset)fragment.appendChild(document.createTextNode(text.slice(offset,item.start)));
@@ -170,8 +175,16 @@
     const bbox=source?.bbox;
     const page=Number(source?.page||item.page||0);
     if(!bbox||!page)return null;
-    const canvas={w:Number(source?.canvas?.w||source?.canvas_width||2943),h:Number(source?.canvas?.h||source?.canvas_height||4429)};
-    const target={x:Number(bbox.x||0),y:Number(bbox.y||0),w:Number(bbox.w||0),h:Number(bbox.h||0)};
+    const canvas={
+      w:Number(source?.canvas?.w||source?.canvas_width||2943),
+      h:Number(source?.canvas?.h||source?.canvas_height||4429)
+    };
+    const target={
+      x:Number(bbox.x??bbox[0]??0),
+      y:Number(bbox.y??bbox[1]??0),
+      w:Number(bbox.w??bbox[2]??0),
+      h:Number(bbox.h??bbox[3]??0)
+    };
     if(target.w<=0||target.h<=0)return null;
     const cropW=Math.min(canvas.w,Math.max(900,target.w+620));
     const cropH=Math.min(canvas.h,Math.max(1250,target.h+940));
@@ -180,15 +193,19 @@
       y:Math.max(0,Math.min(canvas.h-cropH,target.y+target.h/2-cropH/2)),
       w:cropW,h:cropH
     };
-    return{page,image:pageImages.get(page)||remoteImage(source.image||""),canvas,target,crop};
+    return {page,image:pageImages.get(page)||remoteImage(source.image||""),canvas,target,crop};
   }
 
+  let locationState="loading";
   function imageHTML(item){
     const location=makeLocation(item);
-    if(!location||!location.image){
-      return '<div class="damage-location-missing"><p>现有逐字坐标中暂未可靠定位本句第一个问题字。系统不会使用第二个问题字或无关字形代替。</p></div>';
+    if(location&&location.image){
+      return `<div class="damage-viewport" data-image="${esc(location.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${location.crop.x} ${location.crop.y} ${location.crop.w} ${location.crop.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(item.title)}对应拓片局部"><image href="${esc(location.image)}" x="0" y="0" width="${location.canvas.w}" height="${location.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${location.target.x}" y="${location.target.y}" width="${location.target.w}" height="${location.target.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${location.page}页，本句第一个问题字局部</p>`;
     }
-    return `<div class="damage-viewport" data-image="${esc(location.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${location.crop.x} ${location.crop.y} ${location.crop.w} ${location.crop.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(item.title)}对应拓片局部"><image href="${esc(location.image)}" x="0" y="0" width="${location.canvas.w}" height="${location.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${location.target.x}" y="${location.target.y}" width="${location.target.w}" height="${location.target.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${location.page}页，本句第一个问题字局部</p>`;
+    if(locationState==="loading"){
+      return '<div class="damage-location-missing damage-location-loading"><p>正在读取现有逐字坐标，并定位本句第一个问题字……</p></div>';
+    }
+    return '<div class="damage-location-missing"><p>现有逐字坐标中暂未可靠定位本句第一个问题字。系统不会使用第二个问题字或无关字形代替。</p></div>';
   }
 
   function markedHTML(value){
@@ -233,7 +250,9 @@
       requestAnimationFrame(()=>list.querySelector(".damage-tab.active")?.scrollIntoView({block:"nearest"}));
     }
     section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{
-      current=Number(button.dataset.caseIndex)||0;expanded=false;renderDamage();
+      current=Number(button.dataset.caseIndex)||0;
+      expanded=false;
+      renderDamage();
     }));
     section.querySelectorAll("[data-action]").forEach(button=>button.addEventListener("click",()=>{
       const action=button.dataset.action;
@@ -251,25 +270,31 @@
     if(document.getElementById("work007-yique-style"))return;
     const style=document.createElement("style");
     style.id="work007-yique-style";
-    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-location-missing{padding:28px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a}";
+    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-location-missing{padding:28px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a}.damage-location-loading{display:flex;align-items:center;justify-content:center;min-height:210px}";
     document.head.appendChild(style);
   }
 
-  async function loadCrowdsource(){
-    if(window.__CROWDSOURCE_MISSING_V10__)return true;
-    const path=CROWD_URL.split("?")[0];
-    let script=Array.from(document.scripts).find(node=>(node.getAttribute("src")||"").split("?")[0].endsWith(path));
-    if(!script){
-      script=document.createElement("script");
-      script.src=CROWD_URL;
-      script.async=false;
-      document.head.appendChild(script);
+  async function locateCasePositions(){
+    const locate=window.WORK_007_COORDINATES?.locateCases;
+    if(typeof locate!=="function"){
+      locationState="error";
+      renderDamage();
+      return;
     }
-    for(let i=0;i<300;i+=1){
-      if(window.__CROWDSOURCE_MISSING_V10__)return true;
-      await sleep(50);
+    try{
+      const located=await locate(cases);
+      cases=(Array.isArray(located)?located:cases).map(normalizeCase);
+      locationState="ready";
+      syncCases(cases);
+      renderDamage();
+      window.dispatchEvent(new CustomEvent("work-007-locations-ready",{
+        detail:{located:cases.filter(item=>item.locations?.length).length,total:cases.length}
+      }));
+    }catch(error){
+      console.error("[work-007] case locations",error);
+      locationState="error";
+      renderDamage();
     }
-    throw new Error("伊阙佛龛碑栏目四初始化超时");
   }
 
   async function init(){
@@ -284,15 +309,17 @@
       syncCases(cases);
       await renderTranscript(cases);
       renderDamage();
+
+      /* 核心内容显示成功后立即完成路由；坐标定位在后台继续，不再让栏目四超时覆盖栏目三。 */
       window.__WORK_007_CONTENT_READY__=true;
-      window.dispatchEvent(new CustomEvent("work-007-content-ready",{detail:{count:cases.length}}));
-      window.__CROWDSOURCE_MISSING_V10__=false;
-      await loadCrowdsource();
       window.__WORK_007_STABLE_READY__=true;
+      window.dispatchEvent(new CustomEvent("work-007-content-ready",{detail:{count:cases.length}}));
       window.dispatchEvent(new CustomEvent("work-007-stable-ready",{detail:{cases:cases.length}}));
+      void locateCasePositions();
     }catch(error){
       console.error("[work-007]",error);
       window.__WORK_007_CONTENT_READY__=true;
+      window.__WORK_007_STABLE_READY__=true;
       if(damage)damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-error">《${TITLE}》释读案例暂时无法读取，请刷新页面后重试。</div></div>`;
     }
   }
