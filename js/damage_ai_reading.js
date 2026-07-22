@@ -1,8 +1,8 @@
-/* 全部碑帖栏目二、三路由：006使用单一专属模块，007使用稳定专属入口。 */
+/* 全部碑帖栏目二、三路由：006、007均使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V40__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V40__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V41__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V41__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -17,13 +17,16 @@
     "004":[{src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"w004c",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},{src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"w004",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}],
     "005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}],
     "006":[{src:"js/work-remote-image-adapter.js?v=20260722_remote_v2",key:"w006remote",ready:()=>Boolean(window.__WORK_REMOTE_IMAGE_ADAPTER__)},{src:"js/work-006-shichenhou.js?v=20260722_shichenhou_final_v3",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
-    "007":[{src:"js/work-007-yique-stable.js?v=20260722_stable_v2",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}]
+    "007":[
+      {src:"js/work-007-coordinate-adapter.js?v=20260722_yique_final_v1",key:"w007c",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER__)},
+      {src:"js/work-007.js?v=20260722_yique_final_v1",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}
+    ]
   };
 
   const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑"};
 
   function installMask(){
-    if(document.getElementById("detail-route-pending-style"))return;
+    if(id==="007"||document.getElementById("detail-route-pending-style"))return;
     const style=document.createElement("style");
     style.id="detail-route-pending-style";
     style.textContent=".damage-basis-block,.damage-basis-card,[data-damage-basis]{display:none!important}";
