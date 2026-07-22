@@ -8,6 +8,7 @@ on:
       - .github/workflows/generate-work011.yml
       - scripts/generate_work011_coordinates.py
       - scripts/fix_work011_gap_locations.py
+      - scripts/finalize_work011_anchor_locations.py
       - data/work011_full_text.txt
       - data/work011_damage_cases.json
   pull_request:
@@ -17,6 +18,7 @@ on:
       - .github/workflows/generate-work011.yml
       - scripts/generate_work011_coordinates.py
       - scripts/fix_work011_gap_locations.py
+      - scripts/finalize_work011_anchor_locations.py
       - data/work011_full_text.txt
       - data/work011_damage_cases.json
   workflow_dispatch:
@@ -40,6 +42,7 @@ jobs:
             .github/workflows/generate-work011.yml
             scripts/generate_work011_coordinates.py
             scripts/fix_work011_gap_locations.py
+            scripts/finalize_work011_anchor_locations.py
             data/model_boxes/glyph_model_border_011_015.json
             data/work011_full_text.txt
             data/work011_damage_cases.json
@@ -54,8 +57,11 @@ jobs:
       - name: Generate coordinate shards
         run: python scripts/generate_work011_coordinates.py
 
-      - name: Align omitted damaged slots and preserve audit
+      - name: Preserve broad context audit
         run: python scripts/fix_work011_gap_locations.py || true
+
+      - name: Finalize five confirmed anchor positions
+        run: python scripts/finalize_work011_anchor_locations.py
 
       - name: Commit generated data
         run: |
