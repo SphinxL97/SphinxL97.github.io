@@ -9,6 +9,7 @@ on:
       - scripts/generate_work011_coordinates.py
       - scripts/fix_work011_gap_locations.py
       - scripts/finalize_work011_anchor_locations.py
+      - scripts/resolve_work011_case02_order.py
       - data/work011_full_text.txt
       - data/work011_damage_cases.json
   pull_request:
@@ -19,6 +20,7 @@ on:
       - scripts/generate_work011_coordinates.py
       - scripts/fix_work011_gap_locations.py
       - scripts/finalize_work011_anchor_locations.py
+      - scripts/resolve_work011_case02_order.py
       - data/work011_full_text.txt
       - data/work011_damage_cases.json
   workflow_dispatch:
@@ -43,6 +45,7 @@ jobs:
             scripts/generate_work011_coordinates.py
             scripts/fix_work011_gap_locations.py
             scripts/finalize_work011_anchor_locations.py
+            scripts/resolve_work011_case02_order.py
             data/model_boxes/glyph_model_border_011_015.json
             data/work011_full_text.txt
             data/work011_damage_cases.json
@@ -62,6 +65,9 @@ jobs:
 
       - name: Finalize five confirmed anchor positions and preserve audit
         run: python scripts/finalize_work011_anchor_locations.py || true
+
+      - name: Resolve case 02 by confirmed text order
+        run: python scripts/resolve_work011_case02_order.py
 
       - name: Commit generated data
         run: |
