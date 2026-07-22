@@ -1,0 +1,51 @@
+name: Fix 011 detail cache
+
+on:
+  push:
+    branches:
+      - agent/fix-011-detail-cache
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-011-detail-cache
+          fetch-depth: 0
+      - name: Update top-level cache versions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('detail.html')
+          text = path.read_text(encoding='utf-8')
+          old_info = 'js/detail_info_patch.js?v=20260629_info'
+          old_router = 'js/damage_ai_reading.js?v=20260714_v9'
+          new_info = 'js/detail_info_patch.js?v=20260723_huangfudan_fix_v2'
+          new_router = 'js/damage_ai_reading.js?v=20260723_huangfudan_fix_v2'
+          if old_info not in text:
+              if new_info not in text:
+                  raise SystemExit('detail_info_patch script reference not found')
+          else:
+              text = text.replace(old_info, new_info, 1)
+          if old_router not in text:
+              if new_router not in text:
+                  raise SystemExit('damage_ai_reading script reference not found')
+          else:
+              text = text.replace(old_router, new_router, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit change
+        run: |
+          if git diff --quiet -- detail.html; then
+            echo "detail.html already uses the new cache versions"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detail.html
+          git commit -m "更新011详情页顶层脚本缓存版本"
+          git push origin HEAD:agent/fix-011-detail-cache
