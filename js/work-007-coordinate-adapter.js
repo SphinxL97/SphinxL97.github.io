@@ -1,4 +1,4 @@
-/* 007《伊阙佛龛碑》栏目一真实逐字坐标与栏目三案例定位适配。 */
+/* 007《伊阙佛龛碑》栏目一真实逐字坐标与栏目三页内定位适配。 */
 (function(){
   "use strict";
 
@@ -6,8 +6,10 @@
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="007"||window.__WORK_007_COORDINATE_ADAPTER__)return;
 
-  const MODEL_URL="data/model_boxes/glyph_model_border_006_010.json?v=20260722_yique_fix_v3";
+  const PAGE_COUNT=124;
+  const PAGE_BOX_ROOT="data/glyph_boxes/iiif/007";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
+  const pagePromises=new Map();
   let groupedPromise=null;
 
   const variants={
@@ -49,18 +51,20 @@
     return tokens;
   }
 
-  function targetSquareOrdinal(item){
+  function caseTarget(item){
     const originalPattern=compact(item?.original||item?.o||"");
     const corrected=correctedTokens(item?.corrected||item?.c||"");
     let tokenIndex=0;
     let squareOrdinal=0;
-    let firstRecovered=0;
+    let firstRecovered=null;
 
     for(const expected of originalPattern){
       if(expected==="□"){
         squareOrdinal+=1;
         const token=corrected[tokenIndex];
-        if(token?.type==="restored"&&token.value&&!firstRecovered)firstRecovered=squareOrdinal;
+        if(token?.type==="restored"&&token.value&&!firstRecovered){
+          firstRecovered={ordinal:squareOrdinal,restoredText:token.value};
+        }
         if(token?.type==="restored"||token?.type==="square")tokenIndex+=1;
         continue;
       }
@@ -76,7 +80,7 @@
       }
     }
 
-    return firstRecovered||1;
+    return firstRecovered||{ordinal:1,restoredText:""};
   }
 
   function nthSquareIndex(pattern,ordinal){
@@ -98,46 +102,69 @@
     };
   }
 
-  function loadGroupedRows(){
-    if(!groupedPromise){
-      groupedPromise=fetch(MODEL_URL,{cache:"force-cache"})
+  function normalizeRow(row,page,index){
+    const box=rect(row);
+    if(box.w<=0||box.h<=0)return null;
+    const text=String(row.char||row.text||"").slice(0,1);
+    return {
+      ...row,
+      work_id:"007",
+      canvas_index:Number(row.canvas_index||row.page||page),
+      glyph_id:String(row.glyph_id||`007_${page}_${index+1}`),
+      char:text,
+      text,
+      order_in_page:Number(row.order_in_page||row.annotation_index||index+1),
+      bbox_x:box.x,
+      bbox_y:box.y,
+      bbox_w:box.w,
+      bbox_h:box.h,
+      bbox:[box.x,box.y,box.w,box.h]
+    };
+  }
+
+  function pageBoxURL(page){
+    return `${PAGE_BOX_ROOT}/page_${String(page).padStart(4,"0")}.json?v=20260722_yique_page_local_v4`;
+  }
+
+  function loadPageRows(page){
+    const pageNo=Number(page||0);
+    if(!pageNo)return Promise.resolve([]);
+    if(!pagePromises.has(pageNo)){
+      pagePromises.set(pageNo,fetch(pageBoxURL(pageNo),{cache:"force-cache"})
         .then(response=>{
-          if(!response.ok)throw new Error(`伊阙佛龛碑坐标 ${response.status}`);
+          if(response.status===404)return [];
+          if(!response.ok)throw new Error(`伊阙佛龛碑第${pageNo}页坐标 ${response.status}`);
           return response.json();
         })
-        .then(rows=>{
-          const groups=new Map();
-          (Array.isArray(rows)?rows:[])
-            .filter(row=>String(row.work_id||"").padStart(3,"0")==="007")
-            .forEach((row,index)=>{
-              const page=Number(row.canvas_index||row.page||0);
-              if(!page)return;
-              const box=rect(row);
-              if(box.w<=0||box.h<=0)return;
-              if(!groups.has(page))groups.set(page,[]);
-              const text=String(row.char||row.text||"").slice(0,1);
-              groups.get(page).push({
-                ...row,
-                work_id:"007",
-                canvas_index:page,
-                glyph_id:String(row.glyph_id||`007_${page}_${index+1}`),
-                char:text,
-                text,
-                order_in_page:Number(row.order_in_page||index+1),
-                bbox_x:box.x,
-                bbox_y:box.y,
-                bbox_w:box.w,
-                bbox_h:box.h,
-                bbox:[box.x,box.y,box.w,box.h]
-              });
-            });
-          groups.forEach(list=>list.sort((a,b)=>a.order_in_page-b.order_in_page));
-          return groups;
-        })
+        .then(rows=>(Array.isArray(rows)?rows:[])
+          .map((row,index)=>normalizeRow(row,pageNo,index))
+          .filter(Boolean)
+          .sort((a,b)=>a.order_in_page-b.order_in_page))
         .catch(error=>{
-          console.error("[work-007-coordinate-adapter]",error);
-          return new Map();
-        });
+          console.warn("[work-007-coordinate-adapter] page",pageNo,error);
+          return [];
+        }));
+    }
+    return pagePromises.get(pageNo);
+  }
+
+  async function loadGroupedRows(){
+    if(!groupedPromise){
+      groupedPromise=(async()=>{
+        const groups=new Map();
+        const concurrency=12;
+        for(let start=1;start<=PAGE_COUNT;start+=concurrency){
+          const pageNumbers=Array.from(
+            {length:Math.min(concurrency,PAGE_COUNT-start+1)},
+            (_,offset)=>start+offset
+          );
+          const lists=await Promise.all(pageNumbers.map(loadPageRows));
+          lists.forEach((rows,index)=>{
+            if(rows.length)groups.set(pageNumbers[index],rows);
+          });
+        }
+        return groups;
+      })();
     }
     return groupedPromise;
   }
@@ -153,10 +180,75 @@
     return stream;
   }
 
-  function exactCandidates(pattern,targetSquare,stream){
+  function contextOffsets(pattern,targetIndex,radius=18){
+    const offsets=[];
+    const from=Math.max(0,targetIndex-radius);
+    const to=Math.min(pattern.length-1,targetIndex+radius);
+    for(let index=from;index<=to;index+=1){
+      if(index===targetIndex||pattern[index]==="□")continue;
+      offsets.push({offset:index-targetIndex,key:pattern[index]});
+    }
+    return offsets;
+  }
+
+  function pageLocalCandidate(pattern,targetIndex,restoredText,groups){
+    const context=contextOffsets(pattern,targetIndex);
+    const restoredKey=canonical(restoredText);
+    const ranked=[];
+
+    groups.forEach((rows,page)=>{
+      const keys=rows.map(row=>canonical(row.char||row.text||""));
+      rows.forEach((row,index)=>{
+        let compared=0;
+        let matched=0;
+        for(const item of context){
+          const candidateIndex=index+item.offset;
+          if(candidateIndex<0||candidateIndex>=keys.length)continue;
+          compared+=1;
+          if(keys[candidateIndex]===item.key)matched+=1;
+        }
+        if(compared<4)return;
+
+        const targetKey=keys[index];
+        const targetAgreement=targetKey==="□"||Boolean(restoredKey&&targetKey===restoredKey);
+        const ratio=matched/compared;
+        const score=matched*10+ratio+(targetAgreement?2:0);
+
+        if(matched>=4&&ratio>=.75){
+          ranked.push({page,index,row,matched,compared,ratio,targetAgreement,score});
+        }
+      });
+    });
+
+    ranked.sort((a,b)=>
+      b.score-a.score||
+      b.matched-a.matched||
+      b.ratio-a.ratio||
+      b.compared-a.compared
+    );
+
+    const best=ranked[0];
+    const second=ranked[1];
+    if(!best)return null;
+
+    const requiredMatches=Math.min(8,Math.max(4,Math.ceil(best.compared*.72)));
+    if(best.matched<requiredMatches||best.ratio<.78)return null;
+
+    if(second){
+      const sameStrength=
+        best.matched===second.matched&&
+        Math.abs(best.ratio-second.ratio)<.06&&
+        best.targetAgreement===second.targetAgreement;
+      if(sameStrength)return null;
+    }
+
+    return {key:canonical(best.row.char||best.row.text||""),row:best.row,page:best.page};
+  }
+
+  function exactCandidates(pattern,targetIndex,stream){
     const hits=[];
     for(let start=0;start+pattern.length<=stream.length;start+=1){
-      const target=stream[start+targetSquare];
+      const target=stream[start+targetIndex];
       if(!target)continue;
       let ok=true;
       for(let index=0;index<pattern.length;index+=1){
@@ -167,19 +259,13 @@
           break;
         }
       }
-      if(ok)hits.push(start+targetSquare);
+      if(ok)hits.push(start+targetIndex);
     }
     return hits;
   }
 
-  function fuzzyCandidate(pattern,targetSquare,stream){
-    const relative=[];
-    const from=Math.max(0,targetSquare-18);
-    const to=Math.min(pattern.length-1,targetSquare+18);
-    for(let index=from;index<=to;index+=1){
-      if(index===targetSquare||pattern[index]==="□")continue;
-      relative.push({offset:index-targetSquare,key:pattern[index]});
-    }
+  function fuzzyCandidate(pattern,targetIndex,stream){
+    const relative=contextOffsets(pattern,targetIndex);
     if(relative.length<4)return -1;
 
     const ranked=[];
@@ -206,23 +292,20 @@
     return best.index;
   }
 
-  function locationFromEntry(entry,method,ordinal,item){
+  function locationFromEntry(entry,method,target){
     if(!entry)return null;
     const row=entry.row;
     const box=rect(row);
     if(box.w<=0||box.h<=0)return null;
-    const restored=correctedTokens(item?.corrected||item?.c||"")
-      .filter(token=>token.type==="restored"&&token.value)
-      .map(token=>token.value)[0]||"";
     return {
       page:Number(entry.page||row.canvas_index||0),
       glyph_id:String(row.glyph_id||""),
-      canvas:{w:Number(row.canvas_width||2943),h:Number(row.canvas_height||4429)},
+      canvas:{w:Number(row.canvas_width||2932),h:Number(row.canvas_height||4434)},
       bbox:{x:box.x,y:box.y,w:box.w,h:box.h},
       match_method:method,
-      target_square_ordinal:ordinal,
-      target_kind:restored?"restored":"first-missing",
-      restored_text:restored
+      target_square_ordinal:target.ordinal,
+      target_kind:target.restoredText?"restored":"first-missing",
+      restored_text:target.restoredText||""
     };
   }
 
@@ -233,6 +316,7 @@
     const source=Array.isArray(items)?items:[];
     let globalSquareOrdinal=0;
     let located=0;
+    let pageLocalLocated=0;
 
     const resolved=source.map(item=>{
       const currentLocations=Array.isArray(item?.locations)?item.locations:[];
@@ -242,48 +326,65 @@
       globalSquareOrdinal+=squareCount;
       if(currentLocations.length||!squareCount)return item;
 
-      const localOrdinal=Math.max(1,Math.min(squareCount,targetSquareOrdinal(item)));
-      const targetSquare=nthSquareIndex(pattern,localOrdinal);
-      let targetIndex=-1;
+      const target=caseTarget(item);
+      target.ordinal=Math.max(1,Math.min(squareCount,target.ordinal));
+      const targetIndex=nthSquareIndex(pattern,target.ordinal);
+      let entry=null;
       let method="";
 
-      const exact=exactCandidates(pattern,targetSquare,stream);
-      if(exact.length===1){
-        targetIndex=exact[0];
-        method="context-exact";
-      }else{
-        targetIndex=fuzzyCandidate(pattern,targetSquare,stream);
-        if(targetIndex>=0)method="context-fuzzy";
+      /* 方案A：优先复用栏目一同源的逐页坐标，在单页字序内匹配目标缺字。 */
+      entry=pageLocalCandidate(pattern,targetIndex,target.restoredText,groups);
+      if(entry){
+        method="page-local-context";
+        pageLocalLocated+=1;
       }
 
-      if(targetIndex<0&&[67,69].includes(squareEntries.length)){
-        const ordinalEntry=squareEntries[caseStartOrdinal+localOrdinal-1];
-        if(ordinalEntry){
-          targetIndex=stream.indexOf(ordinalEntry);
-          method="square-order";
+      /* 页内上下文无法唯一确定时，才退回全文连续字序匹配。 */
+      if(!entry){
+        const exact=exactCandidates(pattern,targetIndex,stream);
+        if(exact.length===1){
+          entry=stream[exact[0]];
+          method="context-exact";
+        }else{
+          const fuzzyIndex=fuzzyCandidate(pattern,targetIndex,stream);
+          if(fuzzyIndex>=0){
+            entry=stream[fuzzyIndex];
+            method="context-fuzzy";
+          }
         }
       }
 
-      const location=locationFromEntry(stream[targetIndex],method,localOrdinal,item);
+      /* 最后只在方框总数与正文缺字数一致时使用方框顺序兜底。 */
+      if(!entry&&[67,69].includes(squareEntries.length)){
+        entry=squareEntries[caseStartOrdinal+target.ordinal-1]||null;
+        if(entry)method="square-order";
+      }
+
+      const location=locationFromEntry(entry,method,target);
       if(!location)return item;
       located+=1;
       return {...item,locations:[location],page:location.page};
     });
 
-    console.info(`[work-007-coordinate-adapter] 已定位 ${located}/${source.length} 例；坐标字框 ${stream.length} 个，方框标记 ${squareEntries.length} 个。`);
+    console.info(
+      `[work-007-coordinate-adapter] 已定位 ${located}/${source.length} 例；`+
+      `其中页内定位 ${pageLocalLocated} 例；逐页坐标 ${stream.length} 字框，方框 ${squareEntries.length} 个。`
+    );
     return resolved;
   }
 
   window.loadPageGlyphBoxes=async function(id,pageObj){
-    const normalized=String(id||"").split("-")[0].padStart(3,"0");
+    const normalized=String(id||"").match(/^(\d{3})/)?.[1]||String(id||"").padStart(3,"0");
     if(normalized!=="007")return original?original(id,pageObj):[];
-    const groups=await loadGroupedRows();
     const page=Number(pageObj?.canvas_index||pageObj?.page||0);
-    const rows=(groups.get(page)||[]).map(row=>({...row,local_image:pageObj?.image||row.local_image||""}));
+    const rows=(await loadPageRows(page)).map(row=>({
+      ...row,
+      local_image:pageObj?.image||row.local_image||""
+    }));
     if(rows.length)return rows;
     return original?original(id,pageObj):[];
   };
 
-  window.WORK_007_COORDINATES={loadGroupedRows,locateCases,targetSquareOrdinal};
+  window.WORK_007_COORDINATES={loadPageRows,loadGroupedRows,locateCases,caseTarget};
   window.__WORK_007_COORDINATE_ADAPTER__=true;
 })();
