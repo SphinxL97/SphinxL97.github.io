@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：006、007使用各自稳定专属入口。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V36__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V36__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V37__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V37__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -16,8 +16,8 @@
     "003":[{src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v3",key:"w003",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
     "004":[{src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"w004c",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},{src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"w004",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}],
     "005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}],
-    "006":[{src:"js/work-006-shichenhou-stable.js?v=20260722_stable_v1",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
-    "007":[{src:"js/work-007-yique-stable.js?v=20260722_stable_v1",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}]
+    "006":[{src:"js/work-006-shichenhou-stable.js?v=20260722_stable_v2",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
+    "007":[{src:"js/work-007-yique-stable.js?v=20260722_stable_v2",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}]
   };
 
   const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑"};
@@ -39,17 +39,29 @@
     if(damage){damage.className="content-card damage-ai";damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${title}》释读案例……</div></div>`;}
   }
 
+  function waitReady(test,limit=300){
+    return new Promise(resolve=>{
+      if(test?.()){resolve(true);return;}
+      let tries=0;
+      const timer=setInterval(()=>{
+        tries+=1;
+        if(test?.()){clearInterval(timer);resolve(true);}
+        else if(tries>=limit){clearInterval(timer);resolve(false);}
+      },50);
+    });
+  }
+
   function load(item){
     return new Promise(resolve=>{
       if(item.ready?.()){resolve(true);return;}
       const path=item.src.split("?")[0];
       const existing=Array.from(document.scripts).find(script=>(script.getAttribute("src")||"").split("?")[0].endsWith(path));
-      if(existing){setTimeout(()=>resolve(true),80);return;}
+      if(existing){waitReady(item.ready).then(resolve);return;}
       const script=document.createElement("script");
       script.src=item.src;
       script.async=false;
       script.dataset[item.key]="true";
-      script.onload=()=>resolve(true);
+      script.onload=()=>waitReady(item.ready).then(resolve);
       script.onerror=()=>{console.error("[work-router]",item.src);resolve(false);};
       document.head.appendChild(script);
     });
@@ -67,7 +79,10 @@
     const route=routes[id]||[];
     let success=Boolean(route.length);
     for(const item of route)success=(await load(item))&&success;
-    if(!success)[document.getElementById("calligraphy"),document.getElementById("people")].forEach(section=>{const node=section?.querySelector(".full-transcript-loading");if(node)node.textContent=`《${title}》专属内容加载失败，请刷新页面后重试。`;});
+    if(!success)[document.getElementById("calligraphy"),document.getElementById("people")].forEach(section=>{
+      const node=section?.querySelector(".full-transcript-loading");
+      if(node)node.textContent=`《${title}》专属内容加载失败，请刷新页面后重试。`;
+    });
   }
 
   if(document.getElementById("calligraphy")&&document.getElementById("people"))start();
