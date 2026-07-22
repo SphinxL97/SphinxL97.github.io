@@ -1,4 +1,4 @@
-/* 007《伊阙佛龛碑》栏目一真实逐字坐标与栏目三全案例定位适配。 */
+/* 007《伊阙佛龛碑》栏目一按页坐标与栏目三全案例稳定定位适配。 */
 (function(){
   "use strict";
 
@@ -6,13 +6,14 @@
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="007"||window.__WORK_007_COORDINATE_ADAPTER__)return;
 
-  const PAGE_COUNT=124;
+  const CACHE_TAG="20260722_yique_static_order_v6";
+  const MODEL_URL=`data/model_boxes/glyph_model_border_006_010.json?v=${CACHE_TAG}`;
   const PAGE_BOX_ROOT="data/glyph_boxes/iiif/007";
-  const CACHE_TAG="20260722_yique_all_cases_v5";
+  const RAW_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
+  const IMAGE_PREFIX="assets/page_images/007_伊阙佛龛碑/";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();
-  const failedPages=new Set();
-  let groupedPromise=null;
+  let modelPromise=null;
 
   const variants={
     "扵":"於","於":"於","乗":"乘","乘":"乘","髙":"高","高":"高",
@@ -71,18 +72,13 @@
         if(token?.type==="restored"||token?.type==="square")tokenIndex+=1;
         continue;
       }
-
       while(tokenIndex<corrected.length){
         const token=corrected[tokenIndex];
-        if(token.type==="char"&&token.value===expected){
-          tokenIndex+=1;
-          break;
-        }
+        if(token.type==="char"&&token.value===expected){tokenIndex+=1;break;}
         if(token.type==="restored"||token.type==="square")break;
         tokenIndex+=1;
       }
     }
-
     return firstRecovered||{ordinal:1,restoredText:""};
   }
 
@@ -105,15 +101,25 @@
     };
   }
 
+  function rowWorkId(row){
+    const source=String(row?.work_id||row?.work||"");
+    const match=source.match(/^(\d{3})/);
+    if(match)return match[1];
+    if(Number(row?.work_index)===7)return "007";
+    return "";
+  }
+
   function normalizeRow(row,page,index){
     const box=rect(row);
     if(box.w<=0||box.h<=0)return null;
+    const pageNo=Number(row.canvas_index||row.page||page||0);
+    if(!pageNo)return null;
     const text=String(row.char||row.text||"").slice(0,1);
     return {
       ...row,
       work_id:"007",
-      canvas_index:Number(row.canvas_index||row.page||page),
-      glyph_id:String(row.glyph_id||`007_${page}_${index+1}`),
+      canvas_index:pageNo,
+      glyph_id:String(row.glyph_id||`007_${pageNo}_${index+1}`),
       char:text,
       text,
       order_in_page:Number(row.order_in_page||row.annotation_index||index+1),
@@ -125,93 +131,64 @@
     };
   }
 
+  async function fetchJSONWithRetry(url,attempts=3){
+    let lastError=null;
+    for(let attempt=1;attempt<=attempts;attempt+=1){
+      try{
+        const response=await fetch(url,{cache:attempt===1?"force-cache":"reload"});
+        if(!response.ok)throw new Error(`${response.status} ${response.statusText}`);
+        return await response.json();
+      }catch(error){
+        lastError=error;
+        if(attempt<attempts)await sleep(350*attempt);
+      }
+    }
+    throw lastError||new Error("坐标读取失败");
+  }
+
   function pageBoxURL(page){
     return `${PAGE_BOX_ROOT}/page_${String(page).padStart(4,"0")}.json?v=${CACHE_TAG}`;
   }
 
-  async function fetchPageRows(pageNo,attempt=0){
-    try{
-      const response=await fetch(pageBoxURL(pageNo),{cache:attempt?"reload":"force-cache"});
-      if(response.status===404)return {rows:[],missing:true};
-      if(!response.ok)throw new Error(`HTTP ${response.status}`);
-      const data=await response.json();
-      const rows=(Array.isArray(data)?data:[])
-        .map((row,index)=>normalizeRow(row,pageNo,index))
-        .filter(Boolean)
-        .sort((a,b)=>a.order_in_page-b.order_in_page);
-      return {rows,missing:false};
-    }catch(error){
-      if(attempt<2){
-        await sleep(180*(attempt+1));
-        return fetchPageRows(pageNo,attempt+1);
-      }
-      throw error;
-    }
-  }
-
-  function loadPageRows(page,{force=false}={}){
+  function loadPageRows(page){
     const pageNo=Number(page||0);
     if(!pageNo)return Promise.resolve([]);
-    if(force){
-      pagePromises.delete(pageNo);
-      failedPages.delete(pageNo);
-    }
-    if(!pagePromises.has(pageNo)){
-      pagePromises.set(pageNo,fetchPageRows(pageNo)
-        .then(result=>{
-          failedPages.delete(pageNo);
-          return result.rows;
-        })
+    if(pagePromises.has(pageNo))return pagePromises.get(pageNo);
+
+    const promise=fetchJSONWithRetry(pageBoxURL(pageNo),3)
+      .then(rows=>(Array.isArray(rows)?rows:[])
+        .map((row,index)=>normalizeRow(row,pageNo,index))
+        .filter(Boolean)
+        .sort((a,b)=>a.order_in_page-b.order_in_page))
+      .catch(error=>{
+        console.warn("[work-007-coordinate-adapter] 当前页坐标读取失败",pageNo,error);
+        pagePromises.delete(pageNo);
+        return [];
+      });
+    pagePromises.set(pageNo,promise);
+    return promise;
+  }
+
+  function loadModelRows(){
+    if(!modelPromise){
+      modelPromise=fetchJSONWithRetry(MODEL_URL,3)
+        .then(rows=>(Array.isArray(rows)?rows:[])
+          .filter(row=>rowWorkId(row)==="007")
+          .map((row,index)=>normalizeRow(row,Number(row.canvas_index||row.page||0),index))
+          .filter(Boolean)
+          .sort((a,b)=>a.canvas_index-b.canvas_index||a.order_in_page-b.order_in_page))
         .catch(error=>{
-          failedPages.add(pageNo);
-          console.warn("[work-007-coordinate-adapter] page",pageNo,error);
+          console.error("[work-007-coordinate-adapter] 汇总坐标读取失败",error);
+          modelPromise=null;
           return [];
-        }));
-    }
-    return pagePromises.get(pageNo);
-  }
-
-  async function loadAllPages({retryFailures=true}={}){
-    const groups=new Map();
-    const concurrency=6;
-    for(let start=1;start<=PAGE_COUNT;start+=concurrency){
-      const pageNumbers=Array.from(
-        {length:Math.min(concurrency,PAGE_COUNT-start+1)},
-        (_,offset)=>start+offset
-      );
-      const lists=await Promise.all(pageNumbers.map(page=>loadPageRows(page)));
-      lists.forEach((rows,index)=>{
-        if(rows.length)groups.set(pageNumbers[index],rows);
-      });
-    }
-
-    if(retryFailures&&failedPages.size){
-      const retryPages=Array.from(failedPages).sort((a,b)=>a-b);
-      for(let start=0;start<retryPages.length;start+=concurrency){
-        const pageNumbers=retryPages.slice(start,start+concurrency);
-        const lists=await Promise.all(pageNumbers.map(page=>loadPageRows(page,{force:true})));
-        lists.forEach((rows,index)=>{
-          if(rows.length)groups.set(pageNumbers[index],rows);
         });
-      }
     }
-    return groups;
+    return modelPromise;
   }
 
-  function loadGroupedRows(){
-    if(!groupedPromise)groupedPromise=loadAllPages({retryFailures:true});
-    return groupedPromise;
-  }
-
-  function buildStream(groups){
-    const stream=[];
-    Array.from(groups.keys()).sort((a,b)=>a-b).forEach(page=>{
-      (groups.get(page)||[]).forEach(row=>{
-        const key=canonical(row.char||row.text||"");
-        if(key)stream.push({key,row,page,index:stream.length});
-      });
-    });
-    return stream;
+  function buildStream(rows){
+    return rows.map(row=>({key:canonical(row.char||row.text||""),row,page:Number(row.canvas_index||0)}))
+      .filter(entry=>entry.key&&entry.page);
   }
 
   function contextOffsets(pattern,targetIndex,radius=18){
@@ -225,83 +202,36 @@
     return offsets;
   }
 
-  function evaluateCandidate(keys,index,context,restoredKey){
-    let compared=0;
-    let matched=0;
-    for(const item of context){
-      const candidateIndex=index+item.offset;
-      if(candidateIndex<0||candidateIndex>=keys.length)continue;
+  function contextScore(pattern,targetIndex,stream,streamIndex){
+    const offsets=contextOffsets(pattern,targetIndex);
+    let compared=0,matched=0;
+    for(const item of offsets){
+      const candidate=stream[streamIndex+item.offset];
+      if(!candidate)continue;
       compared+=1;
-      if(keys[candidateIndex]===item.key)matched+=1;
+      if(candidate.key===item.key)matched+=1;
     }
-    const targetKey=keys[index]||"";
-    const targetAgreement=targetKey==="□"||Boolean(restoredKey&&targetKey===restoredKey);
-    const ratio=compared?matched/compared:0;
-    const score=matched*100+ratio*10+compared+(targetAgreement?25:0);
-    return {matched,compared,ratio,targetAgreement,score};
+    return {compared,matched,ratio:compared?matched/compared:0};
   }
 
-  function selectUnique(ranked,{minimumCompared=4,minimumRatio=.76,minimumMatched=4}={}){
-    ranked.sort((a,b)=>
-      b.score-a.score||
-      b.matched-a.matched||
-      b.ratio-a.ratio||
-      b.compared-a.compared
-    );
-    const best=ranked[0];
-    const second=ranked[1];
+  function orderedContextCandidate(pattern,targetIndex,restoredText,stream,cursor){
+    const restoredKey=canonical(restoredText);
+    const ranked=[];
+    for(let index=Math.max(0,cursor);index<stream.length;index+=1){
+      const score=contextScore(pattern,targetIndex,stream,index);
+      if(score.compared<4||score.matched<4||score.ratio<.72)continue;
+      const targetKey=stream[index].key;
+      const targetAgreement=targetKey==="□"||Boolean(restoredKey&&targetKey===restoredKey);
+      ranked.push({index,...score,targetAgreement,total:score.matched*10+score.ratio+(targetAgreement?2:0)});
+    }
+    ranked.sort((a,b)=>b.total-a.total||a.index-b.index);
+    const best=ranked[0],second=ranked[1];
     if(!best)return null;
-    if(best.compared<minimumCompared||best.matched<minimumMatched||best.ratio<minimumRatio)return null;
-    if(second){
-      const closeScore=best.score-second.score<18;
-      const sameEvidence=best.matched===second.matched&&Math.abs(best.ratio-second.ratio)<.05;
-      if(closeScore&&sameEvidence&&best.targetAgreement===second.targetAgreement)return null;
-    }
-    return best;
+    if(second&&best.matched===second.matched&&Math.abs(best.ratio-second.ratio)<.05&&best.targetAgreement===second.targetAgreement)return null;
+    return {...stream[best.index],index:best.index};
   }
 
-  function pageLocalCandidate(pattern,targetIndex,restoredText,groups){
-    const context=contextOffsets(pattern,targetIndex,22);
-    const restoredKey=canonical(restoredText);
-    const ranked=[];
-
-    groups.forEach((rows,page)=>{
-      const keys=rows.map(row=>canonical(row.char||row.text||""));
-      rows.forEach((row,index)=>{
-        const evidence=evaluateCandidate(keys,index,context,restoredKey);
-        if(evidence.compared<4)return;
-        ranked.push({page,index,row,...evidence});
-      });
-    });
-
-    const best=selectUnique(ranked,{minimumCompared:4,minimumRatio:.76,minimumMatched:4});
-    return best?{key:canonical(best.row.char||best.row.text||""),row:best.row,page:best.page,index:-1}:null;
-  }
-
-  function orderedStreamCandidate(pattern,targetIndex,restoredText,stream,cursor){
-    const context=contextOffsets(pattern,targetIndex,24);
-    const restoredKey=canonical(restoredText);
-    const keys=stream.map(entry=>entry.key);
-    const ranked=[];
-    const start=Math.max(0,Number(cursor||0)-8);
-
-    for(let index=start;index<stream.length;index+=1){
-      const evidence=evaluateCandidate(keys,index,context,restoredKey);
-      if(evidence.compared<5)continue;
-      ranked.push({index,entry:stream[index],...evidence});
-    }
-
-    const best=selectUnique(ranked,{minimumCompared:5,minimumRatio:.74,minimumMatched:5});
-    return best?{...best.entry,index:best.index}:null;
-  }
-
-  function squareOrderEntry(squareEntries,ordinal){
-    const entry=squareEntries[ordinal]||null;
-    if(!entry)return null;
-    return {...entry,index:entry.index};
-  }
-
-  function locationFromEntry(entry,method,target){
+  function locationFromEntry(entry,method,target,score){
     if(!entry)return null;
     const row=entry.row;
     const box=rect(row);
@@ -314,21 +244,22 @@
       match_method:method,
       target_square_ordinal:target.ordinal,
       target_kind:target.restoredText?"restored":"first-missing",
-      restored_text:target.restoredText||""
+      restored_text:target.restoredText||"",
+      context_score:score||null
     };
   }
 
   async function locateCases(items){
-    const groups=await loadGroupedRows();
-    const stream=buildStream(groups);
-    const glyphIndex=new Map(stream.map((entry,index)=>[String(entry.row.glyph_id||""),index]));
+    const rows=await loadModelRows();
+    const stream=buildStream(rows);
     const squareEntries=stream.filter(entry=>entry.key==="□");
     const source=Array.isArray(items)?items:[];
+    const requiredSquares=source.reduce((sum,item)=>sum+compact(item?.original||item?.o||"").filter(char=>char==="□").length,0);
+    const squareOrderComplete=squareEntries.length===requiredSquares||squareEntries.length===requiredSquares+2;
     let globalSquareOrdinal=0;
     let cursor=0;
-    let pageLocalLocated=0;
-    let orderedLocated=0;
-    let squareLocated=0;
+    let squareOrderLocated=0;
+    let contextLocated=0;
     const unresolved=[];
 
     const resolved=source.map(item=>{
@@ -342,50 +273,49 @@
       const target=caseTarget(item);
       target.ordinal=Math.max(1,Math.min(squareCount,target.ordinal));
       const targetIndex=nthSquareIndex(pattern,target.ordinal);
-      let entry=pageLocalCandidate(pattern,targetIndex,target.restoredText,groups);
-      let method="";
+      let entry=null,method="",score=null;
 
-      if(entry){
-        method="page-local-context";
-        entry.index=glyphIndex.get(String(entry.row.glyph_id||""))??-1;
-        pageLocalLocated+=1;
+      /* 案例列表与碑文方框顺序同源；总数完整时直接按累计序号确定真实字框。 */
+      if(squareOrderComplete){
+        entry=squareEntries[caseStartOrdinal+target.ordinal-1]||null;
+        if(entry){
+          method="square-order-primary";
+          squareOrderLocated+=1;
+          const streamIndex=stream.indexOf(entry);
+          score=contextScore(pattern,targetIndex,stream,streamIndex);
+          cursor=Math.max(cursor,streamIndex+1);
+        }
       }
 
+      /* 若汇总文件中的方框数不完整，再依碑文先后顺序做上下文定位。 */
       if(!entry){
-        entry=orderedStreamCandidate(pattern,targetIndex,target.restoredText,stream,cursor);
+        entry=orderedContextCandidate(pattern,targetIndex,target.restoredText,stream,cursor);
         if(entry){
           method="ordered-context";
-          orderedLocated+=1;
+          contextLocated+=1;
+          score=contextScore(pattern,targetIndex,stream,entry.index);
+          cursor=Math.max(cursor,entry.index+1);
         }
       }
 
-      if(!entry&&[67,69].includes(squareEntries.length)){
-        entry=squareOrderEntry(squareEntries,caseStartOrdinal+target.ordinal-1);
-        if(entry){
-          method="square-order";
-          squareLocated+=1;
-        }
-      }
-
-      const location=locationFromEntry(entry,method,target);
+      const location=locationFromEntry(entry,method,target,score);
       if(!location){
-        unresolved.push(String(item?.id||item?.n||"?"));
+        unresolved.push(String(item?.id||"?"));
         return item;
       }
-
-      if(Number(entry.index)>=0)cursor=Math.max(cursor,Number(entry.index)+1);
       return {...item,locations:[location],page:location.page};
     });
 
     const report={
       total:source.length,
       located:source.length-unresolved.length,
-      pageLocalLocated,
-      orderedLocated,
-      squareLocated,
       unresolved,
-      failedPages:Array.from(failedPages).sort((a,b)=>a-b),
-      loadedPages:Array.from(groups.keys()).sort((a,b)=>a-b)
+      coordinateRows:stream.length,
+      coordinateSquares:squareEntries.length,
+      requiredSquares,
+      squareOrderComplete,
+      squareOrderLocated,
+      contextLocated
     };
     window.WORK_007_LOCATION_REPORT=report;
     window.dispatchEvent(new CustomEvent("work-007-location-audit",{detail:report}));
@@ -393,24 +323,93 @@
     return resolved;
   }
 
+  function remoteImage(value){
+    const source=String(value||"").trim();
+    if(!source||/^https?:\/\//i.test(source))return source;
+    const relative=source.replace(/^\.\//,"").replace(/^\/+/,"");
+    if(!relative.startsWith(IMAGE_PREFIX))return source;
+    return RAW_BASE+relative.split("/").map(part=>encodeURIComponent(part)).join("/");
+  }
+
+  function installReaderImageStability(){
+    const preconnect=document.createElement("link");
+    preconnect.rel="preconnect";
+    preconnect.href="https://raw.githubusercontent.com";
+    preconnect.crossOrigin="anonymous";
+    document.head.appendChild(preconnect);
+
+    const retryState=new WeakMap();
+    const bind=img=>{
+      if(!img||img.dataset.work007RetryBound)return;
+      img.dataset.work007RetryBound="true";
+      img.addEventListener("load",()=>retryState.delete(img));
+      img.addEventListener("error",()=>{
+        const current=String(img.currentSrc||img.src||"");
+        if(!/raw\.githubusercontent\.com/i.test(current))return;
+        const base=current.replace(/([?&])_work007_retry=\d+/g,"$1").replace(/[?&]$/g,"");
+        const state=retryState.get(img)||{base,count:0};
+        if(state.base!==base){state.base=base;state.count=0;}
+        if(state.count>=3)return;
+        state.count+=1;
+        retryState.set(img,state);
+        setTimeout(()=>{
+          const now=String(img.currentSrc||img.src||"");
+          if(now.replace(/([?&])_work007_retry=\d+/g,"$1").replace(/[?&]$/g,"")!==base)return;
+          img.src=base+(base.includes("?")?"&":"?")+`_work007_retry=${Date.now()}`;
+        },400*state.count);
+      });
+    };
+
+    const pageImage=document.getElementById("pageImage");
+    const heroCover=document.getElementById("heroCover");
+    bind(pageImage);
+    bind(heroCover);
+
+    let attempts=0;
+    const stabilize=()=>{
+      attempts+=1;
+      try{
+        if(typeof pages!=="undefined"&&Array.isArray(pages)&&pages.length){
+          pages.forEach(page=>{
+            if(page.image)page.image=remoteImage(page.image);
+            (page.items||[]).forEach(item=>{if(item.local_image)item.local_image=remoteImage(item.local_image);});
+          });
+          if(heroCover&&pages[0]?.image&&!heroCover.src.includes("raw.githubusercontent.com"))heroCover.src=pages[0].image;
+          if(pageImage&&(!pageImage.src||!pageImage.src.includes("raw.githubusercontent.com"))&&typeof loadPage==="function"){
+            loadPage(typeof currentPageIndex==="number"?currentPageIndex:0);
+          }
+          return;
+        }
+      }catch(error){
+        console.warn("[work-007-coordinate-adapter] 图片路径稳定处理",error);
+      }
+      if(attempts<300)setTimeout(stabilize,100);
+    };
+    stabilize();
+
+    window.addEventListener("online",()=>{
+      if(pageImage&&pageImage.naturalWidth===0&&typeof loadPage==="function")loadPage(typeof currentPageIndex==="number"?currentPageIndex:0);
+    });
+  }
+
   window.loadPageGlyphBoxes=async function(id,pageObj){
     const normalized=String(id||"").match(/^(\d{3})/)?.[1]||String(id||"").padStart(3,"0");
     if(normalized!=="007")return original?original(id,pageObj):[];
     const page=Number(pageObj?.canvas_index||pageObj?.page||0);
-    const rows=(await loadPageRows(page)).map(row=>({
-      ...row,
-      local_image:pageObj?.image||row.local_image||""
-    }));
+    const rows=(await loadPageRows(page)).map(row=>({...row,local_image:pageObj?.image||row.local_image||""}));
     if(rows.length)return rows;
     return original?original(id,pageObj):[];
   };
 
   window.WORK_007_COORDINATES={
     loadPageRows,
-    loadGroupedRows,
+    loadModelRows,
     locateCases,
     caseTarget,
     getReport:()=>window.WORK_007_LOCATION_REPORT||null
   };
   window.__WORK_007_COORDINATE_ADAPTER__=true;
+
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",installReaderImageStability,{once:true});
+  else installReaderImageStability();
 })();
