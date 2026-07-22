@@ -18,7 +18,7 @@
         const timer=setInterval(()=>{
           tries+=1;
           if(ready?.()){clearInterval(timer);resolve(true);}
-          else if(tries>=160){clearInterval(timer);reject(new Error(`等待模块超时：${path}`));}
+          else if(tries>=240){clearInterval(timer);reject(new Error(`等待模块超时：${path}`));}
         },50);
         return;
       }
@@ -31,7 +31,7 @@
     });
   }
 
-  async function waitReady(test,label,limit=240){
+  async function waitReady(test,label,limit=300){
     for(let i=0;i<limit;i+=1){
       if(test())return true;
       await sleep(50);
@@ -48,13 +48,12 @@
   async function start(){
     try{
       await loadScript("js/work-remote-image-adapter.js?v=20260722_remote_v2",()=>Boolean(window.__WORK_REMOTE_IMAGE_ADAPTER__));
-      await loadScript("js/work-006-dedicated-config.js?v=20260722_shichenhou_v5",()=>Boolean(window.__WORK_006_DEDICATED_CONFIG__));
-      await loadScript("js/work-dedicated-renderer.js?v=20260722_dedicated_v3",()=>Boolean(window.__WORK_006_CONTENT_READY__));
+      await loadScript("js/work-006-dedicated-config.js?v=20260722_shichenhou_final_v1",()=>Boolean(window.__WORK_006_DEDICATED_CONFIG__));
+      await loadScript("js/work-dedicated-renderer.js?v=20260722_shichenhou_final_v1",()=>Boolean(window.__WORK_006_CONTENT_READY__));
       await waitReady(()=>Boolean(window.__WORK_006_CONTENT_READY__),"史晨后碑栏目二、三");
 
-      /* 专属渲染器为了阻止旧补丁会暂时锁住栏目四增强器，此处在案例数据就绪后再释放。 */
       window.__CROWDSOURCE_MISSING_V10__=false;
-      await loadScript("assets/js/crowdsource-v9.js?v=20260722_shichenhou_v5",()=>Boolean(window.__CROWDSOURCE_MISSING_V10__));
+      await loadScript("assets/js/crowdsource-v9.js?v=20260722_shichenhou_final_v1",()=>Boolean(window.__CROWDSOURCE_MISSING_V10__));
       await waitReady(()=>Boolean(window.__CROWDSOURCE_MISSING_V10__),"史晨后碑栏目四");
 
       window.__WORK_006_STABLE_READY__=true;
