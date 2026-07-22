@@ -7,7 +7,6 @@
   if(workId!=="007"||window.__WORK_007_YIQUE__)return;
   window.__WORK_007_YIQUE__=true;
 
-  /* 当前作品直接提供标准数据，不再加载旧字段转换、案例修补或恢复依据模块。 */
   window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__=true;
   window.__DAMAGE_CASE_INTEGRITY_V2__=true;
   window.__DAMAGE_CASE_PARTIAL_STATUS__=true;
@@ -17,7 +16,7 @@
   const TITLE="伊阙佛龛碑";
   const TEXT_URL="data/work007_full_text.txt?v=20260722_yique_final_v1";
   const CASE_URL="data/work007_damage_cases.json?v=20260722_yique_final_v1";
-  const PAGE_INDEX_URL="data/page_images_index.json?v=20260722_yique_fix_v2";
+  const PAGE_INDEX_URL="data/page_images_index.json?v=20260722_yique_demand_v7";
   const RAW_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
   const IMAGE_PREFIX="assets/page_images/007_伊阙佛龛碑/";
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
@@ -25,6 +24,7 @@
 
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=value=>JSON.parse(JSON.stringify(value));
+  const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
   function remoteImage(value){
     const source=String(value||"").trim();
@@ -40,22 +40,17 @@
       if(typeof pages!=="undefined"&&Array.isArray(pages)&&pages.length){
         pages.forEach(page=>{
           if(page.image)page.image=remoteImage(page.image);
-          (page.items||[]).forEach(item=>{
-            if(item.local_image)item.local_image=remoteImage(item.local_image);
-          });
+          (page.items||[]).forEach(item=>{if(item.local_image)item.local_image=remoteImage(item.local_image);});
         });
         const cover=document.getElementById("heroCover");
         if(cover&&pages[0]?.image)cover.src=pages[0].image;
-        if(typeof loadPage==="function"){
-          const index=typeof currentPageIndex==="number"?currentPageIndex:0;
-          loadPage(index);
-        }
+        if(typeof loadPage==="function")loadPage(typeof currentPageIndex==="number"?currentPageIndex:0);
         ready=true;
       }
     }catch(error){
       console.warn("[work-007] reader image patch",error);
     }
-    if(!ready&&attempt<60)setTimeout(()=>patchReaderImages(attempt+1),80);
+    if(!ready&&attempt<300)setTimeout(()=>patchReaderImages(attempt+1),100);
   }
 
   function setMenuTitle(index,title){
@@ -64,15 +59,27 @@
   }
 
   async function fetchText(url){
-    const response=await fetch(url,{cache:"no-store"});
-    if(!response.ok)throw new Error(`${url} ${response.status}`);
-    return response.text();
+    let lastError=null;
+    for(let attempt=1;attempt<=3;attempt+=1){
+      try{
+        const response=await fetch(url,{cache:attempt===1?"no-store":"reload"});
+        if(!response.ok)throw new Error(`${url} ${response.status}`);
+        return response.text();
+      }catch(error){lastError=error;if(attempt<3)await sleep(300*attempt);}
+    }
+    throw lastError;
   }
 
   async function fetchJSON(url){
-    const response=await fetch(url,{cache:"no-store"});
-    if(!response.ok)throw new Error(`${url} ${response.status}`);
-    return response.json();
+    let lastError=null;
+    for(let attempt=1;attempt<=3;attempt+=1){
+      try{
+        const response=await fetch(url,{cache:attempt===1?"no-store":"reload"});
+        if(!response.ok)throw new Error(`${url} ${response.status}`);
+        return response.json();
+      }catch(error){lastError=error;if(attempt<3)await sleep(300*attempt);}
+    }
+    throw lastError;
   }
 
   function normalizeCase(row,index){
@@ -124,9 +131,7 @@
       if(!matches.length)return;
       matches.sort((a,b)=>a.start-b.start||b.end-a.end);
       const accepted=[];let end=-1;
-      matches.forEach(item=>{
-        if(item.start>=end){accepted.push(item);end=item.end;}
-      });
+      matches.forEach(item=>{if(item.start>=end){accepted.push(item);end=item.end;}});
       const fragment=document.createDocumentFragment();let offset=0;
       accepted.forEach(item=>{
         if(item.start>offset)fragment.appendChild(document.createTextNode(text.slice(offset,item.start)));
@@ -175,16 +180,8 @@
     const bbox=source?.bbox;
     const page=Number(source?.page||item.page||0);
     if(!bbox||!page)return null;
-    const canvas={
-      w:Number(source?.canvas?.w||source?.canvas_width||2943),
-      h:Number(source?.canvas?.h||source?.canvas_height||4429)
-    };
-    const target={
-      x:Number(bbox.x??bbox[0]??0),
-      y:Number(bbox.y??bbox[1]??0),
-      w:Number(bbox.w??bbox[2]??0),
-      h:Number(bbox.h??bbox[3]??0)
-    };
+    const canvas={w:Number(source?.canvas?.w||source?.canvas_width||2943),h:Number(source?.canvas?.h||source?.canvas_height||4429)};
+    const target={x:Number(bbox.x??bbox[0]??0),y:Number(bbox.y??bbox[1]??0),w:Number(bbox.w??bbox[2]??0),h:Number(bbox.h??bbox[3]??0)};
     if(target.w<=0||target.h<=0)return null;
     const cropW=Math.min(canvas.w,Math.max(900,target.w+620));
     const cropH=Math.min(canvas.h,Math.max(1250,target.h+940));
@@ -196,16 +193,19 @@
     return {page,image:pageImages.get(page)||remoteImage(source.image||""),canvas,target,crop};
   }
 
-  let locationState="loading";
+  const locationStates=new Map();
+  const locationPromises=new Map();
+
   function imageHTML(item){
     const location=makeLocation(item);
     if(location&&location.image){
-      return `<div class="damage-viewport" data-image="${esc(location.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${location.crop.x} ${location.crop.y} ${location.crop.w} ${location.crop.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(item.title)}对应拓片局部"><image href="${esc(location.image)}" x="0" y="0" width="${location.canvas.w}" height="${location.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${location.target.x}" y="${location.target.y}" width="${location.target.w}" height="${location.target.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${location.page}页，本句第一个问题字局部</p>`;
+      return `<div class="damage-viewport" data-image="${esc(location.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${location.crop.x} ${location.crop.y} ${location.crop.w} ${location.crop.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(item.title)}对应拓片局部"><image href="${esc(location.image)}" x="0" y="0" width="${location.canvas.w}" height="${location.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${location.target.x}" y="${location.target.y}" width="${location.target.w}" height="${location.target.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${location.page}页，当前案例对应缺字局部</p>`;
     }
-    if(locationState==="loading"){
-      return '<div class="damage-location-missing damage-location-loading"><p>正在读取现有逐字坐标，并定位本句第一个问题字……</p></div>';
+    const state=locationStates.get(item.id)||"idle";
+    if(state==="idle"||state==="loading"){
+      return '<div class="damage-location-missing damage-location-loading"><p>正在按碑文缺字顺序读取对应页，并定位当前案例的真实字框……</p></div>';
     }
-    return '<div class="damage-location-missing"><p>现有逐字坐标中暂未可靠定位本句第一个问题字。系统不会使用第二个问题字或无关字形代替。</p></div>';
+    return '<div class="damage-location-missing"><p>对应页坐标经多次读取后仍未成功。请稍后重新选择本案例；系统不会使用相邻字形代替。</p></div>';
   }
 
   function markedHTML(value){
@@ -232,6 +232,38 @@
   function damagePanel(item){
     const analysis=(item.analysis||[]).map(line=>`<li>${esc(line)}</li>`).join("");
     return `<div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(confidenceLabel(item.confidence))}）</span></div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" ${current===cases.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${imageHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别（OCR结果）</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${resultLabel(item)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">恢复后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${analysis}</ol><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div>`;
+  }
+
+  function scheduleCurrentLocation(index){
+    const item=cases[index];
+    if(!item||item.locations?.length||locationPromises.has(item.id))return;
+    const locate=window.WORK_007_COORDINATES?.locateCase;
+    if(typeof locate!=="function"){
+      locationStates.set(item.id,"error");
+      if(index===current)renderDamage();
+      return;
+    }
+    locationStates.set(item.id,"loading");
+    const promise=Promise.resolve(locate(item,index,cases))
+      .then(located=>{
+        if(located?.locations?.length){
+          cases[index]=normalizeCase(located,index);
+          locationStates.set(item.id,"ready");
+          syncCases(cases);
+          window.dispatchEvent(new CustomEvent("work-007-location-ready",{detail:{id:item.id,page:cases[index].page}}));
+        }else{
+          locationStates.set(item.id,"error");
+        }
+      })
+      .catch(error=>{
+        console.error("[work-007] current case location",item.id,error);
+        locationStates.set(item.id,"error");
+      })
+      .finally(()=>{
+        locationPromises.delete(item.id);
+        if(index===current)renderDamage();
+      });
+    locationPromises.set(item.id,promise);
   }
 
   function renderDamage(){
@@ -264,6 +296,7 @@
     section.querySelector(".damage-viewport[data-image]")?.addEventListener("dblclick",event=>{
       if(typeof window.openZoom==="function")window.openZoom(event.currentTarget.dataset.image);
     });
+    queueMicrotask(()=>scheduleCurrentLocation(current));
   }
 
   function ensureStyle(){
@@ -272,29 +305,6 @@
     style.id="work007-yique-style";
     style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-location-missing{padding:28px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a}.damage-location-loading{display:flex;align-items:center;justify-content:center;min-height:210px}";
     document.head.appendChild(style);
-  }
-
-  async function locateCasePositions(){
-    const locate=window.WORK_007_COORDINATES?.locateCases;
-    if(typeof locate!=="function"){
-      locationState="error";
-      renderDamage();
-      return;
-    }
-    try{
-      const located=await locate(cases);
-      cases=(Array.isArray(located)?located:cases).map(normalizeCase);
-      locationState="ready";
-      syncCases(cases);
-      renderDamage();
-      window.dispatchEvent(new CustomEvent("work-007-locations-ready",{
-        detail:{located:cases.filter(item=>item.locations?.length).length,total:cases.length}
-      }));
-    }catch(error){
-      console.error("[work-007] case locations",error);
-      locationState="error";
-      renderDamage();
-    }
   }
 
   async function init(){
@@ -309,13 +319,10 @@
       syncCases(cases);
       await renderTranscript(cases);
       renderDamage();
-
-      /* 核心内容显示成功后立即完成路由；坐标定位在后台继续，不再让栏目四超时覆盖栏目三。 */
       window.__WORK_007_CONTENT_READY__=true;
       window.__WORK_007_STABLE_READY__=true;
       window.dispatchEvent(new CustomEvent("work-007-content-ready",{detail:{count:cases.length}}));
       window.dispatchEvent(new CustomEvent("work-007-stable-ready",{detail:{cases:cases.length}}));
-      void locateCasePositions();
     }catch(error){
       console.error("[work-007]",error);
       window.__WORK_007_CONTENT_READY__=true;
