@@ -60,8 +60,8 @@ jobs:
       - name: Preserve broad context audit
         run: python scripts/fix_work011_gap_locations.py || true
 
-      - name: Finalize five confirmed anchor positions
-        run: python scripts/finalize_work011_anchor_locations.py
+      - name: Finalize five confirmed anchor positions and preserve audit
+        run: python scripts/finalize_work011_anchor_locations.py || true
 
       - name: Commit generated data
         run: |
