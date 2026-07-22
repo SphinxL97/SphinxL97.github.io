@@ -9,69 +9,46 @@
   "text_squares": 5,
   "case_squares": 5,
   "cases": 5,
-  "located_cases": 2,
+  "located_cases": 1,
   "unmapped_case_ids": [
+    "01",
+    "02",
     "03",
-    "04",
     "05"
   ],
   "location_order_monotonic": true,
   "case_audit": [
     {
       "id": "01",
-      "located": true,
-      "candidate_count": 2,
+      "located": false,
+      "candidate_count": 1,
       "top_candidates": [
         {
-          "page": 15,
-          "order_in_page": 40,
-          "char": "锋",
-          "matched": 18,
-          "compared": 19,
-          "ratio": 0.9474,
-          "direct_square": false
-        },
-        {
           "page": 39,
-          "order_in_page": 37,
           "char": "□",
+          "order_in_page": 37,
+          "kind": "row",
           "matched": 0,
           "compared": 19,
-          "ratio": 0.0,
-          "direct_square": true
+          "ratio": 0.0
         }
-      ],
-      "page": 15,
-      "glyph_id": "011_皇甫诞碑_p0015_c040",
-      "match_method": "offline-context-alignment"
+      ]
     },
     {
       "id": "02",
-      "located": true,
-      "candidate_count": 2,
+      "located": false,
+      "candidate_count": 1,
       "top_candidates": [
         {
-          "page": 19,
-          "order_in_page": 7,
-          "char": "轻",
-          "matched": 13,
-          "compared": 19,
-          "ratio": 0.6842,
-          "direct_square": false
-        },
-        {
           "page": 39,
-          "order_in_page": 37,
           "char": "□",
+          "order_in_page": 37,
+          "kind": "row",
           "matched": 0,
           "compared": 19,
-          "ratio": 0.0,
-          "direct_square": true
+          "ratio": 0.0
         }
-      ],
-      "page": 19,
-      "glyph_id": "011_皇甫诞碑_p0019_c007",
-      "match_method": "offline-context-alignment"
+      ]
     },
     {
       "id": "03",
@@ -80,30 +57,56 @@
       "top_candidates": [
         {
           "page": 39,
-          "order_in_page": 37,
           "char": "□",
+          "order_in_page": 37,
+          "kind": "row",
           "matched": 0,
           "compared": 25,
-          "ratio": 0.0,
-          "direct_square": true
+          "ratio": 0.0
         }
       ]
     },
     {
       "id": "04",
-      "located": false,
-      "candidate_count": 1,
+      "located": true,
+      "candidate_count": 2,
       "top_candidates": [
         {
+          "page": 27,
+          "between": [
+            "公",
+            "轩"
+          ],
+          "between_orders": [
+            10,
+            11
+          ],
+          "kind": "gap",
+          "matched": 36,
+          "compared": 36,
+          "ratio": 1.0
+        },
+        {
           "page": 39,
-          "order_in_page": 37,
           "char": "□",
+          "order_in_page": 37,
+          "kind": "row",
           "matched": 0,
           "compared": 36,
-          "ratio": 0.0,
-          "direct_square": true
+          "ratio": 0.0
         }
-      ]
+      ],
+      "page": 27,
+      "glyph_id": "011_gap_011_皇甫诞碑_p0027_c010_011_皇甫诞碑_p0027_c011",
+      "match_method": "offline-context-gap-inference",
+      "geometry": {
+        "left_char": "公",
+        "right_char": "轩",
+        "left_glyph_id": "011_皇甫诞碑_p0027_c010",
+        "right_glyph_id": "011_皇甫诞碑_p0027_c011",
+        "center_distance": 343.0,
+        "median_height": 202.0
+      }
     },
     {
       "id": "05",
@@ -112,12 +115,12 @@
       "top_candidates": [
         {
           "page": 39,
-          "order_in_page": 37,
           "char": "□",
+          "order_in_page": 37,
+          "kind": "row",
           "matched": 1,
           "compared": 30,
-          "ratio": 0.0333,
-          "direct_square": true
+          "ratio": 0.0333
         }
       ]
     }
