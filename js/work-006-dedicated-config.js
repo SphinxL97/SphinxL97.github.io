@@ -1,12 +1,29 @@
 (function(){"use strict";if(window.__WORK_006_DEDICATED_CONFIG__)return;window.__WORK_006_DEDICATED_CONFIG__=true;
-const O={"01":{"title":"拜谒孔子与阙观","corrected":"乃以令曰拜□子□。見〔闕〕觀，式路虔跽。","mode":"mixed","confidence":"分项判断","analysis":["“闕觀”指宫门或庙门前的高大门阙，“見闕觀”在前往孔庙、循礼而行的语境中成立，因此第三处缺字可判断为“闕”。","“拜□子□”若按相关录文整理成“拜谒孔子”，需要在一个方框中容纳“謁孔”两字，并处理“子”后的另一方框，无法与当前缺字数量逐格对应。","因此本例只恢复能够与单个方框准确对应的“闕”，前两处继续保留。"]},"02":{"title":"拜手祗肃","corrected":"既至升堂，屏氣拜手。〔祗〕肅屑僾，髣髴若在。","mode":"documentary","confidence":"高","analysis":["“祗肃”是表示恭敬、肃穆的固定搭配，正符合进入孔子故宅后屏气拜手的礼敬动作。","缺字位于“拜手”之后、“肃”之前，补“祗”后形成“拜手，祗肃”，句意连贯。","相关录文在同一位置保存“祗肃屑僾”，故判断为“祗”。"]},"03":{"title":"享献之荐","corrected":"而無公出享獻之〔薦〕。鈼囙春饗，導物嘉會，","mode":"documentary","confidence":"高","analysis":["“荐”可指祭祀时进献的祭品，“享献之荐”正处于孔庙祭祀语境。","缺字位于“享献之”之后，补“薦”后构成完整偏正结构。","邻近的“鈼”等字虽可能另有误识，但不在缺字符号位置，本例不作改写。"]},"04":{"title":"璧雍与社稷品制","corrected":"述脩璧〔雍〕，社稷〔品〕制，","mode":"documentary","confidence":"高","analysis":["“璧雍”即古代天子的学宫，与前文修礼、兴学的内容相合，因此第一处补“雍”。","“品制”指等级制度，“社稷品制”说明国家礼制的等差，第二处补“品”后语法完整。","两处候选均各占一个缺字位置，并见于对应录文。"]},"05":{"title":"余胙赋赐","corrected":"餘〔胙〕賦賜，刊石勒銘，","mode":"documentary","confidence":"高","analysis":["“胙”指祭祀结束后分赐的祭肉，与后面的“赋赐”同属祭礼分赐事项。","“余胙赋赐”表示把祭祀余胙予以分赐，语义完整。","缺字只有一格，相关录文亦作“餘胙賦賜”，故补“胙”。"]},"06":{"title":"五官掾孔畅","corrected":"敬讓。五官掾魯孔〔暢〕□，曺史孔淮，","mode":"mixed","confidence":"分项判断","analysis":["“孔畅”是相关录文保存的人名，“畅”位于姓“孔”之后，符合单字名结构。","当前原释文在“孔”后连续保留两个方框，而可确认的人名只提供“暢”一字，因此首格补“暢”。","第二格可能是残形、断句或转写错位，现有资料不能逐字确定，继续保留。"]},"07":{"title":"孔褒文礼","corrected":"故尚書孔立元世、河東大守孔□、无上䖏土孔〔褒〕文禮，皆會廟堂。","mode":"mixed","confidence":"分项判断","analysis":["“孔褒文礼”在相关录文中作为完整人名字号出现，缺字位于“孔”与“文礼”之间，补“褒”后姓名结构成立。","前一处“河东大守孔□”在其他录文中对应较长姓名“孔彪元上”，超过一个方框，不能逐字压入。","因此只恢复能够准确对应一格的“褒”，前一处继续保留。"]},"08":{"title":"六律","corrected":"睢歌咋□□之〔六〕律，八音克諧，","mode":"mixed","confidence":"分项判断","analysis":["“六律”是古代音律体系名称，与后面的“八音克谐”共同描述祭礼音乐，因此末处缺字可判断为“六”。","前面的“睢歌咋□□之”与相关录文“雅歌吹笙，考之”存在多处已有文字误识和词序差异，两个方框无法单独对应确定文字。","本例只补能够形成固定术语“六律”的一字，其余缺字保留。"]},"09":{"title":"于穆肃雍","corrected":"相樂終曰。於穆肅〔雍〕，上下蒙福；","mode":"documentary","confidence":"高","analysis":["“肃雍”表示庄严而和谐，是礼乐赞辞中的常见搭配。","“於穆肃雍”整体为颂美祭礼庄敬和谐的语句，与下文“上下蒙福”相承。","缺字位于“肃”后，相关录文亦作“肃雍”，故判断为“雍”。"]},"10":{"title":"作屋","corrected":"左盾垣壞㳏，〔作〕屋塗色，脩通大溝，","mode":"documentary","confidence":"高","analysis":["缺字位于“屋”之前，需要一个支配“屋”的动词。","“作屋”即修建房屋，与后面的“涂色、修通大沟”同属修缮工程。","相关录文保存“作屋涂色”，故补“作”。"]},"11":{"title":"西流","corrected":"西〔流〕里水，南注城池。","mode":"documentary","confidence":"高","analysis":["“西流”描述水流方向，与后面的“南注城池”同属水道流向说明。","缺字位于方位词“西”之后，补“流”后形成动词结构“西流”。","相关录文在对应位置保存“西流”，故判断为“流”。"]},"12":{"title":"道濡麦给令与还所敛","corrected":"百妵自以城池道〔濡〕麦〔給〕，令還所〔斂〕民錢林。","mode":"documentary","confidence":"中高","analysis":["“道濡麦”说明道路、城池工程使麦田受湿，第一处补“濡”后语义可通。","“麦给令”对应录文中的工程给令语句，第二处以“給”与后文“令”衔接。","“所敛民钱”是官吏征收百姓钱财的固定表达，第三处补“敛”后正与前文“恐县吏敛民侵扰”照应。"]},"13":{"title":"去市辽远与香酒美肉","corrected":"史君念孔瀆、顔母井去市〔遼〕逺，百妵酤買不能得香酒美〔肉〕，","mode":"documentary","confidence":"高","analysis":["“辽远”是表示距离遥远的固定词语，补“辽”后说明孔渎、颜母井离市场很远。","“香酒美肉”是祭祀所需酒肉的并列称谓，第二处补“肉”后与“香酒”相配。","两处均各对应一个缺字，并与设立会市便利祭祀的下文相合。"]},"14":{"title":"咸所愿乐","corrected":"囙彼左右，咸所〔願〕樂。","mode":"documentary","confidence":"高","analysis":["“愿乐”表示乐意、欣然接受，“咸所愿乐”说明附近民众都认为便利。","缺字位于“所”与“乐”之间，需要能与“乐”组成心理意愿表达的字。","相关录文作“咸所愿乐”，故判断为“愿”。"]},"15":{"title":"东行道表","corrected":"東行道〔表〕南北，各種一行梓□。夫子家、顔母开舍及魯公家守吏凡四人，","mode":"mixed","confidence":"分项判断","analysis":["“道表”可指道路外侧或道路边表，“东行道表南北”说明在道路南北两侧种树，因此第一处补“表”。","第二处位于“梓”与句号之间；相关录文把下一句另起为“假夫子冢”，候选位置与当前方框不一致。","为避免把下一句的文字移入本句，第二处继续保留。"]},"16":{"title":"武周题名日期","corrected":"大周而□二〔年〕二〔月〕廿三〔日〕，","mode":"mixed","confidence":"分项判断","analysis":["题名日期的后半部分应按“二年二月廿三日”排列，因此后三处分别可补“年、月、日”。","开头相关录文作“大周天授二年”，但当前原释文保存“大周而□二年”；若恢复“天授”必须同时改动已有的“而”并在一个方框中容纳更多文字。","因此第一处不能逐字确定，只恢复可与三个单格准确对应的“年、月、日”。"]},"17":{"title":"杨景初与郭希玄","corrected":"弟子楊景〔初〕、郭〔希玄〕，奏勑扵東岳作功德，","mode":"documentary","confidence":"高","analysis":["“杨景初”是题名中保存的完整姓名，缺字位于“景”后，补“初”后姓名成立。","“郭希玄”为另一名弟子，连续两个方框正好对应“希玄”二字。","两组候选均与武周题名的人名格式及相关录文一致。"]},"18":{"title":"仓曹参军事李叔度","corrected":"宣徳郎、行兗州都督府倉〔曹〕叅軍事李〔叔〕度。","mode":"documentary","confidence":"高","analysis":["“仓曹参军事”是唐代州府属官名称，缺字位于“仓”与“参军事”之间，故第一处为“曹”。","“李叔度”是完整姓名，第二处位于“李”与“度”之间，补“叔”后姓名结构成立。","官名和姓名在相关题名录文中均有明确对应。"]}};
 window.WORK_DEDICATED_CONFIG={
- workId:"006",title:"史晨后碑",
- textUrl:"data/shichenhou_full_text.txt?v=20260721_shichenhou_analysis_v3",
- caseUrl:"data/shichenhou_damage_cases.json?v=20260721_shichenhou_analysis_v3",
+ workId:"006",
+ title:"史晨后碑",
+ textUrl:"data/shichenhou_full_text.txt?v=20260722_shichenhou_final_v1",
+ caseUrl:"data/shichenhou_damage_cases.json?v=20260722_shichenhou_final_v1",
  modelUrl:"data/model_boxes/glyph_model_border_006_010.json?v=20260721_shichenhou_firstbox_v1",
  pageIndexUrl:"data/page_images_index.json?v=20260721_shichenhou_firstbox_v1",
  intro:"本栏目以当前网页释文为底稿，只对原释文中明确标出的缺字提出校读意见。AI分析重点说明候选字的词义、句法、礼制用语、人名官名及上下文关系；不能与现有方框逐字对应的外部录文不直接写入恢复结果。",
- prepare(rows){const a=(Array.isArray(rows)?rows:[]).filter(x=>!String(x.o||x.original||"").includes("惜道味齋"));return a.map((x,i)=>{const id=String(i+1).padStart(2,"0"),v=O[id]||{},o=String(x.o||x.original||"");return{...x,...v,id,n:v.category||"残损碑文恢复",t:v.title||x.t||x.title||`第${id}处缺字`,o,c:v.corrected||x.c||x.corrected||o,page:x.page||"—",category:v.category||"残损碑文恢复",title:v.title||x.t||x.title||`第${id}处缺字`,original:o,corrected:v.corrected||x.c||x.corrected||o,mode:v.mode||x.mode||"unresolved",confidence:v.confidence||x.confidence||"暂无法判断",analysis:Array.isArray(v.analysis)?v.analysis:[]};});}
+ prepare(rows){
+  return (Array.isArray(rows)?rows:[]).map((row,index)=>{
+   const id=String(row.id||index+1).padStart(2,"0");
+   const category=String(row.category||row.n||"残损碑文恢复");
+   const title=String(row.title||row.t||`第${id}处缺字`);
+   const original=String(row.original||row.o||"");
+   const corrected=String(row.corrected||row.c||original);
+   return {
+    id,n:category,t:title,o:original,c:corrected,
+    page:row.page||"—",
+    category,title,original,corrected,
+    mode:String(row.mode||"unresolved"),
+    confidence:String(row.confidence||"暂无法判断"),
+    analysis:Array.isArray(row.analysis)?row.analysis.map(String):[],
+    locations:Array.isArray(row.locations)?row.locations:[]
+   };
+  });
+ }
 };
 })();
