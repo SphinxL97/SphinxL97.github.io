@@ -1,12 +1,18 @@
-/* 碑帖总览：完整显示45件作品，并对已迁出的006、007封面使用image-assets分支。 */
+/* 碑帖总览：只显示已建立高级检索元数据的33件作品；006、007封面使用image-assets分支。 */
 (function(){
   "use strict";
 
-  const ALL_IDS=Object.freeze(Array.from({length:45},(_,i)=>String(i+1).padStart(3,"0")));
-  window.GALLERY_VISIBLE_IDS=ALL_IDS;
+  const VISIBLE_IDS=Object.freeze([
+    "001","002","003","004","005","006","007","010","011","013",
+    "014","015","016","017","018","020","022","023","024","025",
+    "026","027","028","029","030","031","032","033","034","035",
+    "036","043","044"
+  ]);
+  const visibleIdSet=new Set(VISIBLE_IDS);
+  window.GALLERY_VISIBLE_IDS=VISIBLE_IDS;
 
   const IMAGE_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
-  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/,"").split("/").map(encodeURIComponent).join("/");
+  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/ ,"").split("/").map(encodeURIComponent).join("/");
   const missingEntries=[
     {
       id:"006",title:"史晨后碑",
@@ -105,16 +111,16 @@
     });
   }
 
-  function restoreCompleteCatalog(){
+  function restoreVisibleCatalog(){
     const map=new Map(catalog.map(item=>[String(item?.id||"").padStart(3,"0"),item]));
     missingEntries.forEach(item=>{if(!map.has(item.id))map.set(item.id,item);});
-    catalog=ALL_IDS.map(id=>map.get(id)).filter(Boolean).map(useRemoteCover);
+    catalog=VISIBLE_IDS.map(id=>map.get(id)).filter(Boolean).map(useRemoteCover);
   }
 
   function loadSearchModule(){
     if(document.querySelector('script[data-gallery-search-core]'))return;
     const script=document.createElement("script");
-    script.src="js/gallery-search-core.js?v=20260722_gallery45_v2";
+    script.src="js/gallery-search-core.js?v=20260722_gallery33_v3";
     script.async=false;script.dataset.gallerySearchCore="true";
     script.addEventListener("error",()=>console.error("[gallery] 检索脚本加载失败：",script.src),{once:true});
     document.head.appendChild(script);
@@ -123,13 +129,13 @@
   async function initializeGallery(){
     try{
       await waitForCatalog();
-      restoreCompleteCatalog();
+      restoreVisibleCatalog();
       if(typeof render==="function")render();
       observeCovers(document);
       document.dispatchEvent(new CustomEvent("beitie:gallery-catalog-filtered",{detail:{count:catalog.length}}));
-      if(catalog.length!==45)console.warn(`[gallery] 当前目录为 ${catalog.length} 件，预期45件。`);
+      if(catalog.length!==33)console.warn(`[gallery] 当前目录为 ${catalog.length} 件，预期33件。`);
     }catch(error){
-      console.error("[gallery] 完整目录初始化失败",error);
+      console.error("[gallery] 33件目录初始化失败",error);
       const currentGrid=document.getElementById("galleryGrid");
       if(currentGrid)currentGrid.innerHTML='<div class="empty-results">碑帖目录暂时无法读取，请刷新页面后重试。</div>';
       const count=document.getElementById("countText");if(count)count.textContent="0";
