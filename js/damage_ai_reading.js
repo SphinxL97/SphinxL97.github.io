@@ -1,8 +1,8 @@
 /* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V55__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V55__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V56__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V56__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -52,7 +52,7 @@
     ],
     "017":[
       {src:"js/work-017-coordinate-adapter.js?v=20260723_zhangmenglong_v1",key:"w017c",ready:()=>Boolean(window.__WORK_017_COORDINATE_ADAPTER__)},
-      {src:"js/work-017.js?v=20260723_zhangmenglong_v1",key:"w017",ready:()=>Boolean(window.__WORK_017_STABLE_READY__)}
+      {src:"js/work-017.js?v=20260723_zhangmenglong_v2",key:"w017",ready:()=>Boolean(window.__WORK_017_STABLE_READY__)}
     ]
   };
 

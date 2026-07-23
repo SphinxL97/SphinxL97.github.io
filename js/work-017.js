@@ -14,11 +14,11 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="张猛龙碑并阴";
-  const VERSION="20260723_zhangmenglong_v1";
+  const VERSION="20260723_zhangmenglong_v2";
   const TEXT_URL=`data/work017_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work017_damage_cases.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-  const INTRO="本栏目以当前网页释文为底稿，分别整理碑阳颂文与碑阴官吏、族望题名中的残损字。AI分析重点说明候选字与北魏人名、官职、家世、治郡政绩、铭辞对偶和题名结构的关系；没有对应方框的外部文字不写入恢复结果。";
+  const INTRO="本栏目为原释文中的每一个问题字提供候选结果。文献能够确认者标为文献对校；缺乏直接录文者，则结合北魏语汇、铭辞对偶、官职和姓名结构给出AI推测，并以置信度区分可靠程度。恢复结果与恢复后的上下文不再保留“□”。";
   const IMAGE_ROOT="assets/page_images/017_张猛龙碑并阴/images";
 
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -196,7 +196,7 @@
   }
 
   const plainRestored=value=>String(value||"").replace(/[〔〕]/g,"");
-  const resultLabel=item=>item.mode==="documentary"?"文献对校结果":item.mode==="mixed"?"部分恢复":item.mode==="ai_provisional"?"AI暂拟补全":"暂未恢复";
+  const resultLabel=item=>item.mode==="documentary"?"文献对校结果":item.mode==="mixed"?"文献与AI综合补全":"AI推测补全";
   const confidenceLabel=value=>["分项判断","暂无法判断"].includes(String(value||""))?String(value):`${value}置信度`;
 
   let cases=[],current=0,expanded=false,listScrollTop=0;
