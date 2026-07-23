@@ -11,14 +11,8 @@
   "candidate_count": 10,
   "remaining_square_count": 109,
   "case_count": 28,
-  "located_cases": 23,
-  "unlocated_cases": [
-    "01",
-    "17",
-    "22",
-    "26",
-    "28"
-  ],
+  "located_cases": 28,
+  "unlocated_cases": [],
   "sequence_ratio": 0.8697,
   "direct_square_ordinal": false,
   "coordinate_pages": [
@@ -410,7 +404,7 @@
       "id": "01",
       "expected_index": 18,
       "square_ordinal": 0,
-      "accepted": false,
+      "accepted": true,
       "top_candidates": [
         {
           "score": 0.5148,
@@ -430,7 +424,27 @@
           "order_in_page": 18,
           "glyph_id": "017_张猛龙碑并阴_p0005_c018"
         }
-      ]
+      ],
+      "location": {
+        "page": 4,
+        "glyph_id": "017_inferred_p0004_after_c006",
+        "canvas": {
+          "w": 1488,
+          "h": 2243
+        },
+        "bbox": {
+          "x": 741.0,
+          "y": 1840.0,
+          "w": 221.0,
+          "h": 220.0
+        },
+        "bbox_source": "adjacent-slot-inference",
+        "match_method": "manual-after-anchor",
+        "alignment_score": 1.0,
+        "anchor_glyph_id": "017_张猛龙碑并阴_p0004_c006",
+        "anchor_char": "神"
+      },
+      "manual_review": "模型字序由“神”直接跳至下一列“南”，未生成方框；依据“神”后同列空白字位及真实字框尺寸推定残损槽位。"
     },
     {
       "id": "02",
@@ -1081,7 +1095,7 @@
       "id": "17",
       "expected_index": 1005,
       "square_ordinal": 64,
-      "accepted": false,
+      "accepted": true,
       "top_candidates": [
         {
           "score": 2.2944,
@@ -1101,7 +1115,25 @@
           "order_in_page": 12,
           "glyph_id": "017_张猛龙碑并阴_p0040_c012"
         }
-      ]
+      ],
+      "location": {
+        "page": 40,
+        "glyph_id": "017_张猛龙碑并阴_p0040_c010",
+        "canvas": {
+          "w": 1488,
+          "h": 2243
+        },
+        "bbox": {
+          "x": 573.0,
+          "y": 915.0,
+          "w": 213.0,
+          "h": 182.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "manual-first-square-review",
+        "alignment_score": 1.0
+      },
+      "manual_review": "连续方框候选得分接近；按本案例第一个方框及正文顺序选取真实模型方框。"
     },
     {
       "id": "18",
@@ -1279,7 +1311,7 @@
       "id": "22",
       "expected_index": 1193,
       "square_ordinal": 74,
-      "accepted": false,
+      "accepted": true,
       "top_candidates": [
         {
           "score": 1.2373,
@@ -1299,7 +1331,25 @@
           "order_in_page": 14,
           "glyph_id": "017_张猛龙碑并阴_p0049_c014"
         }
-      ]
+      ],
+      "location": {
+        "page": 49,
+        "glyph_id": "017_张猛龙碑并阴_p0049_c012",
+        "canvas": {
+          "w": 1488,
+          "h": 2243
+        },
+        "bbox": {
+          "x": 721.0,
+          "y": 540.0,
+          "w": 212.0,
+          "h": 240.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "manual-first-square-review",
+        "alignment_score": 1.0
+      },
+      "manual_review": "连续方框候选得分接近；按本案例第一个方框及正文顺序选取真实模型方框。"
     },
     {
       "id": "23",
@@ -1434,7 +1484,7 @@
       "id": "26",
       "expected_index": 1544,
       "square_ordinal": 108,
-      "accepted": false,
+      "accepted": true,
       "top_candidates": [
         {
           "score": 0.9341,
@@ -1454,7 +1504,25 @@
           "order_in_page": 19,
           "glyph_id": "017_张猛龙碑并阴_p0057_c019"
         }
-      ]
+      ],
+      "location": {
+        "page": 58,
+        "glyph_id": "017_张猛龙碑并阴_p0058_c003",
+        "canvas": {
+          "w": 1488,
+          "h": 2243
+        },
+        "bbox": {
+          "x": 746.0,
+          "y": 1225.0,
+          "w": 246.0,
+          "h": 185.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "manual-first-square-review",
+        "alignment_score": 1.0
+      },
+      "manual_review": "连续方框候选得分接近；按本案例第一个方框及正文顺序选取真实模型方框。"
     },
     {
       "id": "27",
@@ -1503,7 +1571,7 @@
       "id": "28",
       "expected_index": 1671,
       "square_ordinal": 111,
-      "accepted": false,
+      "accepted": true,
       "top_candidates": [
         {
           "score": 1.5627,
@@ -1523,7 +1591,64 @@
           "order_in_page": 9,
           "glyph_id": "017_张猛龙碑并阴_p0065_c009"
         }
-      ]
+      ],
+      "location": {
+        "page": 65,
+        "glyph_id": "017_张猛龙碑并阴_p0065_c007",
+        "canvas": {
+          "w": 1488,
+          "h": 2243
+        },
+        "bbox": {
+          "x": 929.0,
+          "y": 1284.0,
+          "w": 178.0,
+          "h": 237.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "manual-first-square-review",
+        "alignment_score": 1.0
+      },
+      "manual_review": "连续方框候选得分接近；按本案例第一个方框及正文顺序选取真实模型方框。"
     }
+  ],
+  "manual_reviewed_cases": [
+    "01",
+    "17",
+    "22",
+    "26",
+    "28"
+  ],
+  "inferred_slot_cases": [
+    "01"
+  ],
+  "direct_model_location_cases": [
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28"
   ]
 }
