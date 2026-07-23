@@ -1,0 +1,44 @@
+name: Fix work016 case18
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/add-work016-zunhao-shanrang
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/work016_damage_cases.json
+      - name: Match case18 to the two transcript paragraphs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('data/work016_damage_cases.json')
+          rows=json.loads(path.read_text(encoding='utf-8'))
+          for row in rows:
+            if row.get('id')=='18':
+              row['original']='萬□不可以□主，冝順民神，速奉天序。\n\n於是皇帝乃回思選慮，□觀庶徴'
+              row['corrected']='萬〔國〕不可以〔無〕主，冝順民神，速奉天序。\n\n於是皇帝乃回思選慮，〔旁〕觀庶徴'
+              row['o']=row['original'];row['c']=row['corrected']
+          path.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/work016_damage_cases.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "修正016案例18跨段匹配"
+          git pull --rebase origin agent/add-work016-zunhao-shanrang
+          git push origin HEAD:agent/add-work016-zunhao-shanrang
