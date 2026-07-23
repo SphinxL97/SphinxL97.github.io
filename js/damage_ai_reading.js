@@ -1,8 +1,8 @@
-/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01使用单一专属模块。 */
+/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V51__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V51__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V52__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V52__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -41,14 +41,10 @@
     "014-02":[
       {src:"js/work-014-02-coordinate-adapter.js?v=20260723_lihanjing_014_02_v1",key:"w01402c",ready:()=>Boolean(window.__WORK_014_02_COORDINATE_ADAPTER__)},
       {src:"js/work-014-02.js?v=20260723_lihanjing_014_02_v1",key:"w01402",ready:()=>Boolean(window.__WORK_014_02_STABLE_READY__)}
-    ],
-    "014-02":[
-      {src:"js/work-014-02-coordinate-adapter.js?v=20260723_lihanjing_014_02_v1",key:"w01402c",ready:()=>Boolean(window.__WORK_014_02_COORDINATE_ADAPTER__)},
-      {src:"js/work-014-02.js?v=20260723_lihanjing_014_02_v1",key:"w01402",ready:()=>Boolean(window.__WORK_014_02_STABLE_READY__)}
     ]
   };
 
-  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","014-02":"颜真卿李玄靖碑册二"};
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二"};
 
   function installMask(){
     if(["007","010","011","013","014"].includes(id)||document.getElementById("detail-route-pending-style"))return;
