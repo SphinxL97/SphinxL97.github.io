@@ -36,7 +36,7 @@
     ],
     "014-01":[
       {src:"js/work-014-coordinate-adapter.js?v=20260723_lihanjing_014_01_v2",key:"w01401c",ready:()=>Boolean(window.__WORK_014_01_COORDINATE_ADAPTER__)},
-      {src:"js/work-014.js?v=20260723_lihanjing_014_01_v2",key:"w01401",ready:()=>Boolean(window.__WORK_014_01_STABLE_READY__)}
+      {src:"js/work-014.js?v=20260723_lihanjing_014_01_v3",key:"w01401",ready:()=>Boolean(window.__WORK_014_01_STABLE_READY__)}
     ]
   };
 
