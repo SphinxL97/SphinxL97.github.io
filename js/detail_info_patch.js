@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V11__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V12__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V12__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V11__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V10__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V7__=true;
@@ -25,10 +26,10 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260717_stable_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260724_songgao_v1";
+  const dataUrl="data/beitie_header_info.json?v=20260724_huadusi_v1";
 
   function forceDedicatedRouter(){
-    if(!["007","010","011","013","014","015","016","017","018"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
+    if(!["007","010","011","013","014","015","016","017","018","020"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
     window.__DAMAGE_AI_READING_ROUTER_V42__=true;
     window.__DAMAGE_AI_READING_ROUTER_V47__=true;
@@ -41,8 +42,10 @@
     window.__DAMAGE_AI_READING_ROUTER_V54__=true;
     window.__DAMAGE_AI_READING_ROUTER_V55__=true;
     window.__DAMAGE_AI_READING_ROUTER_V56__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V57__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V58__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260724_songgao_v1";
+    script.src="js/damage_ai_reading.js?v=20260724_huadusi_v1";
     script.async=false;
     script.dataset.dedicatedForcedRouter=workId;
     script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});

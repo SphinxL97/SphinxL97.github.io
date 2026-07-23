@@ -1,8 +1,8 @@
-/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018使用单一专属模块。 */
+/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018、020使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V57__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V57__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V58__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V58__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -57,13 +57,17 @@
     "018":[
       {src:"js/work-018-coordinate-adapter.js?v=20260724_songgao_v1",key:"w018c",ready:()=>Boolean(window.__WORK_018_COORDINATE_ADAPTER__)},
       {src:"js/work-018.js?v=20260724_songgao_v1",key:"w018",ready:()=>Boolean(window.__WORK_018_STABLE_READY__)}
+    ],
+    "020":[
+      {src:"js/work-020-coordinate-adapter.js?v=20260724_huadusi_v1",key:"w020c",ready:()=>Boolean(window.__WORK_020_COORDINATE_ADAPTER__)},
+      {src:"js/work-020.js?v=20260724_huadusi_v1",key:"w020",ready:()=>Boolean(window.__WORK_020_STABLE_READY__)}
     ]
   };
 
-  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑","016":"上尊号碑受禅表合册","017":"张猛龙碑并阴","018":"中岳嵩高灵庙碑并额"};
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑","016":"上尊号碑受禅表合册","017":"张猛龙碑并阴","018":"中岳嵩高灵庙碑并额","020":"化度寺邕禅师舍利塔铭"};
 
   function installMask(){
-    if(["007","010","011","013","014","015","016","017","018"].includes(id)||document.getElementById("detail-route-pending-style"))return;
+    if(["007","010","011","013","014","015","016","017","018","020"].includes(id)||document.getElementById("detail-route-pending-style"))return;
     const style=document.createElement("style");
     style.id="detail-route-pending-style";
     style.textContent=".damage-basis-block,.damage-basis-card,[data-damage-basis]{display:none!important}";
@@ -113,7 +117,7 @@
     const title=titles[routeId]||titles[id]||`碑帖${id}`;
     renderLoading(title);
     await load({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"align",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
-    if(!["003","004","005","006","007","010","011","013","014","015","016","017","018"].includes(id)){
+    if(!["003","004","005","006","007","010","011","013","014","015","016","017","018","020"].includes(id)){
       await load({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"audit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
       await load({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"standard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
     }
