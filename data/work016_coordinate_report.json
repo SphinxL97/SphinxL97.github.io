@@ -1,7 +1,621 @@
 {
   "work_id": "016",
   "page_count": 74,
-  "status": "error",
-  "error": "ValueError('case 18 original not found')",
-  "traceback": "Traceback (most recent call last):\n  File \"/tmp/generate_work016.py\", line 45, in <module>\n    if at<0:raise ValueError(f'case {case[\"id\"]} original not found')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: case 18 original not found\n"
+  "status": "completed",
+  "model_rows": 752,
+  "model_square_count": 72,
+  "source_square_count": 72,
+  "case_count": 23,
+  "located_cases": 23,
+  "unlocated_cases": [],
+  "coordinate_pages": [
+    5,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74
+  ],
+  "lower_text_start_page": 44,
+  "cases": [
+    {
+      "id": "01",
+      "first_square_ordinal": 1,
+      "accepted": true,
+      "location": {
+        "page": 11,
+        "glyph_id": "016_上尊号碑受禅表合册_p0011_c001",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1131.0,
+          "y": 2248.0,
+          "w": 1765.0,
+          "h": 1547.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 1
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "02",
+      "first_square_ordinal": 2,
+      "accepted": true,
+      "location": {
+        "page": 12,
+        "glyph_id": "016_上尊号碑受禅表合册_p0012_c010",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 598.0,
+          "y": 3058.0,
+          "w": 603.0,
+          "h": 684.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 2
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "03",
+      "first_square_ordinal": 5,
+      "accepted": true,
+      "location": {
+        "page": 13,
+        "glyph_id": "016_上尊号碑受禅表合册_p0013_c014",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1191.0,
+          "y": 2545.0,
+          "w": 622.0,
+          "h": 641.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 5
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "04",
+      "first_square_ordinal": 9,
+      "accepted": true,
+      "location": {
+        "page": 17,
+        "glyph_id": "016_上尊号碑受禅表合册_p0017_c003",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 2284.0,
+          "y": 1998.0,
+          "w": 621.0,
+          "h": 617.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 9
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "05",
+      "first_square_ordinal": 10,
+      "accepted": true,
+      "location": {
+        "page": 18,
+        "glyph_id": "016_上尊号碑受禅表合册_p0018_c010",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 606.0,
+          "y": 3070.0,
+          "w": 601.0,
+          "h": 663.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 10
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "06",
+      "first_square_ordinal": 14,
+      "accepted": true,
+      "location": {
+        "page": 20,
+        "glyph_id": "016_上尊号碑受禅表合册_p0020_c003",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1143.0,
+          "y": 1984.0,
+          "w": 614.0,
+          "h": 709.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 14
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "07",
+      "first_square_ordinal": 17,
+      "accepted": true,
+      "location": {
+        "page": 22,
+        "glyph_id": "016_上尊号碑受禅表合册_p0022_c007",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 595.0,
+          "y": 1430.0,
+          "w": 598.0,
+          "h": 618.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 17
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "08",
+      "first_square_ordinal": 18,
+      "accepted": true,
+      "location": {
+        "page": 24,
+        "glyph_id": "016_上尊号碑受禅表合册_p0024_c009",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 601.0,
+          "y": 2565.0,
+          "w": 567.0,
+          "h": 642.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 18
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "09",
+      "first_square_ordinal": 21,
+      "accepted": true,
+      "location": {
+        "page": 27,
+        "glyph_id": "016_上尊号碑受禅表合册_p0027_c011",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1182.0,
+          "y": 915.0,
+          "w": 616.0,
+          "h": 624.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 21
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "10",
+      "first_square_ordinal": 24,
+      "accepted": true,
+      "location": {
+        "page": 28,
+        "glyph_id": "016_上尊号碑受禅表合册_p0028_c006",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 596.0,
+          "y": 933.0,
+          "w": 611.0,
+          "h": 612.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 24
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "11",
+      "first_square_ordinal": 27,
+      "accepted": true,
+      "location": {
+        "page": 31,
+        "glyph_id": "016_上尊号碑受禅表合册_p0031_c004",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 2271.0,
+          "y": 2580.0,
+          "w": 629.0,
+          "h": 641.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 27
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "12",
+      "first_square_ordinal": 31,
+      "accepted": true,
+      "location": {
+        "page": 32,
+        "glyph_id": "016_上尊号碑受禅表合册_p0032_c013",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 64.0,
+          "y": 2000.0,
+          "w": 611.0,
+          "h": 641.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 31
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "13",
+      "first_square_ordinal": 33,
+      "accepted": true,
+      "location": {
+        "page": 44,
+        "glyph_id": "016_上尊号碑受禅表合册_p0044_c003",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1213.0,
+          "y": 1665.0,
+          "w": 655.0,
+          "h": 642.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 33
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "14",
+      "first_square_ordinal": 39,
+      "accepted": true,
+      "location": {
+        "page": 47,
+        "glyph_id": "016_上尊号碑受禅表合册_p0047_c017",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1070.0,
+          "y": 2835.0,
+          "w": 649.0,
+          "h": 601.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 39
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "15",
+      "first_square_ordinal": 42,
+      "accepted": true,
+      "location": {
+        "page": 50,
+        "glyph_id": "016_上尊号碑受禅表合册_p0050_c001",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1274.0,
+          "y": 642.0,
+          "w": 606.0,
+          "h": 621.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 42
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "16",
+      "first_square_ordinal": 44,
+      "accepted": true,
+      "location": {
+        "page": 51,
+        "glyph_id": "016_上尊号碑受禅表合册_p0051_c009",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1628.0,
+          "y": 1701.0,
+          "w": 636.0,
+          "h": 609.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 44
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "17",
+      "first_square_ordinal": 48,
+      "accepted": true,
+      "location": {
+        "page": 53,
+        "glyph_id": "016_上尊号碑受禅表合册_p0053_c006",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 2243.0,
+          "y": 3334.0,
+          "w": 645.0,
+          "h": 633.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 48
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "18",
+      "first_square_ordinal": 53,
+      "accepted": true,
+      "location": {
+        "page": 55,
+        "glyph_id": "016_上尊号碑受禅表合册_p0055_c002",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 2224.0,
+          "y": 1156.0,
+          "w": 622.0,
+          "h": 618.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 53
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "19",
+      "first_square_ordinal": 56,
+      "accepted": true,
+      "location": {
+        "page": 57,
+        "glyph_id": "016_上尊号碑受禅表合册_p0057_c015",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1084.0,
+          "y": 1708.0,
+          "w": 629.0,
+          "h": 655.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 56
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "20",
+      "first_square_ordinal": 60,
+      "accepted": true,
+      "location": {
+        "page": 62,
+        "glyph_id": "016_上尊号碑受禅表合册_p0062_c013",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 131.0,
+          "y": 645.0,
+          "w": 616.0,
+          "h": 632.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 60
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "21",
+      "first_square_ordinal": 61,
+      "accepted": true,
+      "location": {
+        "page": 63,
+        "glyph_id": "016_上尊号碑受禅表合册_p0063_c003",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 2245.0,
+          "y": 1675.0,
+          "w": 633.0,
+          "h": 632.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 61
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "22",
+      "first_square_ordinal": 66,
+      "accepted": true,
+      "location": {
+        "page": 64,
+        "glyph_id": "016_上尊号碑受禅表合册_p0064_c018",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 131.0,
+          "y": 3340.0,
+          "w": 588.0,
+          "h": 629.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 66
+      },
+      "page_order_non_decreasing": true
+    },
+    {
+      "id": "23",
+      "first_square_ordinal": 69,
+      "accepted": true,
+      "location": {
+        "page": 66,
+        "glyph_id": "016_上尊号碑受禅表合册_p0066_c005",
+        "canvas": {
+          "w": 2946,
+          "h": 4452
+        },
+        "bbox": {
+          "x": 1227.0,
+          "y": 2759.0,
+          "w": 641.0,
+          "h": 641.0
+        },
+        "bbox_source": "existing-model-square",
+        "match_method": "square-ordinal",
+        "square_ordinal": 69
+      },
+      "page_order_non_decreasing": true
+    }
+  ]
 }
