@@ -1,0 +1,267 @@
+{
+  "work_id": "015",
+  "page_count": 40,
+  "status": "completed",
+  "model_rows": 514,
+  "model_stream_chars": 514,
+  "expected_chars": 526,
+  "sequence_ratio": 0.9846,
+  "body_page_range": [
+    6,
+    36
+  ],
+  "coordinate_pages": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    26,
+    37,
+    38,
+    39,
+    40
+  ],
+  "case_count": 2,
+  "located_cases": 2,
+  "unlocated_cases": [],
+  "matching_blocks": [
+    {
+      "a": 0,
+      "b": 0,
+      "size": 61
+    },
+    {
+      "a": 62,
+      "b": 61,
+      "size": 35
+    },
+    {
+      "a": 98,
+      "b": 96,
+      "size": 35
+    },
+    {
+      "a": 134,
+      "b": 131,
+      "size": 35
+    },
+    {
+      "a": 170,
+      "b": 166,
+      "size": 35
+    },
+    {
+      "a": 206,
+      "b": 201,
+      "size": 35
+    },
+    {
+      "a": 242,
+      "b": 236,
+      "size": 35
+    },
+    {
+      "a": 278,
+      "b": 271,
+      "size": 35
+    },
+    {
+      "a": 314,
+      "b": 306,
+      "size": 48
+    },
+    {
+      "a": 363,
+      "b": 354,
+      "size": 35
+    },
+    {
+      "a": 399,
+      "b": 389,
+      "size": 55
+    },
+    {
+      "a": 455,
+      "b": 445,
+      "size": 10
+    },
+    {
+      "a": 466,
+      "b": 455,
+      "size": 18
+    },
+    {
+      "a": 485,
+      "b": 474,
+      "size": 16
+    },
+    {
+      "a": 502,
+      "b": 490,
+      "size": 24
+    }
+  ],
+  "cases": [
+    {
+      "id": "01",
+      "expected_index": 454,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.9644,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 3,
+          "char": "□",
+          "glyph_id": "015_史晨前碑_p0032_c003"
+        },
+        {
+          "score": 2.0089,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 2,
+          "char": "仓",
+          "glyph_id": "015_史晨前碑_p0032_c002"
+        },
+        {
+          "score": 1.9533,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 4,
+          "char": "流",
+          "glyph_id": "015_史晨前碑_p0032_c004"
+        },
+        {
+          "score": 1.8978,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 1,
+          "char": "代",
+          "glyph_id": "015_史晨前碑_p0032_c001"
+        },
+        {
+          "score": 1.8422,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 5,
+          "char": "应",
+          "glyph_id": "015_史晨前碑_p0032_c005"
+        }
+      ],
+      "location": {
+        "page": 32,
+        "glyph_id": "015_史晨前碑_p0032_c003",
+        "canvas": {
+          "w": 1459,
+          "h": 2235
+        },
+        "bbox": {
+          "x": 1042.0,
+          "y": 908.0,
+          "w": 290.0,
+          "h": 339.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.9644,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "02",
+      "expected_index": 484,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.9644,
+          "method": "context-alignment",
+          "page": 33,
+          "order_in_page": 14,
+          "char": "□",
+          "glyph_id": "015_史晨前碑_p0033_c014"
+        },
+        {
+          "score": 2.0089,
+          "method": "context-alignment",
+          "page": 33,
+          "order_in_page": 13,
+          "char": "玉",
+          "glyph_id": "015_史晨前碑_p0033_c013"
+        },
+        {
+          "score": 1.9533,
+          "method": "context-alignment",
+          "page": 33,
+          "order_in_page": 15,
+          "char": "应",
+          "glyph_id": "015_史晨前碑_p0033_c015"
+        },
+        {
+          "score": 1.8978,
+          "method": "context-alignment",
+          "page": 33,
+          "order_in_page": 12,
+          "char": "黄",
+          "glyph_id": "015_史晨前碑_p0033_c012"
+        },
+        {
+          "score": 1.8422,
+          "method": "context-alignment",
+          "page": 33,
+          "order_in_page": 16,
+          "char": "主",
+          "glyph_id": "015_史晨前碑_p0033_c016"
+        }
+      ],
+      "location": {
+        "page": 33,
+        "glyph_id": "015_史晨前碑_p0033_c014",
+        "canvas": {
+          "w": 1459,
+          "h": 2235
+        },
+        "bbox": {
+          "x": 120.0,
+          "y": 712.0,
+          "w": 313.0,
+          "h": 278.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.9644,
+        "bbox_source": "existing-model-row"
+      }
+    }
+  ]
+}
