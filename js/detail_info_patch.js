@@ -34,7 +34,7 @@
     window.__DAMAGE_AI_READING_ROUTER_V49__=true;
     window.__DAMAGE_AI_READING_ROUTER_V50__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260723_lihanjing_014_01_v3";
+    script.src="js/damage_ai_reading.js?v=20260723_lihanjing_014_02_v1";
     script.async=false;
     script.dataset.dedicatedForcedRouter=workId;
     script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});

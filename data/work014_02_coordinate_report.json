@@ -1,0 +1,772 @@
+{
+  "work_id": "014-02",
+  "page_count": 72,
+  "status": "completed",
+  "colophon_text": "紹興丁巳五月十有四日，大風折顔碑，雲溪沈作舟扶起之。",
+  "model_rows": 2325,
+  "model_stream_chars": 2325,
+  "expected_chars": 677,
+  "sequence_ratio": 0.4337,
+  "body_page_range": [
+    8,
+    65
+  ],
+  "coordinate_pages": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    55,
+    56,
+    57,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72
+  ],
+  "colophon_or_appendix_pages": [],
+  "case_count": 11,
+  "located_cases": 9,
+  "unlocated_cases": [
+    "03",
+    "08"
+  ],
+  "matching_blocks": [
+    {
+      "a": 0,
+      "b": 0,
+      "size": 43
+    },
+    {
+      "a": 44,
+      "b": 44,
+      "size": 17
+    },
+    {
+      "a": 63,
+      "b": 63,
+      "size": 49
+    },
+    {
+      "a": 113,
+      "b": 113,
+      "size": 135
+    },
+    {
+      "a": 249,
+      "b": 249,
+      "size": 12
+    },
+    {
+      "a": 262,
+      "b": 1916,
+      "size": 177
+    },
+    {
+      "a": 440,
+      "b": 2094,
+      "size": 31
+    },
+    {
+      "a": 472,
+      "b": 2126,
+      "size": 23
+    },
+    {
+      "a": 496,
+      "b": 2150,
+      "size": 29
+    },
+    {
+      "a": 528,
+      "b": 2182,
+      "size": 4
+    },
+    {
+      "a": 537,
+      "b": 2191,
+      "size": 42
+    },
+    {
+      "a": 580,
+      "b": 2234,
+      "size": 5
+    },
+    {
+      "a": 586,
+      "b": 2240,
+      "size": 5
+    },
+    {
+      "a": 592,
+      "b": 2246,
+      "size": 12
+    },
+    {
+      "a": 607,
+      "b": 2261,
+      "size": 14
+    },
+    {
+      "a": 623,
+      "b": 2277,
+      "size": 48
+    }
+  ],
+  "cases": [
+    {
+      "id": "01",
+      "expected_index": 43,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 3.0944,
+          "method": "context-alignment",
+          "page": 10,
+          "order_in_page": 14,
+          "char": "□",
+          "glyph_id": "014-02_p0010_c014"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 10,
+          "order_in_page": 13,
+          "char": "紫",
+          "glyph_id": "014-02_p0010_c013"
+        },
+        {
+          "score": 1.9833,
+          "method": "context-alignment",
+          "page": 10,
+          "order_in_page": 15,
+          "char": "之",
+          "glyph_id": "014-02_p0010_c015"
+        },
+        {
+          "score": 1.9278,
+          "method": "context-alignment",
+          "page": 10,
+          "order_in_page": 12,
+          "char": "山",
+          "glyph_id": "014-02_p0010_c012"
+        }
+      ],
+      "location": {
+        "page": 10,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0010_十.jpg",
+        "glyph_id": "014-02_p0010_c014",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 187.0,
+          "y": 2690.0,
+          "w": 746.0,
+          "h": 783.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 3.0944,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "02",
+      "expected_index": 248,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 3.0944,
+          "method": "context-alignment",
+          "page": 24,
+          "order_in_page": 9,
+          "char": "□",
+          "glyph_id": "014-02_p0024_c009"
+        },
+        {
+          "score": 1.9833,
+          "method": "context-alignment",
+          "page": 24,
+          "order_in_page": 8,
+          "char": "詞",
+          "glyph_id": "014-02_p0024_c008"
+        },
+        {
+          "score": 1.9833,
+          "method": "context-alignment",
+          "page": 24,
+          "order_in_page": 10,
+          "char": "該",
+          "glyph_id": "014-02_p0024_c010"
+        },
+        {
+          "score": 1.8722,
+          "method": "context-alignment",
+          "page": 24,
+          "order_in_page": 7,
+          "char": "違",
+          "glyph_id": "014-02_p0024_c007"
+        }
+      ],
+      "location": {
+        "page": 24,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0024_二十四.jpg",
+        "glyph_id": "014-02_p0024_c009",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 905.0,
+          "y": 2655.0,
+          "w": 770.0,
+          "h": 718.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 3.0944,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "03",
+      "expected_index": 261,
+      "accepted": false,
+      "top_candidates": [
+        {
+          "score": 0.7256,
+          "method": "context-alignment",
+          "page": 59,
+          "order_in_page": 27,
+          "char": "□",
+          "glyph_id": "014-02_p0059_c027"
+        },
+        {
+          "score": 0.7256,
+          "method": "context-alignment",
+          "page": 60,
+          "order_in_page": 93,
+          "char": "□",
+          "glyph_id": "014-02_p0060_c093"
+        },
+        {
+          "score": 0.5633,
+          "method": "context-alignment",
+          "page": 59,
+          "order_in_page": 15,
+          "char": "興",
+          "glyph_id": "014-02_p0059_c015"
+        },
+        {
+          "score": 0.4833,
+          "method": "context-alignment",
+          "page": 59,
+          "order_in_page": 13,
+          "char": "居",
+          "glyph_id": "014-02_p0059_c013"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "expected_index": 364,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 9.0,
+          "method": "sequence-exact",
+          "page": 63,
+          "order_in_page": 181,
+          "char": "昇",
+          "glyph_id": "014-02_p0063_c181"
+        },
+        {
+          "score": 3.38,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 181,
+          "char": "昇",
+          "glyph_id": "014-02_p0063_c181"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 180,
+          "char": "以",
+          "glyph_id": "014-02_p0063_c180"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 182,
+          "char": "州",
+          "glyph_id": "014-02_p0063_c182"
+        }
+      ],
+      "location": {
+        "page": 63,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0063_六十三.jpg",
+        "glyph_id": "014-02_p0063_c181",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1141.0,
+          "y": 1760.0,
+          "w": 153.0,
+          "h": 121.0
+        },
+        "match_method": "sequence-exact",
+        "alignment_score": 9.0,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "05",
+      "expected_index": 403,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 9.0,
+          "method": "sequence-exact",
+          "page": 63,
+          "order_in_page": 220,
+          "char": "復",
+          "glyph_id": "014-02_p0063_c220"
+        },
+        {
+          "score": 3.38,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 220,
+          "char": "復",
+          "glyph_id": "014-02_p0063_c220"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 219,
+          "char": "昭",
+          "glyph_id": "014-02_p0063_c219"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 221,
+          "char": "書",
+          "glyph_id": "014-02_p0063_c221"
+        }
+      ],
+      "location": {
+        "page": 63,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0063_六十三.jpg",
+        "glyph_id": "014-02_p0063_c220",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 831.0,
+          "y": 1654.0,
+          "w": 158.0,
+          "h": 123.0
+        },
+        "match_method": "sequence-exact",
+        "alignment_score": 9.0,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "06",
+      "expected_index": 439,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 3.15,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 19,
+          "char": "□",
+          "glyph_id": "014-02_p0064_c019"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 18,
+          "char": "逺",
+          "glyph_id": "014-02_p0064_c018"
+        },
+        {
+          "score": 2.0389,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 20,
+          "char": "大",
+          "glyph_id": "014-02_p0064_c020"
+        },
+        {
+          "score": 1.9278,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 17,
+          "char": "攸",
+          "glyph_id": "014-02_p0064_c017"
+        }
+      ],
+      "location": {
+        "page": 64,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0064_六十四.jpg",
+        "glyph_id": "014-02_p0064_c019",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1984.0,
+          "y": 3622.0,
+          "w": 154.0,
+          "h": 133.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 3.15,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "07",
+      "expected_index": 484,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 9.0,
+          "method": "sequence-exact",
+          "page": 64,
+          "order_in_page": 64,
+          "char": "林",
+          "glyph_id": "014-02_p0064_c064"
+        },
+        {
+          "score": 3.2689,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 64,
+          "char": "林",
+          "glyph_id": "014-02_p0064_c064"
+        },
+        {
+          "score": 1.9278,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 63,
+          "char": "望",
+          "glyph_id": "014-02_p0064_c063"
+        },
+        {
+          "score": 1.9278,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 65,
+          "char": "巒",
+          "glyph_id": "014-02_p0064_c065"
+        }
+      ],
+      "location": {
+        "page": 64,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0064_六十四.jpg",
+        "glyph_id": "014-02_p0064_c064",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1506.0,
+          "y": 1797.0,
+          "w": 157.0,
+          "h": 111.0
+        },
+        "match_method": "sequence-exact",
+        "alignment_score": 9.0,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "08",
+      "expected_index": 536,
+      "accepted": false,
+      "top_candidates": [
+        {
+          "score": 2.3444,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 112,
+          "char": "□",
+          "glyph_id": "014-02_p0064_c112"
+        },
+        {
+          "score": 2.3278,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 116,
+          "char": "韋",
+          "glyph_id": "014-02_p0064_c116"
+        },
+        {
+          "score": 1.9522,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 117,
+          "char": "渠",
+          "glyph_id": "014-02_p0064_c117"
+        },
+        {
+          "score": 1.8722,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 115,
+          "char": "子",
+          "glyph_id": "014-02_p0064_c115"
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "expected_index": 582,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 9.0,
+          "method": "sequence-exact",
+          "page": 64,
+          "order_in_page": 162,
+          "char": "乃",
+          "glyph_id": "014-02_p0064_c162"
+        },
+        {
+          "score": 3.0533,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 162,
+          "char": "乃",
+          "glyph_id": "014-02_p0064_c162"
+        },
+        {
+          "score": 2.2256,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 165,
+          "char": "□",
+          "glyph_id": "014-02_p0064_c165"
+        },
+        {
+          "score": 1.9,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 170,
+          "char": "乃",
+          "glyph_id": "014-02_p0064_c170"
+        }
+      ],
+      "location": {
+        "page": 64,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0064_六十四.jpg",
+        "glyph_id": "014-02_p0064_c162",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 653.0,
+          "y": 3389.0,
+          "w": 155.0,
+          "h": 107.0
+        },
+        "match_method": "sequence-exact",
+        "alignment_score": 9.0,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "10",
+      "expected_index": 603,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 9.0,
+          "method": "sequence-exact",
+          "page": 64,
+          "order_in_page": 183,
+          "char": "芝",
+          "glyph_id": "014-02_p0064_c183"
+        },
+        {
+          "score": 2.9422,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 183,
+          "char": "芝",
+          "glyph_id": "014-02_p0064_c183"
+        },
+        {
+          "score": 1.9522,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 184,
+          "char": "効",
+          "glyph_id": "014-02_p0064_c184"
+        },
+        {
+          "score": 1.8167,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 182,
+          "char": "靈",
+          "glyph_id": "014-02_p0064_c182"
+        }
+      ],
+      "location": {
+        "page": 64,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0064_六十四.jpg",
+        "glyph_id": "014-02_p0064_c183",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 502.0,
+          "y": 3510.0,
+          "w": 148.0,
+          "h": 123.0
+        },
+        "match_method": "sequence-exact",
+        "alignment_score": 9.0,
+        "bbox_source": "existing-model-row"
+      }
+    },
+    {
+      "id": "11",
+      "expected_index": 622,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.9033,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 202,
+          "char": "□",
+          "glyph_id": "014-02_p0064_c202"
+        },
+        {
+          "score": 1.9278,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 201,
+          "char": "郷",
+          "glyph_id": "014-02_p0064_c201"
+        },
+        {
+          "score": 1.9278,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 203,
+          "char": "歸",
+          "glyph_id": "014-02_p0064_c203"
+        },
+        {
+          "score": 1.8167,
+          "method": "context-alignment",
+          "page": 64,
+          "order_in_page": 200,
+          "char": "帝",
+          "glyph_id": "014-02_p0064_c200"
+        }
+      ],
+      "location": {
+        "page": 64,
+        "image": "assets/page_images/014_颜真卿李玄靖碑/images/02_顏真卿李玄靖碑册二/0064_六十四.jpg",
+        "glyph_id": "014-02_p0064_c202",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 350.0,
+          "y": 3367.0,
+          "w": 148.0,
+          "h": 139.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.9033,
+        "bbox_source": "existing-model-row"
+      }
+    }
+  ]
+}
