@@ -2,91 +2,39 @@
   "work_id": "020",
   "title": "化度寺邕禅师舍利塔铭",
   "page_count": 49,
-  "status": "completed-with-unlocated-cases",
+  "status": "completed",
   "source_files": [
-    "data/model_boxes/glyph_model_border_016_020.json"
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0009.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0010.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0011.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0012.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0013.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0014.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0015.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0016.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0017.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0018.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0019.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0020.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0021.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0022.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0023.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0024.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0025.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0026.json",
+    "data/glyph_boxes/model_aligned_border_refined/020/page_0027.json"
   ],
-  "model_rows": 0,
-  "model_square_count": 0,
+  "model_rows": 1080,
+  "model_square_count": 31,
   "text_square_count": 26,
   "covered_square_count": 26,
   "candidate_count": 26,
   "remaining_square_count": 0,
   "case_count": 12,
-  "located_cases": 0,
-  "unlocated_cases": [
-    {
-      "id": "01",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "02",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "03",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "04",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "05",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "06",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "07",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "08",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "09",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "10",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "11",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    },
-    {
-      "id": "12",
-      "reason": "no-unique-model-square",
-      "top_candidates": []
-    }
-  ],
-  "sequence_ratio": 0.0,
-  "coordinate_pages": [],
-  "image_only_pages": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
+  "located_cases": 12,
+  "unlocated_cases": [],
+  "sequence_ratio": 0.9926,
+  "coordinate_pages": [
     9,
     10,
     11,
@@ -105,7 +53,17 @@
     24,
     25,
     26,
-    27,
+    27
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
     28,
     29,
     30,
@@ -129,8 +87,240 @@
     48,
     49
   ],
-  "coordinate_range": [],
-  "case_locations": [],
+  "coordinate_range": [
+    9,
+    27
+  ],
+  "case_locations": [
+    {
+      "id": "01",
+      "page": 16,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0016_c029",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 705.0,
+        "y": 1485.0,
+        "w": 111.0,
+        "h": 111.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9997,
+      "uniqueness_margin": 0.9198
+    },
+    {
+      "id": "02",
+      "page": 18,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0018_c006",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 993.0,
+        "y": 1084.0,
+        "w": 102.0,
+        "h": 102.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9996,
+      "uniqueness_margin": 0.9049
+    },
+    {
+      "id": "03",
+      "page": 19,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0019_c010",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 858.0,
+        "y": 1588.0,
+        "w": 102.0,
+        "h": 102.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9048,
+      "uniqueness_margin": 0.8223
+    },
+    {
+      "id": "04",
+      "page": 20,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0020_c001",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 982.0,
+        "y": 429.0,
+        "w": 105.0,
+        "h": 105.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9997,
+      "uniqueness_margin": 0.8934
+    },
+    {
+      "id": "05",
+      "page": 21,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0021_c032",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 435.0,
+        "y": 537.0,
+        "w": 115.0,
+        "h": 115.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9999,
+      "uniqueness_margin": 0.0139
+    },
+    {
+      "id": "06",
+      "page": 23,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0023_c047",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 277.0,
+        "y": 1174.0,
+        "w": 117.0,
+        "h": 117.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9999,
+      "uniqueness_margin": 0.9143
+    },
+    {
+      "id": "07",
+      "page": 25,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0025_c033",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 425.0,
+        "y": 564.0,
+        "w": 108.0,
+        "h": 108.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9999,
+      "uniqueness_margin": 0.0131
+    },
+    {
+      "id": "08",
+      "page": 26,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0026_c004",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 972.0,
+        "y": 816.0,
+        "w": 129.0,
+        "h": 129.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 0.9999,
+      "uniqueness_margin": 0.0132
+    },
+    {
+      "id": "09",
+      "page": 26,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0026_c037",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 558.0,
+        "y": 1199.0,
+        "w": 110.0,
+        "h": 110.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 0.0138
+    },
+    {
+      "id": "10",
+      "page": 26,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0026_c049",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 399.0,
+        "y": 1466.0,
+        "w": 140.0,
+        "h": 140.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 0.8419
+    },
+    {
+      "id": "11",
+      "page": 27,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0027_c005",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 846.0,
+        "y": 938.0,
+        "w": 110.0,
+        "h": 110.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 0.0065
+    },
+    {
+      "id": "12",
+      "page": 27,
+      "glyph_id": "020_化度寺邕禅师舍利塔铭_p0027_c011",
+      "canvas": {
+        "w": 1227,
+        "h": 1960
+      },
+      "bbox": {
+        "x": 700.0,
+        "y": 403.0,
+        "w": 114.0,
+        "h": 114.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 0.0083
+    }
+  ],
   "restoration_policy": "all_positions_have_ai_candidates",
-  "coordinate_policy": "只使用现有模型真实方框；未达到唯一阈值的案例不伪造bbox。"
+  "coordinate_policy": "只使用现有逐页模型真实方框；未达到唯一阈值的案例不伪造bbox。"
 }

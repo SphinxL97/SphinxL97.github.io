@@ -4,6 +4,7 @@
   if(window.__DETAIL_INFO_STABLE_ENTRY_V12__)return;
   window.__DETAIL_INFO_STABLE_ENTRY_V12__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V11__=true;
+  window.__DETAIL_INFO_STABLE_ENTRY_V12__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V10__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V7__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V6__=true;
