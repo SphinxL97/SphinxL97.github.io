@@ -1,0 +1,212 @@
+name: Generate work016 coordinates
+
+on:
+  push:
+    branches:
+      - agent/add-work016-zunhao-shanrang
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/add-work016-zunhao-shanrang
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            .github/workflows/generate-work016-coordinates.yml
+            data/model_boxes/glyph_model_border_016_020.json
+            data/work016_full_text.txt
+            data/work016_damage_cases.json
+            data/work016_coordinate_report.json
+            data/glyph_boxes/iiif/016
+            data/beitie_catalog.json
+            data/beitie_header_info.json
+            data/page_images_index.json
+            js/work-015.js
+            js/work-015-coordinate-adapter.js
+            js/work-016.js
+            js/work-016-coordinate-adapter.js
+            js/damage_ai_reading.js
+            js/detail_info_patch.js
+            detail.html
+      - name: Generate formal 016 data and modules
+        run: |
+          python - <<'PY'
+          import json, re, difflib, traceback
+          from pathlib import Path
+
+          MODEL=Path('data/model_boxes/glyph_model_border_016_020.json')
+          TEXT=Path('data/work016_full_text.txt')
+          CASES=Path('data/work016_damage_cases.json')
+          REPORT=Path('data/work016_coordinate_report.json')
+          OUT=Path('data/glyph_boxes/iiif/016')
+          PAGE_COUNT=74
+          OUT.mkdir(parents=True,exist_ok=True)
+
+          ignored=set(' \t\r\n\u3000，。；：、！？,.!?;:“”‘’\'"（）()《》〈〉【】〔〕［］—–…·')
+          variants={'于':'於','亐':'於','於':'於','眀':'明','明':'明','莭':'節','節':'節','号':'號','號':'號','乡':'鄉','鄕':'鄉','郷':'鄉','鄉':'鄉','历':'歷','歴':'歷','歷':'歷','后':'後','後':'後','国':'國','國':'國'}
+          def canon(ch):
+            if not ch or ch in ignored:return ''
+            return variants.get(ch,ch)
+          def norm(value):return ''.join(canon(ch) for ch in str(value) if canon(ch))
+          def rect(row):
+            bbox=row.get('bbox') or []
+            return {'x':float(row.get('x',row.get('bbox_x',bbox[0] if len(bbox)>0 else 0)) or 0),'y':float(row.get('y',row.get('bbox_y',bbox[1] if len(bbox)>1 else 0)) or 0),'w':float(row.get('w',row.get('bbox_w',bbox[2] if len(bbox)>2 else 0)) or 0),'h':float(row.get('h',row.get('bbox_h',bbox[3] if len(bbox)>3 else 0)) or 0)}
+          def unwrap(data):
+            if isinstance(data,list):return data
+            if isinstance(data,dict):
+              for key in ('rows','items','data','glyphs','annotations'):
+                if isinstance(data.get(key),list):return data[key]
+            return []
+          def plain(value):return str(value).replace('〔','').replace('〕','')
+
+          report={'work_id':'016','page_count':PAGE_COUNT,'status':'started'}
+          try:
+            raw=unwrap(json.loads(MODEL.read_text('utf-8')))
+            rows=[]
+            for source_index,row in enumerate(raw):
+              if str(row.get('work_id','')).split('-')[0].zfill(3)!='016':continue
+              page=int(row.get('canvas_index',row.get('page',0)) or 0)
+              box=rect(row)
+              if not 1<=page<=PAGE_COUNT or box['w']<=0 or box['h']<=0:continue
+              item=dict(row);text=str(row.get('char',row.get('text','')))[:1]
+              order=int(row.get('order_in_page',row.get('annotation_index',source_index+1)) or source_index+1)
+              item.update({'work_id':'016','canvas_index':page,'glyph_id':str(row.get('glyph_id') or f'016_{page}_{order}'),'char':text,'text':text,'order_in_page':order,'bbox_x':box['x'],'bbox_y':box['y'],'bbox_w':box['w'],'bbox_h':box['h'],'bbox':[box['x'],box['y'],box['w'],box['h']]})
+              rows.append(item)
+            rows.sort(key=lambda r:(int(r['canvas_index']),int(r['order_in_page'])))
+            groups={page:[] for page in range(1,PAGE_COUNT+1)}
+            for row in rows:groups[int(row['canvas_index'])].append(row)
+
+            text=TEXT.read_text('utf-8')
+            cases=json.loads(CASES.read_text('utf-8'))
+            if text.count('□')!=72:raise ValueError(f'expected 72 squares, got {text.count("□")}')
+            if sum(c['original'].count('□') for c in cases)!=72:raise ValueError('case square coverage mismatch')
+
+            model_squares=[row for row in rows if str(row.get('char') or row.get('text') or '')=='□']
+            square_count=len(model_squares)
+            located=0;case_audit=[];used=set();last_page=0
+            for case in cases:
+              at=text.find(case['original'])
+              if at<0:raise ValueError(f'case {case["id"]} original not found')
+              target=at+case['original'].find('□')
+              ordinal=text[:target+1].count('□')
+              audit={'id':case['id'],'first_square_ordinal':ordinal,'accepted':False}
+              row=model_squares[ordinal-1] if 1<=ordinal<=square_count else None
+              if row and row.get('glyph_id') not in used:
+                page=int(row['canvas_index']);box=rect(row)
+                location={'page':page,'glyph_id':str(row.get('glyph_id','')),'canvas':{'w':int(row.get('canvas_width',2946) or 2946),'h':int(row.get('canvas_height',4452) or 4452)},'bbox':{'x':box['x'],'y':box['y'],'w':box['w'],'h':box['h']},'bbox_source':'existing-model-square','match_method':'square-ordinal','square_ordinal':ordinal}
+                case['locations']=[location];case['page']=page
+                case['n']=case.get('category','残损碑文恢复');case['t']=case['title'];case['o']=case['original'];case['c']=case['corrected']
+                used.add(row.get('glyph_id'));located+=1
+                audit.update({'accepted':True,'location':location,'page_order_non_decreasing':page>=last_page})
+                last_page=max(last_page,page)
+              else:
+                case['locations']=[];case['page']='—'
+                audit['reason']='model square ordinal unavailable'
+              case_audit.append(audit)
+
+            coordinate_pages=[];image_only=[]
+            for page in range(1,PAGE_COUNT+1):
+              page_rows=groups.get(page,[])
+              if page_rows:coordinate_pages.append(page)
+              else:image_only.append(page)
+              (OUT/f'page_{page:04d}.json').write_text(json.dumps(page_rows,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+            CASES.write_text(json.dumps(cases,ensure_ascii=False,indent=2),encoding='utf-8')
+
+            # Generate the dedicated module and coordinate adapter from the stable 015 structure.
+            work=Path('js/work-015.js').read_text('utf-8')
+            work=work.replace('015','016').replace('史晨前碑','上尊号碑受禅表合册').replace('shichenqian','zunhaoshanrang')
+            work=work.replace('20260723_zunhaoshanrang_v1','20260723_zunhao_shanrang_v1')
+            work=work.replace('const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的残损字提出校读意见。AI分析重点说明候选字与孔子周游、谶纬典故、句法和铭辞对偶的关系；没有对应方框的外部文字不写入恢复结果。";','const INTRO="本栏目以当前网页释文为底稿，分别整理《魏上尊号碑》与《魏受禅表》节录中的残损字。AI分析重点说明候选字与官职封爵、禅让典故、受禅礼制、祥瑞语汇和句法对偶的关系；没有对应方框的外部文字不写入恢复结果。";')
+            work=work.replace('.map(part=>`<p>${esc(part)}</p>`).join("");','.map(part=>/^[上下]篇　/.test(part)?`<h4 class="work016-part-title">${esc(part)}</h4>`:`<p>${esc(part)}</p>`).join("");')
+            work=work.replace('background:#fffaf0;color:#7b6c5a}";','background:#fffaf0;color:#7b6c5a}.work016-part-title{margin:1.8rem 0 .8rem;padding:.55rem .8rem;border-left:4px solid #9d3328;background:#f8f1e5;font-size:1.05rem}";')
+            Path('js/work-016.js').write_text(work,'utf-8')
+
+            adapter=Path('js/work-015-coordinate-adapter.js').read_text('utf-8')
+            adapter=adapter.replace('015','016').replace('史晨前碑','上尊号碑受禅表合册').replace('shichenqian','zunhaoshanrang')
+            adapter=adapter.replace('20260723_zunhaoshanrang_v1','20260723_zunhao_shanrang_v1')
+            Path('js/work-016-coordinate-adapter.js').write_text(adapter,'utf-8')
+
+            # Update page index with current-page text and coordinate flags.
+            index_path=Path('data/page_images_index.json');index=json.loads(index_path.read_text('utf-8'))
+            pages=index.get('works',{}).get('016',{}).get('pages',[])
+            for page_obj in pages:
+              page=int(page_obj.get('page',0));page_rows=groups.get(page,[])
+              chars=[str(r.get('char') or r.get('text') or '') for r in page_rows]
+              page_obj['text_clean']=''.join(chars);page_obj['text_raw']='\n'.join(chars);page_obj['char_count']=len(chars);page_obj['has_char_boxes']=bool(chars)
+            index_path.write_text(json.dumps(index,ensure_ascii=False,indent=2),'utf-8')
+
+            catalog_path=Path('data/beitie_catalog.json');catalog=json.loads(catalog_path.read_text('utf-8'))
+            for item in catalog:
+              if str(item.get('id'))=='016':
+                item['creator']='撰书归属有异说（详见基本信息）'
+                item['subtitle']='合册图像、两篇节录释文与单字定位已接入。'
+                item['canvas_count']=74
+            catalog_path.write_text(json.dumps(catalog,ensure_ascii=False,indent=2),'utf-8')
+
+            header_path=Path('data/beitie_header_info.json');header=json.loads(header_path.read_text('utf-8'))
+            basic=header.setdefault('016',{}).setdefault('basic',{})
+            basic['其他题名']='魏上尊号碑；魏受禅表'
+            basic['责任者']='《上尊号碑》传梁鹄或钟繇书；《受禅表》撰书归属有异说'
+            basic['版本说明']='合册收《魏上尊号碑》与《魏受禅表》两碑拓本，网站栏目二按两篇节录分别展示。'
+            basic['镌刻特征']='两碑均刻于三国魏黄初元年，内容分别为公卿劝进尊号奏与受禅礼制表文。'
+            header_path.write_text(json.dumps(header,ensure_ascii=False,indent=2),'utf-8')
+
+            router_path=Path('js/damage_ai_reading.js');router=router_path.read_text('utf-8')
+            router=router.replace('014-01、014-02、015使用','014-01、014-02、015、016使用')
+            router=router.replace('__DAMAGE_AI_READING_ROUTER_V53__','__DAMAGE_AI_READING_ROUTER_V54__')
+            old='''    "015":[\n      {src:"js/work-015-coordinate-adapter.js?v=20260723_shichenqian_v1",key:"w015c",ready:()=>Boolean(window.__WORK_015_COORDINATE_ADAPTER__)},\n      {src:"js/work-015.js?v=20260723_shichenqian_v1",key:"w015",ready:()=>Boolean(window.__WORK_015_STABLE_READY__)}\n    ]\n'''
+            new=old[:-1]+''',\n    "016":[\n      {src:"js/work-016-coordinate-adapter.js?v=20260723_zunhao_shanrang_v1",key:"w016c",ready:()=>Boolean(window.__WORK_016_COORDINATE_ADAPTER__)},\n      {src:"js/work-016.js?v=20260723_zunhao_shanrang_v1",key:"w016",ready:()=>Boolean(window.__WORK_016_STABLE_READY__)}\n    ]\n'''
+            if old not in router:raise ValueError('015 route anchor not found')
+            router=router.replace(old,new,1)
+            router=router.replace('"015":"史晨前碑"};','"015":"史晨前碑","016":"上尊号碑受禅表合册"};')
+            router=router.replace('["007","010","011","013","014","015"]','["007","010","011","013","014","015","016"]')
+            router_path.write_text(router,'utf-8')
+
+            detail_patch=Path('js/detail_info_patch.js');detail_info=detail_patch.read_text('utf-8')
+            detail_info=detail_info.replace('__DETAIL_INFO_STABLE_ENTRY_V7__','__DETAIL_INFO_STABLE_ENTRY_V8__')
+            detail_info=detail_info.replace('data/beitie_header_info.json?v=20260723_shichenqian_v1','data/beitie_header_info.json?v=20260723_zunhao_shanrang_v1')
+            detail_info=detail_info.replace('["007","010","011","013","014","015"]','["007","010","011","013","014","015","016"]')
+            detail_info=detail_info.replace('window.__DAMAGE_AI_READING_ROUTER_V52__=true;','window.__DAMAGE_AI_READING_ROUTER_V52__=true;\n    window.__DAMAGE_AI_READING_ROUTER_V53__=true;')
+            detail_info=detail_info.replace('js/damage_ai_reading.js?v=20260723_shichenqian_v1','js/damage_ai_reading.js?v=20260723_zunhao_shanrang_v1')
+            detail_patch.write_text(detail_info,'utf-8')
+
+            html_path=Path('detail.html');html=html_path.read_text('utf-8')
+            html=re.sub(r'js/detail_info_patch\.js\?v=[^"\']+','js/detail_info_patch.js?v=20260723_zunhao_shanrang_v1',html,count=1)
+            html=re.sub(r'js/damage_ai_reading\.js\?v=[^"\']+','js/damage_ai_reading.js?v=20260723_zunhao_shanrang_v1',html,count=1)
+            html_path.write_text(html,'utf-8')
+
+            # Locate likely start of the lower text in the model stream.
+            model_text=''.join(str(r.get('char') or r.get('text') or '') for r in rows)
+            lower_at=model_text.find('黄人')
+            lower_page=None
+            if lower_at>=0:
+              count=0
+              for r in rows:
+                count+=len(str(r.get('char') or r.get('text') or ''))
+                if count>lower_at:
+                  lower_page=int(r['canvas_index']);break
+
+            report.update({'status':'completed','model_rows':len(rows),'model_square_count':square_count,'source_square_count':72,'case_count':len(cases),'located_cases':located,'unlocated_cases':[a['id'] for a in case_audit if not a['accepted']],'coordinate_pages':coordinate_pages,'image_only_pages':image_only,'lower_text_start_page':lower_page,'cases':case_audit})
+          except Exception as error:
+            report.update({'status':'error','error':repr(error),'traceback':traceback.format_exc()})
+          REPORT.parent.mkdir(parents=True,exist_ok=True)
+          REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
+          print(json.dumps({k:report.get(k) for k in ('status','model_rows','model_square_count','source_square_count','case_count','located_cases','unlocated_cases','lower_text_start_page','error')},ensure_ascii=False,indent=2))
+          PY
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --sparse data/work016_damage_cases.json data/work016_coordinate_report.json data/glyph_boxes/iiif/016 data/beitie_catalog.json data/beitie_header_info.json data/page_images_index.json js/work-016.js js/work-016-coordinate-adapter.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "生成016合册逐页坐标与专属栏目"
+          git push origin HEAD:agent/add-work016-zunhao-shanrang
