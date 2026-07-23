@@ -6,6 +6,7 @@
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
+  const routeId=raw.includes("-")?raw:id;
   const legacy={src:"js/damage-case-unbracketed-adapter.js?v=20260721_legacy_v1",key:"legacy",ready:()=>Boolean(window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__)};
   const integrity={src:"js/damage-case-integrity-v2.js?v=20260721_integrity_v2",key:"integrity",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_V2__)};
   const partial={src:"js/damage-case-partial-status.js?v=20260721_partial_v1",key:"partial",ready:()=>Boolean(window.__DAMAGE_CASE_PARTIAL_STATUS__)};
@@ -32,13 +33,17 @@
     "013":[
       {src:"js/work-013-coordinate-adapter.js?v=20260723_lujun_v1",key:"w013c",ready:()=>Boolean(window.__WORK_013_COORDINATE_ADAPTER__)},
       {src:"js/work-013.js?v=20260723_lujun_v1",key:"w013",ready:()=>Boolean(window.__WORK_013_STABLE_READY__)}
+    ],
+    "014-01":[
+      {src:"js/work-014-coordinate-adapter.js?v=20260723_lihanjing_014_01_v1",key:"w01401c",ready:()=>Boolean(window.__WORK_014_01_COORDINATE_ADAPTER__)},
+      {src:"js/work-014.js?v=20260723_lihanjing_014_01_v1",key:"w01401",ready:()=>Boolean(window.__WORK_014_01_STABLE_READY__)}
     ]
   };
 
-  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑"};
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一"};
 
   function installMask(){
-    if(["007","010","011","013"].includes(id)||document.getElementById("detail-route-pending-style"))return;
+    if(["007","010","011","013","014"].includes(id)||document.getElementById("detail-route-pending-style"))return;
     const style=document.createElement("style");
     style.id="detail-route-pending-style";
     style.textContent=".damage-basis-block,.damage-basis-card,[data-damage-basis]{display:none!important}";
@@ -84,14 +89,16 @@
 
   async function start(){
     installMask();
-    const title=titles[id]||`碑帖${id}`;
+    if(raw==="014"){location.replace("detail.html?id=014-01");return;}
+    if(raw==="014-02")return;
+    const title=titles[routeId]||titles[id]||`碑帖${id}`;
     renderLoading(title);
     await load({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"align",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
-    if(!["003","004","005","006","007","010","011","013"].includes(id)){
+    if(!["003","004","005","006","007","010","011","013","014"].includes(id)){
       await load({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"audit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
       await load({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"standard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
     }
-    const route=routes[id]||[];
+    const route=routes[routeId]||routes[id]||[];
     let success=Boolean(route.length);
     for(const item of route)success=(await load(item))&&success;
     if(!success)[document.getElementById("calligraphy"),document.getElementById("people")].forEach(section=>{
