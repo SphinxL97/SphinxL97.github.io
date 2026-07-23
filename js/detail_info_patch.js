@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V5__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V6__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V6__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V5__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V4__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V3__=true;
@@ -9,7 +10,6 @@
   window.__DETAIL_INFO_STABLE_ENTRY_V1__=true;
   document.documentElement.classList.add("detail-header-pending");
 
-  /* 旧核心曾每350毫秒重复覆盖信息卡12次；精准拦截这一历史轮询，避免闪烁。 */
   if(!window.__DETAIL_REPEAT_INTERVAL_GUARD__){
     window.__DETAIL_REPEAT_INTERVAL_GUARD__=true;
     const nativeSetInterval=window.setInterval.bind(window);
@@ -24,7 +24,6 @@
   const coreUrl="js/detail_info_patch_core.js?v=20260717_stable_header_v1";
   const dataUrl="data/beitie_header_info.json?v=20260723_lihanjing_014_01_v3";
 
-  /* detail.html 可能仍保留旧路由查询串；专属作品在最先执行的补丁中强制载入当前版本。 */
   function forceDedicatedRouter(){
     if(!["007","010","011","013","014"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
@@ -33,8 +32,9 @@
     window.__DAMAGE_AI_READING_ROUTER_V48__=true;
     window.__DAMAGE_AI_READING_ROUTER_V49__=true;
     window.__DAMAGE_AI_READING_ROUTER_V50__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V51__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260723_lihanjing_014_01_v3";
+    script.src="js/damage_ai_reading.js?v=20260723_lihanjing_014_02_v1";
     script.async=false;
     script.dataset.dedicatedForcedRouter=workId;
     script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});
