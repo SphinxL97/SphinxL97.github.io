@@ -1,8 +1,8 @@
-/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015使用单一专属模块。 */
+/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V53__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V53__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V54__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V54__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -45,13 +45,17 @@
     "015":[
       {src:"js/work-015-coordinate-adapter.js?v=20260723_shichenqian_v1",key:"w015c",ready:()=>Boolean(window.__WORK_015_COORDINATE_ADAPTER__)},
       {src:"js/work-015.js?v=20260723_shichenqian_v1",key:"w015",ready:()=>Boolean(window.__WORK_015_STABLE_READY__)}
+    ],
+    "016":[
+      {src:"js/work-016-coordinate-adapter.js?v=20260723_zunhao_shanrang_v1",key:"w016c",ready:()=>Boolean(window.__WORK_016_COORDINATE_ADAPTER__)},
+      {src:"js/work-016.js?v=20260723_zunhao_shanrang_v1",key:"w016",ready:()=>Boolean(window.__WORK_016_STABLE_READY__)}
     ]
   };
 
-  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑"};
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑","016":"上尊号碑受禅表合册"};
 
   function installMask(){
-    if(["007","010","011","013","014","015"].includes(id)||document.getElementById("detail-route-pending-style"))return;
+    if(["007","010","011","013","014","015","016"].includes(id)||document.getElementById("detail-route-pending-style"))return;
     const style=document.createElement("style");
     style.id="detail-route-pending-style";
     style.textContent=".damage-basis-block,.damage-basis-card,[data-damage-basis]{display:none!important}";
