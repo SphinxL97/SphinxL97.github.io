@@ -3,6 +3,7 @@
   "use strict";
   if(window.__DETAIL_INFO_STABLE_ENTRY_V8__)return;
   window.__DETAIL_INFO_STABLE_ENTRY_V8__=true;
+  window.__DETAIL_INFO_STABLE_ENTRY_V7__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V6__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V5__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V4__=true;
@@ -35,7 +36,6 @@
     window.__DAMAGE_AI_READING_ROUTER_V50__=true;
     window.__DAMAGE_AI_READING_ROUTER_V51__=true;
     window.__DAMAGE_AI_READING_ROUTER_V52__=true;
-    window.__DAMAGE_AI_READING_ROUTER_V53__=true;
     window.__DAMAGE_AI_READING_ROUTER_V53__=true;
     const script=document.createElement("script");
     script.src="js/damage_ai_reading.js?v=20260723_zunhao_shanrang_v1";
