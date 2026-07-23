@@ -13,10 +13,11 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="颜真卿李玄靖碑册一";
-  const VERSION="20260723_lihanjing_014_01_v2";
+  const VERSION="20260723_lihanjing_014_01_v3";
   const TEXT_URL=`data/work014_01_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work014_01_damage_cases.json?v=${VERSION}`;
   const PAGE_INDEX_URL=`data/page_images_index.json?v=${VERSION}`;
+  const PAGE_IMAGE_ROOT="assets/page_images/014_颜真卿李玄靖碑/images/01_顏真卿李玄靖碑册一";
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
   const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的残损字提出校读意见。AI分析重点说明候选字与唐代道教语汇、年号、地名、人名、典故、句法和上下文的关系；没有对应方框的外部文字不写入恢复结果。";
 
@@ -111,10 +112,7 @@
       const accepted=[];
       let right=-1;
       matches.forEach(item=>{
-        if(item.start>=right){
-          accepted.push(item);
-          right=item.end;
-        }
+        if(item.start>=right){accepted.push(item);right=item.end;}
       });
       const fragment=document.createDocumentFragment();
       let offset=0;
@@ -156,9 +154,25 @@
       const list=Array.isArray(data?.works?.["014-01"]?.pages)?data.works["014-01"].pages:[];
       pageImages=new Map(list.map(page=>[Number(page.page),String(page.image||"")]));
     }catch(error){
-      console.warn("[work-014-01] page images",error);
+      console.warn("[work-014-01] page index unavailable; deterministic paths remain active",error);
       pageImages=new Map();
     }
+  }
+
+  function chinesePageLabel(value){
+    const page=Number(value||0);
+    if(page<=0)return "";
+    const digits=["零","一","二","三","四","五","六","七","八","九"];
+    if(page<10)return digits[page];
+    if(page<20)return `十${page===10?"":digits[page%10]}`;
+    const tens=Math.floor(page/10),ones=page%10;
+    return `${digits[tens]}十${ones?digits[ones]:""}`;
+  }
+
+  function directPageImage(page){
+    const pageNo=Number(page||0);
+    if(pageNo<1||pageNo>76)return "";
+    return `${PAGE_IMAGE_ROOT}/${String(pageNo).padStart(4,"0")}_${chinesePageLabel(pageNo)}.jpg`;
   }
 
   function makeLocation(item){
@@ -184,7 +198,8 @@
       y:Math.max(0,Math.min(canvas.h-cropH,target.y+target.h/2-cropH/2)),
       w:cropW,h:cropH
     };
-    return {page,image:pageImages.get(page)||String(source.image||""),canvas,target,crop};
+    const image=String(source.image||"")||pageImages.get(page)||directPageImage(page);
+    return {page,image,canvas,target,crop};
   }
 
   function imageHTML(item){
@@ -192,7 +207,7 @@
     if(location&&location.image){
       return `<div class="damage-viewport" data-image="${esc(location.image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${location.crop.x} ${location.crop.y} ${location.crop.w} ${location.crop.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(item.title)}对应拓片局部"><image href="${esc(location.image)}" x="0" y="0" width="${location.canvas.w}" height="${location.canvas.h}" preserveAspectRatio="none"></image><rect class="damage-box" x="${location.target.x}" y="${location.target.y}" width="${location.target.w}" height="${location.target.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${location.page}页，本句第一个问题字局部</p>`;
     }
-    return '<div class="damage-location-missing"><p>现有逐字坐标中暂未可靠定位本句第一个问题字。系统不会使用第二个问题字或相邻无关字形代替。</p></div>';
+    return '<div class="damage-location-missing"><p>案例数据中缺少有效页码或真实字框，系统不会使用相邻字形代替。</p></div>';
   }
 
   function markedHTML(value){
@@ -279,10 +294,10 @@
     try{
       const rows=await fetchJSON(CASE_URL);
       cases=(Array.isArray(rows)?rows:[]).map(normalizeCase);
-      await loadPageImages();
       syncCases(cases);
       await renderTranscript(cases);
       renderDamage();
+      loadPageImages().then(()=>renderDamage()).catch(()=>{});
       window.__WORK_014_01_CONTENT_READY__=true;
       window.__WORK_014_01_STABLE_READY__=true;
       window.dispatchEvent(new CustomEvent("work-014-01-content-ready",{detail:{count:cases.length}}));
