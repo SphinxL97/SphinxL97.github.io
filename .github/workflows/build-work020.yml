@@ -1,0 +1,53 @@
+name: Build work020 data
+
+on:
+  push:
+    branches:
+      - agent/add-work020-huadusi
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.head_ref == 'agent/add-work020-huadusi' || github.ref_name == 'agent/add-work020-huadusi'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/add-work020-huadusi
+          fetch-depth: 0
+      - name: Build work020 coordinates and modules
+        run: python tools/tmp_build_work020.py
+      - name: Validate generated data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          cases=json.loads(Path('data/work020_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work020_coordinate_report.json').read_text(encoding='utf-8'))
+          assert len(cases)==12
+          assert report['text_square_count']==26
+          assert report['candidate_count']==26
+          assert report['remaining_square_count']==0
+          assert all('□' not in item['corrected'] for item in cases)
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          PY
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/work020_full_text.txt data/work020_damage_cases.json data/work020_coordinate_report.json
+          git add data/glyph_boxes/iiif/020 data/page_images_index.json data/beitie_catalog.json data/beitie_header_info.json
+          git add js/work-020.js js/work-020-coordinate-adapter.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+          else
+            git commit -m "完成020碑文案例与逐页坐标"
+            git push origin HEAD:agent/add-work020-huadusi
+          fi
