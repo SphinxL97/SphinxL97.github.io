@@ -8,8 +8,8 @@
   "model_square_count": 110,
   "text_square_count": 119,
   "covered_square_count": 119,
-  "candidate_count": 10,
-  "remaining_square_count": 109,
+  "candidate_count": 119,
+  "remaining_square_count": 0,
   "case_count": 28,
   "located_cases": 28,
   "unlocated_cases": [],
@@ -1650,5 +1650,7 @@
     "26",
     "27",
     "28"
-  ]
+  ],
+  "fully_restored_case_count": 28,
+  "restoration_policy": "all_positions_have_ai_candidates; speculative readings are explicitly confidence-labelled"
 }
