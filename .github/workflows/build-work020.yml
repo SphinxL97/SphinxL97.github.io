@@ -1,9 +1,6 @@
 name: Build work020 data
 
 on:
-  push:
-    branches:
-      - agent/add-work020-huadusi
   pull_request:
     branches:
       - main
@@ -15,15 +12,17 @@ permissions:
 
 jobs:
   build:
-    if: github.head_ref == 'agent/add-work020-huadusi' || github.ref_name == 'agent/add-work020-huadusi'
+    if: (github.head_ref == 'agent/add-work020-huadusi' || github.ref_name == 'agent/add-work020-huadusi') && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/add-work020-huadusi
           fetch-depth: 0
-      - name: Build work020 coordinates and modules
+      - name: Build work020 modules and metadata
         run: python tools/tmp_build_work020.py
+      - name: Rebuild coordinates from aligned page files
+        run: python tools/tmp_fix_work020_coordinates.py
       - name: Validate generated data
         run: |
           python - <<'PY'
@@ -32,6 +31,7 @@ jobs:
           cases=json.loads(Path('data/work020_damage_cases.json').read_text(encoding='utf-8'))
           report=json.loads(Path('data/work020_coordinate_report.json').read_text(encoding='utf-8'))
           assert len(cases)==12
+          assert report['model_rows'] > 0
           assert report['text_square_count']==26
           assert report['candidate_count']==26
           assert report['remaining_square_count']==0
@@ -49,5 +49,6 @@ jobs:
             echo "No generated changes"
           else
             git commit -m "完成020碑文案例与逐页坐标"
+            git pull --rebase origin agent/add-work020-huadusi
             git push origin HEAD:agent/add-work020-huadusi
           fi
