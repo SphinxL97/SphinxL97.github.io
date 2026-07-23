@@ -1,0 +1,124 @@
+name: Revise work017 complete restoration
+
+on:
+  push:
+    branches:
+      - agent/revise-work017-complete-restoration
+
+permissions:
+  contents: write
+
+jobs:
+  revise:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/revise-work017-complete-restoration
+          fetch-depth: 0
+      - name: Complete every work017 damaged position
+        run: |
+          python - <<'PY'
+          import json, re
+          from pathlib import Path
+
+          VERSION='20260723_zhangmenglong_v2'
+          case_path=Path('data/work017_damage_cases.json')
+          cases=json.loads(case_path.read_text('utf-8'))
+
+          updates={
+            '01': ('字神〔囧〕','documentary','高',['故宫及多种通行释文均保存“君讳猛龙，字神囧”。','“囧”为张猛龙之字，此处可据文献直接恢复。']),
+            '02': ('不复具载〔也〕。〔祖〕〔德〕〔弥〕盛，蓊郁于帝皇之始；德星〔高〕〔照〕','ai_provisional','低',['“不复具载也”可作为承接世系说明的句末语；“祖德弥盛、德星高照”符合谱系颂赞语气。','原石此段漫漶严重，六字均为结合上下文作出的AI推测。']),
+            '03': ('周宣时，〔有〕〔臣〕张仲','ai_provisional','低',['“周宣时，有臣张仲”与下文“诗人咏其孝友”衔接自然。','“有臣”属于人物引入语，二字为AI推测。']),
+            '04': ('晋大夫张〔老〕','documentary','高',['相关录文保存“晋大夫张老，《春秋》嘉其声绩”。','底稿“张双□”存在OCR错位，恢复后的姓名按通行录文整理为“张老”。']),
+            '05': ('松心〔贞〕节，〔凌〕〔霜〕〔雪〕〔以〕〔增〕〔翠〕。〔风〕〔仪〕〔早〕成，自〔幼〕〔清〕朗','ai_provisional','低',['“松心贞节、凌霜雪以增翠”延续松柏耐寒的品格比喻；“风仪早成、自幼清朗”承接人物容止。','十二字用于补足原有十二个问题位，均为铭文语境下的AI推测。']),
+            '06': ('友朋〔服〕〔义〕，交游〔慕〕〔德〕。〔风〕〔操〕超遥，蒙〔幽〕人表','ai_provisional','低',['“服义、慕德”符合友朋交游评价；“风操超遥”可概括其操行高远。','末句参考残存录文中的“幽人表”，七字均为AI推测。']),
+            '07': ('德〔化〕宣畅','ai_provisional','中',['“德化宣畅”是地方官政绩叙述中的常见搭配，与下文出任鲁郡太守相承。','该字主要依据句法与治郡语境推定。']),
+            '08': ('风〔同〕〔古〕〔贤〕。且易俗之〔功〕','ai_provisional','低',['“风同古贤”承接前文对京兆、河南循吏的比较；“易俗之功”与后文“黄侯不足比功”呼应。','四字均为比较循吏政绩语境下的AI推测。']),
+            '09': ('今犹古〔也〕','documentary','高',['相关释文保存“方之我君，今犹古也”。','“也”补足判断句并与前文古今比较相合。']),
+            '10': ('诚〔不〕能式阐鸿猷','ai_provisional','中',['“诚不能式阐鸿猷”是立碑者自谦不能充分阐扬政绩的常见表达。','“不”与下句“庶扬烋烈”构成自谦后申愿的语气。']),
+            '11': ('温而〔肃〕霜','ai_provisional','低',['“温而肃霜”拟表现施政温厚而又具有霜威，符合北朝颂辞常见的刚柔并举。','该字缺少直接录文支持，属于对偶语境推测。']),
+            '12': ('礼乐〔攸〕〔兴〕，〔政〕〔刑〕〔清〕〔简〕。〔鳏〕〔寡〕之恤，小大以情。〔积〕〔弊〕〔尽〕洗','ai_provisional','低',['“礼乐攸兴、政刑清简”概括兴学与清政；“鳏寡之恤”符合恤民语境。','“积弊尽洗”与下文“濯此群冥”形成涤除旧弊的意象，十一字均为AI推测。']),
+            '13': ('野畔让〔耕〕','documentary','高',['通行释文保存“野畔让耕”，描写教化所致的田野相让。','“耕”与“野畔”构成明确的农业语境。']),
+            '14': ('林中〔让〕〔道〕。〔风〕〔行〕〔草〕〔偃〕，〔德〕〔洽〕〔民〕〔和〕','ai_provisional','低',['“林中让道”与前句“野畔让耕”构成教化场景的并列。','“风行草偃、德洽民和”概括政教感化，十字均为铭辞对偶推测。']),
+            '15': ('何以〔凫〕憘','ai_provisional','中',['其他整理录文常见“何以凫憘，风化移新”。','底稿“身□”应为OCR与方框错位，恢复结果按通行句形合并整理为“凫憘”。']),
+            '16': ('勒石图〔德〕，永〔传〕〔芳〕〔名〕','ai_provisional','中',['“勒石图德”表示刻石表彰德政；“永传芳名”符合颂碑结尾的传名愿望。','四字与立碑目的和铭辞收束结构一致。']),
+            '17': ('鲁郡丞、北平〔白〕〔法〕〔相〕','ai_provisional','中',['碑阴明确保存鲁郡丞“白法相”，籍贯与官职也与此处相合。','据同碑碑阴题名，推定三个方框为“白法相”。']),
+            '18': ('治城军主〔李〕军〔虎〕','ai_provisional','低',['两个方框位于军职后的人名中，“李军虎”符合北魏常见姓氏与武职人名风格。','现无直接录文证明，属于低置信度姓名推测。']),
+            '19': ('本郡二政主簿〔孔〕〔文〕〔祚〕','ai_provisional','低',['鲁郡孔氏题名较多，“孔文祚”符合碑阴既有人名中的姓氏和“文、祚”用字习惯。','三字为北魏地方题名语境下的低置信度推测。']),
+            '20': ('义主〔王〕贤文','ai_provisional','低',['“王”是碑中常见姓氏，“王贤文”在三字姓名结构上成立。','缺少可辨笔画和直接录文，故仅作为低置信度候选。']),
+            '21': ('主簿太〔叔〕元哲','mixed','中',['后世整理录文常见“主簿太叔元哲”，太叔为复姓。','碑阴漫漶，仍保留中等置信度。']),
+            '22': ('鲁郡士望等：孔文憘、韦希、〔白〕〔文〕〔诏〕、孔文〔祖〕、孔〔道〕〔援〕、宋延年、王崇吉、韦文祖、韦清龙、王天念、爰景哲、条椿寿、王顺义、〔柏〕〔桃〕〔杖〕、〔任〕〔道〕〔怀〕、王兴〔祖〕','ai_provisional','低',['“白文诏、柏桃杖、任道怀”等姓名可在后世辑录的碑阴OCR线索中见到相近形式。','“孔文祖、孔道援、王兴祖”依据同列孔氏、王氏命名习惯补足；十三字均按题名结构作低置信度推测。']),
+            '23': ('王世遵、王文进、〔成〕〔难〕隆、沈罗侯、王长〔佐〕、严祖怜、王怀月、条苗〔祖〕、王怀雍、王伯欣、柏奴〔祖〕、严武〔德〕、孔伏恩、孔〔文〕度','ai_provisional','低',['“王长佐”见于整理录文；其余姓名依据碑阴常见的“祖、德、文”等命名用字补足。','“成难隆”等人名缺少直接证据，整体按低置信度AI推测展示。']),
+            '24': ('〔郡〕官王珍度、〔主〕事张伯奴、录事孔神祚、〔西〕曹掾李神虎、户曹掾董荣祚、户曹掾卜僧化、金曹掾夏映祖、租曹掾夏骠骑、租曹掾夏众贵、兵曹掾颜荣茂、法曹掾〔薛〕胡仁、法曹掾苗祖怜、集曹掾孔景进、集曹掾孙灵援、西曹佐星桃苻、西曹佐秦荣族、西曹佐薛文会、户曹佐卜天援、户曹佐王德仁、户曹佐邵虎标、户曹佐樊道融、户曹佐任荣族、金曹佐彭神景、金曹佐张灵祚、租曹佐任文建、租曹佐夏万秋、租曹佐张众德、兵曹佐苗桃苻、兵曹佐夏文标、法曹佐尚神晖、法曹佐〔柏〕〔桃〕〔杖〕','ai_provisional','低',['“郡官、西曹掾、薛胡仁”有题名结构或整理录文线索；“主事”按官署职名推补。','末尾姓名暂拟“柏桃杖”，全例对无法考定处均作为AI候选而非定论。']),
+            '25': ('鲁县族望：〔孔〕戬、〔王〕〔道〕援、颜骠、白文雍、〔孔〕萇生、王寄生、张神征、〔王〕广由、〔孔〕〔援〕','ai_provisional','低',['孔、王、白、张是本碑题名中的高频姓氏，“王道援”等结构也符合北魏姓名习惯。','七字缺乏直接录文，均为依据同列姓名模式作出的低置信度推测。']),
+            '26': ('〔孔〕普博、陈叔轨、成规之、〔孔〕业治','ai_provisional','低',['鲁郡孔氏题名密集，两个缺姓均暂拟为“孔”。','该判断仅依据地方望族背景和题名排列，置信度较低。']),
+            '27': ('阳平县族望：吴安世、聂〔安〕','ai_provisional','低',['“安”是北魏人名常见用字，与前名“吴安世”形成同列用字呼应。','缺少直接字形和录文，仅作低置信度候选。']),
+            '28': ('新阳县：田忘乌、〔雷〕〔天〕〔福〕、〔梅〕〔僧〕〔安〕、樊可憘、田天明、雷天宝、田肆〔德〕、雷僧强、梅天念、雷天恩、雷良振、田宜标、万方贵、梅僧援、雷普明、田阿清、田惠明、雷乞德、田祖博、田武男、田〔文〕仪','ai_provisional','低',['“雷、梅、田”是新阳县题名中反复出现的姓氏，“天、僧、德、文”等也是同列常见命名成分。','八字均按该县题名的姓氏和命名模式作低置信度AI推测。'])
+          }
+
+          assert len(cases)==28
+          for case in cases:
+            cid=case['id']
+            corrected,mode,confidence,analysis=updates[cid]
+            expected=case['original'].count('□')
+            actual=len(re.findall(r'〔[^〕]+〕',corrected))
+            if expected!=actual:
+              raise ValueError(f'{cid}: expected {expected} candidates, got {actual}')
+            if '□' in corrected:
+              raise ValueError(f'{cid}: corrected still contains square')
+            case['corrected']=corrected
+            case['c']=corrected
+            case['mode']=mode
+            case['confidence']=confidence
+            case['analysis']=analysis
+            case['restoration_policy']='all_positions_have_ai_candidates'
+
+          total_original=sum(c['original'].count('□') for c in cases)
+          total_candidates=sum(len(re.findall(r'〔[^〕]+〕',c['corrected'])) for c in cases)
+          assert total_original==119 and total_candidates==119
+          assert all('□' not in c['corrected'] for c in cases)
+          case_path.write_text(json.dumps(cases,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          report_path=Path('data/work017_coordinate_report.json')
+          report=json.loads(report_path.read_text('utf-8'))
+          report['candidate_count']=119
+          report['remaining_square_count']=0
+          report['fully_restored_case_count']=28
+          report['restoration_policy']='all_positions_have_ai_candidates; speculative readings are explicitly confidence-labelled'
+          report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          module_path=Path('js/work-017.js')
+          module=module_path.read_text('utf-8')
+          module=module.replace('20260723_zhangmenglong_v1',VERSION)
+          module=module.replace('本栏目以当前网页释文为底稿，分别整理碑阳颂文与碑阴官吏、族望题名中的残损字。AI分析重点说明候选字与北魏人名、官职、家世、治郡政绩、铭辞对偶和题名结构的关系；没有对应方框的外部文字不写入恢复结果。','本栏目为原释文中的每一个问题字提供候选结果。文献能够确认者标为文献对校；缺乏直接录文者，则结合北魏语汇、铭辞对偶、官职和姓名结构给出AI推测，并以置信度区分可靠程度。恢复结果与恢复后的上下文不再保留“□”。')
+          module=module.replace('const resultLabel=item=>item.mode==="documentary"?"文献对校结果":item.mode==="mixed"?"部分恢复":item.mode==="ai_provisional"?"AI暂拟补全":"暂未恢复";','const resultLabel=item=>item.mode==="documentary"?"文献对校结果":item.mode==="mixed"?"文献与AI综合补全":"AI推测补全";')
+          module_path.write_text(module,encoding='utf-8')
+
+          router_path=Path('js/damage_ai_reading.js')
+          router=router_path.read_text('utf-8')
+          router=router.replace('__DAMAGE_AI_READING_ROUTER_V55__','__DAMAGE_AI_READING_ROUTER_V56__')
+          router=router.replace('js/work-017.js?v=20260723_zhangmenglong_v1','js/work-017.js?v='+VERSION)
+          router_path.write_text(router,encoding='utf-8')
+
+          detail_path=Path('js/detail_info_patch.js')
+          detail=detail_path.read_text('utf-8')
+          detail=detail.replace('__DETAIL_INFO_STABLE_ENTRY_V9__','__DETAIL_INFO_STABLE_ENTRY_V10__')
+          detail=detail.replace('data/beitie_header_info.json?v=20260723_zhangmenglong_v1','data/beitie_header_info.json?v='+VERSION)
+          detail=detail.replace('window.__DAMAGE_AI_READING_ROUTER_V54__=true;','window.__DAMAGE_AI_READING_ROUTER_V54__=true;\n    window.__DAMAGE_AI_READING_ROUTER_V55__=true;')
+          detail=detail.replace('js/damage_ai_reading.js?v=20260723_zhangmenglong_v1','js/damage_ai_reading.js?v='+VERSION)
+          detail_path.write_text(detail,encoding='utf-8')
+
+          html_path=Path('detail.html')
+          html=html_path.read_text('utf-8').replace('20260723_zhangmenglong_v1',VERSION)
+          html_path.write_text(html,encoding='utf-8')
+
+          print({'cases':len(cases),'original_squares':total_original,'candidates':total_candidates,'remaining':0})
+          PY
+      - name: Commit revised work017 data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/work017_damage_cases.json data/work017_coordinate_report.json js/work-017.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          git commit -m "完成017全部残损字AI候选" || exit 0
+          git push origin HEAD:agent/revise-work017-complete-restoration
