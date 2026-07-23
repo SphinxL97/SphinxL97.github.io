@@ -1,0 +1,758 @@
+{
+  "work_id": "014",
+  "virtual_id": "014-01",
+  "page_count": 76,
+  "status": "completed",
+  "model_rows": 949,
+  "model_stream_chars": 949,
+  "expected_chars": 949,
+  "sequence_ratio": 0.9737,
+  "body_page_range": [
+    8,
+    71
+  ],
+  "coordinate_pages": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    72,
+    73,
+    74,
+    75,
+    76
+  ],
+  "text_square_count": 25,
+  "case_square_count": 25,
+  "candidate_count": 25,
+  "case_count": 11,
+  "located_cases": 11,
+  "unlocated_cases": [],
+  "matching_blocks": [
+    {
+      "a": 0,
+      "b": 0,
+      "size": 4
+    },
+    {
+      "a": 5,
+      "b": 5,
+      "size": 9
+    },
+    {
+      "a": 15,
+      "b": 15,
+      "size": 61
+    },
+    {
+      "a": 77,
+      "b": 77,
+      "size": 16
+    },
+    {
+      "a": 94,
+      "b": 94,
+      "size": 19
+    },
+    {
+      "a": 114,
+      "b": 114,
+      "size": 16
+    },
+    {
+      "a": 131,
+      "b": 131,
+      "size": 100
+    },
+    {
+      "a": 234,
+      "b": 234,
+      "size": 8
+    },
+    {
+      "a": 243,
+      "b": 243,
+      "size": 77
+    },
+    {
+      "a": 321,
+      "b": 321,
+      "size": 36
+    },
+    {
+      "a": 358,
+      "b": 358,
+      "size": 49
+    },
+    {
+      "a": 408,
+      "b": 408,
+      "size": 11
+    },
+    {
+      "a": 420,
+      "b": 420,
+      "size": 65
+    },
+    {
+      "a": 486,
+      "b": 486,
+      "size": 53
+    },
+    {
+      "a": 540,
+      "b": 540,
+      "size": 4
+    },
+    {
+      "a": 545,
+      "b": 545,
+      "size": 4
+    },
+    {
+      "a": 550,
+      "b": 550,
+      "size": 31
+    },
+    {
+      "a": 582,
+      "b": 582,
+      "size": 15
+    },
+    {
+      "a": 598,
+      "b": 598,
+      "size": 15
+    },
+    {
+      "a": 614,
+      "b": 614,
+      "size": 128
+    },
+    {
+      "a": 743,
+      "b": 743,
+      "size": 27
+    },
+    {
+      "a": 771,
+      "b": 771,
+      "size": 43
+    },
+    {
+      "a": 818,
+      "b": 818,
+      "size": 131
+    }
+  ],
+  "cases": [
+    {
+      "id": "01",
+      "expected_index": 4,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.7375,
+          "method": "context-alignment",
+          "page": 8,
+          "order_in_page": 5,
+          "char": "□",
+          "glyph_id": "014-01_p0008_c005"
+        },
+        {
+          "score": 1.7321,
+          "method": "context-alignment",
+          "page": 8,
+          "order_in_page": 4,
+          "char": "山",
+          "glyph_id": "014-01_p0008_c004"
+        },
+        {
+          "score": 1.625,
+          "method": "context-alignment",
+          "page": 8,
+          "order_in_page": 6,
+          "char": "靖",
+          "glyph_id": "014-01_p0008_c006"
+        }
+      ],
+      "location": {
+        "page": 8,
+        "glyph_id": "014-01_p0008_c005",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1645.0,
+          "y": 3342.0,
+          "w": 748.0,
+          "h": 773.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.7375,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "02",
+      "expected_index": 76,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.8,
+          "method": "context-alignment",
+          "page": 13,
+          "order_in_page": 6,
+          "char": "□",
+          "glyph_id": "014-01_p0013_c006"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 13,
+          "order_in_page": 5,
+          "char": "避",
+          "glyph_id": "014-01_p0013_c005"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 13,
+          "order_in_page": 7,
+          "char": "莽",
+          "glyph_id": "014-01_p0013_c007"
+        }
+      ],
+      "location": {
+        "page": 13,
+        "glyph_id": "014-01_p0013_c006",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1266.0,
+          "y": 509.0,
+          "w": 709.0,
+          "h": 670.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.8,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "03",
+      "expected_index": 113,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.8,
+          "method": "context-alignment",
+          "page": 15,
+          "order_in_page": 13,
+          "char": "□",
+          "glyph_id": "014-01_p0015_c013"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 15,
+          "order_in_page": 12,
+          "char": "求",
+          "glyph_id": "014-01_p0015_c012"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 15,
+          "order_in_page": 14,
+          "char": "志",
+          "glyph_id": "014-01_p0015_c014"
+        }
+      ],
+      "location": {
+        "page": 15,
+        "glyph_id": "014-01_p0015_c013",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 559.0,
+          "y": 1938.0,
+          "w": 735.0,
+          "h": 648.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.8,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "04",
+      "expected_index": 231,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.4725,
+          "method": "context-alignment",
+          "page": 23,
+          "order_in_page": 11,
+          "char": "□",
+          "glyph_id": "014-01_p0023_c011"
+        },
+        {
+          "score": 2.13,
+          "method": "context-alignment",
+          "page": 23,
+          "order_in_page": 12,
+          "char": "□",
+          "glyph_id": "014-01_p0023_c012"
+        },
+        {
+          "score": 2.0675,
+          "method": "context-alignment",
+          "page": 23,
+          "order_in_page": 13,
+          "char": "□",
+          "glyph_id": "014-01_p0023_c013"
+        }
+      ],
+      "location": {
+        "page": 23,
+        "glyph_id": "014-01_p0023_c011",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 507.0,
+          "y": 1088.0,
+          "w": 782.0,
+          "h": 874.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.4725,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "05",
+      "expected_index": 320,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.8,
+          "method": "context-alignment",
+          "page": 29,
+          "order_in_page": 11,
+          "char": "□",
+          "glyph_id": "014-01_p0029_c011"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 29,
+          "order_in_page": 10,
+          "char": "之",
+          "glyph_id": "014-01_p0029_c010"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 29,
+          "order_in_page": 12,
+          "char": "乃",
+          "glyph_id": "014-01_p0029_c012"
+        }
+      ],
+      "location": {
+        "page": 29,
+        "glyph_id": "014-01_p0029_c011",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 553.0,
+          "y": 580.0,
+          "w": 722.0,
+          "h": 743.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.8,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "06",
+      "expected_index": 357,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.8,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 3,
+          "char": "□",
+          "glyph_id": "014-01_p0032_c003"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 2,
+          "char": "冬",
+          "glyph_id": "014-01_p0032_c002"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 32,
+          "order_in_page": 4,
+          "char": "命",
+          "glyph_id": "014-01_p0032_c004"
+        }
+      ],
+      "location": {
+        "page": 32,
+        "glyph_id": "014-01_p0032_c003",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1606.0,
+          "y": 2010.0,
+          "w": 768.0,
+          "h": 628.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.8,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "07",
+      "expected_index": 539,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.675,
+          "method": "context-alignment",
+          "page": 44,
+          "order_in_page": 5,
+          "char": "□",
+          "glyph_id": "014-01_p0044_c005"
+        },
+        {
+          "score": 1.75,
+          "method": "context-alignment",
+          "page": 44,
+          "order_in_page": 4,
+          "char": "遭",
+          "glyph_id": "014-01_p0044_c004"
+        },
+        {
+          "score": 1.75,
+          "method": "context-alignment",
+          "page": 44,
+          "order_in_page": 6,
+          "char": "亂",
+          "glyph_id": "014-01_p0044_c006"
+        }
+      ],
+      "location": {
+        "page": 44,
+        "glyph_id": "014-01_p0044_c005",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1600.0,
+          "y": 3384.0,
+          "w": 729.0,
+          "h": 711.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.675,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "08",
+      "expected_index": 581,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.7375,
+          "method": "context-alignment",
+          "page": 47,
+          "order_in_page": 2,
+          "char": "□",
+          "glyph_id": "014-01_p0047_c002"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 47,
+          "order_in_page": 1,
+          "char": "而",
+          "glyph_id": "014-01_p0047_c001"
+        },
+        {
+          "score": 1.8125,
+          "method": "context-alignment",
+          "page": 47,
+          "order_in_page": 3,
+          "char": "泉",
+          "glyph_id": "014-01_p0047_c003"
+        }
+      ],
+      "location": {
+        "page": 47,
+        "glyph_id": "014-01_p0047_c002",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 2004.0,
+          "y": 1175.0,
+          "w": 767.0,
+          "h": 848.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.7375,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "09",
+      "expected_index": 742,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.8,
+          "method": "context-alignment",
+          "page": 58,
+          "order_in_page": 2,
+          "char": "□",
+          "glyph_id": "014-01_p0058_c002"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 58,
+          "order_in_page": 1,
+          "char": "又",
+          "glyph_id": "014-01_p0058_c001"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 58,
+          "order_in_page": 3,
+          "char": "生",
+          "glyph_id": "014-01_p0058_c003"
+        }
+      ],
+      "location": {
+        "page": 58,
+        "glyph_id": "014-01_p0058_c002",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1618.0,
+          "y": 1258.0,
+          "w": 730.0,
+          "h": 755.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.8,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "10",
+      "expected_index": 770,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.8,
+          "method": "context-alignment",
+          "page": 60,
+          "order_in_page": 1,
+          "char": "□",
+          "glyph_id": "014-01_p0060_c001"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 59,
+          "order_in_page": 15,
+          "char": "之",
+          "glyph_id": "014-01_p0059_c015"
+        },
+        {
+          "score": 1.875,
+          "method": "context-alignment",
+          "page": 60,
+          "order_in_page": 2,
+          "char": "又",
+          "glyph_id": "014-01_p0060_c002"
+        }
+      ],
+      "location": {
+        "page": 60,
+        "glyph_id": "014-01_p0060_c001",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1606.0,
+          "y": 573.0,
+          "w": 723.0,
+          "h": 683.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.8,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    },
+    {
+      "id": "11",
+      "expected_index": 814,
+      "accepted": true,
+      "top_candidates": [
+        {
+          "score": 2.6675,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 1,
+          "char": "□",
+          "glyph_id": "014-01_p0063_c001"
+        },
+        {
+          "score": 2.005,
+          "method": "context-alignment",
+          "page": 63,
+          "order_in_page": 4,
+          "char": "□",
+          "glyph_id": "014-01_p0063_c004"
+        },
+        {
+          "score": 1.8125,
+          "method": "context-alignment",
+          "page": 62,
+          "order_in_page": 15,
+          "char": "吿",
+          "glyph_id": "014-01_p0062_c015"
+        }
+      ],
+      "location": {
+        "page": 63,
+        "glyph_id": "014-01_p0063_c001",
+        "canvas": {
+          "w": 2943,
+          "h": 4429
+        },
+        "bbox": {
+          "x": 1997.0,
+          "y": 579.0,
+          "w": 775.0,
+          "h": 639.0
+        },
+        "match_method": "context-alignment",
+        "alignment_score": 2.6675,
+        "bbox_source": "existing-model-row",
+        "virtual_id": "014-01"
+      }
+    }
+  ]
+}
