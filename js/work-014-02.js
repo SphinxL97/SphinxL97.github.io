@@ -13,7 +13,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="颜真卿李玄靖碑册二";
-  const VERSION="20260723_lihanjing_014_02_v1";
+  const VERSION="20260723_lihanjing_014_02_v2";
   const TEXT_URL=`data/work014_02_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work014_02_damage_cases.json?v=${VERSION}`;
   const PAGE_INDEX_URL=`data/page_images_index.json?v=${VERSION}`;
@@ -116,7 +116,7 @@
     const card=section.querySelector(".full-transcript-card");
     try{
       const text=await fetchText(TEXT_URL);
-      card.innerHTML=`<header class="full-transcript-header"><h3>${TITLE}</h3><span class="full-transcript-ornament" aria-hidden="true"></span></header><div class="full-transcript-body">${paragraphHTML(text)}</div><aside class="volume-colophon-note"><h4>册尾题记</h4><p>${COLOPHON}</p><small>此为南宋绍兴丁巳记碑石折断及扶起之事，不属于颜真卿原碑文，也不进入栏目三与栏目四。</small></aside>`;
+      card.innerHTML=`<header class="full-transcript-header"><h3>${TITLE}</h3><span class="full-transcript-ornament" aria-hidden="true"></span></header><div class="full-transcript-body">${paragraphHTML(text)}</div><aside class="volume-colophon-note"><h4>册尾题记</h4><p>${COLOPHON}</p><small>此为南宋绍兴丁巳记碑石折断及扶起之事，不属于颜真卿原碑文。</small></aside>`;
       boldProblemSentences(card,items);
     }catch(error){
       console.error("[work-014-02] transcript",error);
