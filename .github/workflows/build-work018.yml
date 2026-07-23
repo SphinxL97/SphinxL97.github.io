@@ -23,6 +23,8 @@ jobs:
           fetch-depth: 0
       - name: Build work018 coordinates and modules
         run: python tools/tmp_build_work018.py
+      - name: Export final-segment debug context
+        run: python tools/tmp_debug_work018.py
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
