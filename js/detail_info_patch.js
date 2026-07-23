@@ -36,6 +36,7 @@
     window.__DAMAGE_AI_READING_ROUTER_V51__=true;
     window.__DAMAGE_AI_READING_ROUTER_V52__=true;
     window.__DAMAGE_AI_READING_ROUTER_V53__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V53__=true;
     const script=document.createElement("script");
     script.src="js/damage_ai_reading.js?v=20260723_zunhao_shanrang_v1";
     script.async=false;
