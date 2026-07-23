@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/add-work018-songgao
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -11,6 +14,7 @@ permissions:
 
 jobs:
   build:
+    if: github.head_ref == 'agent/add-work018-songgao' || github.ref_name == 'agent/add-work018-songgao'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
