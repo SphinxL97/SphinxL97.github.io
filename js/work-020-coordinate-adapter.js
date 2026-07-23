@@ -7,7 +7,7 @@
   if(workId!=="020"||window.__WORK_020_COORDINATE_ADAPTER__)return;
 
   const CACHE_TAG="20260724_huadusi_v1";
-  const ROOT="data/glyph_boxes/iiif/018";
+  const ROOT="data/glyph_boxes/iiif/020";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();
   const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
@@ -56,7 +56,7 @@
           if(attempt<3)await sleep(350*attempt);
         }
       }
-      throw lastError||new Error("018坐标读取失败");
+      throw lastError||new Error("020坐标读取失败");
     })().catch(error=>{
       pagePromises.delete(pageNo);
       console.warn("[work-020-coordinate-adapter]",pageNo,error);
