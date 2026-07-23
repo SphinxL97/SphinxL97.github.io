@@ -1,0 +1,218 @@
+{
+  "work_id": "018",
+  "title": "中岳嵩高灵庙碑并额",
+  "page_count": 55,
+  "status": "completed-with-one-unlocated-case",
+  "source_files": [
+    "data/model_boxes/glyph_model_border_016_020.json"
+  ],
+  "model_rows": 821,
+  "model_square_count": 86,
+  "text_square_count": 18,
+  "covered_square_count": 18,
+  "candidate_count": 18,
+  "remaining_square_count": 0,
+  "case_count": 8,
+  "located_cases": 7,
+  "unlocated_cases": [
+    {
+      "id": "08",
+      "reason": "source-segment-absent-no-real-bbox",
+      "note": "第41页模型字序由“道”直接跳至“绅”，纪日段整体没有可用字框。"
+    }
+  ],
+  "sequence_ratio": 0.7905,
+  "coordinate_pages": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    54,
+    55
+  ],
+  "coordinate_range": [
+    4,
+    53
+  ],
+  "case_locations": [
+    {
+      "id": "01",
+      "page": 17,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0017_c006",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 1125.0,
+        "y": 1683.0,
+        "w": 208.0,
+        "h": 208.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    },
+    {
+      "id": "02",
+      "page": 19,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0019_c013",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 636.0,
+        "y": 509.0,
+        "w": 212.0,
+        "h": 212.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    },
+    {
+      "id": "03",
+      "page": 22,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0022_c004",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 587.0,
+        "y": 1266.0,
+        "w": 214.0,
+        "h": 214.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    },
+    {
+      "id": "04",
+      "page": 24,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0024_c003",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 582.0,
+        "y": 983.0,
+        "w": 225.0,
+        "h": 225.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    },
+    {
+      "id": "05",
+      "page": 29,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0029_c004",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 1125.0,
+        "y": 1159.0,
+        "w": 233.0,
+        "h": 233.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    },
+    {
+      "id": "06",
+      "page": 31,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0031_c004",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 1133.0,
+        "y": 1235.0,
+        "w": 221.0,
+        "h": 221.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    },
+    {
+      "id": "07",
+      "page": 40,
+      "glyph_id": "018_中岳嵩高灵庙碑并额_p0040_c003",
+      "canvas": {
+        "w": 1466,
+        "h": 2214
+      },
+      "bbox": {
+        "x": 601.0,
+        "y": 1018.0,
+        "w": 198.0,
+        "h": 198.0
+      },
+      "bbox_source": "existing-model-square",
+      "match_method": "sequence-exact",
+      "alignment_score": 1.0
+    }
+  ],
+  "restoration_policy": "all_positions_have_ai_candidates",
+  "coordinate_policy": "七例使用真实模型方框；案例08因原段整体缺失不伪造bbox。"
+}
