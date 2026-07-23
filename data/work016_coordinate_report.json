@@ -1,0 +1,7 @@
+{
+  "work_id": "016",
+  "page_count": 74,
+  "status": "error",
+  "error": "ValueError('case 18 original not found')",
+  "traceback": "Traceback (most recent call last):\n  File \"/tmp/generate_work016.py\", line 45, in <module>\n    if at<0:raise ValueError(f'case {case[\"id\"]} original not found')\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nValueError: case 18 original not found\n"
+}
