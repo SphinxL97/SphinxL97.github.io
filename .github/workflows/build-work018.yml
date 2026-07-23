@@ -26,6 +26,8 @@ jobs:
         run: python tools/tmp_build_work018.py
       - name: Export final-segment debug context
         run: python tools/tmp_debug_work018.py
+      - name: Finalize work018 audit and module names
+        run: python tools/tmp_finalize_work018.py
       - name: Commit generated files
         run: |
           git config user.name "github-actions[bot]"
