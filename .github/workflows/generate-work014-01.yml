@@ -1,0 +1,399 @@
+name: Generate work014-01 content and coordinates
+
+on:
+  push:
+    branches:
+      - agent/work014-01-lihanjing
+    paths:
+      - '.github/workflows/generate-work014-01.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work014-01-lihanjing
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            data/model_boxes/glyph_model_border_011_015.json
+            data/work014_01_full_text.txt
+            data/work014_01_damage_cases.json
+            data/work014_01_coordinate_report.json
+            data/glyph_boxes/iiif/014-01
+            data/page_images_index.json
+            data/beitie_catalog.json
+            data/beitie_header_info.json
+            js/work-013.js
+            js/work-013-coordinate-adapter.js
+            js/work-014.js
+            js/work-014-coordinate-adapter.js
+            js/damage_ai_reading.js
+            js/detail_info_patch.js
+            detail.html
+
+      - name: Generate 014-01 files
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, re, difflib, traceback
+          from collections import OrderedDict
+          from pathlib import Path
+
+          VERSION='20260723_lihanjing_014_01_v1'
+          WORK='014'
+          VIRTUAL='014-01'
+          PAGE_COUNT=76
+          MODEL=Path('data/model_boxes/glyph_model_border_011_015.json')
+          TEXT=Path('data/work014_01_full_text.txt')
+          CASES=Path('data/work014_01_damage_cases.json')
+          REPORT=Path('data/work014_01_coordinate_report.json')
+          OUT=Path('data/glyph_boxes/iiif/014-01')
+          PAGE_INDEX=Path('data/page_images_index.json')
+          CATALOG=Path('data/beitie_catalog.json')
+          HEADER=Path('data/beitie_header_info.json')
+          ROUTER=Path('js/damage_ai_reading.js')
+          DETAIL_PATCH=Path('js/detail_info_patch.js')
+          DETAIL=Path('detail.html')
+          OUT.mkdir(parents=True,exist_ok=True)
+
+          variants={
+            '於':'于','扵':'于','亐':'于','于':'于','㠯':'以','以':'以',
+            '顔':'颜','顏':'颜','颜':'颜','朙':'明','明':'明','秊':'年','年':'年',
+            '徴':'征','徵':'征','征':'征','眞':'真','真':'真','祕':'秘','秘':'秘',
+            '籙':'箓','箓':'箓','禄':'箓','灮':'光','光':'光','竝':'并','並':'并','并':'并',
+            '辝':'辞','辭':'辞','辞':'辞','號':'号','号':'号','爲':'为','為':'为','为':'为',
+            '閒':'间','間':'间','间':'间','蕐':'华','華':'华','华':'华','龢':'和','和':'和',
+            '髙':'高','高':'高','與':'与','与':'与','尢':'尤','尤':'尤','甞':'尝','嘗':'尝','尝':'尝',
+            '麦':'麦','麥':'麦','奥':'奥','奧':'奥','啓':'启','啟':'启','启':'启',
+            '鑪':'炉','爐':'炉','炉':'炉','傜':'徭','徭':'徭','欝':'郁','鬱':'郁','郁':'郁',
+            '摠':'总','總':'总','总':'总','謚':'谥','諡':'谥','谥':'谥','尅':'克','克':'克'
+          }
+          ignored=set(' \t\r\n\u3000，。；：、！？,.!?;:“”‘’\'"（）()《》〈〉【】〔〕［］—–…·')
+          def canon(ch):
+            if not ch or ch in ignored:return ''
+            return variants.get(ch,ch)
+          def rect(row):
+            bbox=row.get('bbox') if isinstance(row.get('bbox'),list) else []
+            return {
+              'x':float(row.get('x',row.get('bbox_x',bbox[0] if len(bbox)>0 else 0)) or 0),
+              'y':float(row.get('y',row.get('bbox_y',bbox[1] if len(bbox)>1 else 0)) or 0),
+              'w':float(row.get('w',row.get('bbox_w',bbox[2] if len(bbox)>2 else 0)) or 0),
+              'h':float(row.get('h',row.get('bbox_h',bbox[3] if len(bbox)>3 else 0)) or 0),
+            }
+          def plain(value):return str(value).replace('〔','').replace('〕','')
+          def cn(n):
+            d=['','一','二','三','四','五','六','七','八','九']
+            if n<=10:return '十' if n==10 else d[n]
+            if n<20:return '十'+d[n%10]
+            if n<100:return d[n//10]+'十'+(d[n%10] if n%10 else '')
+            return str(n)
+          def page_image(volume_folder,page):
+            label=cn(page)
+            return f'assets/page_images/014_颜真卿李玄靖碑/images/{volume_folder}/{page:04d}_{label}.jpg'
+
+          report={'work_id':WORK,'virtual_id':VIRTUAL,'page_count':PAGE_COUNT,'status':'started'}
+          try:
+            shard=json.loads(MODEL.read_text('utf-8'))
+            selected=[]
+            for source_index,row in enumerate(shard if isinstance(shard,list) else []):
+              wid=str(row.get('work_id','')).zfill(3)
+              vid=str(row.get('virtual_id',''))
+              if wid!=WORK or vid!=VIRTUAL:continue
+              page=int(row.get('canvas_index',row.get('page',0)) or 0)
+              box=rect(row)
+              if not page or box['w']<=0 or box['h']<=0:continue
+              item=dict(row)
+              ch=str(row.get('char',row.get('text','')))[:1]
+              order=int(row.get('order_in_page',row.get('annotation_index',source_index+1)) or source_index+1)
+              item.update({
+                'work_id':WORK,'virtual_id':VIRTUAL,'canvas_index':page,
+                'glyph_id':str(row.get('glyph_id') or f'{VIRTUAL}_p{page:04d}_c{order:03d}'),
+                'char':ch,'text':ch,'order_in_page':order,
+                'bbox_x':box['x'],'bbox_y':box['y'],'bbox_w':box['w'],'bbox_h':box['h'],
+                'bbox':[box['x'],box['y'],box['w'],box['h']],
+                'source':str(row.get('source') or 'model_border_refined')
+              })
+              selected.append(item)
+            selected.sort(key=lambda r:(int(r['canvas_index']),int(r['order_in_page'])))
+            groups={page:[] for page in range(1,PAGE_COUNT+1)}
+            for row in selected:
+              page=int(row['canvas_index'])
+              if 1<=page<=PAGE_COUNT:groups[page].append(row)
+
+            text=TEXT.read_text('utf-8')
+            cases=json.loads(CASES.read_text('utf-8'))
+            square_count=text.count('□')
+            case_square_count=sum(str(c.get('original','')).count('□') for c in cases)
+            candidate_count=sum(len(re.findall(r'〔[^〕]*〕',str(c.get('corrected','')))) for c in cases)
+            if not (square_count==case_square_count==candidate_count==25):
+              raise RuntimeError(f'方框校验失败: text={square_count}, cases={case_square_count}, candidates={candidate_count}')
+
+            filled=text
+            for case in cases:
+              original=str(case['original'])
+              corrected=plain(case['corrected'])
+              if original not in filled:
+                raise RuntimeError(f'案例原句不在正文中: {case["id"]}')
+              filled=filled.replace(original,corrected,1)
+
+            expected=[canon(ch) for ch in filled if canon(ch)]
+            stream=[];model_chars=[]
+            for row in selected:
+              key=canon(row.get('char') or row.get('text') or '')
+              if not key:continue
+              stream.append(row);model_chars.append(key)
+
+            matcher=difflib.SequenceMatcher(None,expected,model_chars,autojunk=False)
+            exact_map={};matching_blocks=[];matched_pages=[]
+            for block in matcher.get_matching_blocks():
+              if block.size>=3:
+                matching_blocks.append({'a':block.a,'b':block.b,'size':block.size})
+              for off in range(block.size):exact_map[block.a+off]=block.b+off
+              if block.size>=4:
+                for idx in (block.b,block.b+block.size-1):
+                  if 0<=idx<len(stream):matched_pages.append(int(stream[idx]['canvas_index']))
+            body_start=min(matched_pages) if matched_pages else min((p for p,r in groups.items() if r),default=1)
+            body_end=max(matched_pages) if matched_pages else max((p for p,r in groups.items() if r),default=PAGE_COUNT)
+
+            def expected_index_for_case(case):
+              start=text.find(str(case['original']))
+              if start<0:return None
+              raw_target=start+str(case['original']).find('□')
+              return sum(1 for ch in filled[:raw_target] if canon(ch))
+            def estimate(eidx):
+              left=[(a,b) for a,b in exact_map.items() if a<eidx]
+              right=[(a,b) for a,b in exact_map.items() if a>eidx]
+              if left and right:
+                la,lb=max(left);ra,rb=min(right)
+                return int(round(lb+(eidx-la)*(rb-lb)/(ra-la))) if ra!=la else lb
+              if left:
+                la,lb=max(left);return lb+(eidx-la)
+              if right:
+                ra,rb=min(right);return rb-(ra-eidx)
+              return len(model_chars)//2
+            def score(eidx,midx,previous):
+              if midx<=previous:return -999
+              L=16;R=16
+              el=''.join(expected[max(0,eidx-L):eidx]);er=''.join(expected[eidx+1:min(len(expected),eidx+1+R)])
+              ml=''.join(model_chars[max(0,midx-len(el)):midx]);mr=''.join(model_chars[midx+1:midx+1+len(er)])
+              lr=difflib.SequenceMatcher(None,el,ml,autojunk=False).ratio() if el else 0
+              rr=difflib.SequenceMatcher(None,er,mr,autojunk=False).ratio() if er else 0
+              target=model_chars[midx]
+              bonus=.65 if target==expected[eidx] else (.38 if target=='□' else 0)
+              near=0
+              for off in (-3,-2,-1,1,2,3):
+                if 0<=eidx+off<len(expected) and 0<=midx+off<len(model_chars) and expected[eidx+off]==model_chars[midx+off]:near+=.07
+              return lr+rr+bonus+near
+
+            previous=-1;located=0;audits=[]
+            for case in cases:
+              eidx=expected_index_for_case(case)
+              candidates=[]
+              if eidx is not None and 0<=eidx<len(expected):
+                if eidx in exact_map and exact_map[eidx]>previous:
+                  candidates.append((9.0,exact_map[eidx],'sequence-exact'))
+                center=estimate(eidx)
+                lo=max(previous+1,center-220,0);hi=min(len(model_chars),center+221)
+                for midx in range(lo,hi):candidates.append((score(eidx,midx,previous),midx,'context-alignment'))
+              candidates.sort(key=lambda x:x[0],reverse=True)
+              best=candidates[0] if candidates else None
+              second=candidates[1] if len(candidates)>1 else None
+              accepted=False
+              if best:
+                margin=best[0]-(second[0] if second else -9)
+                accepted=(best[2]=='sequence-exact') or (best[0]>=1.28 and margin>=.07)
+              audit={'id':case['id'],'expected_index':eidx,'accepted':accepted,'top_candidates':[]}
+              for value,midx,method in candidates[:3]:
+                row=stream[midx]
+                audit['top_candidates'].append({'score':round(value,4),'method':method,'page':int(row['canvas_index']),'order_in_page':int(row['order_in_page']),'char':row.get('char',''),'glyph_id':row.get('glyph_id','')})
+              if accepted:
+                value,midx,method=best;row=stream[midx];box=rect(row);page=int(row['canvas_index'])
+                location={
+                  'page':page,'glyph_id':str(row.get('glyph_id','')),
+                  'canvas':{'w':int(row.get('canvas_width') or 2943),'h':int(row.get('canvas_height') or 4429)},
+                  'bbox':{'x':box['x'],'y':box['y'],'w':box['w'],'h':box['h']},
+                  'match_method':method,'alignment_score':round(value,4),
+                  'bbox_source':'existing-model-row','virtual_id':VIRTUAL
+                }
+                case['locations']=[location];case['page']=page
+                previous=midx;located+=1;audit['location']=location
+              else:
+                case['locations']=[];case['page']='—'
+              case['n']=case.get('category','残损碑文恢复');case['t']=case['title'];case['o']=case['original'];case['c']=case['corrected']
+              audits.append(audit)
+
+            accepted_pages=[a['location']['page'] for a in audits if a.get('location')]
+            if accepted_pages:
+              body_start=min(body_start,min(accepted_pages));body_end=max(body_end,max(accepted_pages))
+
+            coordinate_pages=[];image_only=[]
+            for page in range(1,PAGE_COUNT+1):
+              rows=groups.get(page,[]) if body_start<=page<=body_end else []
+              if rows:coordinate_pages.append(page)
+              else:image_only.append(page)
+              (OUT/f'page_{page:04d}.json').write_text(json.dumps(rows,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+            CASES.write_text(json.dumps(cases,ensure_ascii=False,indent=2),encoding='utf-8')
+
+            # Build the parent and two volume records in the page-image index.
+            page_index=json.loads(PAGE_INDEX.read_text('utf-8'),object_pairs_hook=OrderedDict)
+            old=page_index.get('works',OrderedDict())
+            works=OrderedDict()
+            for key,value in old.items():
+              if key in ('014','014-01','014-02'):continue
+              works[key]=value
+              if key=='013':
+                works['014']={
+                  'id':'014','title':'颜真卿李玄靖碑','parent_id':'014','has_volumes':True,
+                  'cover':page_image('01_顏真卿李玄靖碑册一',1),
+                  'volumes':[
+                    {'virtual_id':'014-01','volume_title':'顏真卿李玄靖碑册一','detail_url':'detail.html?id=014-01'},
+                    {'virtual_id':'014-02','volume_title':'顏真卿李玄靖碑册二','detail_url':'detail.html?id=014-02'}
+                  ]
+                }
+                pages1=[]
+                for page in range(1,77):
+                  rows=groups.get(page,[]) if body_start<=page<=body_end else []
+                  chars=[str(r.get('char') or r.get('text') or '')[:1] for r in rows]
+                  pages1.append({'page':page,'label':cn(page),'image':page_image('01_顏真卿李玄靖碑册一',page),'text_clean':''.join(chars),'text_raw':'\n'.join(chars),'char_count':len(chars),'has_char_boxes':bool(rows)})
+                works['014-01']={'id':'014-01','parent_id':'014','title':'颜真卿李玄靖碑 · 顏真卿李玄靖碑册一','cover':page_image('01_顏真卿李玄靖碑册一',1),'pages':pages1}
+                pages2=[]
+                for page in range(1,73):
+                  pages2.append({'page':page,'label':cn(page),'image':page_image('02_顏真卿李玄靖碑册二',page),'text_clean':'','text_raw':'','char_count':0,'has_char_boxes':False})
+                works['014-02']={'id':'014-02','parent_id':'014','title':'颜真卿李玄靖碑 · 顏真卿李玄靖碑册二','cover':page_image('02_顏真卿李玄靖碑册二',1),'pages':pages2}
+            page_index['works']=works
+            PAGE_INDEX.write_text(json.dumps(page_index,ensure_ascii=False,indent=2),encoding='utf-8')
+
+            catalog=json.loads(CATALOG.read_text('utf-8'))
+            record={
+              'id':'014','title':'颜真卿李玄靖碑','cover':page_image('01_顏真卿李玄靖碑册一',1),
+              'dynasty':'唐大历十二年（777）','script':'楷书','creator':'颜真卿（撰并书），吴崇休（镌）',
+              'shelf_mark':'22BT013','active':True,'detail_url':'detail.html?id=014-01','status':'封面入口',
+              'subtitle':'共二册，册一碑文释文、残损释读与单字定位已接入。','year':'777',
+              'brief_source':'《翰墨瑰宝：上海图书馆藏珍本碑帖丛刊》第六辑',
+              'canvas_count':148,'has_volumes':True,
+              'volumes':[
+                {'virtual_id':'014-01','volume_title':'顏真卿李玄靖碑册一','detail_url':'detail.html?id=014-01','canvas_count':76},
+                {'virtual_id':'014-02','volume_title':'顏真卿李玄靖碑册二','detail_url':'detail.html?id=014-02','canvas_count':72}
+              ]
+            }
+            result=[];inserted=False
+            for item in catalog:
+              if str(item.get('id',''))=='014':continue
+              result.append(item)
+              if str(item.get('id',''))=='013':result.append(record);inserted=True
+            if not inserted:result.append(record)
+            CATALOG.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+
+            header=json.loads(HEADER.read_text('utf-8'))
+            if '014' in header:
+              header['014']['title']='颜真卿李玄靖碑'
+              header['014'].setdefault('basic',{})['首题']='颜真卿李玄靖碑'
+              HEADER.write_text(json.dumps(header,ensure_ascii=False,indent=2),encoding='utf-8')
+
+            # Create dedicated scripts from the already tested 013 implementation.
+            js=Path('js/work-013.js').read_text('utf-8')
+            js=re.sub(r'const raw=String\(new URLSearchParams\(location\.search\)\.get\("id"\)\|\|"001"\);\n  const workId=.*?\n  if\(workId!=="013"\|\|window\.__WORK_013_LUJUN__\)return;',
+              'const raw=String(new URLSearchParams(location.search).get("id")||"001");\n  if(raw!=="014-01"||window.__WORK_014_01_LIHANJING__)return;',js,count=1)
+            replacements={
+              '013《鲁峻碑》':'014-01《颜真卿李玄靖碑册一》','__WORK_013_LUJUN__':'__WORK_014_01_LIHANJING__',
+              '__WORK_013_CONTENT_READY__':'__WORK_014_01_CONTENT_READY__','__WORK_013_STABLE_READY__':'__WORK_014_01_STABLE_READY__',
+              'work-013-cases-ready':'work-014-01-cases-ready','work-013-content-ready':'work-014-01-content-ready','work-013-stable-ready':'work-014-01-stable-ready',
+              '[work-013]':'[work-014-01]','work013-lujun-style':'work014-01-lihanjing-style',
+              'const TITLE="鲁峻碑";':'const TITLE="颜真卿李玄靖碑册一";',
+              'const VERSION="20260723_lujun_v1";':f'const VERSION="{VERSION}";',
+              'data/work013_full_text.txt':'data/work014_01_full_text.txt','data/work013_damage_cases.json':'data/work014_01_damage_cases.json',
+              'data?.works?.["013"]?.pages':'data?.works?.["014-01"]?.pages'
+            }
+            for a,b in replacements.items():js=js.replace(a,b)
+            Path('js/work-014.js').write_text(js,encoding='utf-8')
+
+            coord=Path('js/work-013-coordinate-adapter.js').read_text('utf-8')
+            coord=re.sub(r'const raw=String\(new URLSearchParams\(location\.search\)\.get\("id"\)\|\|"001"\);\n  const workId=.*?\n  if\(workId!=="013"\|\|window\.__WORK_013_COORDINATE_ADAPTER__\)return;',
+              'const raw=String(new URLSearchParams(location.search).get("id")||"001");\n  if(raw!=="014-01"||window.__WORK_014_01_COORDINATE_ADAPTER__)return;',coord,count=1)
+            replacements={
+              '013《鲁峻碑》':'014-01《颜真卿李玄靖碑册一》','20260723_lujun_v1':VERSION,
+              'data/glyph_boxes/iiif/013':'data/glyph_boxes/iiif/014-01','__WORK_013_COORDINATE_ADAPTER__':'__WORK_014_01_COORDINATE_ADAPTER__',
+              'WORK_013_COORDINATES':'WORK_014_01_COORDINATES','[work-013-coordinate-adapter]':'[work-014-01-coordinate-adapter]',
+              'work_id:"013"':'work_id:"014",\n      virtual_id:"014-01"','`013_${pageNo}_${index+1}`':'`014-01_${pageNo}_${index+1}`'
+            }
+            for a,b in replacements.items():coord=coord.replace(a,b)
+            coord=re.sub(r'const normalized=.*?;\n    if\(normalized!=="013"\)return original\?original\(id,pageObj\):\[\];',
+              'const normalized=String(id||"");\n    if(normalized!=="014-01")return original?original(id,pageObj):[];',coord,count=1)
+            Path('js/work-014-coordinate-adapter.js').write_text(coord,encoding='utf-8')
+
+            router=ROUTER.read_text('utf-8')
+            router=router.replace('const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");','const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");\n  const routeId=raw.includes("-")?raw:id;',1)
+            route='''    "014-01":[\n      {src:"js/work-014-coordinate-adapter.js?v='''+VERSION+'''",key:"w01401c",ready:()=>Boolean(window.__WORK_014_01_COORDINATE_ADAPTER__)},\n      {src:"js/work-014.js?v='''+VERSION+'''",key:"w01401",ready:()=>Boolean(window.__WORK_014_01_STABLE_READY__)}\n    ],\n'''
+            marker='    "013":[\n      {src:"js/work-013-coordinate-adapter.js?v=20260723_lujun_v1",key:"w013c",ready:()=>Boolean(window.__WORK_013_COORDINATE_ADAPTER__)},\n      {src:"js/work-013.js?v=20260723_lujun_v1",key:"w013",ready:()=>Boolean(window.__WORK_013_STABLE_READY__)}\n    ]\n'
+            if marker in router:
+              router=router.replace(marker,marker[:-1]+',\n'+route.rstrip(',\n')+'\n',1)
+            elif '"014-01"' not in router:
+              raise RuntimeError('无法在路由中插入014-01')
+            router=router.replace('"013":"鲁峻碑"','"013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一"')
+            router=router.replace('["007","010","011","013"].includes(id)','["007","010","011","013","014"].includes(id)')
+            router=router.replace('["003","004","005","006","007","010","011","013"].includes(id)','["003","004","005","006","007","010","011","013","014"].includes(id)')
+            router=router.replace('const title=titles[id]||`碑帖${id}`;','if(raw==="014"){location.replace("detail.html?id=014-01");return;}\n    if(raw==="014-02")return;\n    const title=titles[routeId]||titles[id]||`碑帖${id}`;',1)
+            router=router.replace('const route=routes[id]||[];','const route=routes[routeId]||routes[id]||[];',1)
+            ROUTER.write_text(router,encoding='utf-8')
+
+            patch=DETAIL_PATCH.read_text('utf-8')
+            patch=patch.replace('["007","010","011","013"].includes(workId)','["007","010","011","013","014"].includes(workId)')
+            patch=re.sub(r'js/damage_ai_reading\.js\?v=[^"\']+',f'js/damage_ai_reading.js?v={VERSION}',patch,count=1)
+            DETAIL_PATCH.write_text(patch,encoding='utf-8')
+
+            detail=DETAIL.read_text('utf-8')
+            detail=re.sub(r'js/detail_info_patch\.js\?v=[^"\']+',f'js/detail_info_patch.js?v={VERSION}',detail,count=1)
+            detail=re.sub(r'js/damage_ai_reading\.js\?v=[^"\']+',f'js/damage_ai_reading.js?v={VERSION}',detail,count=1)
+            DETAIL.write_text(detail,encoding='utf-8')
+
+            report.update({
+              'status':'completed','model_rows':len(selected),'model_stream_chars':len(model_chars),'expected_chars':len(expected),
+              'sequence_ratio':round(matcher.ratio(),4),'body_page_range':[body_start,body_end],
+              'coordinate_pages':coordinate_pages,'image_only_pages':image_only,
+              'text_square_count':square_count,'case_square_count':case_square_count,'candidate_count':candidate_count,
+              'case_count':len(cases),'located_cases':located,'unlocated_cases':[a['id'] for a in audits if not a['accepted']],
+              'matching_blocks':matching_blocks[:100],'cases':audits
+            })
+          except Exception as error:
+            report.update({'status':'error','error':repr(error),'traceback':traceback.format_exc()})
+          REPORT.parent.mkdir(parents=True,exist_ok=True)
+          REPORT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps({k:report.get(k) for k in ('status','model_rows','sequence_ratio','body_page_range','case_count','located_cases','unlocated_cases','error')},ensure_ascii=False,indent=2))
+          PY
+
+      - name: Syntax checks without failing the audit job
+        shell: bash
+        run: |
+          node --check js/work-014.js || true
+          node --check js/work-014-coordinate-adapter.js || true
+          node --check js/damage_ai_reading.js || true
+          node --check js/detail_info_patch.js || true
+
+      - name: Commit generated files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --sparse \
+            data/work014_01_damage_cases.json \
+            data/work014_01_coordinate_report.json \
+            data/glyph_boxes/iiif/014-01 \
+            data/page_images_index.json \
+            data/beitie_catalog.json \
+            data/beitie_header_info.json \
+            js/work-014.js \
+            js/work-014-coordinate-adapter.js \
+            js/damage_ai_reading.js \
+            js/detail_info_patch.js \
+            detail.html
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "生成014-01册一内容与静态坐标"
+          git push origin HEAD:agent/work014-01-lihanjing
