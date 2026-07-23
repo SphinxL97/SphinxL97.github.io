@@ -13,12 +13,12 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="颜真卿李玄靖碑册一";
-  const VERSION="20260723_lihanjing_014_01_v1";
+  const VERSION="20260723_lihanjing_014_01_v2";
   const TEXT_URL=`data/work014_01_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work014_01_damage_cases.json?v=${VERSION}`;
   const PAGE_INDEX_URL=`data/page_images_index.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-  const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的残损字提出校读意见。AI分析重点说明候选字与汉代官职、地名、人名、典故、句法和铭文对偶的关系；没有对应方框的外部文字不写入恢复结果。";
+  const INTRO="本栏目以当前网页释文为底稿，只对原释文中明确标出的残损字提出校读意见。AI分析重点说明候选字与唐代道教语汇、年号、地名、人名、典故、句法和上下文的关系；没有对应方框的外部文字不写入恢复结果。";
 
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=value=>JSON.parse(JSON.stringify(value));
@@ -153,7 +153,7 @@
   async function loadPageImages(){
     try{
       const data=await fetchJSON(PAGE_INDEX_URL);
-      const list=Array.isArray(data?.works?.["014-01"]?.pages)?data.works["013"].pages:[];
+      const list=Array.isArray(data?.works?.["014-01"]?.pages)?data.works["014-01"].pages:[];
       pageImages=new Map(list.map(page=>[Number(page.page),String(page.image||"")]));
     }catch(error){
       console.warn("[work-014-01] page images",error);
@@ -234,7 +234,7 @@
     setMenuTitle(3,"三、碑文残损与AI释读");
     syncCases(cases);
     section.className="content-card damage-ai";
-    section.dataset.work013Dedicated="true";
+    section.dataset.work01401Dedicated="true";
     section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell">${damagePanel(item)}</div>`;
 
     const list=section.querySelector(".damage-list");

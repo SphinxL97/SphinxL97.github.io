@@ -5,7 +5,7 @@
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   if(raw!=="014-01"||window.__WORK_014_01_COORDINATE_ADAPTER__)return;
 
-  const CACHE_TAG="20260723_lihanjing_014_01_v1";
+  const CACHE_TAG="20260723_lihanjing_014_01_v2";
   const ROOT="data/glyph_boxes/iiif/014-01";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();
@@ -65,7 +65,7 @@
           if(attempt<3)await sleep(350*attempt);
         }
       }
-      throw lastError||new Error("013坐标读取失败");
+      throw lastError||new Error("014-01坐标读取失败");
     })().catch(error=>{
       pagePromises.delete(pageNo);
       console.warn("[work-014-01-coordinate-adapter]",pageNo,error);
