@@ -1,0 +1,55 @@
+name: Temporary correct work027
+on:
+  push:
+    branches: [agent/work027-fill-all]
+jobs:
+  correct:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work027-fill-all
+          fetch-depth: 0
+      - name: Correct candidates
+        run: python scripts/correct_work027_candidates.py
+      - name: Validate
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('data/work027_full_text.txt').read_text(encoding='utf-8')
+          rows=json.loads(Path('data/work027_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work027_coordinate_report.json').read_text(encoding='utf-8'))
+          assert len(rows)==100 and '□' not in text
+          assert sum(x['candidate_count'] for x in rows)==161
+          assert all('□' not in x['corrected'] and '□' not in x['current_context'] for x in rows)
+          assert all(len(x['analysis'])>=3 for x in rows)
+          assert report['remaining_square_count']==0 and report['unresolved_case_count']==0
+          assert '泱泱顯〔族〕〔斂〕〔蔓〕' in text
+          assert '棲真宅正，〔寢〕縄履程' in text
+          assert '士女承〔休〕〔轡〕' in text
+          assert '〔遠〕〔祖〕〔肇〕基，雲景' in text
+          assert '魏〔故〕二字、海〔郡〕二字' in text
+          assert '〔庶〕〔幾〕〔此〕亦可騐' in text
+          assert '巍〔巍〕〔然〕〔玄〕〔宅〕〔永〕〔固〕墓〔門〕' in text
+          print({'documentary':report['documentary_case_count'],'provisional':report['ai_provisional_case_count']})
+          PY
+          node --check js/work-027.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          grep -q '20260724_wei_five_v5' detail.html
+      - name: Remove branch temporary files
+        run: |
+          rm -f scripts/correct_work027_candidates.py
+          rm -f .github/workflows/correct-work027-candidates.yml
+          rm -f .github/workflows/correct-work027-candidates-v2.yml
+      - name: Commit results
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/work027_full_text.txt data/work027_damage_cases.json data/work027_coordinate_report.json js/work-027.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          git add -u scripts/correct_work027_candidates.py .github/workflows/correct-work027-candidates.yml .github/workflows/correct-work027-candidates-v2.yml
+          git commit -m '复核027候选字并区分文献对校与AI暂拟'
+          git push origin HEAD:agent/work027-fill-all
