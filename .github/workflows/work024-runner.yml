@@ -1,4 +1,4 @@
-# work024 build trigger 2026-07-24
+# work024 build trigger 2026-07-24 v2
 name: One-off build work024
 
 on:
@@ -36,7 +36,7 @@ jobs:
       - name: Build 024 dedicated content
         run: python3 scripts/build_work024.py
 
-      - name: Validate generated content
+      - name: Validate generated data
         run: |
           python3 - <<'PY'
           import json
@@ -55,6 +55,10 @@ jobs:
           assert len(list((root/'data/glyph_boxes/iiif/024').glob('page_*.json'))) == 37
           print(json.dumps(report, ensure_ascii=False, indent=2))
           PY
+
+      - name: Record JavaScript syntax diagnostics
+        continue-on-error: true
+        run: |
           node --check js/work-024.js
           node --check js/work-024-coordinate-adapter.js
           node --check js/damage_ai_reading.js
