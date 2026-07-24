@@ -121,7 +121,7 @@
     const title=titles[routeId]||titles[id]||`碑帖${id}`;
     renderLoading(title);
     await load({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"align",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
-    if(!["003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","022"].includes(id)){
+    if(!["003","004","005","006","007","010","011","013","014","015","016","017","018","020","022"].includes(id)){
       await load({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"audit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
       await load({src:"js/damage_case_standard_patch.js?v=20260717_stable_v1",key:"standard",ready:()=>Boolean(window.__DAMAGE_CASE_STANDARD_PATCH_V4__)});
     }
