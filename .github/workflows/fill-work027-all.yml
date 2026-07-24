@@ -1,0 +1,58 @@
+name: Fill work027 all missing characters
+on:
+  workflow_dispatch:
+  push:
+    branches: [agent/work027-fill-all]
+    paths:
+      - scripts/fill_work027_all.py
+      - .github/workflows/fill-work027-all.yml
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout work branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/work027-fill-all
+          fetch-depth: 0
+      - name: Fill all work027 squares
+        run: python scripts/fill_work027_all.py
+      - name: Validate completed content
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('data/work027_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work027_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work027_coordinate_report.json').read_text(encoding='utf-8'))
+          assert '□' not in text
+          assert len(cases)==100
+          assert sum(x['candidate_count'] for x in cases)==161
+          assert all('□' not in x['corrected'] for x in cases)
+          assert all(x['remaining_square_count']==0 for x in cases)
+          assert all(x['analysis'] and len(x['analysis'])>=3 for x in cases)
+          assert all(x.get('reference') for x in cases)
+          assert report['candidate_count']==161
+          assert report['remaining_square_count']==0
+          assert report['unresolved_case_count']==0
+          assert report['all_corrected_text_square_free'] is True
+          print({'cases':len(cases),'candidates':report['candidate_count'],'fallback':report['fallback_candidate_count']})
+          PY
+          node --check js/work-027.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          grep -q '20260724_wei_five_v3' detail.html
+      - name: Remove temporary workflow and script
+        run: |
+          rm -f scripts/fill_work027_all.py
+          rm -f .github/workflows/fill-work027-all.yml
+      - name: Commit completed work027 content
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/work027_full_text.txt data/work027_damage_cases.json data/work027_coordinate_report.json js/work-027.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          git add -u scripts/fill_work027_all.py .github/workflows/fill-work027-all.yml
+          git commit -m '补全027栏目三全部候选字与AI分析'
+          git push origin HEAD:agent/work027-fill-all
