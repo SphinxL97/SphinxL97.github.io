@@ -1,0 +1,65 @@
+name: Finalize work027 rendering
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finalize-work027-rendering
+  cancel-in-progress: true
+
+jobs:
+  finalize:
+    if: github.head_ref == 'agent/work027-wei-five'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout work branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/work027-wei-five
+          fetch-depth: 0
+
+      - name: Finalize section rendering and cache
+        run: python3 scripts/finalize_work027_rendering.py
+
+      - name: Validate final files
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          script=Path('js/work-027.js').read_text(encoding='utf-8')
+          router=Path('js/damage_ai_reading.js').read_text(encoding='utf-8')
+          entry=Path('js/detail_info_patch.js').read_text(encoding='utf-8')
+          html=Path('detail.html').read_text(encoding='utf-8')
+          report=json.loads(Path('data/work027_coordinate_report.json').read_text(encoding='utf-8'))
+          assert '20260724_wei_five_v2' in script and '20260724_wei_five_v2' in router
+          assert '20260724_wei_five_v2' in entry and '20260724_wei_five_v2' in html
+          assert '王偃墓志清光绪元年出土后跋' in script
+          assert '__WORK_027_CROWDSSOURCE_READY__' not in script
+          assert report['located_case_count']==100 and report['unlocated_case_count']==0
+          assert report['cache_version']=='20260724_wei_five_v2'
+          PY
+          node --check js/work-027.js
+          node --check js/work-027-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+
+      - name: Remove temporary finalizer files
+        run: |
+          rm -f scripts/finalize_work027_rendering.py
+          rm -f .github/workflows/finalize-work027-rendering.yml
+
+      - name: Commit final work027 rendering
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Finalize work027 rendering and cache"
+          git push origin HEAD:agent/work027-wei-five
