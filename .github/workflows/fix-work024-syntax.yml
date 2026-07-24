@@ -1,0 +1,93 @@
+name: Repair work024 syntax
+
+on:
+  push:
+    branches:
+      - agent/fix-work024-syntax
+    paths:
+      - .work024-syntax-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-work024-syntax
+          fetch-depth: 1
+
+      - name: Repair broken paragraph regular expressions
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          script_path = Path('js/work-024.js')
+          script = script_path.read_text(encoding='utf-8')
+
+          replacement = r'''  function paragraphHTML(text){
+    return String(text||"")
+      .replace(/\r\n?/g,"\n")
+      .split(/\n\s*\n/)
+      .map(part=>part.trim())
+      .filter(Boolean)
+      .map(part=>/^文曰[:：]?/.test(part)
+        ? `<h4 class="work024-part-title">${esc(part)}</h4>`
+        : `<p>${esc(part)}</p>`)
+      .join("");
+  }
+'''
+          script, count = re.subn(
+              r'  function paragraphHTML\(text\)\{.*?\n  function boldProblemSentences',
+              lambda _m: replacement + '  function boldProblemSentences',
+              script,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit(f'paragraphHTML replacement count={count}')
+
+          script = script.replace(
+              'const VERSION="20260724_xuanjing_v1";',
+              'const VERSION="20260724_xuanjing_v2";',
+              1,
+          )
+          script_path.write_text(script, encoding='utf-8')
+
+          detail_path = Path('detail.html')
+          detail = detail_path.read_text(encoding='utf-8')
+          detail = detail.replace('20260724_work024_bootstrap_v2', '20260724_work024_bootstrap_v3')
+          detail_path.write_text(detail, encoding='utf-8')
+          PY
+
+      - name: Validate JavaScript and 024 data
+        run: |
+          node --check js/work-024.js
+          node --check js/work-024-coordinate-adapter.js
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          script=Path('js/work-024.js').read_text(encoding='utf-8')
+          detail=Path('detail.html').read_text(encoding='utf-8')
+          text=Path('data/work024_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work024_damage_cases.json').read_text(encoding='utf-8'))
+          assert '.replace(/\\r\\n?/g,"\\n")' in script
+          assert '.split(/\\n\\s*\\n/)' in script
+          assert '20260724_xuanjing_v2' in script
+          assert '20260724_work024_bootstrap_v3' in detail
+          assert text.count('□') == 23
+          assert len(cases) == 19
+          print('work024 syntax and data validation passed')
+          PY
+
+      - name: Remove temporary files and commit
+        run: |
+          rm -f .github/workflows/fix-work024-syntax.yml .work024-syntax-trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix work024 script syntax and refresh cache"
+          git push origin HEAD:agent/fix-work024-syntax
