@@ -1,0 +1,80 @@
+name: Temporary debug refined work028
+on:
+  pull_request:
+    branches: [main]
+    types: [synchronize]
+    paths:
+      - .work028-refine-debug-trigger
+jobs:
+  debug:
+    if: github.head_ref == 'agent/work028-jintang-nine'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work028-jintang-nine
+          fetch-depth: 0
+      - name: Run candidate refinement
+        run: python scripts/refine_work028_candidates.py
+      - name: Write validation report
+        shell: bash
+        run: |
+          set +e
+          {
+            python - <<'PY'
+          import json
+          from pathlib import Path
+          full=Path('data/work028_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work028_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work028_coordinate_report.json').read_text(encoding='utf-8'))
+          by={x['id']:x for x in cases}
+          checks={
+            'case_count':len(cases)==226 and report['case_count']==226,
+            'square_counts':report['base_text_square_count']==347 and report['model_square_count']==347 and report['candidate_count']==347,
+            'remaining':report['remaining_square_count']==0 and report['unresolved_case_count']==0,
+            'locations':report['located_case_count']==226 and report['unlocated_case_count']==0 and all(x.get('locations') and x['locations'][0].get('bbox') for x in cases),
+            'mode_total':report['documentary_case_count']+report['ai_provisional_case_count']==226,
+            'manual_review':report.get('manual_reviewed_case_count',0)>0,
+            'cache':report.get('cache_version')=='20260725_jintang_nine_v2',
+            'square_free':'□' not in full and all('□' not in x['corrected'] and '□' not in x['current_context'] for x in cases),
+            'candidate_slots':all(x['candidate_count']==x['square_count'] for x in cases),
+            'analysis':all(len(x.get('analysis',[]))>=3 for x in cases),
+            'coordinate_files':len(list(Path('data/glyph_boxes/iiif/028').glob('page_*.json')))==91,
+            'case031':by['031']['corrected']=='肺之〔為〕〔氣〕〔三〕焦起。' and by['031']['mode']=='ai_provisional',
+            'case039':by['039']['corrected']=='或者〔其〕〔旨〕〔趣〕未盡乎。',
+            'case047':by['047']['corrected']=='願釋干〔戈〕。',
+            'case049':by['049']['corrected']=='微子適〔周〕。',
+            'case050':by['050']['corrected']=='其先與周同〔祖〕。',
+            'case059':by['059']['corrected']=='〔乍〕沉〔乍〕〔浮〕。',
+            'case060':by['060']['corrected']=='千夫〔共〕聲。',
+            'case099':by['099']['corrected']=='子敬好〔寫〕洛神〔賦〕，人間合有數本，奉此其一焉。',
+            'case100':by['100']['corrected']=='太子中書舍人〔吳郡〕〔虞〕世南撰〔并〕書。',
+            'case145':by['145']['corrected']=='此地〔有崇〕山峻嶺，茂林脩竹，又有清流激湍，映帶左右。',
+            'case190':by['190']['corrected']=='維貞觀廿三年〔歲次己酉五月甲辰朔〕廿六日己巳，太宗皇帝崩于翠微宫之含風殿。',
+            'case211':by['211']['corrected']=='商管初飛，秋絃罷〔脩〕。',
+            'case216':by['216']['corrected']=='崤陵〔玄〕壤，隅山窮路。',
+            'case223':by['223']['mode']=='documentary',
+            'case226':by['226']['corrected']=='绍興丙辰十二〔月〕〔初〕五日，臣〔友〕〔仁〕審定。',
+          }
+          print(json.dumps({'checks':checks,'failed':[k for k,v in checks.items() if not v],'report_summary':{k:report.get(k) for k in ['case_count','base_text_square_count','model_square_count','candidate_count','documentary_case_count','ai_provisional_case_count','manual_reviewed_case_count','cache_version']}},ensure_ascii=False,indent=2))
+          assert all(checks.values())
+          PY
+            node --check js/work-028.js
+            node --check js/work-028-coordinate-adapter.js
+            node --check js/damage_ai_reading.js
+            node --check js/detail_info_patch.js
+            grep -q '20260725_jintang_nine_v2' detail.html
+            grep -q '20260725_jintang_nine_v2' js/damage_ai_reading.js
+            grep -q 'getBoundingClientRect' js/work-028.js
+          } > data/work028_refine_validation.log 2>&1
+          status=$?
+          cat data/work028_refine_validation.log
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/work028_full_text.txt data/work028_damage_cases.json data/work028_coordinate_report.json data/work028_case_audit.txt data/work028_refine_validation.log
+          git add js/work-028.js js/work-028-coordinate-adapter.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          git commit -m '暂存028人工复核结果与验证报告'
+          git push origin HEAD:agent/work028-jintang-nine
+          exit "$status"
