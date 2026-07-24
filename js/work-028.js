@@ -27,11 +27,7 @@
   async function fetchJSON(url){const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw new Error(`${url} ${r.status}`);return r.json();}
   function setMenuTitle(index,title){const link=document.querySelector(`.side a:nth-of-type(${index})`);if(link)link.textContent=title;}
   function removeLocationMap(){Array.from(document.querySelectorAll("h1,h2,h3,h4,strong,.card-title,.map-title")).filter(node=>(node.textContent||"").trim()==="地点地图").forEach(node=>{const card=node.closest("aside,section,.location-card,.map-card,.place-card,.detail-map-card")||node.parentElement;if(card&&!card.classList.contains("side")&&card.id!=="places")card.remove();});}
-  function paragraphHTML(text){return String(text||"").replaceAll("
-","
-").split(/
-\s*
-/).map(p=>p.trim()).filter(Boolean).map(part=>{if(/^【.+】$/.test(part))return `<h4 class="work028-part-title">${esc(part.slice(1,-1))}</h4>`;return `<p>${esc(part)}</p>`;}).join("");}
+  function paragraphHTML(text){return String(text||"").replaceAll("\r\n","\n").replaceAll("\r","\n").split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean).map(part=>{if(/^【.+】$/.test(part))return `<h4 class="work028-part-title">${esc(part.slice(1,-1))}</h4>`;return `<p>${esc(part)}</p>`;}).join("");}
   function normalizeCase(row,index){const id=String(row?.id||index+1).padStart(3,"0"),title=String(row?.title||row?.t||`第${id}处残损`),original=String(row?.original||row?.o||""),corrected=String(row?.corrected||row?.c||original),locations=Array.isArray(row?.locations)?row.locations:[];return {...row,id,title,original,corrected,category:String(row?.category||"AI暂拟"),n:"残损碑文恢复",t:title,o:original,c:corrected,confidence:String(row?.confidence||"中"),analysis:Array.isArray(row?.analysis)?row.analysis.map(String):[],locations,page:row?.page||locations[0]?.page||"—"};}
   function publishCases(items){window.DAMAGE_AI_CASES=items.map(item=>({...clone(item),n:"残损碑文恢复",t:item.title,o:item.original,c:item.corrected,crowdsourceCategory:item.category}));window.dispatchEvent(new CustomEvent("work-028-cases-ready",{detail:{count:items.length}}));}
   function renderTranscript(text){const section=document.getElementById("calligraphy");if(!section)return;setMenuTitle(2,"二、碑文释文");section.className="content-card full-transcript-section";section.innerHTML=`<h2 class="section-title">二、碑文释文</h2><p class="full-transcript-note">${NOTE}</p><div class="full-transcript-card"><header class="full-transcript-header"><h3>${TITLE}</h3><span class="full-transcript-ornament"></span></header><div class="full-transcript-body">${paragraphHTML(text)}</div></div>`;}
