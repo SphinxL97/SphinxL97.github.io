@@ -1,7 +1,8 @@
 /* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018、020、022、023使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V61__)return;
+  if(window.__DAMAGE_AI_READING_ROUTER_V62__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V62__=true;
   window.__DAMAGE_AI_READING_ROUTER_V61__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
@@ -68,7 +69,8 @@
     ],
     "023":[
       {src:"js/work-023-coordinate-adapter.js?v=20260724_guifeng_v2",key:"w023c",ready:()=>Boolean(window.__WORK_023_COORDINATE_ADAPTER__)},
-      {src:"js/work-023.js?v=20260724_guifeng_v2",key:"w023",ready:()=>Boolean(window.__WORK_023_STABLE_READY__)}
+      {src:"js/work-023.js?v=20260724_guifeng_v2",key:"w023",ready:()=>Boolean(window.__WORK_023_STABLE_READY__)},
+      {src:"js/work-023-crowdsource-adapter.js?v=20260724_guifeng_crowd_v1",key:"w023crowd",ready:()=>Boolean(window.__WORK_023_CROWDSOURCE_ADAPTER__)}
     ]
   };
 
