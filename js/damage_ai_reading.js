@@ -1,8 +1,8 @@
-/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018、020、020使用单一专属模块。 */
+/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018、020使用单一专属模块。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V58__)return;
-  window.__DAMAGE_AI_READING_ROUTER_V58__=true;
+  if(window.__DAMAGE_AI_READING_ROUTER_V59__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V59__=true;
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const id=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
@@ -59,8 +59,8 @@
       {src:"js/work-018.js?v=20260724_songgao_v1",key:"w018",ready:()=>Boolean(window.__WORK_018_STABLE_READY__)}
     ],
     "020":[
-      {src:"js/work-020-coordinate-adapter.js?v=20260724_huadusi_v1",key:"w020c",ready:()=>Boolean(window.__WORK_020_COORDINATE_ADAPTER__)},
-      {src:"js/work-020.js?v=20260724_huadusi_v1",key:"w020",ready:()=>Boolean(window.__WORK_020_STABLE_READY__)}
+      {src:"js/work-020-coordinate-adapter.js?v=20260724_huadusi_v2",key:"w020c",ready:()=>Boolean(window.__WORK_020_COORDINATE_ADAPTER__)},
+      {src:"js/work-020.js?v=20260724_huadusi_v2",key:"w020",ready:()=>Boolean(window.__WORK_020_STABLE_READY__)}
     ]
   };
 

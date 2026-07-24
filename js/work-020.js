@@ -14,11 +14,11 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="化度寺邕禅师舍利塔铭";
-  const VERSION="20260724_huadusi_v1";
+  const VERSION="20260724_huadusi_v2";
   const TEXT_URL=`data/work020_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work020_damage_cases.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-  const INTRO="本栏目为原释文中的每一个问题字提供候选结果。文献能够确认者标为文献对校；缺乏直接录文者，则结合初唐佛教语汇、三阶教传记、禅修术语和铭辞结构给出AI推测，并以置信度区分可靠程度。恢复结果与恢复后的上下文不再保留“□”。";
+  const INTRO="本栏目对原释文中的残损位置逐例释读。能够可靠判断者给出候选字；只能确定部分位置时，其余方框继续保留；现有证据不足时显示“暂未恢复”，不为追求句意完整而强行补字。";
   const IMAGE_ROOT="assets/page_images/020_化度寺邕禅师舍利塔铭/images";
 
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -104,7 +104,8 @@
 
   function paragraphHTML(text){
     return String(text||"").replace(/\r\n?/g,"\n").split(/\n\s*\n/)
-      .map(part=>part.trim()).filter(Boolean).map(part=>/^(碑额|碑阳|碑阴)　/.test(part)?`<h4 class="work020-part-title">${esc(part)}</h4>`:`<p>${esc(part)}</p>`).join("");
+      .map(part=>part.trim()).filter(Boolean)
+      .map(part=>/^(碑额|碑阳|碑阴)　/.test(part)?`<h4 class="work020-part-title">${esc(part)}</h4>`:`<p>${esc(part)}</p>`).join("");
   }
 
   function boldProblemSentences(root,items){
@@ -156,10 +157,7 @@
     const bbox=source?.bbox;
     const page=Number(source?.page||item.page||0);
     if(!bbox||!page)return null;
-    const canvas={
-      w:Number(source?.canvas?.w||source?.canvas_width||2943),
-      h:Number(source?.canvas?.h||source?.canvas_height||4429)
-    };
+    const canvas={w:Number(source?.canvas?.w||source?.canvas_width||2943),h:Number(source?.canvas?.h||source?.canvas_height||4429)};
     const target={
       x:Number(bbox.x??bbox[0]??0),y:Number(bbox.y??bbox[1]??0),
       w:Number(bbox.w??bbox[2]??0),h:Number(bbox.h??bbox[3]??0)
@@ -196,7 +194,13 @@
   }
 
   const plainRestored=value=>String(value||"").replace(/[〔〕]/g,"");
-  const resultLabel=item=>item.mode==="documentary"?"文献对校结果":item.mode==="mixed"?"文献与AI综合补全":"AI推测补全";
+  const resultLabel=item=>{
+    if(item.mode==="documentary")return "文献对校结果";
+    if(item.mode==="mixed")return "部分恢复";
+    if(item.mode==="unresolved")return "暂未恢复";
+    return "AI暂拟补全";
+  };
+  const contextLabel=item=>item.mode==="mixed"?"部分恢复后的上下文":item.mode==="unresolved"?"当前上下文":"恢复后的上下文";
   const confidenceLabel=value=>["分项判断","暂无法判断"].includes(String(value||""))?String(value):`${value}置信度`;
 
   let cases=[],current=0,expanded=false,listScrollTop=0;
@@ -207,7 +211,7 @@
 
   function damagePanel(item){
     const analysis=(item.analysis||[]).map(line=>`<li>${esc(line)}</li>`).join("");
-    return `<div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(confidenceLabel(item.confidence))}）</span></div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" ${current===cases.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${imageHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别（OCR结果）</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${resultLabel(item)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">恢复后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${analysis}</ol><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div>`;
+    return `<div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(confidenceLabel(item.confidence))}）</span></div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" ${current===cases.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${imageHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别（OCR结果）</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${resultLabel(item)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">${contextLabel(item)}</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${analysis}</ol><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div>`;
   }
 
   function renderDamage(){
