@@ -1,0 +1,69 @@
+name: Finalize work022
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work022-wangjushi-rebuild
+          fetch-depth: 1
+      - name: Remove duplicate route entry
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('js/damage_ai_reading.js')
+          s=p.read_text(encoding='utf-8')
+          old='"018","020","022","022"'
+          new='"018","020","022"'
+          if old not in s:
+              raise SystemExit('duplicate route anchor not found')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY
+      - name: Validate work022 data and scripts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files=[
+              Path('data/work022_damage_cases.json'),
+              Path('data/work022_coordinate_report.json'),
+              Path('data/beitie_catalog.json'),
+              Path('data/beitie_header_info.json'),
+              Path('data/page_images_index.json'),
+          ]
+          for p in files:
+              json.loads(p.read_text(encoding='utf-8'))
+          cases=json.loads(Path('data/work022_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work022_coordinate_report.json').read_text(encoding='utf-8'))
+          text=Path('data/work022_full_text.txt').read_text(encoding='utf-8')
+          assert text.count('□')==9
+          assert len(cases)==9
+          assert sum(x['candidate_count'] for x in cases)==9
+          assert all(x['remaining_square_count']==0 for x in cases)
+          assert all('□' not in x['corrected'] for x in cases)
+          assert report['model_rows']==432
+          assert report['located_cases']==9
+          assert report['unlocated_cases']==[]
+          print('JSON and work022 integrity checks passed')
+          PY
+          node --check js/work-022.js
+          node --check js/work-022-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+      - name: Commit cleanup and remove workflow
+        run: |
+          rm -f .github/workflows/work022-final-cleanup.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Finalize and validate work022"
+          git push origin HEAD:agent/work022-wangjushi-rebuild
