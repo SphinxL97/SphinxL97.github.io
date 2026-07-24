@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V24__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V25__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V25__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V24__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V23__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V22__=true;
@@ -38,10 +39,10 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260724_magushan_v1";
+  const dataUrl="data/beitie_header_info.json?v=20260724_wei_five_v2";
 
   function applyImmediateWorkMenu(){
-    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记"};
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种"};
     const name=names[workId];if(!name)return;
     const apply=()=>{
       const side=document.querySelector(".side");
@@ -57,6 +58,7 @@
     else apply();
   }
   applyImmediateWorkMenu();
+  if(workId==="027")document.documentElement.classList.add("work027-no-location-map");
 
   function appendScript(src,datasetKey,onDone){
     const path=src.split("?")[0];
@@ -91,7 +93,7 @@
   }
 
   function forceDedicatedRouter(){
-    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024","025","026"].includes(workId))return;
+    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027"].includes(workId))return;
     if(workId==="024"){
       loadWork024Directly();
       return;
@@ -116,7 +118,7 @@
     window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     window.__DAMAGE_AI_READING_ROUTER_V62__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260724_magushan_v1";
+    script.src="js/damage_ai_reading.js?v=20260724_wei_five_v2";
     script.async=false;
     script.dataset.dedicatedForcedRouter=workId;
     script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});
