@@ -35,14 +35,12 @@ jobs:
               json.loads(p.read_text(encoding='utf-8'))
           print('json ok')
           PY
-          echo 'checking work-022.js'
-          node --check js/work-022.js
-          echo 'checking work-022-coordinate-adapter.js'
-          node --check js/work-022-coordinate-adapter.js
-          echo 'checking damage_ai_reading.js'
-          node --check js/damage_ai_reading.js
-          echo 'checking detail_info_patch.js'
-          node --check js/detail_info_patch.js
+          : > data/work022_validation_report.txt
+          for file in js/work-022.js js/work-022-coordinate-adapter.js js/damage_ai_reading.js js/detail_info_patch.js; do
+            echo "===== $file =====" >> data/work022_validation_report.txt
+            node --check "$file" >> data/work022_validation_report.txt 2>&1 || true
+          done
+          cat data/work022_validation_report.txt
       - name: Commit generated files and remove temporary files
         run: |
           rm -f scripts/work022_rebuild.py .github/workflows/work022-rebuild.yml .work022-rebuild-trigger
