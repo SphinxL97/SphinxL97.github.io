@@ -1,0 +1,952 @@
+[
+  {
+    "id": "01",
+    "category": "文献对校",
+    "title": "常阳子篆额",
+    "original": "常陽□□□。",
+    "corrected": "常陽〔子〕〔篆〕〔額〕。",
+    "candidate": "子、篆、額",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "题署处原有三个连续缺字。",
+      "作品责任信息明确记载李阳冰篆额；‘常阳子’为李阳冰题署中使用的称号，补作‘常阳子篆额’与题署结构相合。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "常陽□□□。"
+    ],
+    "locate_anchor": "常陽□□□。",
+    "n": "文献对校",
+    "t": "常阳子篆额",
+    "o": "常陽□□□。",
+    "c": "常陽〔子〕〔篆〕〔額〕。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 4,
+        "glyph_id": "024_张从申书李玄靖碑_p0004_c013",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 762.0,
+          "y": 1498.0,
+          "w": 242.0,
+          "h": 520.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0004_四.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 1,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 4,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "02",
+    "category": "文献对校",
+    "title": "避讳改姓",
+    "original": "先生諱含光，夲姓弘，則大諱弘□為李氏。",
+    "corrected": "先生諱含光，夲姓弘，則大諱弘〔改〕為李氏。",
+    "candidate": "改",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "此句说明李含光本姓弘，因避讳而改姓李。",
+      "《全唐文》系统录文对应作‘则天讳宏，改为李氏’，方框位置可据此补‘改’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "先生諱含光，夲姓弘，則大諱弘□為李氏。"
+    ],
+    "locate_anchor": "先生諱含光，夲姓弘，則大諱弘□為李氏。",
+    "n": "文献对校",
+    "t": "避讳改姓",
+    "o": "先生諱含光，夲姓弘，則大諱弘□為李氏。",
+    "c": "先生諱含光，夲姓弘，則大諱弘〔改〕為李氏。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 10,
+        "glyph_id": "024_张从申书李玄靖碑_p0010_c015",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 727.0,
+          "y": 447.0,
+          "w": 222.0,
+          "h": 267.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0010_十.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 4,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 10,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "03",
+    "category": "文献对校",
+    "title": "不外观驰景",
+    "original": "不外□馳景，而内觀馳心",
+    "corrected": "不外〔觀〕馳景，而内觀馳心",
+    "candidate": "觀",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "上下句以‘外观’与‘内观’相对。",
+      "可靠录文作‘不外观驰景，而内观驰心’，故补‘观’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "不外□馳景，而内觀馳心"
+    ],
+    "locate_anchor": "不外□馳景，而内觀馳心",
+    "n": "文献对校",
+    "t": "不外观驰景",
+    "o": "不外□馳景，而内觀馳心",
+    "c": "不外〔觀〕馳景，而内觀馳心",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 12,
+        "glyph_id": "024_张从申书李玄靖碑_p0012_c001",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 1178.0,
+          "y": 462.0,
+          "w": 236.0,
+          "h": 298.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0012_十二.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 5,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 12,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "04",
+    "category": "文献对校",
+    "title": "发明宗元",
+    "original": "先示正性，□眀宗元",
+    "corrected": "先示正性，〔發〕眀宗元",
+    "candidate": "發",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘发明’在古文中有阐发、显明之义。",
+      "可靠录文作‘先示正性，发明宗元’，方框应为‘发’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "先示正性，□眀宗元"
+    ],
+    "locate_anchor": "先示正性，□眀宗元",
+    "n": "文献对校",
+    "t": "发明宗元",
+    "o": "先示正性，□眀宗元",
+    "c": "先示正性，〔發〕眀宗元",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 13,
+        "glyph_id": "024_张从申书李玄靖碑_p0013_c013",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 561.0,
+          "y": 1538.0,
+          "w": 229.0,
+          "h": 227.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0013_十三.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 6,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 13,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "05",
+    "category": "文献对校",
+    "title": "幼工篆隶",
+    "original": "幼工篆□，或稱過父",
+    "corrected": "幼工篆〔隸〕，或稱過父",
+    "candidate": "隸",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘篆隶’为并举书体。",
+      "可靠录文作‘幼工篆隶，或称过父’，故补‘隶’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "幼工篆□，或稱過父"
+    ],
+    "locate_anchor": "幼工篆□，或稱過父",
+    "n": "文献对校",
+    "t": "幼工篆隶",
+    "o": "幼工篆□，或稱過父",
+    "c": "幼工篆〔隸〕，或稱過父",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 15,
+        "glyph_id": "024_张从申书李玄靖碑_p0015_c001",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 785.0,
+          "y": 447.0,
+          "w": 274.0,
+          "h": 304.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0015_十五.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 7,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 15,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "06",
+    "category": "文献对校",
+    "title": "阙遗备载",
+    "original": "所撰仙學傳記，□遺俻載。",
+    "corrected": "所撰仙學傳記，〔闕〕遺俻載。",
+    "candidate": "闕",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘阙遗备载’意为将缺佚材料尽量收载。",
+      "可靠录文作‘所撰仙学传记，阙遗备载’，故补‘阙’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "所撰仙學傳記，□遺俻載。"
+    ],
+    "locate_anchor": "所撰仙學傳記，□遺俻載。",
+    "n": "文献对校",
+    "t": "阙遗备载",
+    "o": "所撰仙學傳記，□遺俻載。",
+    "c": "所撰仙學傳記，〔闕〕遺俻載。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 15,
+        "glyph_id": "024_张从申书李玄靖碑_p0015_c020",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 376.0,
+          "y": 1532.0,
+          "w": 220.0,
+          "h": 223.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0015_十五.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 8,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 15,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "07",
+    "category": "文献对校",
+    "title": "灭迹与亦浅",
+    "original": "託幽阜而㓕□者，扵徳□淺。",
+    "corrected": "託幽阜而㓕〔跡〕者，扵徳〔亦〕淺。",
+    "candidate": "跡、亦",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘灭迹’指隐居遁世，和前句‘行功’形成不同修道取向。",
+      "可靠录文作‘托幽阜而灭迹者，于德亦浅’，两处分别补‘迹’、‘亦’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "託幽阜而㓕□者，扵徳□淺。"
+    ],
+    "locate_anchor": "託幽阜而㓕□者，扵徳□淺。",
+    "n": "文献对校",
+    "t": "灭迹与亦浅",
+    "o": "託幽阜而㓕□者，扵徳□淺。",
+    "c": "託幽阜而㓕〔跡〕者，扵徳〔亦〕淺。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 18,
+        "glyph_id": "024_张从申书李玄靖碑_p0018_c012",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 943.0,
+          "y": 1322.0,
+          "w": 226.0,
+          "h": 247.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0018_十八.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 9,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 18,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "08",
+    "category": "文献对校",
+    "title": "岂劳言说",
+    "original": "羣蒙求我，□勞言說。",
+    "corrected": "羣蒙求我，〔豈〕勞言說。",
+    "candidate": "豈",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "本句是反问语气。",
+      "可靠录文作‘群蒙求我，岂劳言说’，故补‘岂’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "羣蒙求我，□勞言說。"
+    ],
+    "locate_anchor": "羣蒙求我，□勞言說。",
+    "n": "文献对校",
+    "t": "岂劳言说",
+    "o": "羣蒙求我，□勞言說。",
+    "c": "羣蒙求我，〔豈〕勞言說。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 21,
+        "glyph_id": "024_张从申书李玄靖碑_p0021_c002",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 805.0,
+          "y": 686.0,
+          "w": 254.0,
+          "h": 241.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0021_二十一.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 11,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 21,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "09",
+    "category": "文献对校",
+    "title": "同淑气自来",
+    "original": "同□氣自来，得之不見。",
+    "corrected": "同〔淑〕氣自来，得之不見。",
+    "candidate": "淑",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘淑气’指和善清淑之气。",
+      "可靠录文作‘同淑气自来，得之不见’，故补‘淑’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "同□氣自来，得之不見。"
+    ],
+    "locate_anchor": "同□氣自来，得之不見。",
+    "n": "文献对校",
+    "t": "同淑气自来",
+    "o": "同□氣自来，得之不見。",
+    "c": "同〔淑〕氣自来，得之不見。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 21,
+        "glyph_id": "024_张从申书李玄靖碑_p0021_c027",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 134.0,
+          "y": 1534.0,
+          "w": 246.0,
+          "h": 224.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0021_二十一.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 12,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 21,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "10",
+    "category": "文献对校",
+    "title": "色授其意",
+    "original": "士庶諮詢，色□其意。",
+    "corrected": "士庶諮詢，色〔授〕其意。",
+    "candidate": "授",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘色授’表示以神色传达意旨。",
+      "可靠录文作‘士庶咨询，色授其意’，故补‘授’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "士庶諮詢，色□其意。"
+    ],
+    "locate_anchor": "士庶諮詢，色□其意。",
+    "n": "文献对校",
+    "t": "色授其意",
+    "o": "士庶諮詢，色□其意。",
+    "c": "士庶諮詢，色〔授〕其意。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 24,
+        "glyph_id": "024_张从申书李玄靖碑_p0024_c007",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 1162.0,
+          "y": 1741.0,
+          "w": 241.0,
+          "h": 272.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0024_二十四.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 13,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 24,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "11",
+    "category": "文献对校",
+    "title": "醮火择薪",
+    "original": "醮火□薪，精微誠敬",
+    "corrected": "醮火〔擇〕薪，精微誠敬",
+    "candidate": "擇",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "斋醮用火与选薪均属仪式细节。",
+      "可靠录文作‘醮火择薪，精微诚敬’，故补‘择’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "醮火□薪，精微誠敬"
+    ],
+    "locate_anchor": "醮火□薪，精微誠敬",
+    "n": "文献对校",
+    "t": "醮火择薪",
+    "o": "醮火□薪，精微誠敬",
+    "c": "醮火〔擇〕薪，精微誠敬",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 24,
+        "glyph_id": "024_张从申书李玄靖碑_p0024_c018",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 752.0,
+          "y": 1040.0,
+          "w": 213.0,
+          "h": 214.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0024_二十四.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 14,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 24,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "12",
+    "category": "文献对校",
+    "title": "务欲尊崇",
+    "original": "曩者天書继至，務□尊崇",
+    "corrected": "曩者天書继至，務〔欲〕尊崇",
+    "candidate": "欲",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘务欲’为连用，表示力求、务求。",
+      "可靠录文对应作‘曩者天书继至，务欲尊崇’，故补‘欲’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "曩者天書继至，務□尊崇"
+    ],
+    "locate_anchor": "曩者天書继至，務□尊崇",
+    "n": "文献对校",
+    "t": "务欲尊崇",
+    "o": "曩者天書继至，務□尊崇",
+    "c": "曩者天書继至，務〔欲〕尊崇",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 25,
+        "glyph_id": "024_张从申书李玄靖碑_p0025_c006",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 784.0,
+          "y": 1519.0,
+          "w": 257.0,
+          "h": 238.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0025_二十五.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 15,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 25,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "13",
+    "category": "文献对校",
+    "title": "大历四年",
+    "original": "大□四年冬十一月",
+    "corrected": "大〔曆〕四年冬十一月",
+    "candidate": "曆",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "李含光卒于唐代宗大历四年。",
+      "可靠录文明确作‘大历四年冬十一月’，故补‘历’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "大□四年冬十一月"
+    ],
+    "locate_anchor": "大□四年冬十一月",
+    "n": "文献对校",
+    "t": "大历四年",
+    "o": "大□四年冬十一月",
+    "c": "大〔曆〕四年冬十一月",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 26,
+        "glyph_id": "024_张从申书李玄靖碑_p0026_c018",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 740.0,
+          "y": 1171.0,
+          "w": 236.0,
+          "h": 317.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0026_二十六.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 16,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 26,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "14",
+    "category": "文献对校",
+    "title": "弟子韦景昭",
+    "original": "入室弟子道土□景昭、孟湛然",
+    "corrected": "入室弟子道土〔韋〕景昭、孟湛然",
+    "candidate": "韋",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "此处为入室弟子姓名。",
+      "可靠录文作‘入室弟子韦景昭、孟湛然’，故补‘韦’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "入室弟子道土□景昭、孟湛然"
+    ],
+    "locate_anchor": "入室弟子道土□景昭、孟湛然",
+    "n": "文献对校",
+    "t": "弟子韦景昭",
+    "o": "入室弟子道土□景昭、孟湛然",
+    "c": "入室弟子道土〔韋〕景昭、孟湛然",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 27,
+        "glyph_id": "024_张从申书李玄靖碑_p0027_c006",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 773.0,
+          "y": 1696.0,
+          "w": 268.0,
+          "h": 315.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0027_二十七.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 17,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 27,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "15",
+    "category": "文献对校",
+    "title": "坐忘长往",
+    "original": "神氣恬然，若□忘長□，時年八十七。",
+    "corrected": "神氣恬然，若〔坐〕忘長〔往〕，時年八十七。",
+    "candidate": "坐、往",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘坐忘’是道家修炼语汇，‘长往’用于委婉表示逝世。",
+      "可靠录文作‘神气恬然，若坐忘长往’，两处分别补‘坐’、‘往’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "神氣恬然，若□忘長□，時年八十七。"
+    ],
+    "locate_anchor": "神氣恬然，若□忘長□，時年八十七。",
+    "n": "文献对校",
+    "t": "坐忘长往",
+    "o": "神氣恬然，若□忘長□，時年八十七。",
+    "c": "神氣恬然，若〔坐〕忘長〔往〕，時年八十七。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 27,
+        "glyph_id": "024_张从申书李玄靖碑_p0027_c022",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 120.0,
+          "y": 922.0,
+          "w": 232.0,
+          "h": 253.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0027_二十七.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 18,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 27,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "16",
+    "category": "文献对校",
+    "title": "执简如生",
+    "original": "靈雲降宝，□蕳如生。",
+    "corrected": "靈雲降宝，〔執〕蕳如生。",
+    "candidate": "執",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘执简如生’描写逝后形貌如生。",
+      "可靠录文作‘灵云降室，执简如生’；本任务只补原方框，保留底稿方框外的‘宝’与‘蕳’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "靈雲降宝，□蕳如生。"
+    ],
+    "locate_anchor": "靈雲降宝，□蕳如生。",
+    "n": "文献对校",
+    "t": "执简如生",
+    "o": "靈雲降宝，□蕳如生。",
+    "c": "靈雲降宝，〔執〕蕳如生。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 28,
+        "glyph_id": "024_张从申书李玄靖碑_p0028_c009",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 935.0,
+          "y": 737.0,
+          "w": 237.0,
+          "h": 282.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0028_二十八.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 20,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 28,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "17",
+    "category": "文献对校",
+    "title": "愿叙真宗",
+    "original": "□叙真宗，以示扵浚。",
+    "corrected": "〔願〕叙真宗，以示扵浚。",
+    "candidate": "願",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "门人请求撰述师道，句首宜为愿请语气。",
+      "可靠录文作‘愿叙真宗，以示于后’，本任务只补方框为‘愿’，不改写方框外底文。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "□叙真宗，以示扵浚。"
+    ],
+    "locate_anchor": "□叙真宗，以示扵浚。",
+    "n": "文献对校",
+    "t": "愿叙真宗",
+    "o": "□叙真宗，以示扵浚。",
+    "c": "〔願〕叙真宗，以示扵浚。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 29,
+        "glyph_id": "024_张从申书李玄靖碑_p0029_c022",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 134.0,
+          "y": 476.0,
+          "w": 240.0,
+          "h": 307.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0029_二十九.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 21,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 29,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "18",
+    "category": "文献对校",
+    "title": "紫极徒贵",
+    "original": "紫極□貴，白雲不知。",
+    "corrected": "紫極〔徒〕貴，白雲不知。",
+    "candidate": "徒",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘徒贵’表示仅有尊贵名位而非真正可贵。",
+      "可靠录文作‘紫极徒贵，白云不知’，故补‘徒’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "紫極□貴，白雲不知。"
+    ],
+    "locate_anchor": "紫極□貴，白雲不知。",
+    "n": "文献对校",
+    "t": "紫极徒贵",
+    "o": "紫極□貴，白雲不知。",
+    "c": "紫極〔徒〕貴，白雲不知。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 32,
+        "glyph_id": "024_张从申书李玄靖碑_p0032_c021",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 491.0,
+          "y": 1218.0,
+          "w": 256.0,
+          "h": 289.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0032_三十二.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 22,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 32,
+    "match_method": "exact-square-order"
+  },
+  {
+    "id": "19",
+    "category": "文献对校",
+    "title": "委顺而去",
+    "original": "□順而去，人焉能窺。",
+    "corrected": "〔委〕順而去，人焉能窺。",
+    "candidate": "委",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘委顺’指顺应自然变化。",
+      "可靠录文作‘委顺而去，人焉能窥’，故补‘委’。"
+    ],
+    "reference": "https://zh.wikisource.org/zh-hant/茅山紫陽觀元靜先生碑",
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "highlight_patterns": [
+      "□順而去，人焉能窺。"
+    ],
+    "locate_anchor": "□順而去，人焉能窺。",
+    "n": "文献对校",
+    "t": "委顺而去",
+    "o": "□順而去，人焉能窺。",
+    "c": "〔委〕順而去，人焉能窺。",
+    "restoration_policy": "all_existing_square_positions_filled",
+    "locations": [
+      {
+        "page": 33,
+        "glyph_id": "024_张从申书李玄靖碑_p0033_c020",
+        "canvas": {
+          "w": 1536,
+          "h": 2234
+        },
+        "bbox": {
+          "x": 342.0,
+          "y": 1733.0,
+          "w": 222.0,
+          "h": 260.0
+        },
+        "image": "assets/page_images/024_张从申书李玄靖碑/images/0033_三十三.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "exact-square-order",
+        "target_square_ordinal": 23,
+        "target_char_in_model": "□"
+      }
+    ],
+    "page": 33,
+    "match_method": "exact-square-order"
+  }
+]
