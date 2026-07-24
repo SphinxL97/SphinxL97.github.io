@@ -1,0 +1,40 @@
+name: Fix work022 validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work022-wangjushi-rebuild
+          fetch-depth: 1
+      - name: Fix style string and validate
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('js/work-022.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('work022-huadusi-style','work022-wangjushi-style')
+          s=s.replace('font-family:"SimSun",serif','font-family:\'SimSun\',serif')
+          p.write_text(s,encoding='utf-8')
+          PY
+          node --check js/work-022.js
+          node --check js/work-022-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+      - name: Commit fix and remove temporary files
+        run: |
+          rm -f data/work022_validation_report.txt .github/workflows/work022-fix-validation.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix and validate work022 scripts"
+          git push origin HEAD:agent/work022-wangjushi-rebuild
