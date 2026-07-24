@@ -1,4 +1,4 @@
-/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018、020、022使用单一专属模块。 */
+/* 全部碑帖栏目二、三路由：006、007、010、011、013、014-01、014-02、015、016、017、018、020、022、023使用单一专属模块。 */
 (function(){
   "use strict";
   if(window.__DAMAGE_AI_READING_ROUTER_V61__)return;
@@ -67,8 +67,8 @@
       {src:"js/work-022.js?v=20260724_wangjushi_v1",key:"w022",ready:()=>Boolean(window.__WORK_022_STABLE_READY__)}
     ],
     "023":[
-      {src:"js/work-023-coordinate-adapter.js?v=20260724_guifeng_v1",key:"w023c",ready:()=>Boolean(window.__WORK_023_COORDINATE_ADAPTER__)},
-      {src:"js/work-023.js?v=20260724_guifeng_v1",key:"w023",ready:()=>Boolean(window.__WORK_023_STABLE_READY__)}
+      {src:"js/work-023-coordinate-adapter.js?v=20260724_guifeng_v2",key:"w023c",ready:()=>Boolean(window.__WORK_023_COORDINATE_ADAPTER__)},
+      {src:"js/work-023.js?v=20260724_guifeng_v2",key:"w023",ready:()=>Boolean(window.__WORK_023_STABLE_READY__)}
     ]
   };
 

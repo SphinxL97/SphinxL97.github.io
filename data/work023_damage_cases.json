@@ -419,27 +419,28 @@
     "c": "無負法恩，永□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□□。",
     "locations": [
       {
-        "page": 82,
-        "glyph_id": "023_圭峰定慧禅师碑_p0082_c001",
+        "page": 81,
+        "glyph_id": "023_圭峰定慧禅师碑_p0081_c023",
         "canvas": {
           "w": 1474,
           "h": 2226
         },
         "bbox": {
-          "x": 630.0,
-          "y": 1537.0,
-          "w": 185.0,
-          "h": 245.0
+          "x": 645.0,
+          "y": 846.0,
+          "w": 217.0,
+          "h": 198.0
         },
-        "image": "assets/page_images/023_圭峰定慧禅师碑/images/0082_八十二.jpg",
+        "image": "assets/page_images/023_圭峰定慧禅师碑/images/0081_八十一.jpg",
         "bbox_source": "model_border_refined",
-        "match_method": "ordered-context-square-match",
+        "match_method": "manual-first-square-after-sequence-anchor",
         "alignment_score": 1.0,
-        "uniqueness_margin": 0.0,
-        "target_char_in_model": "□"
+        "uniqueness_margin": 1.0,
+        "target_char_in_model": "□",
+        "coordinate_note": "连续33个方框跨第81—82页；本句第一个问题字是紧接“永”后的第81页c023，而非后续同分方框。"
       }
     ],
-    "page": 82,
+    "page": 81,
     "restoration_policy": "partial_or_unresolved_by_audit"
   },
   {

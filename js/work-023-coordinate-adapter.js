@@ -6,7 +6,7 @@
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="023"||window.__WORK_023_COORDINATE_ADAPTER__)return;
 
-  const CACHE_TAG="20260724_guifeng_v1";
+  const CACHE_TAG="20260724_guifeng_v2";
   const ROOT="data/glyph_boxes/iiif/023";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();

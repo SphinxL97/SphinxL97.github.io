@@ -2,7 +2,7 @@
   "work_id": "023",
   "title": "圭峰定慧禅师碑",
   "page_count": 91,
-  "status": "confirmed-audit-built-v1",
+  "status": "confirmed-audit-manual-review-v2",
   "source_files": [
     "data/model_boxes/glyph_model_border_021_025.json"
   ],
@@ -359,10 +359,10 @@
     {
       "id": "09",
       "located": true,
-      "page": 82,
-      "glyph_id": "023_圭峰定慧禅师碑_p0082_c001",
+      "page": 81,
+      "glyph_id": "023_圭峰定慧禅师碑_p0081_c023",
       "score": 1.0,
-      "margin": 0.0,
+      "margin": 1.0,
       "top_candidates": [
         {
           "score": 1.0,
@@ -379,7 +379,9 @@
           "page": 81,
           "glyph_id": "023_圭峰定慧禅师碑_p0081_c023"
         }
-      ]
+      ],
+      "match_method": "manual-first-square-after-sequence-anchor",
+      "manual_review": "连续33框跨页，首框经“無負法恩永”顺序核对确定为第81页c023。"
     },
     {
       "id": "10",

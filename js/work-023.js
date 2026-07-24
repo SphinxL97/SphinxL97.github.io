@@ -4,8 +4,8 @@
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
-  if(workId!=="022"||window.__WORK_023_WANGJUSHI__)return;
-  window.__WORK_023_WANGJUSHI__=true;
+  if(workId!=="023"||window.__WORK_023_GUIFENG__)return;
+  window.__WORK_023_GUIFENG__=true;
 
   window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__=true;
   window.__DAMAGE_CASE_INTEGRITY_V2__=true;
@@ -14,7 +14,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="圭峰定慧禅师碑";
-  const VERSION="20260724_guifeng_v1";
+  const VERSION="20260724_guifeng_v2";
   const TEXT_URL=`data/work023_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work023_damage_cases.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
@@ -247,9 +247,9 @@
   }
 
   function ensureStyle(){
-    if(document.getElementById("work023-wangjushi-style"))return;
+    if(document.getElementById("work023-guifeng-style"))return;
     const style=document.createElement("style");
-    style.id="work023-wangjushi-style";
+    style.id="work023-guifeng-style";
     style.textContent=".work023-part-title{margin:22px 0 10px;color:#8b2e24;font-family:'SimSun',serif;font-size:21px}.damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:210px;padding:28px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a}";
     document.head.appendChild(style);
   }
