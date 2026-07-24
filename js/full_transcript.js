@@ -85,3 +85,20 @@
   script.dataset.beitieLocationMap="true";
   document.head.appendChild(script);
 })();
+
+/* 027栏目三左侧案例列表定位修复：复用详情页原本就会加载的脚本作为稳定入口。 */
+(function(){
+  "use strict";
+  const rawId=String(new URLSearchParams(location.search).get("id")||"001");
+  const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
+  if(parentId!=="027"||window.__WORK_027_LIST_SCROLL_LOADER_V2__)return;
+  window.__WORK_027_LIST_SCROLL_LOADER_V2__=true;
+  const src="js/work-027-list-scroll-fix.js?v=20260725_work027_scroll_v2";
+  if(Array.from(document.scripts).some(node=>(node.getAttribute("src")||"").includes("work-027-list-scroll-fix.js")))return;
+  const script=document.createElement("script");
+  script.src=src;
+  script.async=false;
+  script.dataset.work027ListScrollFix="true";
+  script.addEventListener("error",()=>console.error("[work027-list-scroll] 修复脚本加载失败",src),{once:true});
+  document.head.appendChild(script);
+})();
