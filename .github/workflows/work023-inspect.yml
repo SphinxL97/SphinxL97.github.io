@@ -1,0 +1,51 @@
+name: Inspect work023 model
+on:
+  push:
+    branches: [agent/work023-guifeng]
+    paths: [.work023-inspect-trigger]
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work023-guifeng
+          fetch-depth: 1
+      - name: Inspect 023 rows
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/model_boxes/glyph_model_border_021_025.json')
+          raw=p.read_text(encoding='utf-8')
+          info={'file_size':p.stat().st_size,'prefix':raw[:300]}
+          data=json.loads(raw)
+          info['root_type']=type(data).__name__
+          if isinstance(data,dict):
+              info['root_keys']=list(data)[:30]
+              pools=[]
+              for k,v in data.items():
+                  if isinstance(v,list): pools.append((k,v))
+              info['list_pools']={k:len(v) for k,v in pools}
+              rows=[]
+              for k,v in pools:
+                  for r in v:
+                      if isinstance(r,dict) and (str(r.get('work_id','')).startswith('023') or r.get('work_index')==23 or '圭峰' in str(r.get('work_title',''))): rows.append(r)
+          elif isinstance(data,list):
+              rows=[r for r in data if isinstance(r,dict) and (str(r.get('work_id','')).startswith('023') or r.get('work_index')==23 or '圭峰' in str(r.get('work_title','')))]
+          else: rows=[]
+          info['matched_rows']=len(rows)
+          info['sample_rows']=rows[:5]
+          info['row_keys']=sorted({k for r in rows[:100] for k in r})
+          info['pages']=sorted({r.get('canvas_index') or r.get('page') for r in rows if r.get('canvas_index') or r.get('page')})
+          Path('data/work023_model_inspection.json').write_text(json.dumps(info,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+      - name: Commit inspection
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/work023_model_inspection.json
+          git commit -m 'Inspect work023 model rows'
+          git push origin HEAD:agent/work023-guifeng
