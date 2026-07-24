@@ -73,23 +73,28 @@
     {
       "id": "01",
       "page": 5,
-      "glyph_id": "022_王居士砖塔铭_p0005_c013",
+      "glyph_id": "022_王居士砖塔铭_p0005_c012",
       "canvas": {
         "w": 1466,
         "h": 2222
       },
       "bbox": {
         "x": 286.0,
-        "y": 1230.0,
+        "y": 1146.0,
         "w": 148.0,
-        "h": 95.0
+        "h": 179.0
       },
       "image": "assets/page_images/022_王居士砖塔铭/images/0005_五.jpg",
-      "bbox_source": "model_border_refined",
-      "match_method": "context-sequence",
+      "bbox_source": "model-split-glyph-union",
+      "match_method": "context-sequence-plus-split-glyph-union",
       "alignment_score": 0.75,
       "uniqueness_margin": 11.1029,
-      "target_char_in_model": "□"
+      "target_char_in_model": "□+□",
+      "source_glyph_ids": [
+        "022_王居士砖塔铭_p0005_c012",
+        "022_王居士砖塔铭_p0005_c013"
+      ],
+      "coordinate_note": "原拓中的“靈”被模型纵向拆为两个连续真实方框；案例截图使用两框并集覆盖完整字位。"
     },
     {
       "id": "02",
@@ -261,5 +266,23 @@
     }
   ],
   "restoration_policy": "栏目二保留原始9个方框；栏目三与栏目四为每个方框提供候选字，恢复结果不保留方框。",
-  "coordinate_policy": "只使用021—025汇总模型中的022真实记录；无法可靠定位时保留空locations，不以邻字或虚构bbox代替。"
+  "coordinate_policy": "只使用021—025汇总模型中的022真实记录；无法可靠定位时保留空locations，不以邻字或虚构bbox代替。",
+  "coordinate_exceptions": [
+    {
+      "case_id": "01",
+      "page": 5,
+      "type": "split-glyph-union",
+      "source_glyph_ids": [
+        "022_王居士砖塔铭_p0005_c012",
+        "022_王居士砖塔铭_p0005_c013"
+      ],
+      "union_bbox": {
+        "x": 286.0,
+        "y": 1146.0,
+        "w": 148.0,
+        "h": 179.0
+      },
+      "reason": "同一个“靈”字位被模型纵向切成两个连续方框，使用真实方框并集以完整覆盖字位。"
+    }
+  ]
 }
