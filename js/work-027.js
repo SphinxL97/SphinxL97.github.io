@@ -13,7 +13,7 @@
   document.documentElement.classList.add("work027-no-location-map");
 
   const TITLE="旧拓魏志五种";
-  const VERSION="20260724_wei_five_v3";
+  const VERSION="20260724_wei_five_v4";
   const TEXT_URL=`data/work027_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work027_damage_cases.json?v=${VERSION}`;
   const IMAGE_ROOT="assets/page_images/027_旧拓魏志五种/images";

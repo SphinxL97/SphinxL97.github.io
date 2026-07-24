@@ -89,9 +89,9 @@
   "remaining_square_count": 0,
   "located_case_count": 100,
   "unresolved_case_count": 0,
-  "documentary_case_count": 98,
+  "documentary_case_count": 100,
   "mixed_case_count": 0,
-  "ai_provisional_case_count": 2,
+  "ai_provisional_case_count": 0,
   "mapping_method": "exact-square-order-by-case-cumulative-count",
   "user_sequence_length": 3135,
   "model_sequence_length": 3135,
@@ -102,11 +102,11 @@
   },
   "case_first_square_locations_verified": true,
   "unlocated_case_count": 0,
-  "cache_version": "20260724_wei_five_v3",
+  "cache_version": "20260724_wei_five_v4",
   "section_heading_rendering": "五种墓志题名与王偃墓志光绪后跋独立显示",
   "all_corrected_text_square_free": true,
   "full_text_square_free": true,
-  "fallback_candidate_count": 2,
+  "fallback_candidate_count": 0,
   "completion_policy": "全部方框均给出候选字；原始OCR保留方框，补字结果与当前上下文不保留方框。",
   "reference_alignment": [
     {
@@ -144,5 +144,7 @@
       "reference_length": 674,
       "squares": 44
     }
-  ]
+  ],
+  "case_specific_analysis_count": 100,
+  "analysis_policy": "每例说明具体候选字、补后局部文句、句法或专名依据、文献来源与页面方框定位；不使用统一空泛模板。"
 }

@@ -89,8 +89,8 @@
       {src:"js/work-026.js?v=20260724_magushan_v1",key:"w026",ready:()=>Boolean(window.__WORK_026_STABLE_READY__&&window.__WORK_026_CROWDSOURCE_READY__)}
     ],
     "027":[
-      {src:"js/work-027-coordinate-adapter.js?v=20260724_wei_five_v3",key:"w027c",ready:()=>Boolean(window.__WORK_027_COORDINATE_ADAPTER__)},
-      {src:"js/work-027.js?v=20260724_wei_five_v3",key:"w027",ready:()=>Boolean(window.__WORK_027_STABLE_READY__&&window.__WORK_027_CROWDSOURCE_READY__)}
+      {src:"js/work-027-coordinate-adapter.js?v=20260724_wei_five_v4",key:"w027c",ready:()=>Boolean(window.__WORK_027_COORDINATE_ADAPTER__)},
+      {src:"js/work-027.js?v=20260724_wei_five_v4",key:"w027",ready:()=>Boolean(window.__WORK_027_STABLE_READY__&&window.__WORK_027_CROWDSOURCE_READY__)}
     ]
   };
 
