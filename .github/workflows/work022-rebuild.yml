@@ -1,0 +1,46 @@
+name: Build work022
+
+on:
+  push:
+    branches:
+      - agent/work022-wangjushi-rebuild
+    paths:
+      - .work022-rebuild-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work022-wangjushi-rebuild
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate work022 files
+        run: python scripts/work022_rebuild.py
+      - name: Validate JSON and JavaScript
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for p in [Path('data/work022_damage_cases.json'), Path('data/work022_coordinate_report.json'), Path('data/beitie_catalog.json'), Path('data/beitie_header_info.json'), Path('data/page_images_index.json')]:
+              json.loads(p.read_text(encoding='utf-8'))
+          print('json ok')
+          PY
+          node --check js/work-022.js
+          node --check js/work-022-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+      - name: Commit generated files and remove temporary files
+        run: |
+          rm -f scripts/work022_rebuild.py .github/workflows/work022-rebuild.yml .work022-rebuild-trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Complete work022 two-inscription content and coordinates"
+          git push origin HEAD:agent/work022-wangjushi-rebuild
