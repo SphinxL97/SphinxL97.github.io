@@ -1,0 +1,66 @@
+name: Fix work023 crowdsource
+
+on:
+  push:
+    branches:
+      - agent/work023-guifeng-crowdsource
+    paths:
+      - .work023-crowdsource-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work023-guifeng-crowdsource
+          fetch-depth: 1
+
+      - name: Refresh detail entry caches
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('detail.html')
+          text=path.read_text(encoding='utf-8')
+          replacements={
+            'js/detail_info_patch.js?v=20260724_guifeng_v2':'js/detail_info_patch.js?v=20260724_guifeng_v3',
+            'js/damage_ai_reading.js?v=20260724_guifeng_v2':'js/damage_ai_reading.js?v=20260724_guifeng_v3',
+          }
+          for old,new in replacements.items():
+            if text.count(old)!=1:
+              raise SystemExit(f'Expected one occurrence of {old}, found {text.count(old)}')
+            text=text.replace(old,new,1)
+          path.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Validate scripts and route
+        run: |
+          node --check js/work-023-crowdsource-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          python - <<'PY'
+          from pathlib import Path
+          router=Path('js/damage_ai_reading.js').read_text(encoding='utf-8')
+          detail=Path('detail.html').read_text(encoding='utf-8')
+          entry=Path('js/detail_info_patch.js').read_text(encoding='utf-8')
+          adapter=Path('js/work-023-crowdsource-adapter.js').read_text(encoding='utf-8')
+          assert 'work-023-crowdsource-adapter.js?v=20260724_guifeng_crowd_v1' in router
+          assert '__WORK_023_CROWDSOURCE_ADAPTER__' in router and '__WORK_023_CROWDSOURCE_ADAPTER__' in adapter
+          assert 'n:"残损碑文恢复"' in adapter
+          assert 'assets/js/crowdsource-v9.js' in adapter
+          assert 'assets/css/crowdsource-v9.css' in adapter
+          assert '20260724_guifeng_v3' in detail and '20260724_guifeng_v3' in entry
+          print('work023 crowdsource validation ok')
+          PY
+
+      - name: Remove temporary files and commit
+        run: |
+          rm -f .github/workflows/fix-work023-crowdsource.yml .work023-crowdsource-trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Match work023 crowdsource cases to earlier format"
+          git push origin HEAD:agent/work023-guifeng-crowdsource
