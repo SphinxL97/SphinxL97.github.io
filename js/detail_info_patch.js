@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V21__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V22__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V22__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V21__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V20__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V19__=true;
@@ -35,7 +36,24 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260724_work024_hotfix_v1";
+  const dataUrl="data/beitie_header_info.json?v=20260724_work024_menu_v1";
+
+  function applyImmediateWorkMenu(){
+    if(workId!=="024")return;
+    const apply=()=>{
+      const side=document.querySelector(".side");
+      if(!side)return;
+      const workName=side.querySelector(".work-name");
+      const links=side.querySelectorAll("a");
+      if(workName)workName.textContent="张从申书李玄靖碑";
+      const labels=["一、碑帖浏览","二、碑文释文","三、碑文残损与AI释读","四、众智释读"];
+      links.forEach((link,index)=>{if(labels[index])link.textContent=labels[index];});
+      document.title="张从申书李玄靖碑 · 碑帖智能读析平台";
+    };
+    if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",apply,{once:true});
+    else apply();
+  }
+  applyImmediateWorkMenu();
 
   function appendScript(src,datasetKey,onDone){
     const path=src.split("?")[0];
@@ -64,8 +82,8 @@
     window.__DAMAGE_AI_READING_ROUTER_V62__=true;
     window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
-    const loadContent=()=>appendScript("js/work-024.js?v=20260724_work024_hotfix_v1","work024Direct",null);
-    appendScript("js/work-024-coordinate-adapter.js?v=20260724_work024_hotfix_v1","work024CoordinateDirect",loadContent);
+    const loadContent=()=>appendScript("js/work-024.js?v=20260724_work024_menu_v1","work024Direct",null);
+    appendScript("js/work-024-coordinate-adapter.js?v=20260724_work024_menu_v1","work024CoordinateDirect",loadContent);
   }
 
   function forceDedicatedRouter(){
