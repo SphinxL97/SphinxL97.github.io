@@ -1,0 +1,98 @@
+name: Apply work024 early bootstrap fix
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.head_ref == 'agent/fix-work024-cache-bootstrap'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-work024-cache-bootstrap
+          fetch-depth: 1
+
+      - name: Patch detail page before shared router
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('detail.html')
+          text = path.read_text(encoding='utf-8')
+          old = '<script defer src="js/detail_info_patch.js?v=20260724_xuanjing_v1"></script>'
+          if old not in text:
+              old = '<script defer src="js/detail_info_patch.js?v=20260724_work024_hotfix_v1"></script>'
+          if old not in text:
+              raise SystemExit('detail_info_patch script tag not found')
+
+          bootstrap = '''<script>
+          (function(){
+            "use strict";
+            const raw=String(new URLSearchParams(location.search).get("id")||"001");
+            const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
+            if(workId!=="024"||window.__WORK_024_EARLY_BOOTSTRAP__)return;
+            window.__WORK_024_EARLY_BOOTSTRAP__=true;
+            window.__WORK_024_DIRECT_BOOTSTRAP__=true;
+            window.__DAMAGE_AI_READING_ROUTER_V63__=true;
+            window.__DAMAGE_AI_READING_ROUTER_V62__=true;
+            window.__DAMAGE_AI_READING_ROUTER_V61__=true;
+            function append(src,key,done){
+              const file=src.split("?")[0];
+              const found=Array.from(document.scripts).find(node=>(node.getAttribute("src")||"").split("?")[0].endsWith(file));
+              if(found){if(done)setTimeout(done,0);return;}
+              const script=document.createElement("script");
+              script.src=src;
+              script.async=false;
+              if(key)script.dataset[key]="true";
+              if(done)script.addEventListener("load",done,{once:true});
+              script.addEventListener("error",()=>console.error("[work024-early-bootstrap]",src),{once:true});
+              document.head.appendChild(script);
+            }
+            append("js/work-024-coordinate-adapter.js?v=20260724_work024_bootstrap_v2","work024EarlyCoordinate",()=>{
+              append("js/work-024.js?v=20260724_work024_bootstrap_v2","work024EarlyContent");
+            });
+          })();
+          </script>
+          <script defer src="js/detail_info_patch.js?v=20260724_work024_bootstrap_v2"></script>'''
+
+          text = text.replace(old, bootstrap, 1)
+          text = text.replace(
+              'js/damage_ai_reading.js?v=20260724_xuanjing_v1',
+              'js/damage_ai_reading.js?v=20260724_work024_bootstrap_v2',
+              1
+          )
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Validate early bootstrap
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('detail.html').read_text(encoding='utf-8')
+          assert '__WORK_024_EARLY_BOOTSTRAP__' in text
+          assert 'work-024-coordinate-adapter.js?v=20260724_work024_bootstrap_v2' in text
+          assert 'work-024.js?v=20260724_work024_bootstrap_v2' in text
+          assert text.index('__WORK_024_EARLY_BOOTSTRAP__') < text.index('js/damage_ai_reading.js?v=20260724_work024_bootstrap_v2')
+          assert Path('data/work024_full_text.txt').exists()
+          assert Path('data/work024_damage_cases.json').exists()
+          print('work024 early bootstrap validation passed')
+          PY
+
+      - name: Remove temporary workflow and commit
+        run: |
+          rm -f .github/workflows/work024-cache-bootstrap-fix.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Load work024 before the shared detail router"
+          git push origin HEAD:agent/fix-work024-cache-bootstrap
