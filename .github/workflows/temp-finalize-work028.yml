@@ -1,0 +1,109 @@
+name: Temporary finalize work028
+on:
+  pull_request:
+    branches: [main]
+    types: [synchronize]
+    paths:
+      - .work028-final-trigger
+jobs:
+  finalize:
+    if: github.head_ref == 'agent/work028-jintang-nine'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work028-jintang-nine
+          fetch-depth: 0
+      - name: Validate final 028
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          full=Path('data/work028_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work028_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work028_coordinate_report.json').read_text(encoding='utf-8'))
+          catalog=next(x for x in json.loads(Path('data/beitie_catalog.json').read_text(encoding='utf-8')) if x['id']=='028')
+          header=json.loads(Path('data/beitie_header_info.json').read_text(encoding='utf-8'))['028']
+          page_index=json.loads(Path('data/page_images_index.json').read_text(encoding='utf-8'))['works']['028']
+          assert report['digital_pages']==91
+          assert report['model_rows']==5942
+          assert report['coordinate_range']==[8,81]
+          assert report['base_text_square_count']==347
+          assert report['model_square_count']==347
+          assert report['candidate_count']==347
+          assert report['case_count']==226==len(cases)
+          assert report['remaining_square_count']==0
+          assert report['located_case_count']==226
+          assert report['unlocated_case_count']==0
+          assert report['documentary_case_count']==217
+          assert report['ai_provisional_case_count']==9
+          assert report['unresolved_case_count']==0
+          assert report['column_four']['uses_same_cases_as_column_three'] is True
+          assert report['column_four']['case_count']==226
+          assert report['manual_reviewed_case_count']==53
+          assert report['cache_version']=='20260725_jintang_nine_v2'
+          assert '□' not in full
+          assert all('□' not in x['corrected'] and '□' not in x['current_context'] for x in cases)
+          assert all(x['candidate_count']==x['square_count'] for x in cases)
+          assert all(x['mode'] in {'documentary','ai_provisional'} for x in cases)
+          assert all(len(x.get('analysis',[]))>=3 for x in cases)
+          assert all(x.get('reference') for x in cases)
+          assert all(x.get('locations') and len(x['locations'])==1 for x in cases)
+          assert all(x['locations'][0].get('bbox') and x['locations'][0].get('page') for x in cases)
+          assert [x['id'] for x in cases]==[f'{i:03d}' for i in range(1,227)]
+          assert len(page_index['pages'])==91
+          assert sum(p['char_count'] for p in page_index['pages'])==5942
+          coords=sorted(Path('data/glyph_boxes/iiif/028').glob('page_*.json'))
+          assert len(coords)==91
+          assert [p.name for p in coords]==[f'page_{i:04d}.json' for i in range(1,92)]
+          for p in coords: json.loads(p.read_text(encoding='utf-8'))
+          assert catalog['title']=='晋唐小楷九种'
+          assert catalog['status']=='完整样板'
+          assert catalog['canvas_count']==91
+          assert header['title']=='晋唐小楷九种'
+          assert header['basic']['数量']=='41开；数字化图像共91页'
+          assert '不设置统一地点地图' in header['basic']['版本说明']
+          by={x['id']:x for x in cases}
+          for key in ['031','036','037','038','039','153','188','193','222']:
+              assert by[key]['mode']=='ai_provisional',key
+          for key in ['047','049','050','059','060','099','100','145','190','211','216','223','224','225','226']:
+              assert by[key]['mode']=='documentary',key
+          print({'pages':91,'model_rows':5942,'squares':347,'cases':226,'documentary':217,'ai_provisional':9,'coordinate_range':[8,81]})
+          PY
+          node --check js/work-028.js
+          node --check js/work-028-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          grep -q 'if(workId!=="028"' js/work-028-coordinate-adapter.js
+          grep -q 'work_id:"028"' js/work-028-coordinate-adapter.js
+          grep -q 'data/glyph_boxes/iiif/028' js/work-028-coordinate-adapter.js
+          grep -q 'js/work-028-coordinate-adapter.js?v=20260725_jintang_nine_v2' js/damage_ai_reading.js
+          grep -q 'js/work-028.js?v=20260725_jintang_nine_v2' js/damage_ai_reading.js
+          grep -q '"028":"晋唐小楷九种"' js/detail_info_patch.js
+          grep -q '20260725_jintang_nine_v2' detail.html
+          grep -q 'getBoundingClientRect' js/work-028.js
+          grep -q 'list.scrollTop+delta' js/work-028.js
+          grep -q 'work028-no-location-map' js/work-028.js
+      - name: Remove all temporary 028 files
+        run: |
+          rm -f scripts/build_work028.py
+          rm -f scripts/refine_work028_candidates.py
+          rm -f data/work028_raw_text.txt
+          rm -f data/work028_build_error.log
+          rm -f data/work028_validation_error.log
+          rm -f data/work028_case_audit.txt
+          rm -f data/work028_refine_validation.log
+          rm -f .work028-build-trigger
+          rm -f .work028-audit-trigger
+          rm -f .work028-refine-trigger
+          rm -f .work028-refine-debug-trigger
+          rm -f .work028-final-trigger
+      - name: Commit final cleanup
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -u
+          git commit -m '完成028最终校验并清理临时文件'
+          git push origin HEAD:agent/work028-jintang-nine
