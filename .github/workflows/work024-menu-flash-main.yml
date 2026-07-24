@@ -1,24 +1,25 @@
-# trigger 2026-07-24
 name: Repair work024 menu flash
 
 on:
-  push:
+  pull_request:
     branches:
       - main
-    paths:
-      - .github/workflows/work024-menu-flash-main.yml
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
 
 jobs:
   repair:
-    if: contains(github.event.head_commit.message, '[run-work024-menu-flash]')
+    if: github.head_ref == 'agent/fix-work024-menu-flash' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: agent/fix-work024-menu-flash
           fetch-depth: 1
 
       - name: Add synchronous 024 menu preboot
@@ -61,22 +62,24 @@ jobs:
           path.write_text(text,encoding='utf-8')
           PY
 
-      - name: Validate and clean
+      - name: Validate scope and clean branch-only files
         run: |
           python3 - <<'PY'
           from pathlib import Path
+          import subprocess
           text=Path('detail.html').read_text(encoding='utf-8')
           assert 'work024-menu-preboot' in text
           assert '张从申书李玄靖碑 · 碑帖智能读析平台' in text
           assert '三、碑文残损与AI释读' in text
           assert '20260724_work024_menu_v1' in text
           PY
-          rm -f .github/workflows/work024-menu-flash-main.yml
+          rm -f .github/workflows/fix-work024-menu-flash.yml
+          rm -f .work024-menu-trigger
 
-      - name: Commit repair
+      - name: Commit repair to PR branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Prevent work024 menu label flash"
-          git push origin HEAD:main
+          git push origin HEAD:agent/fix-work024-menu-flash
