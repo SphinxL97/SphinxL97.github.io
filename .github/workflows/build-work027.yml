@@ -1,0 +1,78 @@
+name: Build work027 Wei five epitaphs
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-work027
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.head_ref == 'agent/work027-wei-five'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout work branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/work027-wei-five
+          fetch-depth: 0
+
+      - name: Build 027 dedicated data
+        run: python3 scripts/build_work027.py
+
+      - name: Validate generated content
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('.')
+          text=(root/'data/work027_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads((root/'data/work027_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads((root/'data/work027_coordinate_report.json').read_text(encoding='utf-8'))
+          assert report['digital_pages']==71
+          assert len(list((root/'data/glyph_boxes/iiif/027').glob('page_*.json')))==71
+          assert len(cases)==report['case_count']>0
+          assert text.count('□')==report['base_text_square_count']
+          assert sum(x['square_count'] for x in cases)==report['base_text_square_count']
+          assert sum(x['candidate_count'] for x in cases)==0
+          assert sum(x['remaining_square_count'] for x in cases)==report['base_text_square_count']
+          assert all(x['mode']=='unresolved' and x['corrected']==x['original'] for x in cases)
+          assert report['column_four']['uses_same_cases_as_column_three'] is True
+          assert report['map_policy'].startswith('027为五种墓志合册')
+          assert '旧拓魏志五种' in json.loads((root/'data/beitie_header_info.json').read_text(encoding='utf-8'))['027']['title']
+          script=(root/'js/work-027.js').read_text(encoding='utf-8')
+          assert 'removeLocationMap' in script and '地点地图' in script
+          router=(root/'js/damage_ai_reading.js').read_text(encoding='utf-8')
+          assert '"027":[' in router and '__DAMAGE_AI_READING_ROUTER_V66__' in router
+          entry=(root/'js/detail_info_patch.js').read_text(encoding='utf-8')
+          assert '"027":"旧拓魏志五种"' in entry and '__DETAIL_INFO_STABLE_ENTRY_V25__' in entry
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          node --check js/work-027.js
+          node --check js/work-027-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+
+      - name: Remove temporary build files
+        run: |
+          rm -f scripts/build_work027.py
+          rm -f .github/workflows/build-work027.yml
+          rm -f .github/work027-trigger.txt
+
+      - name: Commit generated 027 files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Complete work027 old Wei epitaphs content"
+          git push origin HEAD:agent/work027-wei-five
