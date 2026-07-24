@@ -247,10 +247,10 @@
   }
 
   function ensureStyle(){
-    if(document.getElementById("work022-huadusi-style"))return;
+    if(document.getElementById("work022-wangjushi-style"))return;
     const style=document.createElement("style");
-    style.id="work022-huadusi-style";
-    style.textContent=".work022-part-title{margin:22px 0 10px;color:#8b2e24;font-family:"SimSun",serif;font-size:21px}.damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:210px;padding:28px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a}";
+    style.id="work022-wangjushi-style";
+    style.textContent=".work022-part-title{margin:22px 0 10px;color:#8b2e24;font-family:'SimSun',serif;font-size:21px}.damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:210px;padding:28px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a}";
     document.head.appendChild(style);
   }
 
