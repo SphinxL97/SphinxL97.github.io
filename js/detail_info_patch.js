@@ -34,10 +34,10 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260724_guifeng_v2";
+  const dataUrl="data/beitie_header_info.json?v=20260724_xuanjing_v1";
 
   function forceDedicatedRouter(){
-    if(!["007","010","011","013","014","015","016","017","018","020","022","023"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
+    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
     window.__DAMAGE_AI_READING_ROUTER_V42__=true;
     window.__DAMAGE_AI_READING_ROUTER_V47__=true;
@@ -55,8 +55,10 @@
     window.__DAMAGE_AI_READING_ROUTER_V59__=true;
     window.__DAMAGE_AI_READING_ROUTER_V60__=true;
     window.__DAMAGE_AI_READING_ROUTER_V61__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V62__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260724_guifeng_v3";
+    script.src="js/damage_ai_reading.js?v=20260724_xuanjing_v1";
     script.async=false;
     script.dataset.dedicatedForcedRouter=workId;
     script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});
