@@ -1,0 +1,288 @@
+{
+  "work_id": "022",
+  "title": "王居士砖塔铭",
+  "page_count": 29,
+  "status": "two-inscriptions-complete-candidates-v1",
+  "source_files": [
+    "data/model_boxes/glyph_model_border_021_025.json"
+  ],
+  "model_rows": 432,
+  "model_square_count": 66,
+  "text_square_count": 9,
+  "covered_square_count": 9,
+  "candidate_count": 9,
+  "remaining_square_count": 0,
+  "case_count": 9,
+  "located_cases": 9,
+  "unlocated_cases": [],
+  "coordinate_pages": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    16,
+    17,
+    18,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "coordinate_range": [
+    5,
+    23
+  ],
+  "classification_summary": {
+    "documentary": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "07",
+      "08"
+    ],
+    "mixed": [],
+    "ai_provisional": [
+      "06",
+      "09"
+    ],
+    "unresolved": []
+  },
+  "case_locations": [
+    {
+      "id": "01",
+      "page": 5,
+      "glyph_id": "022_王居士砖塔铭_p0005_c012",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 286.0,
+        "y": 1146.0,
+        "w": 148.0,
+        "h": 179.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0005_五.jpg",
+      "bbox_source": "model-split-glyph-union",
+      "match_method": "context-sequence-plus-split-glyph-union",
+      "alignment_score": 0.75,
+      "uniqueness_margin": 11.1029,
+      "target_char_in_model": "□+□",
+      "source_glyph_ids": [
+        "022_王居士砖塔铭_p0005_c012",
+        "022_王居士砖塔铭_p0005_c013"
+      ],
+      "coordinate_note": "原拓中的“靈”被模型纵向拆为两个连续真实方框；案例截图使用两框并集覆盖完整字位。"
+    },
+    {
+      "id": "02",
+      "page": 7,
+      "glyph_id": "022_王居士砖塔铭_p0007_c018",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 306.0,
+        "y": 1229.0,
+        "w": 143.0,
+        "h": 172.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0007_七.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 13.2009,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "03",
+      "page": 8,
+      "glyph_id": "022_王居士砖塔铭_p0008_c007",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 1170.0,
+        "y": 1659.0,
+        "w": 157.0,
+        "h": 165.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0008_八.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 13.0047,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "04",
+      "page": 9,
+      "glyph_id": "022_王居士砖塔铭_p0009_c012",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 419.0,
+        "y": 1393.0,
+        "w": 148.0,
+        "h": 159.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0009_九.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 0.375,
+      "uniqueness_margin": 4.5538,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "05",
+      "page": 19,
+      "glyph_id": "022_王居士砖塔铭_p0019_c007",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 522.0,
+        "y": 1612.0,
+        "w": 145.0,
+        "h": 155.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0019_十九.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 1.0,
+      "uniqueness_margin": 12.6029,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "06",
+      "page": 20,
+      "glyph_id": "022_王居士砖塔铭_p0020_c003",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 1173.0,
+        "y": 1045.0,
+        "w": 147.0,
+        "h": 151.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0020_二十.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 0.375,
+      "uniqueness_margin": 2.7364,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "07",
+      "page": 21,
+      "glyph_id": "022_王居士砖塔铭_p0021_c001",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 511.0,
+        "y": 795.0,
+        "w": 147.0,
+        "h": 180.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0021_二十一.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 0.8571,
+      "uniqueness_margin": 11.9912,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "08",
+      "page": 22,
+      "glyph_id": "022_王居士砖塔铭_p0022_c003",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 1176.0,
+        "y": 1078.0,
+        "w": 140.0,
+        "h": 157.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0022_二十二.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 0.6,
+      "uniqueness_margin": 8.3393,
+      "target_char_in_model": "□"
+    },
+    {
+      "id": "09",
+      "page": 23,
+      "glyph_id": "022_王居士砖塔铭_p0023_c001",
+      "canvas": {
+        "w": 1466,
+        "h": 2222
+      },
+      "bbox": {
+        "x": 521.0,
+        "y": 793.0,
+        "w": 140.0,
+        "h": 171.0
+      },
+      "image": "assets/page_images/022_王居士砖塔铭/images/0023_二十三.jpg",
+      "bbox_source": "model_border_refined",
+      "match_method": "context-sequence",
+      "alignment_score": 0.2727,
+      "uniqueness_margin": 8.049,
+      "target_char_in_model": "□"
+    }
+  ],
+  "restoration_policy": "栏目二保留原始9个方框；栏目三与栏目四为每个方框提供候选字，恢复结果不保留方框。",
+  "coordinate_policy": "只使用021—025汇总模型中的022真实记录；无法可靠定位时保留空locations，不以邻字或虚构bbox代替。",
+  "coordinate_exceptions": [
+    {
+      "case_id": "01",
+      "page": 5,
+      "type": "split-glyph-union",
+      "source_glyph_ids": [
+        "022_王居士砖塔铭_p0005_c012",
+        "022_王居士砖塔铭_p0005_c013"
+      ],
+      "union_bbox": {
+        "x": 286.0,
+        "y": 1146.0,
+        "w": 148.0,
+        "h": 179.0
+      },
+      "reason": "同一个“靈”字位被模型纵向切成两个连续方框，使用真实方框并集以完整覆盖字位。"
+    }
+  ]
+}

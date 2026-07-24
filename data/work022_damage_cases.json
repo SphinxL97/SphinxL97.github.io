@@ -1,0 +1,412 @@
+[
+  {
+    "id": "01",
+    "n": "文献对校",
+    "t": "上官灵芝题署",
+    "o": "上官□芝製文。敬客書。",
+    "c": "上官〔靈〕芝製文。敬客書。",
+    "category": "文献对校",
+    "title": "上官灵芝题署",
+    "original": "上官□芝製文。敬客書。",
+    "corrected": "上官〔靈〕芝製文。敬客書。",
+    "candidate": "靈",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "《王居士砖塔铭》的撰文者为上官灵芝，题署完整结构为‘上官灵芝制文，敬客书’。",
+      "‘靈’正好对应一个方框，本例按文献题署恢复。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 5,
+        "glyph_id": "022_王居士砖塔铭_p0005_c012",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 286.0,
+          "y": 1146.0,
+          "w": 148.0,
+          "h": 179.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0005_五.jpg",
+        "bbox_source": "model-split-glyph-union",
+        "match_method": "context-sequence-plus-split-glyph-union",
+        "alignment_score": 0.75,
+        "uniqueness_margin": 11.1029,
+        "target_char_in_model": "□+□",
+        "source_glyph_ids": [
+          "022_王居士砖塔铭_p0005_c012",
+          "022_王居士砖塔铭_p0005_c013"
+        ],
+        "coordinate_note": "原拓中的“靈”被模型纵向拆为两个连续真实方框；案例截图使用两框并集覆盖完整字位。"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 5
+  },
+  {
+    "id": "02",
+    "n": "文献对校",
+    "t": "岂烦覼缕",
+    "o": "具詳啚牒，□煩覼縷。",
+    "c": "具詳啚牒，〔豈〕煩覼縷。",
+    "category": "文献对校",
+    "title": "岂烦覼缕",
+    "original": "具詳啚牒，□煩覼縷。",
+    "corrected": "具詳啚牒，〔豈〕煩覼縷。",
+    "candidate": "豈",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘岂烦……’是文言反问结构，‘具详图牒，岂烦覼缕’句意完整。",
+      "可靠录文保存‘岂’字，候选与一个方框严格对应。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 7,
+        "glyph_id": "022_王居士砖塔铭_p0007_c018",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 306.0,
+          "y": 1229.0,
+          "w": 143.0,
+          "h": 172.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0007_七.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 1.0,
+        "uniqueness_margin": 13.2009,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 7
+  },
+  {
+    "id": "03",
+    "n": "文献对校",
+    "t": "遍览典坟",
+    "o": "遍覽□墳，備窮義窟。",
+    "c": "遍覽〔典〕墳，備窮義窟。",
+    "category": "文献对校",
+    "title": "遍览典坟",
+    "original": "遍覽□墳，備窮義窟。",
+    "corrected": "遍覽〔典〕墳，備窮義窟。",
+    "candidate": "典",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘典坟’是古代典籍的合称，‘遍览典坟’与‘备穷义窟’相互对应。",
+      "可靠录文明确作‘遍览典坟’。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 8,
+        "glyph_id": "022_王居士砖塔铭_p0008_c007",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 1170.0,
+          "y": 1659.0,
+          "w": 157.0,
+          "h": 165.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0008_八.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 1.0,
+        "uniqueness_margin": 13.0047,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 8
+  },
+  {
+    "id": "04",
+    "n": "文献对校",
+    "t": "仰十地",
+    "o": "勵精七覺，□十地勤；肝食一麻，欣六年顦顇。",
+    "c": "勵精七覺，〔仰〕十地勤；肝食一麻，欣六年顦顇。",
+    "category": "文献对校",
+    "title": "仰十地",
+    "original": "勵精七覺，□十地勤；肝食一麻，欣六年顦顇。",
+    "corrected": "勵精七覺，〔仰〕十地勤；肝食一麻，欣六年顦顇。",
+    "candidate": "仰",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘七觉’与‘十地’均为佛教修行概念，可靠录文该处作‘励精七觉，仰十地而克勤’。",
+      "用户底稿只有一个方框，因此只补‘仰’；未以方框标出的‘而克’不擅自加入。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 9,
+        "glyph_id": "022_王居士砖塔铭_p0009_c012",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 419.0,
+          "y": 1393.0,
+          "w": 148.0,
+          "h": 159.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0009_九.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 0.375,
+        "uniqueness_margin": 4.5538,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 9
+  },
+  {
+    "id": "05",
+    "n": "文献对校",
+    "t": "夫人程氏塔铭并序",
+    "o": "夫人程氏塔銘□序。",
+    "c": "夫人程氏塔銘〔并〕序。",
+    "category": "文献对校",
+    "title": "夫人程氏塔铭并序",
+    "original": "夫人程氏塔銘□序。",
+    "corrected": "夫人程氏塔銘〔并〕序。",
+    "candidate": "并",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "塔铭题名常用‘塔铭并序’格式，相关金石录文保存‘夫人程氏塔铭并序’。",
+      "‘并’位于‘铭’与‘序’之间，正好对应一个方框。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 19,
+        "glyph_id": "022_王居士砖塔铭_p0019_c007",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 522.0,
+          "y": 1612.0,
+          "w": 145.0,
+          "h": 155.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0019_十九.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 1.0,
+        "uniqueness_margin": 12.6029,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 19
+  },
+  {
+    "id": "06",
+    "n": "残损碑文恢复",
+    "t": "贞规昭融",
+    "o": "貞規□融，崇龍女之因。",
+    "c": "貞規〔昭〕融，崇龍女之因。",
+    "category": "残损碑文恢复",
+    "title": "贞规昭融",
+    "original": "貞規□融，崇龍女之因。",
+    "corrected": "貞規〔昭〕融，崇龍女之因。",
+    "candidate": "昭",
+    "mode": "ai_provisional",
+    "confidence": "低",
+    "analysis": [
+      "‘昭融’可表示光明和融，与妇德叙述中的‘贞规’能够衔接。",
+      "通行录文在此仍有较长残缺，未保存确定原字，因此‘昭’仅为低置信度AI候选。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 20,
+        "glyph_id": "022_王居士砖塔铭_p0020_c003",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 1173.0,
+          "y": 1045.0,
+          "w": 147.0,
+          "h": 151.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0020_二十.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 0.375,
+        "uniqueness_margin": 2.7364,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 20
+  },
+  {
+    "id": "07",
+    "n": "文献对校",
+    "t": "显庆四年",
+    "o": "以顯慶四□曰，终苐。",
+    "c": "以顯慶四〔年〕曰，终苐。",
+    "category": "文献对校",
+    "title": "显庆四年",
+    "original": "以顯慶四□曰，终苐。",
+    "corrected": "以顯慶四〔年〕曰，终苐。",
+    "candidate": "年",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "‘显庆四年’是标准纪年结构，方框位于‘四’与后续纪日残文之间。",
+      "只补底稿明确标出的‘年’，不增加月份和日期等未标框脱文。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 21,
+        "glyph_id": "022_王居士砖塔铭_p0021_c001",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 511.0,
+          "y": 795.0,
+          "w": 147.0,
+          "h": 180.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0021_二十一.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 0.8571,
+        "uniqueness_margin": 11.9912,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 21
+  },
+  {
+    "id": "08",
+    "n": "文献对校",
+    "t": "将恐二天地",
+    "o": "其将□二，一山。",
+    "c": "其将〔恐〕二，一山。",
+    "category": "文献对校",
+    "title": "将恐二天地",
+    "original": "其将□二，一山。",
+    "corrected": "其将〔恐〕二，一山。",
+    "candidate": "恐",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "相关录文保存‘其意，将恐二天地，一山川’，‘将恐’构成完整的担忧语气。",
+      "‘恐’正好对应方框；其他未标框脱漏不顺带补入。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 22,
+        "glyph_id": "022_王居士砖塔铭_p0022_c003",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 1176.0,
+          "y": 1078.0,
+          "w": 140.0,
+          "h": 157.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0022_二十二.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 0.6,
+        "uniqueness_margin": 8.3393,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 22
+  },
+  {
+    "id": "09",
+    "n": "残损碑文恢复",
+    "t": "贝叶因成残句",
+    "o": "婦徳，目□成花；杳子而存，終峯。",
+    "c": "婦徳，目〔葉〕成花；杳子而存，終峯。",
+    "category": "残损碑文恢复",
+    "title": "贝叶因成残句",
+    "original": "婦徳，目□成花；杳子而存，終峯。",
+    "corrected": "婦徳，目〔葉〕成花；杳子而存，終峯。",
+    "candidate": "葉",
+    "mode": "ai_provisional",
+    "confidence": "低",
+    "analysis": [
+      "相关残文保存‘贝叶因成，莲花……’一类佛教语汇；底稿中的‘目’也可能是‘貝’的OCR误识。",
+      "该段同时存在多处未标框脱漏，方框对应并不完全稳定，因此‘葉’仅列为低置信度候选。"
+    ],
+    "square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
+    "locations": [
+      {
+        "page": 23,
+        "glyph_id": "022_王居士砖塔铭_p0023_c001",
+        "canvas": {
+          "w": 1466,
+          "h": 2222
+        },
+        "bbox": {
+          "x": 521.0,
+          "y": 793.0,
+          "w": 140.0,
+          "h": 171.0
+        },
+        "image": "assets/page_images/022_王居士砖塔铭/images/0023_二十三.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "context-sequence",
+        "alignment_score": 0.2727,
+        "uniqueness_margin": 8.049,
+        "target_char_in_model": "□"
+      }
+    ],
+    "restoration_policy": "all_positions_have_ai_candidates",
+    "page": 23
+  }
+]
