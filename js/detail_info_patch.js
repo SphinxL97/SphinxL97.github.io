@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V16__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V17__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V17__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V16__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V15__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V14__=true;
@@ -29,7 +30,7 @@
 
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-  const coreUrl="js/detail_info_patch_core.js?v=20260724_equal_height_header_v1";
+  const coreUrl="js/detail_info_patch_core.js?v=20260724_no_overlap_header_v1";
   const dataUrl="data/beitie_header_info.json?v=20260724_wangjushi_v1";
 
   function forceDedicatedRouter(){
