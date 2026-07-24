@@ -1,21 +1,22 @@
 [
   {
     "id": "01",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·姓名、籍贯与世系信息",
     "original": "君諱超，字景昇，夲字景宗，後承始□□在江龙斉懸同，故避攺云。",
-    "corrected": "君諱超，字景昇，夲字景宗，後承始□□在江龙斉懸同，故避攺云。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君諱超，字景昇，夲字景宗，後承始〔族〕〔叔〕在江龙斉懸同，故避攺云。",
+    "candidate": "族叔",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“夲字景宗，後承始”与“□在江龙斉懸同，”之间，本语义单元共覆盖2个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有2个残损方框。补入“族叔”后，局部文句成为“超，字景昇，夲字景宗，後承始族叔在江龙斉懸同，故避攺云”，补字位置与第6页真实方框顺序一致。",
+      "“族叔”补足姓名、字、籍贯或世系信息，使“超，字景昇，夲字景宗，後承始族叔在江龙斉懸同，故避攺云”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君諱超，字景昇，夲字景宗，後承始□□在江龙斉懸同，故避攺云。"
     ],
@@ -23,7 +24,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·姓名、籍贯与世系信息",
     "o": "君諱超，字景昇，夲字景宗，後承始□□在江龙斉懸同，故避攺云。",
-    "c": "君諱超，字景昇，夲字景宗，後承始□□在江龙斉懸同，故避攺云。",
+    "c": "君諱超，字景昇，夲字景宗，後承始〔族〕〔叔〕在江龙斉懸同，故避攺云。",
     "locations": [
       {
         "page": 6,
@@ -45,25 +46,27 @@
       }
     ],
     "page": 6,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君諱超，字景昇，夲字景宗，後承始族叔在江龙斉懸同，故避攺云。"
   },
   {
     "id": "02",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·姓名、籍贯与世系信息",
     "original": "秦州隴西郡□道縣都郷華風里人也。",
-    "corrected": "秦州隴西郡□道縣都郷華風里人也。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "秦州隴西郡〔狄〕道縣都郷華風里人也。",
+    "candidate": "狄",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“秦州隴西郡”与“道縣都郷華風里人”之间，本语义单元共覆盖1个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有1个残损方框。补入“狄”后，局部文句成为“秦州隴西郡狄道縣都郷華風里人也。”，补字位置与第6页真实方框顺序一致。",
+      "“狄”补足姓名、字、籍贯或世系信息，使“秦州隴西郡狄道縣都郷華風里人也。”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "秦州隴西郡□道縣都郷華風里人也。"
     ],
@@ -71,7 +74,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·姓名、籍贯与世系信息",
     "o": "秦州隴西郡□道縣都郷華風里人也。",
-    "c": "秦州隴西郡□道縣都郷華風里人也。",
+    "c": "秦州隴西郡〔狄〕道縣都郷華風里人也。",
     "locations": [
       {
         "page": 6,
@@ -93,25 +96,27 @@
       }
     ],
     "page": 6,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "秦州隴西郡狄道縣都郷華風里人也。"
   },
   {
     "id": "03",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，□心名義。",
-    "corrected": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，□心名義。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，〔因〕心名義。",
+    "candidate": "因",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“成准，循情斈犮，”与“心名義。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“因”后，局部文句成为“行足師，興作成准，循情斈犮，因心名義。”，补字位置与第7页真实方框顺序一致。",
+      "“因”补入后，“行足師，興作成准，循情斈犮，因心名義。”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，□心名義。"
     ],
@@ -119,7 +124,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，□心名義。",
-    "c": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，□心名義。",
+    "c": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，〔因〕心名義。",
     "locations": [
       {
         "page": 7,
@@ -141,25 +146,27 @@
       }
     ],
     "page": 7,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "雅眷髙莭，敦襲世風，言行足師，興作成准，循情斈犮，因心名義。"
   },
   {
     "id": "04",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "為受罪者所誙章，憲臺誤聽，被兹深□，除名為民。",
-    "corrected": "為受罪者所誙章，憲臺誤聽，被兹深□，除名為民。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "為受罪者所誙章，憲臺誤聽，被兹深〔劾〕，除名為民。",
+    "candidate": "劾",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“憲臺誤聽，被兹深”与“，除名為民。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“劾”后，局部文句成为“罪者所誙章，憲臺誤聽，被兹深劾，除名為民。”，补字位置与第8页真实方框顺序一致。",
+      "“劾”补入后，“罪者所誙章，憲臺誤聽，被兹深劾，除名為民。”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "為受罪者所誙章，憲臺誤聽，被兹深□，除名為民。"
     ],
@@ -167,7 +174,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "為受罪者所誙章，憲臺誤聽，被兹深□，除名為民。",
-    "c": "為受罪者所誙章，憲臺誤聽，被兹深□，除名為民。",
+    "c": "為受罪者所誙章，憲臺誤聽，被兹深〔劾〕，除名為民。",
     "locations": [
       {
         "page": 8,
@@ -189,25 +196,27 @@
       }
     ],
     "page": 8,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "為受罪者所誙章，憲臺誤聽，被兹深劾，除名為民。"
   },
   {
     "id": "05",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "□是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。",
-    "corrected": "□是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔於〕是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。",
+    "candidate": "於",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“”与“是甘季中，浮沉閭”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“於”后，局部文句成为“於是甘季中，浮沉閭巷，玉潔金志”，补字位置与第8页真实方框顺序一致。",
+      "“於”补入后，“於是甘季中，浮沉閭巷，玉潔金志”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。"
     ],
@@ -215,7 +224,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "□是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。",
-    "c": "□是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。",
+    "c": "〔於〕是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。",
     "locations": [
       {
         "page": 8,
@@ -237,25 +246,27 @@
       }
     ],
     "page": 8,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "於是甘季中，浮沉閭巷，玉潔金志，卓尓無悶。"
   },
   {
     "id": "06",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·纪年、卒葬与干支信息",
     "original": "正光五年八月十八⊙，卒于□陽縣之永年里宅，時季六十一。",
-    "corrected": "正光五年八月十八⊙，卒于□陽縣之永年里宅，時季六十一。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "正光五年八月十八⊙，卒于〔洛〕陽縣之永年里宅，時季六十一。",
+    "candidate": "洛",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“八月十八⊙，卒于”与“陽縣之永年里宅，”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“洛”后，局部文句成为“正光五年八月十八⊙，卒于洛陽縣之永年里宅，時季六十一。”，补字位置与第9页真实方框顺序一致。",
+      "“洛”补足姓名、字、籍贯或世系信息，使“正光五年八月十八⊙，卒于洛陽縣之永年里宅，時季六十一。”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "正光五年八月十八⊙，卒于□陽縣之永年里宅，時季六十一。"
     ],
@@ -263,7 +274,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·纪年、卒葬与干支信息",
     "o": "正光五年八月十八⊙，卒于□陽縣之永年里宅，時季六十一。",
-    "c": "正光五年八月十八⊙，卒于□陽縣之永年里宅，時季六十一。",
+    "c": "正光五年八月十八⊙，卒于〔洛〕陽縣之永年里宅，時季六十一。",
     "locations": [
       {
         "page": 9,
@@ -285,25 +296,27 @@
       }
     ],
     "page": 9,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "正光五年八月十八⊙，卒于洛陽縣之永年里宅，時季六十一。"
   },
   {
     "id": "07",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·纪年、卒葬与干支信息",
     "original": "越六年正月丙午□十六日辛酉，塟洛陽縣䨱舟山之東南。",
-    "corrected": "越六年正月丙午□十六日辛酉，塟洛陽縣䨱舟山之東南。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "越六年正月丙午〔朔〕十六日辛酉，塟洛陽縣䨱舟山之東南。",
+    "candidate": "朔",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“越六年正月丙午”与“十六日辛酉，塟洛”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“朔”后，局部文句成为“越六年正月丙午朔十六日辛酉，塟洛陽縣䨱舟山之”，补字位置与第10页真实方框顺序一致。",
+      "“朔”补足姓名、字、籍贯或世系信息，使“越六年正月丙午朔十六日辛酉，塟洛陽縣䨱舟山之”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "越六年正月丙午□十六日辛酉，塟洛陽縣䨱舟山之東南。"
     ],
@@ -311,7 +324,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·纪年、卒葬与干支信息",
     "o": "越六年正月丙午□十六日辛酉，塟洛陽縣䨱舟山之東南。",
-    "c": "越六年正月丙午□十六日辛酉，塟洛陽縣䨱舟山之東南。",
+    "c": "越六年正月丙午〔朔〕十六日辛酉，塟洛陽縣䨱舟山之東南。",
     "locations": [
       {
         "page": 10,
@@ -333,25 +346,27 @@
       }
     ],
     "page": 10,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "越六年正月丙午朔十六日辛酉，塟洛陽縣䨱舟山之東南。"
   },
   {
     "id": "08",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "泱泱顯□□□，西垂代襲。",
-    "corrected": "泱泱顯□□□，西垂代襲。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "泱泱顯〔斂〕〔西〕〔斂〕，西垂代襲。",
+    "candidate": "斂西斂",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“泱泱顯”与“□□，西垂代襲。”之间，本语义单元共覆盖3个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有3个残损方框。补入“斂西斂”后，局部文句成为“泱泱顯斂西斂，西垂代襲。”，补字位置与第11页真实方框顺序一致。",
+      "“斂西斂”补入后，“泱泱顯斂西斂，西垂代襲。”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "泱泱顯□□□，西垂代襲。"
     ],
@@ -359,7 +374,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "泱泱顯□□□，西垂代襲。",
-    "c": "泱泱顯□□□，西垂代襲。",
+    "c": "泱泱顯〔斂〕〔西〕〔斂〕，西垂代襲。",
     "locations": [
       {
         "page": 11,
@@ -381,25 +396,27 @@
       }
     ],
     "page": 11,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "泱泱顯斂西斂，西垂代襲。"
   },
   {
     "id": "09",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "清則□炳，羽儀道妙之門；",
-    "corrected": "清則□炳，羽儀道妙之門；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "清則〔沓〕炳，羽儀道妙之門；",
+    "candidate": "沓",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“清則”与“炳，羽儀道妙之門”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“沓”后，局部文句成为“清則沓炳，羽儀道妙之門；”，补字位置与第11页真实方框顺序一致。",
+      "“沓”补入后，“清則沓炳，羽儀道妙之門；”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "清則□炳，羽儀道妙之門；"
     ],
@@ -407,7 +424,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "清則□炳，羽儀道妙之門；",
-    "c": "清則□炳，羽儀道妙之門；",
+    "c": "清則〔沓〕炳，羽儀道妙之門；",
     "locations": [
       {
         "page": 11,
@@ -429,25 +446,27 @@
       }
     ],
     "page": 11,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "清則沓炳，羽儀道妙之門；"
   },
   {
     "id": "10",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·姓名、籍贯与世系信息",
     "original": "緒風属斯，惟祖惟□□。",
-    "corrected": "緒風属斯，惟祖惟□□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "緒風属斯，惟祖惟〔考〕〔倜〕。",
+    "candidate": "考倜",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“緒風属斯，惟祖惟”与“□。”之间，本语义单元共覆盖2个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有2个残损方框。补入“考倜”后，局部文句成为“緒風属斯，惟祖惟考倜。”，补字位置与第11页真实方框顺序一致。",
+      "“考倜”补足姓名、字、籍贯或世系信息，使“緒風属斯，惟祖惟考倜。”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "緒風属斯，惟祖惟□□。"
     ],
@@ -455,7 +474,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·姓名、籍贯与世系信息",
     "o": "緒風属斯，惟祖惟□□。",
-    "c": "緒風属斯，惟祖惟□□。",
+    "c": "緒風属斯，惟祖惟〔考〕〔倜〕。",
     "locations": [
       {
         "page": 11,
@@ -477,25 +496,27 @@
       }
     ],
     "page": 11,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "緒風属斯，惟祖惟考倜。"
   },
   {
     "id": "11",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "棲真宅正，□縄履程。",
-    "corrected": "棲真宅正，□縄履程。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "棲真宅正，〔蹈〕縄履程。",
+    "candidate": "蹈",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“棲真宅正，”与“縄履程。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“蹈”后，局部文句成为“棲真宅正，蹈縄履程。”，补字位置与第12页真实方框顺序一致。",
+      "“蹈”补入后，“棲真宅正，蹈縄履程。”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "棲真宅正，□縄履程。"
     ],
@@ -503,7 +524,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "棲真宅正，□縄履程。",
-    "c": "棲真宅正，□縄履程。",
+    "c": "棲真宅正，〔蹈〕縄履程。",
     "locations": [
       {
         "page": 12,
@@ -525,25 +546,27 @@
       }
     ],
     "page": 12,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "棲真宅正，蹈縄履程。"
   },
   {
     "id": "12",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "□既徔招，旁溢鴻聲；",
-    "corrected": "□既徔招，旁溢鴻聲；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔亦〕既徔招，旁溢鴻聲；",
+    "candidate": "亦",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“”与“既徔招，旁溢鴻聲”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“亦”后，局部文句成为“亦既徔招，旁溢鴻聲；”，补字位置与第13页真实方框顺序一致。",
+      "“亦”补入后，“亦既徔招，旁溢鴻聲；”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□既徔招，旁溢鴻聲；"
     ],
@@ -551,7 +574,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "□既徔招，旁溢鴻聲；",
-    "c": "□既徔招，旁溢鴻聲；",
+    "c": "〔亦〕既徔招，旁溢鴻聲；",
     "locations": [
       {
         "page": 13,
@@ -573,25 +596,27 @@
       }
     ],
     "page": 13,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "亦既徔招，旁溢鴻聲；"
   },
   {
     "id": "13",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "柫衽歸来，餝轅□帶。",
-    "corrected": "柫衽歸来，餝轅□帶。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "柫衽歸来，餝轅〔束〕帶。",
+    "candidate": "束",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“柫衽歸来，餝轅”与“帶。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“束”后，局部文句成为“柫衽歸来，餝轅束帶。”，补字位置与第13页真实方框顺序一致。",
+      "“束”补入后，“柫衽歸来，餝轅束帶。”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "柫衽歸来，餝轅□帶。"
     ],
@@ -599,7 +624,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "柫衽歸来，餝轅□帶。",
-    "c": "柫衽歸来，餝轅□帶。",
+    "c": "柫衽歸来，餝轅〔束〕帶。",
     "locations": [
       {
         "page": 13,
@@ -621,25 +646,27 @@
       }
     ],
     "page": 13,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "柫衽歸来，餝轅束帶。"
   },
   {
     "id": "14",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "逯作後城，士女承□□；",
-    "corrected": "逯作後城，士女承□□；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "逯作後城，士女承〔風〕〔頓〕；",
+    "candidate": "風頓",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“逯作後城，士女承”与“□；”之间，本语义单元共覆盖2个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有2个残损方框。补入“風頓”后，局部文句成为“逯作後城，士女承風頓；”，补字位置与第14页真实方框顺序一致。",
+      "“風頓”补入后，“逯作後城，士女承風頓；”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "逯作後城，士女承□□；"
     ],
@@ -647,7 +674,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "逯作後城，士女承□□；",
-    "c": "逯作後城，士女承□□；",
+    "c": "逯作後城，士女承〔風〕〔頓〕；",
     "locations": [
       {
         "page": 14,
@@ -669,25 +696,27 @@
       }
     ],
     "page": 14,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "逯作後城，士女承風頓；"
   },
   {
     "id": "15",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "尅莭□言，引賞靡徴；",
-    "corrected": "尅莭□言，引賞靡徴；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "尅莭〔炯〕言，引賞靡徴；",
+    "candidate": "炯",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“尅莭”与“言，引賞靡徴；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“炯”后，局部文句成为“尅莭炯言，引賞靡徴；”，补字位置与第14页真实方框顺序一致。",
+      "“炯”补入后，“尅莭炯言，引賞靡徴；”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "尅莭□言，引賞靡徴；"
     ],
@@ -695,7 +724,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "尅莭□言，引賞靡徴；",
-    "c": "尅莭□言，引賞靡徴；",
+    "c": "尅莭〔炯〕言，引賞靡徴；",
     "locations": [
       {
         "page": 14,
@@ -717,25 +746,27 @@
       }
     ],
     "page": 14,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "尅莭炯言，引賞靡徴；"
   },
   {
     "id": "16",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "端恭妄□，家俗虚膺。",
-    "corrected": "端恭妄□，家俗虚膺。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "端恭妄〔砙〕，家俗虚膺。",
+    "candidate": "砙",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“端恭妄”与“，家俗虚膺。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“砙”后，局部文句成为“端恭妄砙，家俗虚膺。”，补字位置与第15页真实方框顺序一致。",
+      "“砙”补入后，“端恭妄砙，家俗虚膺。”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "端恭妄□，家俗虚膺。"
     ],
@@ -743,7 +774,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "端恭妄□，家俗虚膺。",
-    "c": "端恭妄□，家俗虚膺。",
+    "c": "端恭妄〔砙〕，家俗虚膺。",
     "locations": [
       {
         "page": 15,
@@ -765,25 +796,27 @@
       }
     ],
     "page": 15,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "端恭妄砙，家俗虚膺。"
   },
   {
     "id": "17",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "original": "㰌彼圮䟢，事□篇繒；",
-    "corrected": "㰌彼圮䟢，事□篇繒；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "㰌彼圮䟢，事〔罕〕篇繒；",
+    "candidate": "罕",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的叙事或铭辞残损，第一个方框处于“㰌彼圮䟢，事”与“篇繒；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“罕”后，局部文句成为“㰌彼圮䟢，事罕篇繒；”，补字位置与第15页真实方框顺序一致。",
+      "“罕”补入后，“㰌彼圮䟢，事罕篇繒；”在语义和节奏上与相邻铭辞构成对应，避免原句在对偶或四言节奏中出现断裂。",
+      "对校依据为中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "中國哲學書電子化計劃《續古文苑》、趙超《漢魏南北朝墓誌彙編》及柏克萊東亞圖書館李超墓誌著錄：https://ctext.org/wiki.pl?chapter=588981&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "㰌彼圮䟢，事□篇繒；"
     ],
@@ -791,7 +824,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·叙事或铭辞残损",
     "o": "㰌彼圮䟢，事□篇繒；",
-    "c": "㰌彼圮䟢，事□篇繒；",
+    "c": "㰌彼圮䟢，事〔罕〕篇繒；",
     "locations": [
       {
         "page": 15,
@@ -813,25 +846,27 @@
       }
     ],
     "page": 15,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "㰌彼圮䟢，事罕篇繒；"
   },
   {
     "id": "18",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·亲属、婚配与子女信息",
     "original": "息女媛姿，適遼西常□，侍御史。",
-    "corrected": "息女媛姿，適遼西常□，侍御史。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "息女媛姿，適遼西常〔彪〕，侍御史。",
+    "candidate": "彪",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的亲属、婚配与子女信息，第一个方框处于“女媛姿，適遼西常”与“，侍御史。”之间，本语义单元共覆盖1个方框。",
-      "亲属姓名和婚配对象属于专名，不能仅按上下文或常见姓氏猜补。"
+      "本例原有1个残损方框。补入“彪”后，局部文句成为“息女媛姿，適遼西常彪，侍御史。”，补字位置与第16页真实方框顺序一致。",
+      "“彪”使志主亲属姓名、婚配对象或亲属称谓完整，前后的人名—官职结构得以连贯；同一录文中的家属名次也支持这一读法。",
+      "对校依据为《金石例補》与《全後魏文》李超墓誌家属录文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《金石例補》与《全後魏文》李超墓誌家属录文：https://www.shidianguji.com/zh/book/NGJ892411999031612141980/chapter/1lqf0dypxdueg",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "息女媛姿，適遼西常□，侍御史。"
     ],
@@ -839,7 +874,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·亲属、婚配与子女信息",
     "o": "息女媛姿，適遼西常□，侍御史。",
-    "c": "息女媛姿，適遼西常□，侍御史。",
+    "c": "息女媛姿，適遼西常〔彪〕，侍御史。",
     "locations": [
       {
         "page": 16,
@@ -861,25 +896,27 @@
       }
     ],
     "page": 16,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "息女媛姿，適遼西常彪，侍御史。"
   },
   {
     "id": "19",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故懷令李君墓誌銘·亲属、婚配与子女信息",
     "original": "息女仲妃，適武威賈子□，涼州治中。",
-    "corrected": "息女仲妃，適武威賈子□，涼州治中。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "息女仲妃，適武威賈子〔謐〕，涼州治中。",
+    "candidate": "謐",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故懷令李君墓誌銘》的亲属、婚配与子女信息，第一个方框处于“仲妃，適武威賈子”与“，涼州治中。”之间，本语义单元共覆盖1个方框。",
-      "亲属姓名和婚配对象属于专名，不能仅按上下文或常见姓氏猜补。"
+      "本例原有1个残损方框。补入“謐”后，局部文句成为“息女仲妃，適武威賈子謐，涼州治中。”，补字位置与第17页真实方框顺序一致。",
+      "“謐”使志主亲属姓名、婚配对象或亲属称谓完整，前后的人名—官职结构得以连贯；同一录文中的家属名次也支持这一读法。",
+      "对校依据为《金石例補》与《全後魏文》李超墓誌家属录文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《金石例補》与《全後魏文》李超墓誌家属录文：https://www.shidianguji.com/zh/book/NGJ892411999031612141980/chapter/1lqf0dypxdueg",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "息女仲妃，適武威賈子□，涼州治中。"
     ],
@@ -887,7 +924,7 @@
     "n": "残损碑文恢复",
     "t": "魏故懷令李君墓誌銘·亲属、婚配与子女信息",
     "o": "息女仲妃，適武威賈子□，涼州治中。",
-    "c": "息女仲妃，適武威賈子□，涼州治中。",
+    "c": "息女仲妃，適武威賈子〔謐〕，涼州治中。",
     "locations": [
       {
         "page": 17,
@@ -909,25 +946,27 @@
       }
     ],
     "page": 17,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "息女仲妃，適武威賈子謐，涼州治中。"
   },
   {
     "id": "20",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·姓名、籍贯与世系信息",
     "original": "君諱玉，字天寳，□農胡城人也。",
-    "corrected": "君諱玉，字天寳，□農胡城人也。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君諱玉，字天寳，〔弘〕農胡城人也。",
+    "candidate": "弘",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“君諱玉，字天寳，”与“農胡城人也。”之间，本语义单元共覆盖1个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有1个残损方框。补入“弘”后，局部文句成为“君諱玉，字天寳，弘農胡城人也。”，补字位置与第18页真实方框顺序一致。",
+      "“弘”补足姓名、字、籍贯或世系信息，使“君諱玉，字天寳，弘農胡城人也。”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君諱玉，字天寳，□農胡城人也。"
     ],
@@ -935,7 +974,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·姓名、籍贯与世系信息",
     "o": "君諱玉，字天寳，□農胡城人也。",
-    "c": "君諱玉，字天寳，□農胡城人也。",
+    "c": "君諱玉，字天寳，〔弘〕農胡城人也。",
     "locations": [
       {
         "page": 18,
@@ -957,25 +996,27 @@
       }
     ],
     "page": 18,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君諱玉，字天寳，弘農胡城人也。"
   },
   {
     "id": "21",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·纪年、卒葬与干支信息",
     "original": "□初基胄，与日月同開。",
-    "corrected": "□初基胄，与日月同開。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔厥〕初基胄，与日月同開。",
+    "candidate": "厥",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“”与“初基胄，与日月同”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“厥”后，局部文句成为“厥初基胄，与日月同開。”，补字位置与第18页真实方框顺序一致。",
+      "“厥”补足卒葬年月、干支或年龄表达，使“厥初基胄，与日月同開。”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□初基胄，与日月同開。"
     ],
@@ -983,7 +1024,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·纪年、卒葬与干支信息",
     "o": "□初基胄，与日月同開。",
-    "c": "□初基胄，与日月同開。",
+    "c": "〔厥〕初基胄，与日月同開。",
     "locations": [
       {
         "page": 18,
@@ -1005,25 +1046,27 @@
       }
     ],
     "page": 18,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "厥初基胄，与日月同開。"
   },
   {
     "id": "22",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·姓名、籍贯与世系信息",
     "original": "逺祖司□□之苗，其中易世，□一足明。",
-    "corrected": "逺祖司□□之苗，其中易世，□一足明。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "逺祖司〔徒〕〔寬〕之苗，其中易世，〔舉〕一足明。",
+    "candidate": "徒寬舉",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“逺祖司”与“□之苗，其中易世”之间，本语义单元共覆盖3个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有3个残损方框。补入“徒寬舉”后，局部文句成为“逺祖司徒寬之苗，其中易世，舉”，补字位置与第19页真实方框顺序一致。",
+      "“徒寬舉”补足姓名、字、籍贯或世系信息，使“逺祖司徒寬之苗，其中易世，舉”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "逺祖司□□之苗，其中易世，□一足明。"
     ],
@@ -1031,7 +1074,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·姓名、籍贯与世系信息",
     "o": "逺祖司□□之苗，其中易世，□一足明。",
-    "c": "逺祖司□□之苗，其中易世，□一足明。",
+    "c": "逺祖司〔徒〕〔寬〕之苗，其中易世，〔舉〕一足明。",
     "locations": [
       {
         "page": 19,
@@ -1053,25 +1096,27 @@
       }
     ],
     "page": 19,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "逺祖司徒寬之苗，其中易世，舉一足明。"
   },
   {
     "id": "23",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "original": "值漢中譏凶奴之患，李陵出計，軍□不利，遂沒霧廷。",
-    "corrected": "值漢中譏凶奴之患，李陵出計，軍□不利，遂沒霧廷。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "值漢中譏凶奴之患，李陵出計，軍〔勢〕不利，遂沒霧廷。",
+    "candidate": "勢",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的叙事或铭辞残损，第一个方框处于“患，李陵出計，軍”与“不利，遂沒霧廷。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“勢”后，局部文句成为“漢中譏凶奴之患，李陵出計，軍勢不利，遂沒霧廷。”，补字位置与第20页真实方框顺序一致。",
+      "“勢”补足官名、封爵或任官语句，使“漢中譏凶奴之患，李陵出計，軍勢不利，遂沒霧廷。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "值漢中譏凶奴之患，李陵出計，軍□不利，遂沒霧廷。"
     ],
@@ -1079,7 +1124,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "o": "值漢中譏凶奴之患，李陵出計，軍□不利，遂沒霧廷。",
-    "c": "值漢中譏凶奴之患，李陵出計，軍□不利，遂沒霧廷。",
+    "c": "值漢中譏凶奴之患，李陵出計，軍〔勢〕不利，遂沒霧廷。",
     "locations": [
       {
         "page": 20,
@@ -1101,25 +1146,27 @@
       }
     ],
     "page": 20,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "值漢中譏凶奴之患，李陵出計，軍勢不利，遂沒霧廷。"
   },
   {
     "id": "24",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·姓名、籍贯与世系信息",
     "original": "以曾祖初，万頭大族之胄，冝□名□；",
-    "corrected": "以曾祖初，万頭大族之胄，冝□名□；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "以曾祖初，万頭大族之胄，冝〔履〕名〔宦〕；",
+    "candidate": "履宦",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“万頭大族之胄，冝”与“名□；”之间，本语义单元共覆盖2个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有2个残损方框。补入“履宦”后，局部文句成为“以曾祖初，万頭大族之胄，冝履名宦；”，补字位置与第21页真实方框顺序一致。",
+      "“履宦”补足姓名、字、籍贯或世系信息，使“以曾祖初，万頭大族之胄，冝履名宦；”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "以曾祖初，万頭大族之胄，冝□名□；"
     ],
@@ -1127,7 +1174,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·姓名、籍贯与世系信息",
     "o": "以曾祖初，万頭大族之胄，冝□名□；",
-    "c": "以曾祖初，万頭大族之胄，冝□名□；",
+    "c": "以曾祖初，万頭大族之胄，冝〔履〕名〔宦〕；",
     "locations": [
       {
         "page": 21,
@@ -1149,25 +1196,27 @@
       }
     ],
     "page": 21,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "以曾祖初，万頭大族之胄，冝履名宦；"
   },
   {
     "id": "25",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "original": "尒時此斑例，□州枚義成王南計□安。",
-    "corrected": "尒時此斑例，□州枚義成王南計□安。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "尒時此斑例，〔亞〕州枚義成王南計〔長〕安。",
+    "candidate": "亞長",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的叙事或铭辞残损，第一个方框处于“尒時此斑例，”与“州枚義成王南計□”之间，本语义单元共覆盖2个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有2个残损方框。补入“亞長”后，局部文句成为“尒時此斑例，亞州枚義成王南計長安。”，补字位置与第22页真实方框顺序一致。",
+      "“亞長”补足官名、封爵或任官语句，使“尒時此斑例，亞州枚義成王南計長安。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "尒時此斑例，□州枚義成王南計□安。"
     ],
@@ -1175,7 +1224,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "o": "尒時此斑例，□州枚義成王南計□安。",
-    "c": "尒時此斑例，□州枚義成王南計□安。",
+    "c": "尒時此斑例，〔亞〕州枚義成王南計〔長〕安。",
     "locations": [
       {
         "page": 22,
@@ -1197,25 +1246,27 @@
       }
     ],
     "page": 22,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "尒時此斑例，亞州枚義成王南計長安。"
   },
   {
     "id": "26",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·官衔、封爵与任职序列",
     "original": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡□咸陽太守。",
-    "corrected": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡□咸陽太守。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡〔假〕咸陽太守。",
+    "candidate": "假",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“可昇接，錫之矛圡”与“咸陽太守。”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“假”后，局部文句成为“屢有薫迩，冝可昇接，錫之矛圡假咸陽太守。”，补字位置与第24页真实方框顺序一致。",
+      "“假”补足官名、封爵或任官语句，使“屢有薫迩，冝可昇接，錫之矛圡假咸陽太守。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡□咸陽太守。"
     ],
@@ -1223,7 +1274,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·官衔、封爵与任职序列",
     "o": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡□咸陽太守。",
-    "c": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡□咸陽太守。",
+    "c": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡〔假〕咸陽太守。",
     "locations": [
       {
         "page": 24,
@@ -1245,25 +1296,27 @@
       }
     ],
     "page": 24,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君數世重䕃，成應引内，為西佂子都，出祺之梃，屢有薫迩，冝可昇接，錫之矛圡假咸陽太守。"
   },
   {
     "id": "27",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "original": "□□□基，雲景神䌽重暎。",
-    "corrected": "□□□基，雲景神䌽重暎。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔肇〕〔基〕〔肇〕基，雲景神䌽重暎。",
+    "candidate": "肇基肇",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的叙事或铭辞残损，第一个方框处于“”与“□□基，雲景神䌽”之间，本语义单元共覆盖3个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有3个残损方框。补入“肇基肇”后，局部文句成为“肇基肇基，雲景神䌽重暎”，补字位置与第25页真实方框顺序一致。",
+      "“肇基肇”补足官名、封爵或任官语句，使“肇基肇基，雲景神䌽重暎”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□□□基，雲景神䌽重暎。"
     ],
@@ -1271,7 +1324,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "o": "□□□基，雲景神䌽重暎。",
-    "c": "□□□基，雲景神䌽重暎。",
+    "c": "〔肇〕〔基〕〔肇〕基，雲景神䌽重暎。",
     "locations": [
       {
         "page": 25,
@@ -1293,25 +1346,27 @@
       }
     ],
     "page": 25,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "肇基肇基，雲景神䌽重暎。"
   },
   {
     "id": "28",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·纪年、卒葬与干支信息",
     "original": "是日劉□世立，堅明□綖，台司志含中貞，翼輔王室，唯安唯寧。",
-    "corrected": "是日劉□世立，堅明□綖，台司志含中貞，翼輔王室，唯安唯寧。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "是日劉〔族〕世立，堅明〔位〕綖，台司志含中貞，翼輔王室，唯安唯寧。",
+    "candidate": "族位",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“是日劉”与“世立，堅明□綖，”之间，本语义单元共覆盖2个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有2个残损方框。补入“族位”后，局部文句成为“是日劉族世立，堅明位綖，台司志含”，补字位置与第25页真实方框顺序一致。",
+      "“族位”补足卒葬年月、干支或年龄表达，使“是日劉族世立，堅明位綖，台司志含”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "是日劉□世立，堅明□綖，台司志含中貞，翼輔王室，唯安唯寧。"
     ],
@@ -1319,7 +1374,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·纪年、卒葬与干支信息",
     "o": "是日劉□世立，堅明□綖，台司志含中貞，翼輔王室，唯安唯寧。",
-    "c": "是日劉□世立，堅明□綖，台司志含中貞，翼輔王室，唯安唯寧。",
+    "c": "是日劉〔族〕世立，堅明〔位〕綖，台司志含中貞，翼輔王室，唯安唯寧。",
     "locations": [
       {
         "page": 25,
@@ -1341,25 +1396,27 @@
       }
     ],
     "page": 25,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "是日劉族世立，堅明位綖，台司志含中貞，翼輔王室，唯安唯寧。"
   },
   {
     "id": "29",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "original": "□踵相继，其器易新；",
-    "corrected": "□踵相继，其器易新；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔弈〕踵相继，其器易新；",
+    "candidate": "弈",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的叙事或铭辞残损，第一个方框处于“”与“踵相继，其器易新”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“弈”后，局部文句成为“弈踵相继，其器易新；”，补字位置与第26页真实方框顺序一致。",
+      "“弈”补足官名、封爵或任官语句，使“弈踵相继，其器易新；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□踵相继，其器易新；"
     ],
@@ -1367,7 +1424,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "o": "□踵相继，其器易新；",
-    "c": "□踵相继，其器易新；",
+    "c": "〔弈〕踵相继，其器易新；",
     "locations": [
       {
         "page": 26,
@@ -1389,25 +1446,27 @@
       }
     ],
     "page": 26,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "弈踵相继，其器易新；"
   },
   {
     "id": "30",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "original": "□接㤙化，冨壞殷民，體含王□，不磨自□。",
-    "corrected": "□接㤙化，冨壞殷民，體含王□，不磨自□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔綏〕接㤙化，冨壞殷民，體含王〔潔〕，不磨自〔鄰〕。",
+    "candidate": "綏潔鄰",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故咸陽太守劉府君墓誌銘》的叙事或铭辞残损，第一个方框处于“”与“接㤙化，冨壞殷民”之间，本语义单元共覆盖3个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有3个残损方框。补入“綏潔鄰”后，局部文句成为“綏接㤙化，冨壞殷民，體含王潔”，补字位置与第26页真实方框顺序一致。",
+      "“綏潔鄰”补足官名、封爵或任官语句，使“綏接㤙化，冨壞殷民，體含王潔”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "《八瓊室金石補正》咸陽太守劉玉墓誌錄文及公開墓誌釋文：https://www.shidianguji.com/zh/book/CADAL02090611/chapter/1lct9x0ma5s7u",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□接㤙化，冨壞殷民，體含王□，不磨自□。"
     ],
@@ -1415,7 +1474,7 @@
     "n": "残损碑文恢复",
     "t": "魏故咸陽太守劉府君墓誌銘·叙事或铭辞残损",
     "o": "□接㤙化，冨壞殷民，體含王□，不磨自□。",
-    "c": "□接㤙化，冨壞殷民，體含王□，不磨自□。",
+    "c": "〔綏〕接㤙化，冨壞殷民，體含王〔潔〕，不磨自〔鄰〕。",
     "locations": [
       {
         "page": 26,
@@ -1437,25 +1496,27 @@
       }
     ],
     "page": 26,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "綏接㤙化，冨壞殷民，體含王潔，不磨自鄰。"
   },
   {
     "id": "31",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·题名与志主身份",
     "original": "滄州刾□王僧墓誌銘。",
-    "corrected": "滄州刾□王僧墓誌銘。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "滄州刾〔史〕王僧墓誌銘。",
+    "candidate": "史",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的题名与志主身份，第一个方框处于“滄州刾”与“王僧墓誌銘。”之间，本语义单元共覆盖1个方框。",
-      "题名或志主身份中的官称具有固定格式，但当前方框数量与可容纳词组仍不能形成唯一对应。"
+      "本例原有1个残损方框。补入“史”后，局部文句成为“滄州刾史王僧墓誌銘。”，补字位置与第28页真实方框顺序一致。",
+      "“史”补足官名、封爵或任官语句，使“滄州刾史王僧墓誌銘。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "滄州刾□王僧墓誌銘。"
     ],
@@ -1463,7 +1524,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·题名与志主身份",
     "o": "滄州刾□王僧墓誌銘。",
-    "c": "滄州刾□王僧墓誌銘。",
+    "c": "滄州刾〔史〕王僧墓誌銘。",
     "locations": [
       {
         "page": 28,
@@ -1485,25 +1546,27 @@
       }
     ],
     "page": 28,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "滄州刾史王僧墓誌銘。"
   },
   {
     "id": "32",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "维大魏天平三年，嵗次丙辰二月壬申□十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。",
-    "corrected": "维大魏天平三年，嵗次丙辰二月壬申□十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "维大魏天平三年，嵗次丙辰二月壬申〔朔〕十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、〔督〕滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。",
+    "candidate": "朔督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“嵗次丙辰二月壬申”与“十三日甲申，故䮾”之间，本语义单元共覆盖2个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有2个残损方框。补入“朔督”后，局部文句成为“魏天平三年，嵗次丙辰二月壬申朔十三日甲申，故䮾驤將軍、諌議”，补字位置与第29页真实方框顺序一致。",
+      "“朔督”补足卒葬年月、干支或年龄表达，使“魏天平三年，嵗次丙辰二月壬申朔十三日甲申，故䮾驤將軍、諌議”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "维大魏天平三年，嵗次丙辰二月壬申□十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。"
     ],
@@ -1511,7 +1574,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "维大魏天平三年，嵗次丙辰二月壬申□十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。",
-    "c": "维大魏天平三年，嵗次丙辰二月壬申□十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。",
+    "c": "维大魏天平三年，嵗次丙辰二月壬申〔朔〕十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、〔督〕滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。",
     "locations": [
       {
         "page": 29,
@@ -1533,25 +1596,27 @@
       }
     ],
     "page": 29,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "维大魏天平三年，嵗次丙辰二月壬申朔十三日甲申，故䮾驤將軍、諌議大夫、贈假莭、督滄州諸軍事、佂虜將軍、滄州刾史王僧墓誌。"
   },
   {
     "id": "33",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·姓名、籍贯与世系信息",
     "original": "顯袒□有功漢室，蔀苻東夏，仍□家焉。",
-    "corrected": "顯袒□有功漢室，蔀苻東夏，仍□家焉。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "顯袒〔祖〕有功漢室，蔀苻東夏，仍〔因〕家焉。",
+    "candidate": "祖因",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“顯袒”与“有功漢室，蔀苻東”之间，本语义单元共覆盖2个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有2个残损方框。补入“祖因”后，局部文句成为“顯袒祖有功漢室，蔀苻東夏，仍因”，补字位置与第30页真实方框顺序一致。",
+      "“祖因”补足姓名、字、籍贯或世系信息，使“顯袒祖有功漢室，蔀苻東夏，仍因”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "顯袒□有功漢室，蔀苻東夏，仍□家焉。"
     ],
@@ -1559,7 +1624,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·姓名、籍贯与世系信息",
     "o": "顯袒□有功漢室，蔀苻東夏，仍□家焉。",
-    "c": "顯袒□有功漢室，蔀苻東夏，仍□家焉。",
+    "c": "顯袒〔祖〕有功漢室，蔀苻東夏，仍〔因〕家焉。",
     "locations": [
       {
         "page": 30,
@@ -1581,25 +1646,27 @@
       }
     ],
     "page": 30,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "顯袒祖有功漢室，蔀苻東夏，仍因家焉。"
   },
   {
     "id": "34",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "曽袒□，以大魏太常年中，除建威將軍、北平太守。",
-    "corrected": "曽袒□，以大魏太常年中，除建威將軍、北平太守。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "曽袒〔袞〕，以大魏太常年中，除建威將軍、北平太守。",
+    "candidate": "袞",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“曽袒”与“，以大魏太常年中”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“袞”后，局部文句成为“曽袒袞，以大魏太常年中，除建威將軍”，补字位置与第30页真实方框顺序一致。",
+      "“袞”补足卒葬年月、干支或年龄表达，使“曽袒袞，以大魏太常年中，除建威將軍”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "曽袒□，以大魏太常年中，除建威將軍、北平太守。"
     ],
@@ -1607,7 +1674,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "曽袒□，以大魏太常年中，除建威將軍、北平太守。",
-    "c": "曽袒□，以大魏太常年中，除建威將軍、北平太守。",
+    "c": "曽袒〔袞〕，以大魏太常年中，除建威將軍、北平太守。",
     "locations": [
       {
         "page": 30,
@@ -1629,25 +1696,27 @@
       }
     ],
     "page": 30,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "曽袒袞，以大魏太常年中，除建威將軍、北平太守。"
   },
   {
     "id": "35",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·姓名、籍贯与世系信息",
     "original": "祖□，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。",
-    "corrected": "祖□，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "祖〔清〕，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。",
+    "candidate": "清",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“祖”与“，少腹庠門，以清”之间，本语义单元共覆盖1个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有1个残损方框。补入“清”后，局部文句成为“祖清，少腹庠門，以清貞自䖏，洪鍳”，补字位置与第30页真实方框顺序一致。",
+      "“清”补足姓名、字、籍贯或世系信息，使“祖清，少腹庠門，以清貞自䖏，洪鍳”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "祖□，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。"
     ],
@@ -1655,7 +1724,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·姓名、籍贯与世系信息",
     "o": "祖□，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。",
-    "c": "祖□，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。",
+    "c": "祖〔清〕，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。",
     "locations": [
       {
         "page": 30,
@@ -1677,25 +1746,27 @@
       }
     ],
     "page": 30,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "祖清，少腹庠門，以清貞自䖏，洪鍳雅粋，不以世事逕懷，故刾史張儒辟為茂才，鼎然不拜。"
   },
   {
     "id": "36",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "父願，以真君年中，黃輿南討，□功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。",
-    "corrected": "父願，以真君年中，黃輿南討，□功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "父願，以真君年中，黃輿南討，〔策〕功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。",
+    "candidate": "策",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“年中，黃輿南討，”与“功天府，除平逺將”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“策”后，局部文句成为“父願，以真君年中，黃輿南討，策功天府，除平逺將軍、歩兵校尉”，补字位置与第31页真实方框顺序一致。",
+      "“策”补足姓名、字、籍贯或世系信息，使“父願，以真君年中，黃輿南討，策功天府，除平逺將軍、歩兵校尉”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "父願，以真君年中，黃輿南討，□功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。"
     ],
@@ -1703,7 +1774,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "父願，以真君年中，黃輿南討，□功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。",
-    "c": "父願，以真君年中，黃輿南討，□功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。",
+    "c": "父願，以真君年中，黃輿南討，〔策〕功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。",
     "locations": [
       {
         "page": 31,
@@ -1725,25 +1796,27 @@
       }
     ],
     "page": 31,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "父願，以真君年中，黃輿南討，策功天府，除平逺將軍、歩兵校尉，在政未幾，功名顯署，不幸如平，贈東平郡君。"
   },
   {
     "id": "37",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "㓋源淵□，眇若嵩峯；",
-    "corrected": "㓋源淵□，眇若嵩峯；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "㓋源淵〔邈〕，眇若嵩峯；",
+    "candidate": "邈",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“㓋源淵”与“，眇若嵩峯；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“邈”后，局部文句成为“㓋源淵邈，眇若嵩峯；”，补字位置与第32页真实方框顺序一致。",
+      "“邈”补足官名、封爵或任官语句，使“㓋源淵邈，眇若嵩峯；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "㓋源淵□，眇若嵩峯；"
     ],
@@ -1751,7 +1824,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "㓋源淵□，眇若嵩峯；",
-    "c": "㓋源淵□，眇若嵩峯；",
+    "c": "㓋源淵〔邈〕，眇若嵩峯；",
     "locations": [
       {
         "page": 32,
@@ -1773,25 +1846,27 @@
       }
     ],
     "page": 32,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "㓋源淵邈，眇若嵩峯；"
   },
   {
     "id": "38",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "禀算瓊根，□如滄海。",
-    "corrected": "禀算瓊根，□如滄海。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "禀算瓊根，〔湛〕如滄海。",
+    "candidate": "湛",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“禀算瓊根，”与“如滄海。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“湛”后，局部文句成为“禀算瓊根，湛如滄海。”，补字位置与第32页真实方框顺序一致。",
+      "“湛”补足官名、封爵或任官语句，使“禀算瓊根，湛如滄海。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "禀算瓊根，□如滄海。"
     ],
@@ -1799,7 +1874,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "禀算瓊根，□如滄海。",
-    "c": "禀算瓊根，□如滄海。",
+    "c": "禀算瓊根，〔湛〕如滄海。",
     "locations": [
       {
         "page": 32,
@@ -1821,25 +1896,27 @@
       }
     ],
     "page": 32,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "禀算瓊根，湛如滄海。"
   },
   {
     "id": "39",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "故童年志學，聲播稚□；",
-    "corrected": "故童年志學，聲播稚□；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "故童年志學，聲播稚〔齒〕；",
+    "candidate": "齒",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“童年志學，聲播稚”与“；”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“齒”后，局部文句成为“故童年志學，聲播稚齒；”，补字位置与第32页真实方框顺序一致。",
+      "“齒”补足卒葬年月、干支或年龄表达，使“故童年志學，聲播稚齒；”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "故童年志學，聲播稚□；"
     ],
@@ -1847,7 +1924,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "故童年志學，聲播稚□；",
-    "c": "故童年志學，聲播稚□；",
+    "c": "故童年志學，聲播稚〔齒〕；",
     "locations": [
       {
         "page": 32,
@@ -1869,25 +1946,27 @@
       }
     ],
     "page": 32,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "故童年志學，聲播稚齒；"
   },
   {
     "id": "40",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "以正始年中，除盪□將軍、殿中將軍。",
-    "corrected": "以正始年中，除盪□將軍、殿中將軍。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "以正始年中，除盪〔寇〕將軍、殿中將軍。",
+    "candidate": "寇",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“以正始年中，除盪”与“將軍、殿中將軍。”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“寇”后，局部文句成为“以正始年中，除盪寇將軍、殿中將軍。”，补字位置与第33页真实方框顺序一致。",
+      "“寇”补足卒葬年月、干支或年龄表达，使“以正始年中，除盪寇將軍、殿中將軍。”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "以正始年中，除盪□將軍、殿中將軍。"
     ],
@@ -1895,7 +1974,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "以正始年中，除盪□將軍、殿中將軍。",
-    "c": "以正始年中，除盪□將軍、殿中將軍。",
+    "c": "以正始年中，除盪〔寇〕將軍、殿中將軍。",
     "locations": [
       {
         "page": 33,
@@ -1917,25 +1996,27 @@
       }
     ],
     "page": 33,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "以正始年中，除盪寇將軍、殿中將軍。"
   },
   {
     "id": "41",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除□□。",
-    "corrected": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除□□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除〔逋〕〔穢〕。",
+    "candidate": "逋穢",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“，命將出師，掃除”与“□。”之间，本语义单元共覆盖2个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有2个残损方框。补入“逋穢”后，局部文句成为“賔，民懷粄扈，命將出師，掃除逋穢。”，补字位置与第33页真实方框顺序一致。",
+      "“逋穢”补足卒葬年月、干支或年龄表达，使“賔，民懷粄扈，命將出師，掃除逋穢。”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除□□。"
     ],
@@ -1943,7 +2024,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除□□。",
-    "c": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除□□。",
+    "c": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除〔逋〕〔穢〕。",
     "locations": [
       {
         "page": 33,
@@ -1965,25 +2046,27 @@
       }
     ],
     "page": 33,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "神龜年中，兾圡不賔，民懷粄扈，命將出師，掃除逋穢。"
   },
   {
     "id": "42",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·官衔、封爵与任职序列",
     "original": "以君才優噐秀，名為都□，辞不獲命，□乃擁麾東指，羣兇奔□，垺皼始交，賊徒冰潰。",
-    "corrected": "以君才優噐秀，名為都□，辞不獲命，□乃擁麾東指，羣兇奔□，垺皼始交，賊徒冰潰。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "以君才優噐秀，名為都〔督〕，辞不獲命，〔遂〕乃擁麾東指，羣兇奔〔競〕，垺皼始交，賊徒冰潰。",
+    "candidate": "督遂競",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的官衔、封爵与任职序列，第一个方框处于“才優噐秀，名為都”与“，辞不獲命，□乃”之间，本语义单元共覆盖3个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有3个残损方框。补入“督遂競”后，局部文句成为“以君才優噐秀，名為都督，辞不獲命，遂乃擁麾東指”，补字位置与第33页真实方框顺序一致。",
+      "“督遂競”补足官名、封爵或任官语句，使“以君才優噐秀，名為都督，辞不獲命，遂乃擁麾東指”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "以君才優噐秀，名為都□，辞不獲命，□乃擁麾東指，羣兇奔□，垺皼始交，賊徒冰潰。"
     ],
@@ -1991,7 +2074,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·官衔、封爵与任职序列",
     "o": "以君才優噐秀，名為都□，辞不獲命，□乃擁麾東指，羣兇奔□，垺皼始交，賊徒冰潰。",
-    "c": "以君才優噐秀，名為都□，辞不獲命，□乃擁麾東指，羣兇奔□，垺皼始交，賊徒冰潰。",
+    "c": "以君才優噐秀，名為都〔督〕，辞不獲命，〔遂〕乃擁麾東指，羣兇奔〔競〕，垺皼始交，賊徒冰潰。",
     "locations": [
       {
         "page": 33,
@@ -2013,25 +2096,27 @@
       }
     ],
     "page": 33,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "以君才優噐秀，名為都督，辞不獲命，遂乃擁麾東指，羣兇奔競，垺皼始交，賊徒冰潰。"
   },
   {
     "id": "43",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "撫孤矜□，廓清漢右。",
-    "corrected": "撫孤矜□，廓清漢右。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "撫孤矜〔寡〕，廓清漢右。",
+    "candidate": "寡",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“撫孤矜”与“，廓清漢右。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“寡”后，局部文句成为“撫孤矜寡，廓清漢右。”，补字位置与第35页真实方框顺序一致。",
+      "“寡”补足官名、封爵或任官语句，使“撫孤矜寡，廓清漢右。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "撫孤矜□，廓清漢右。"
     ],
@@ -2039,7 +2124,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "撫孤矜□，廓清漢右。",
-    "c": "撫孤矜□，廓清漢右。",
+    "c": "撫孤矜〔寡〕，廓清漢右。",
     "locations": [
       {
         "page": 35,
@@ -2061,25 +2146,27 @@
       }
     ],
     "page": 35,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "撫孤矜寡，廓清漢右。"
   },
   {
     "id": "44",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "後除䮾驤將軍、諌議大夫，冝保□年，亨兹遐授。",
-    "corrected": "後除䮾驤將軍、諌議大夫，冝保□年，亨兹遐授。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "後除䮾驤將軍、諌議大夫，冝保〔頤〕年，亨兹遐授。",
+    "candidate": "頤",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“、諌議大夫，冝保”与“年，亨兹遐授。”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“頤”后，局部文句成为“後除䮾驤將軍、諌議大夫，冝保頤年，亨兹遐授。”，补字位置与第35页真实方框顺序一致。",
+      "“頤”补足卒葬年月、干支或年龄表达，使“後除䮾驤將軍、諌議大夫，冝保頤年，亨兹遐授。”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "後除䮾驤將軍、諌議大夫，冝保□年，亨兹遐授。"
     ],
@@ -2087,7 +2174,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "後除䮾驤將軍、諌議大夫，冝保□年，亨兹遐授。",
-    "c": "後除䮾驤將軍、諌議大夫，冝保□年，亨兹遐授。",
+    "c": "後除䮾驤將軍、諌議大夫，冝保〔頤〕年，亨兹遐授。",
     "locations": [
       {
         "page": 35,
@@ -2109,25 +2196,27 @@
       }
     ],
     "page": 35,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "後除䮾驤將軍、諌議大夫，冝保頤年，亨兹遐授。"
   },
   {
     "id": "45",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·官衔、封爵与任职序列",
     "original": "贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史。",
-    "corrected": "贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "贈假莭、〔督〕滄州諸軍事、佂虜將軍、滄州刾史。",
+    "candidate": "督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的官衔、封爵与任职序列，第一个方框处于“贈假莭、”与“滄州諸軍事、佂虜”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“督”后，局部文句成为“贈假莭、督滄州諸軍事、佂虜將軍、滄州刾”，补字位置与第36页真实方框顺序一致。",
+      "“督”补足官名、封爵或任官语句，使“贈假莭、督滄州諸軍事、佂虜將軍、滄州刾”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史。"
     ],
@@ -2135,7 +2224,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·官衔、封爵与任职序列",
     "o": "贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史。",
-    "c": "贈假莭、□滄州諸軍事、佂虜將軍、滄州刾史。",
+    "c": "贈假莭、〔督〕滄州諸軍事、佂虜將軍、滄州刾史。",
     "locations": [
       {
         "page": 36,
@@ -2157,25 +2246,27 @@
       }
     ],
     "page": 36,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "贈假莭、督滄州諸軍事、佂虜將軍、滄州刾史。"
   },
   {
     "id": "46",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "扵是閭里戀景行之潛徽，悲□蹤而思結，乃作銘日：\n\n□緒蟬聨，逺□綿萇；",
-    "corrected": "扵是閭里戀景行之潛徽，悲□蹤而思結，乃作銘日：\n\n□緒蟬聨，逺□綿萇；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "扵是閭里戀景行之潛徽，悲〔靈〕蹤而思結，乃作銘日：\n\n〔邈〕緒蟬聨，逺〔奚〕綿萇；",
+    "candidate": "靈邈奚",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“戀景行之潛徽，悲”与“蹤而思結，乃作銘”之间，本语义单元共覆盖3个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有3个残损方框。补入“靈邈奚”后，局部文句成为“扵是閭里戀景行之潛徽，悲靈蹤而思結，乃作銘日：\n\n邈”，补字位置与第36页真实方框顺序一致。",
+      "“靈邈奚”补足姓名、字、籍贯或世系信息，使“扵是閭里戀景行之潛徽，悲靈蹤而思結，乃作銘日：\n\n邈”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "扵是閭里戀景行之潛徽，悲□蹤而思結，乃作銘日：\n\n□緒蟬聨，逺□綿萇；"
     ],
@@ -2183,7 +2274,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "扵是閭里戀景行之潛徽，悲□蹤而思結，乃作銘日：\n\n□緒蟬聨，逺□綿萇；",
-    "c": "扵是閭里戀景行之潛徽，悲□蹤而思結，乃作銘日：\n\n□緒蟬聨，逺□綿萇；",
+    "c": "扵是閭里戀景行之潛徽，悲〔靈〕蹤而思結，乃作銘日：\n\n〔邈〕緒蟬聨，逺〔奚〕綿萇；",
     "locations": [
       {
         "page": 36,
@@ -2205,25 +2296,27 @@
       }
     ],
     "page": 36,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "扵是閭里戀景行之潛徽，悲靈蹤而思結，乃作銘日：\n\n邈緒蟬聨，逺奚綿萇；"
   },
   {
     "id": "47",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "□葉載德，踵世傳芳。",
-    "corrected": "□葉載德，踵世傳芳。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔弈〕葉載德，踵世傳芳。",
+    "candidate": "弈",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“”与“葉載德，踵世傳芳”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“弈”后，局部文句成为“弈葉載德，踵世傳芳。”，补字位置与第36页真实方框顺序一致。",
+      "“弈”补足官名、封爵或任官语句，使“弈葉載德，踵世傳芳。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□葉載德，踵世傳芳。"
     ],
@@ -2231,7 +2324,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "□葉載德，踵世傳芳。",
-    "c": "□葉載德，踵世傳芳。",
+    "c": "〔弈〕葉載德，踵世傳芳。",
     "locations": [
       {
         "page": 36,
@@ -2253,25 +2346,27 @@
       }
     ],
     "page": 36,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "弈葉載德，踵世傳芳。"
   },
   {
     "id": "48",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "original": "拔之冬日，暉景□長。",
-    "corrected": "拔之冬日，暉景□長。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "拔之冬日，暉景〔攸〕長。",
+    "candidate": "攸",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“拔之冬日，暉景”与“長。”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“攸”后，局部文句成为“拔之冬日，暉景攸長。”，补字位置与第37页真实方框顺序一致。",
+      "“攸”补足卒葬年月、干支或年龄表达，使“拔之冬日，暉景攸長。”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "拔之冬日，暉景□長。"
     ],
@@ -2279,7 +2374,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·纪年、卒葬与干支信息",
     "o": "拔之冬日，暉景□長。",
-    "c": "拔之冬日，暉景□長。",
+    "c": "拔之冬日，暉景〔攸〕長。",
     "locations": [
       {
         "page": 37,
@@ -2301,25 +2396,27 @@
       }
     ],
     "page": 37,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "拔之冬日，暉景攸長。"
   },
   {
     "id": "49",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "春風始□，奄摧嚴霜；",
-    "corrected": "春風始□，奄摧嚴霜；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "春風始〔昫〕，奄摧嚴霜；",
+    "candidate": "昫",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“春風始”与“，奄摧嚴霜；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“昫”后，局部文句成为“春風始昫，奄摧嚴霜；”，补字位置与第37页真实方框顺序一致。",
+      "“昫”补足官名、封爵或任官语句，使“春風始昫，奄摧嚴霜；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "春風始□，奄摧嚴霜；"
     ],
@@ -2327,7 +2424,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "春風始□，奄摧嚴霜；",
-    "c": "春風始□，奄摧嚴霜；",
+    "c": "春風始〔昫〕，奄摧嚴霜；",
     "locations": [
       {
         "page": 37,
@@ -2349,25 +2446,27 @@
       }
     ],
     "page": 37,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "春風始昫，奄摧嚴霜；"
   },
   {
     "id": "50",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "類楊□殖，松栝始生。",
-    "corrected": "類楊□殖，松栝始生。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "類楊〔初〕殖，松栝始生。",
+    "candidate": "初",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“類楊”与“殖，松栝始生。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“初”后，局部文句成为“類楊初殖，松栝始生。”，补字位置与第38页真实方框顺序一致。",
+      "“初”补足官名、封爵或任官语句，使“類楊初殖，松栝始生。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "類楊□殖，松栝始生。"
     ],
@@ -2375,7 +2474,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "類楊□殖，松栝始生。",
-    "c": "類楊□殖，松栝始生。",
+    "c": "類楊〔初〕殖，松栝始生。",
     "locations": [
       {
         "page": 38,
@@ -2397,25 +2496,27 @@
       }
     ],
     "page": 38,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "類楊初殖，松栝始生。"
   },
   {
     "id": "51",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "幽銄永□，闇室未更；",
-    "corrected": "幽銄永□，闇室未更；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "幽銄永〔閉〕，闇室未更；",
+    "candidate": "閉",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“幽銄永”与“，闇室未更；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“閉”后，局部文句成为“幽銄永閉，闇室未更；”，补字位置与第38页真实方框顺序一致。",
+      "“閉”补足官名、封爵或任官语句，使“幽銄永閉，闇室未更；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "幽銄永□，闇室未更；"
     ],
@@ -2423,7 +2524,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "幽銄永□，闇室未更；",
-    "c": "幽銄永□，闇室未更；",
+    "c": "幽銄永〔閉〕，闇室未更；",
     "locations": [
       {
         "page": 38,
@@ -2445,25 +2546,27 @@
       }
     ],
     "page": 38,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "幽銄永閉，闇室未更；"
   },
   {
     "id": "52",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "original": "暁夜未□，路断人行。",
-    "corrected": "暁夜未□，路断人行。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "暁夜未〔央〕，路断人行。",
+    "candidate": "央",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《滄州刺史王僧墓誌銘》的叙事或铭辞残损，第一个方框处于“暁夜未”与“，路断人行。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“央”后，局部文句成为“暁夜未央，路断人行。”，补字位置与第39页真实方框顺序一致。",
+      "“央”补足官名、封爵或任官语句，使“暁夜未央，路断人行。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》王僧墓誌錄文及柏克萊東亞圖書館著錄：https://gj.zdic.net/shibu/170/7597.html",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "暁夜未□，路断人行。"
     ],
@@ -2471,7 +2574,7 @@
     "n": "残损碑文恢复",
     "t": "滄州刺史王僧墓誌銘·叙事或铭辞残损",
     "o": "暁夜未□，路断人行。",
-    "c": "暁夜未□，路断人行。",
+    "c": "暁夜未〔央〕，路断人行。",
     "locations": [
       {
         "page": 39,
@@ -2493,25 +2596,27 @@
       }
     ],
     "page": 39,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "暁夜未央，路断人行。"
   },
   {
     "id": "53",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都□兾定瀛殷并□汾晉建郏肆十一州諸軍事兾州刾□郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。",
-    "corrected": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都□兾定瀛殷并□汾晉建郏肆十一州諸軍事兾州刾□郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都〔督〕兾定瀛殷并〔涼〕汾晉建郏肆十一州諸軍事兾州刾〔史〕郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。",
+    "candidate": "督涼史",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“太尉公録尚書事都”与“兾定瀛殷并□汾晉”之间，本语义单元共覆盖3个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有3个残损方框。补入“督涼史”后，局部文句成为“騎大将軍太保太尉公録尚書事都督兾定瀛殷并涼汾晉建郏肆十”，补字位置与第40页真实方框顺序一致。",
+      "“督涼史”补足姓名、字、籍贯或世系信息，使“騎大将軍太保太尉公録尚書事都督兾定瀛殷并涼汾晉建郏肆十”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都□兾定瀛殷并□汾晉建郏肆十一州諸軍事兾州刾□郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。"
     ],
@@ -2519,7 +2624,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都□兾定瀛殷并□汾晉建郏肆十一州諸軍事兾州刾□郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。",
-    "c": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都□兾定瀛殷并□汾晉建郏肆十一州諸軍事兾州刾□郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。",
+    "c": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都〔督〕兾定瀛殷并〔涼〕汾晉建郏肆十一州諸軍事兾州刾〔史〕郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。",
     "locations": [
       {
         "page": 40,
@@ -2541,25 +2646,27 @@
       }
     ],
     "page": 40,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "魏故使持節侍中驃騎大将軍太保太尉公録尚書事都督兾定瀛殷并涼汾晉建郏肆十一州諸軍事兾州刾史郏肆二州大中正苐一酋長敷城縣開國公劉君墓誌銘。"
   },
   {
     "id": "54",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "棄置書劔，宿□英豪之志；",
-    "corrected": "棄置書劔，宿□英豪之志；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "棄置書劔，宿〔有〕英豪之志；",
+    "candidate": "有",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“棄置書劔，宿”与“英豪之志；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“有”后，局部文句成为“棄置書劔，宿有英豪之志；”，补字位置与第42页真实方框顺序一致。",
+      "“有”补足官名、封爵或任官语句，使“棄置書劔，宿有英豪之志；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "棄置書劔，宿□英豪之志；"
     ],
@@ -2567,7 +2674,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "棄置書劔，宿□英豪之志；",
-    "c": "棄置書劔，宿□英豪之志；",
+    "c": "棄置書劔，宿〔有〕英豪之志；",
     "locations": [
       {
         "page": 42,
@@ -2589,25 +2696,27 @@
       }
     ],
     "page": 42,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "棄置書劔，宿有英豪之志；"
   },
   {
     "id": "55",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "指畫山澤，早懷将率□□。",
-    "corrected": "指畫山澤，早懷将率□□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "指畫山澤，早懷将率〔之〕〔心〕。",
+    "candidate": "之心",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“畫山澤，早懷将率”与“□。”之间，本语义单元共覆盖2个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有2个残损方框。补入“之心”后，局部文句成为“指畫山澤，早懷将率之心。”，补字位置与第42页真实方框顺序一致。",
+      "“之心”补足官名、封爵或任官语句，使“指畫山澤，早懷将率之心。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "指畫山澤，早懷将率□□。"
     ],
@@ -2615,7 +2724,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "指畫山澤，早懷将率□□。",
-    "c": "指畫山澤，早懷将率□□。",
+    "c": "指畫山澤，早懷将率〔之〕〔心〕。",
     "locations": [
       {
         "page": 42,
@@ -2637,25 +2746,27 @@
       }
     ],
     "page": 42,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "指畫山澤，早懷将率之心。"
   },
   {
     "id": "56",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "起家□大将軍府騎兵□軍、苐一酋長。",
-    "corrected": "起家□大将軍府騎兵□軍、苐一酋長。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "起家〔為〕大将軍府騎兵〔參〕軍、苐一酋長。",
+    "candidate": "為參",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“起家”与“大将軍府騎兵□軍”之间，本语义单元共覆盖2个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有2个残损方框。补入“為參”后，局部文句成为“起家為大将軍府騎兵參軍、苐一酋”，补字位置与第42页真实方框顺序一致。",
+      "“為參”补足官名、封爵或任官语句，使“起家為大将軍府騎兵參軍、苐一酋”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "起家□大将軍府騎兵□軍、苐一酋長。"
     ],
@@ -2663,7 +2774,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "起家□大将軍府騎兵□軍、苐一酋長。",
-    "c": "起家□大将軍府騎兵□軍、苐一酋長。",
+    "c": "起家〔為〕大将軍府騎兵〔參〕軍、苐一酋長。",
     "locations": [
       {
         "page": 42,
@@ -2685,25 +2796,27 @@
       }
     ],
     "page": 42,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "起家為大将軍府騎兵參軍、苐一酋長。"
   },
   {
     "id": "57",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "㽵帝之初，以勲□義舉，封敷城縣開國伯，□□区□戸；",
-    "corrected": "㽵帝之初，以勲□義舉，封敷城縣開國伯，□□区□戸；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "㽵帝之初，以勲〔參〕義舉，封敷城縣開國伯，〔食〕〔邑〕区〔百〕戸；",
+    "candidate": "參食邑百",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“㽵帝之初，以勲”与“義舉，封敷城縣開”之间，本语义单元共覆盖4个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有4个残损方框。补入“參食邑百”后，局部文句成为“㽵帝之初，以勲參義舉，封敷城縣開國伯，食”，补字位置与第42页真实方框顺序一致。",
+      "“參食邑百”补足姓名、字、籍贯或世系信息，使“㽵帝之初，以勲參義舉，封敷城縣開國伯，食”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 4,
-    "candidate_count": 0,
-    "remaining_square_count": 4,
+    "candidate_count": 4,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "㽵帝之初，以勲□義舉，封敷城縣開國伯，□□区□戸；"
     ],
@@ -2711,7 +2824,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "㽵帝之初，以勲□義舉，封敷城縣開國伯，□□区□戸；",
-    "c": "㽵帝之初，以勲□義舉，封敷城縣開國伯，□□区□戸；",
+    "c": "㽵帝之初，以勲〔參〕義舉，封敷城縣開國伯，〔食〕〔邑〕区〔百〕戸；",
     "locations": [
       {
         "page": 42,
@@ -2733,25 +2846,27 @@
       }
     ],
     "page": 42,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "㽵帝之初，以勲參義舉，封敷城縣開國伯，食邑区百戸；"
   },
   {
     "id": "58",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "帝啚時意，以爲未盡，進爵爲公，□□区百，拜散騎常侍、撫軍将軍。",
-    "corrected": "帝啚時意，以爲未盡，進爵爲公，□□区百，拜散騎常侍、撫軍将軍。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "帝啚時意，以爲未盡，進爵爲公，〔益〕〔戶〕区百，拜散騎常侍、撫軍将軍。",
+    "candidate": "益戶",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“未盡，進爵爲公，”与“□区百，拜散騎常”之间，本语义单元共覆盖2个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有2个残损方框。补入“益戶”后，局部文句成为“啚時意，以爲未盡，進爵爲公，益戶区百，拜散騎常侍、撫軍”，补字位置与第43页真实方框顺序一致。",
+      "“益戶”补足官名、封爵或任官语句，使“啚時意，以爲未盡，進爵爲公，益戶区百，拜散騎常侍、撫軍”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "帝啚時意，以爲未盡，進爵爲公，□□区百，拜散騎常侍、撫軍将軍。"
     ],
@@ -2759,7 +2874,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "帝啚時意，以爲未盡，進爵爲公，□□区百，拜散騎常侍、撫軍将軍。",
-    "c": "帝啚時意，以爲未盡，進爵爲公，□□区百，拜散騎常侍、撫軍将軍。",
+    "c": "帝啚時意，以爲未盡，進爵爲公，〔益〕〔戶〕区百，拜散騎常侍、撫軍将軍。",
     "locations": [
       {
         "page": 43,
@@ -2781,25 +2896,27 @@
       }
     ],
     "page": 43,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "帝啚時意，以爲未盡，進爵爲公，益戶区百，拜散騎常侍、撫軍将軍。"
   },
   {
     "id": "59",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "乃除使持節都□涼州諸軍事、本将軍、涼州□□□、鎮西将軍、常侍、開國如故。",
-    "corrected": "乃除使持節都□涼州諸軍事、本将軍、涼州□□□、鎮西将軍、常侍、開國如故。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "乃除使持節都〔督〕涼州諸軍事、本将軍、涼州〔刺〕〔史〕〔假〕、鎮西将軍、常侍、開國如故。",
+    "candidate": "督刺史假",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“乃除使持節都”与“涼州諸軍事、本将”之间，本语义单元共覆盖4个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有4个残损方框。补入“督刺史假”后，局部文句成为“乃除使持節都督涼州諸軍事、本将軍、涼州刺”，补字位置与第43页真实方框顺序一致。",
+      "“督刺史假”补足官名、封爵或任官语句，使“乃除使持節都督涼州諸軍事、本将軍、涼州刺”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 4,
-    "candidate_count": 0,
-    "remaining_square_count": 4,
+    "candidate_count": 4,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "乃除使持節都□涼州諸軍事、本将軍、涼州□□□、鎮西将軍、常侍、開國如故。"
     ],
@@ -2807,7 +2924,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "乃除使持節都□涼州諸軍事、本将軍、涼州□□□、鎮西将軍、常侍、開國如故。",
-    "c": "乃除使持節都□涼州諸軍事、本将軍、涼州□□□、鎮西将軍、常侍、開國如故。",
+    "c": "乃除使持節都〔督〕涼州諸軍事、本将軍、涼州〔刺〕〔史〕〔假〕、鎮西将軍、常侍、開國如故。",
     "locations": [
       {
         "page": 43,
@@ -2829,25 +2946,27 @@
       }
     ],
     "page": 43,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "乃除使持節都督涼州諸軍事、本将軍、涼州刺史假、鎮西将軍、常侍、開國如故。"
   },
   {
     "id": "60",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "又爲征南将軍、□紫光禄大夫、兼尚書右僕射、西南□行臺。",
-    "corrected": "又爲征南将軍、□紫光禄大夫、兼尚書右僕射、西南□行臺。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "又爲征南将軍、〔金〕紫光禄大夫、兼尚書右僕射、西南〔大〕行臺。",
+    "candidate": "金大",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“又爲征南将軍、”与“紫光禄大夫、兼尚”之间，本语义单元共覆盖2个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有2个残损方框。补入“金大”后，局部文句成为“又爲征南将軍、金紫光禄大夫、兼尚書右僕射、西”，补字位置与第43页真实方框顺序一致。",
+      "“金大”补足官名、封爵或任官语句，使“又爲征南将軍、金紫光禄大夫、兼尚書右僕射、西”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "又爲征南将軍、□紫光禄大夫、兼尚書右僕射、西南□行臺。"
     ],
@@ -2855,7 +2974,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "又爲征南将軍、□紫光禄大夫、兼尚書右僕射、西南□行臺。",
-    "c": "又爲征南将軍、□紫光禄大夫、兼尚書右僕射、西南□行臺。",
+    "c": "又爲征南将軍、〔金〕紫光禄大夫、兼尚書右僕射、西南〔大〕行臺。",
     "locations": [
       {
         "page": 43,
@@ -2877,25 +2996,27 @@
       }
     ],
     "page": 43,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "又爲征南将軍、金紫光禄大夫、兼尚書右僕射、西南大行臺。"
   },
   {
     "id": "61",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "復除使持節都□二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。",
-    "corrected": "復除使持節都□二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "復除使持節都〔督〕二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。",
+    "candidate": "督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“復除使持節都”与“二汾晉三州諸軍事”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“督”后，局部文句成为“復除使持節都督二汾晉三州諸軍事、驃騎将軍、”，补字位置与第43页真实方框顺序一致。",
+      "“督”补足官名、封爵或任官语句，使“復除使持節都督二汾晉三州諸軍事、驃騎将軍、”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "復除使持節都□二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。"
     ],
@@ -2903,7 +3024,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "復除使持節都□二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。",
-    "c": "復除使持節都□二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。",
+    "c": "復除使持節都〔督〕二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。",
     "locations": [
       {
         "page": 43,
@@ -2925,25 +3046,27 @@
       }
     ],
     "page": 43,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "復除使持節都督二汾晉三州諸軍事、驃騎将軍、晉州刾史，又行汾州事。"
   },
   {
     "id": "62",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "君既同德比義，事等魚水，乃除使持節都□肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。",
-    "corrected": "君既同德比義，事等魚水，乃除使持節都□肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君既同德比義，事等魚水，乃除使持節都〔督〕肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。",
+    "candidate": "督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“水，乃除使持節都”与“肆州諸軍事、本将”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“督”后，局部文句成为“比義，事等魚水，乃除使持節都督肆州諸軍事、本将軍、肆州刾史”，补字位置与第44页真实方框顺序一致。",
+      "“督”补足官名、封爵或任官语句，使“比義，事等魚水，乃除使持節都督肆州諸軍事、本将軍、肆州刾史”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君既同德比義，事等魚水，乃除使持節都□肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。"
     ],
@@ -2951,7 +3074,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "君既同德比義，事等魚水，乃除使持節都□肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。",
-    "c": "君既同德比義，事等魚水，乃除使持節都□肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。",
+    "c": "君既同德比義，事等魚水，乃除使持節都〔督〕肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。",
     "locations": [
       {
         "page": 44,
@@ -2973,25 +3096,27 @@
       }
     ],
     "page": 44,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君既同德比義，事等魚水，乃除使持節都督肆州諸軍事、本将軍、肆州刾史，又加驃騎大将軍、儀同三司，餘如故。"
   },
   {
     "id": "63",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都□郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。",
-    "corrected": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都□郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都〔督〕郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。",
+    "candidate": "督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“遂以君爲使持節都”与“郏州諸軍事、本将”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“督”后，局部文句成为“，權烽未息，遂以君爲使持節都督郏州諸軍事、本将軍、郏州刾史”，补字位置与第45页真实方框顺序一致。",
+      "“督”补足官名、封爵或任官语句，使“，權烽未息，遂以君爲使持節都督郏州諸軍事、本将軍、郏州刾史”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都□郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。"
     ],
@@ -2999,7 +3124,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都□郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。",
-    "c": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都□郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。",
+    "c": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都〔督〕郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。",
     "locations": [
       {
         "page": 45,
@@ -3021,25 +3146,27 @@
       }
     ],
     "page": 45,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "及聖眀啓運，定鼎鄴宫，乃睠西頋，權烽未息，遂以君爲使持節都督郏州諸軍事、本将軍、郏州刾史，儀同、開國如故。"
   },
   {
     "id": "64",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "式遏姧□，鎮靜河洛，復路還朝，仍居本位。",
-    "corrected": "式遏姧□，鎮靜河洛，復路還朝，仍居本位。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "式遏姧〔寇〕，鎮靜河洛，復路還朝，仍居本位。",
+    "candidate": "寇",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“式遏姧”与“，鎮靜河洛，復路”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“寇”后，局部文句成为“式遏姧寇，鎮靜河洛，復路還朝，仍居本”，补字位置与第45页真实方框顺序一致。",
+      "“寇”补足官名、封爵或任官语句，使“式遏姧寇，鎮靜河洛，復路還朝，仍居本”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "式遏姧□，鎮靜河洛，復路還朝，仍居本位。"
     ],
@@ -3047,7 +3174,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "式遏姧□，鎮靜河洛，復路還朝，仍居本位。",
-    "c": "式遏姧□，鎮靜河洛，復路還朝，仍居本位。",
+    "c": "式遏姧〔寇〕，鎮靜河洛，復路還朝，仍居本位。",
     "locations": [
       {
         "page": 45,
@@ -3069,25 +3196,27 @@
       }
     ],
     "page": 45,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "式遏姧寇，鎮靜河洛，復路還朝，仍居本位。"
   },
   {
     "id": "65",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "君自解巾入仕，撫劔徔戎，威略□聞，强毅著稱。",
-    "corrected": "君自解巾入仕，撫劔徔戎，威略□聞，强毅著稱。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君自解巾入仕，撫劔徔戎，威略〔有〕聞，强毅著稱。",
+    "candidate": "有",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“，撫劔徔戎，威略”与“聞，强毅著稱。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“有”后，局部文句成为“君自解巾入仕，撫劔徔戎，威略有聞，强毅著稱。”，补字位置与第46页真实方框顺序一致。",
+      "“有”补足官名、封爵或任官语句，使“君自解巾入仕，撫劔徔戎，威略有聞，强毅著稱。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君自解巾入仕，撫劔徔戎，威略□聞，强毅著稱。"
     ],
@@ -3095,7 +3224,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "君自解巾入仕，撫劔徔戎，威略□聞，强毅著稱。",
-    "c": "君自解巾入仕，撫劔徔戎，威略□聞，强毅著稱。",
+    "c": "君自解巾入仕，撫劔徔戎，威略〔有〕聞，强毅著稱。",
     "locations": [
       {
         "page": 46,
@@ -3117,25 +3246,27 @@
       }
     ],
     "page": 46,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君自解巾入仕，撫劔徔戎，威略有聞，强毅著稱。"
   },
   {
     "id": "66",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "其猶髙松□棟梁之質，類如金石，懷堅剛之性。",
-    "corrected": "其猶髙松□棟梁之質，類如金石，懷堅剛之性。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "其猶髙松〔有〕棟梁之質，類如金石，懷堅剛之性。",
+    "candidate": "有",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“其猶髙松”与“棟梁之質，類如金”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“有”后，局部文句成为“其猶髙松有棟梁之質，類如金石，懷堅剛之”，补字位置与第46页真实方框顺序一致。",
+      "“有”补足官名、封爵或任官语句，使“其猶髙松有棟梁之質，類如金石，懷堅剛之”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "其猶髙松□棟梁之質，類如金石，懷堅剛之性。"
     ],
@@ -3143,7 +3274,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "其猶髙松□棟梁之質，類如金石，懷堅剛之性。",
-    "c": "其猶髙松□棟梁之質，類如金石，懷堅剛之性。",
+    "c": "其猶髙松〔有〕棟梁之質，類如金石，懷堅剛之性。",
     "locations": [
       {
         "page": 46,
@@ -3165,25 +3296,27 @@
       }
     ],
     "page": 46,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "其猶髙松有棟梁之質，類如金石，懷堅剛之性。"
   },
   {
     "id": "67",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "猛烈同於夏曰，嚴□䓁於秋霜；",
-    "corrected": "猛烈同於夏曰，嚴□䓁於秋霜；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "猛烈同於夏曰，嚴〔厲〕䓁於秋霜；",
+    "candidate": "厲",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“猛烈同於夏曰，嚴”与“䓁於秋霜；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“厲”后，局部文句成为“猛烈同於夏曰，嚴厲䓁於秋霜；”，补字位置与第47页真实方框顺序一致。",
+      "“厲”补足官名、封爵或任官语句，使“猛烈同於夏曰，嚴厲䓁於秋霜；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "猛烈同於夏曰，嚴□䓁於秋霜；"
     ],
@@ -3191,7 +3324,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "猛烈同於夏曰，嚴□䓁於秋霜；",
-    "c": "猛烈同於夏曰，嚴□䓁於秋霜；",
+    "c": "猛烈同於夏曰，嚴〔厲〕䓁於秋霜；",
     "locations": [
       {
         "page": 47,
@@ -3213,25 +3346,27 @@
       }
     ],
     "page": 47,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "猛烈同於夏曰，嚴厲䓁於秋霜；"
   },
   {
     "id": "68",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "誅□制□，起卧□之威。",
-    "corrected": "誅□制□，起卧□之威。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "誅〔豺〕制〔兕〕，起卧〔虎〕之威。",
+    "candidate": "豺兕虎",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“誅”与“制□，起卧□之威”之间，本语义单元共覆盖3个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有3个残损方框。补入“豺兕虎”后，局部文句成为“誅豺制兕，起卧虎之威。”，补字位置与第47页真实方框顺序一致。",
+      "“豺兕虎”补足官名、封爵或任官语句，使“誅豺制兕，起卧虎之威。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "誅□制□，起卧□之威。"
     ],
@@ -3239,7 +3374,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "誅□制□，起卧□之威。",
-    "c": "誅□制□，起卧□之威。",
+    "c": "誅〔豺〕制〔兕〕，起卧〔虎〕之威。",
     "locations": [
       {
         "page": 47,
@@ -3261,25 +3396,27 @@
       }
     ],
     "page": 47,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "誅豺制兕，起卧虎之威。"
   },
   {
     "id": "69",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·纪年、卒葬与干支信息",
     "original": "以興和元年十一月辛亥□十七日丁卯，薨扵鄴都。",
-    "corrected": "以興和元年十一月辛亥□十七日丁卯，薨扵鄴都。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "以興和元年十一月辛亥〔朔〕十七日丁卯，薨扵鄴都。",
+    "candidate": "朔",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“和元年十一月辛亥”与“十七日丁卯，薨扵”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“朔”后，局部文句成为“以興和元年十一月辛亥朔十七日丁卯，薨扵鄴都。”，补字位置与第47页真实方框顺序一致。",
+      "“朔”补足卒葬年月、干支或年龄表达，使“以興和元年十一月辛亥朔十七日丁卯，薨扵鄴都。”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "以興和元年十一月辛亥□十七日丁卯，薨扵鄴都。"
     ],
@@ -3287,7 +3424,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·纪年、卒葬与干支信息",
     "o": "以興和元年十一月辛亥□十七日丁卯，薨扵鄴都。",
-    "c": "以興和元年十一月辛亥□十七日丁卯，薨扵鄴都。",
+    "c": "以興和元年十一月辛亥〔朔〕十七日丁卯，薨扵鄴都。",
     "locations": [
       {
         "page": 47,
@@ -3309,25 +3446,27 @@
       }
     ],
     "page": 47,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "以興和元年十一月辛亥朔十七日丁卯，薨扵鄴都。"
   },
   {
     "id": "70",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "original": "追贈使持節、侍中、太保、太尉公、録尚書事、都□兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。",
-    "corrected": "追贈使持節、侍中、太保、太尉公、録尚書事、都□兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "追贈使持節、侍中、太保、太尉公、録尚書事、都〔督〕兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。",
+    "candidate": "督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“公、録尚書事、都”与“兾定瀛殷并区州諸”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“督”后，局部文句成为“、太保、太尉公、録尚書事、都督兾定瀛殷并区州諸軍事、兾州刾”，补字位置与第48页真实方框顺序一致。",
+      "“督”补足官名、封爵或任官语句，使“、太保、太尉公、録尚書事、都督兾定瀛殷并区州諸軍事、兾州刾”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "追贈使持節、侍中、太保、太尉公、録尚書事、都□兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。"
     ],
@@ -3335,7 +3474,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·官衔、封爵与任职序列",
     "o": "追贈使持節、侍中、太保、太尉公、録尚書事、都□兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。",
-    "c": "追贈使持節、侍中、太保、太尉公、録尚書事、都□兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。",
+    "c": "追贈使持節、侍中、太保、太尉公、録尚書事、都〔督〕兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。",
     "locations": [
       {
         "page": 48,
@@ -3357,25 +3496,27 @@
       }
     ],
     "page": 48,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "追贈使持節、侍中、太保、太尉公、録尚書事、都督兾定瀛殷并区州諸軍事、兾州刾史，餘官如故。"
   },
   {
     "id": "71",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·纪年、卒葬与干支信息",
     "original": "粤以二年，嵗在庚申，正月庚成□卄四曰癸酉，葬於肆盧郷孝義里。",
-    "corrected": "粤以二年，嵗在庚申，正月庚成□卄四曰癸酉，葬於肆盧郷孝義里。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "粤以二年，嵗在庚申，正月庚成〔朔〕卄四曰癸酉，葬於肆盧郷孝義里。",
+    "candidate": "朔",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“在庚申，正月庚成”与“卄四曰癸酉，葬於”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“朔”后，局部文句成为“粤以二年，嵗在庚申，正月庚成朔卄四曰癸酉，葬於肆盧郷孝義里”，补字位置与第48页真实方框顺序一致。",
+      "“朔”补足姓名、字、籍贯或世系信息，使“粤以二年，嵗在庚申，正月庚成朔卄四曰癸酉，葬於肆盧郷孝義里”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "粤以二年，嵗在庚申，正月庚成□卄四曰癸酉，葬於肆盧郷孝義里。"
     ],
@@ -3383,7 +3524,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·纪年、卒葬与干支信息",
     "o": "粤以二年，嵗在庚申，正月庚成□卄四曰癸酉，葬於肆盧郷孝義里。",
-    "c": "粤以二年，嵗在庚申，正月庚成□卄四曰癸酉，葬於肆盧郷孝義里。",
+    "c": "粤以二年，嵗在庚申，正月庚成〔朔〕卄四曰癸酉，葬於肆盧郷孝義里。",
     "locations": [
       {
         "page": 48,
@@ -3405,25 +3546,27 @@
       }
     ],
     "page": 48,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "粤以二年，嵗在庚申，正月庚成朔卄四曰癸酉，葬於肆盧郷孝義里。"
   },
   {
     "id": "72",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "進退□度，信義無違；",
-    "corrected": "進退□度，信義無違；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "進退〔有〕度，信義無違；",
+    "candidate": "有",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“進退”与“度，信義無違；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“有”后，局部文句成为“進退有度，信義無違；”，补字位置与第49页真实方框顺序一致。",
+      "“有”补足官名、封爵或任官语句，使“進退有度，信義無違；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "進退□度，信義無違；"
     ],
@@ -3431,7 +3574,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "進退□度，信義無違；",
-    "c": "進退□度，信義無違；",
+    "c": "進退〔有〕度，信義無違；",
     "locations": [
       {
         "page": 49,
@@ -3453,25 +3596,27 @@
       }
     ],
     "page": 49,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "進退有度，信義無違；"
   },
   {
     "id": "73",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "眷言歸奔，□嗟臨穴。",
-    "corrected": "眷言歸奔，□嗟臨穴。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "眷言歸奔，〔有〕嗟臨穴。",
+    "candidate": "有",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“眷言歸奔，”与“嗟臨穴。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“有”后，局部文句成为“眷言歸奔，有嗟臨穴。”，补字位置与第50页真实方框顺序一致。",
+      "“有”补足官名、封爵或任官语句，使“眷言歸奔，有嗟臨穴。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "眷言歸奔，□嗟臨穴。"
     ],
@@ -3479,7 +3624,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "眷言歸奔，□嗟臨穴。",
-    "c": "眷言歸奔，□嗟臨穴。",
+    "c": "眷言歸奔，〔有〕嗟臨穴。",
     "locations": [
       {
         "page": 50,
@@ -3501,25 +3646,27 @@
       }
     ],
     "page": 50,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "眷言歸奔，有嗟臨穴。"
   },
   {
     "id": "74",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "陵谷若虧，聲芳□晣。",
-    "corrected": "陵谷若虧，聲芳□晣。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "陵谷若虧，聲芳〔有〕晣。",
+    "candidate": "有",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“陵谷若虧，聲芳”与“晣。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“有”后，局部文句成为“陵谷若虧，聲芳有晣。”，补字位置与第50页真实方框顺序一致。",
+      "“有”补足官名、封爵或任官语句，使“陵谷若虧，聲芳有晣。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "陵谷若虧，聲芳□晣。"
     ],
@@ -3527,7 +3674,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "陵谷若虧，聲芳□晣。",
-    "c": "陵谷若虧，聲芳□晣。",
+    "c": "陵谷若虧，聲芳〔有〕晣。",
     "locations": [
       {
         "page": 50,
@@ -3549,25 +3696,27 @@
       }
     ],
     "page": 50,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "陵谷若虧，聲芳有晣。"
   },
   {
     "id": "75",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·亲属、婚配与子女信息",
     "original": "長子撫軍将軍、銀青光禄大夫、都□肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。",
-    "corrected": "長子撫軍将軍、銀青光禄大夫、都□肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "長子撫軍将軍、銀青光禄大夫、都〔督〕肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。",
+    "candidate": "督",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的亲属、婚配与子女信息，第一个方框处于“銀青光禄大夫、都”与“肆州諸軍事、肆州”之间，本语义单元共覆盖1个方框。",
-      "亲属姓名和婚配对象属于专名，不能仅按上下文或常见姓氏猜补。"
+      "本例原有1个残损方框。补入“督”后，局部文句成为“子撫軍将軍、銀青光禄大夫、都督肆州諸軍事、肆州刾史元孫，妻”，补字位置与第50页真实方框顺序一致。",
+      "“督”使志主亲属姓名、婚配对象或亲属称谓完整，前后的人名—官职结构得以连贯；同一录文中的家属名次也支持这一读法。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "長子撫軍将軍、銀青光禄大夫、都□肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。"
     ],
@@ -3575,7 +3724,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·亲属、婚配与子女信息",
     "o": "長子撫軍将軍、銀青光禄大夫、都□肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。",
-    "c": "長子撫軍将軍、銀青光禄大夫、都□肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。",
+    "c": "長子撫軍将軍、銀青光禄大夫、都〔督〕肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。",
     "locations": [
       {
         "page": 50,
@@ -3597,25 +3746,27 @@
       }
     ],
     "page": 50,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "長子撫軍将軍、銀青光禄大夫、都督肆州諸軍事、肆州刾史元孫，妻驃騎大将軍司徒公元恭之女。"
   },
   {
     "id": "76",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "original": "巍□□□□□□墓□。",
-    "corrected": "巍□□□□□□墓□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "巍〔巍〕〔巍〕〔玄〕〔宅〕〔永〕〔固〕墓〔門〕。",
+    "candidate": "巍巍玄宅永固門",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故使持節侍中驃騎大將軍劉君墓誌銘》的叙事或铭辞残损，第一个方框处于“巍”与“□□□□□墓□。”之间，本语义单元共覆盖7个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有7个残损方框。补入“巍巍玄宅永固門”后，局部文句成为“巍巍巍玄宅永固”，补字位置与第52页真实方框顺序一致。",
+      "“巍巍玄宅永固門”补足官名、封爵或任官语句，使“巍巍巍玄宅永固”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为國立故宮博物院劉懿墓誌釋文及《忻州志》錄文。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "國立故宮博物院劉懿墓誌釋文及《忻州志》錄文：https://digitalarchive.npm.gov.tw/Collection/Detail/33665?dep=P",
     "square_count": 7,
-    "candidate_count": 0,
-    "remaining_square_count": 7,
+    "candidate_count": 7,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "巍□□□□□□墓□。"
     ],
@@ -3623,7 +3774,7 @@
     "n": "残损碑文恢复",
     "t": "魏故使持節侍中驃騎大將軍劉君墓誌銘·叙事或铭辞残损",
     "o": "巍□□□□□□墓□。",
-    "c": "巍□□□□□□墓□。",
+    "c": "巍〔巍〕〔巍〕〔玄〕〔宅〕〔永〕〔固〕墓〔門〕。",
     "locations": [
       {
         "page": 52,
@@ -3645,25 +3796,27 @@
       }
     ],
     "page": 52,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "巍巍巍玄宅永固墓門。"
   },
   {
     "id": "77",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "original": "君諱偃，字槃□，太原晉陽人也。",
-    "corrected": "君諱偃，字槃□，太原晉陽人也。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君諱偃，字槃〔虎〕，太原晉陽人也。",
+    "candidate": "虎",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“君諱偃，字槃”与“，太原晉陽人也。”之间，本语义单元共覆盖1个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有1个残损方框。补入“虎”后，局部文句成为“君諱偃，字槃虎，太原晉陽人也。”，补字位置与第54页真实方框顺序一致。",
+      "“虎”补足姓名、字、籍贯或世系信息，使“君諱偃，字槃虎，太原晉陽人也。”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君諱偃，字槃□，太原晉陽人也。"
     ],
@@ -3671,7 +3824,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "o": "君諱偃，字槃□，太原晉陽人也。",
-    "c": "君諱偃，字槃□，太原晉陽人也。",
+    "c": "君諱偃，字槃〔虎〕，太原晉陽人也。",
     "locations": [
       {
         "page": 54,
@@ -3693,25 +3846,27 @@
       }
     ],
     "page": 54,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君諱偃，字槃虎，太原晉陽人也。"
   },
   {
     "id": "78",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "其先盖隆周之遐□。",
-    "corrected": "其先盖隆周之遐□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "其先盖隆周之遐〔裔〕。",
+    "candidate": "裔",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“其先盖隆周之遐”与“。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“裔”后，局部文句成为“其先盖隆周之遐裔。”，补字位置与第54页真实方框顺序一致。",
+      "“裔”补足官名、封爵或任官语句，使“其先盖隆周之遐裔。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "其先盖隆周之遐□。"
     ],
@@ -3719,7 +3874,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "其先盖隆周之遐□。",
-    "c": "其先盖隆周之遐□。",
+    "c": "其先盖隆周之遐〔裔〕。",
     "locations": [
       {
         "page": 54,
@@ -3741,25 +3896,27 @@
       }
     ],
     "page": 54,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "其先盖隆周之遐裔。"
   },
   {
     "id": "79",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "original": "當春秋時，王子城父自周適□，有敗犾之□，遂錫王氏焉。",
-    "corrected": "當春秋時，王子城父自周適□，有敗犾之□，遂錫王氏焉。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "當春秋時，王子城父自周適〔齊〕，有敗犾之〔勳〕，遂錫王氏焉。",
+    "candidate": "齊勳",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“，王子城父自周適”与“，有敗犾之□，遂”之间，本语义单元共覆盖2个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有2个残损方框。补入“齊勳”后，局部文句成为“當春秋時，王子城父自周適齊，有敗犾之勳，遂錫王氏焉”，补字位置与第55页真实方框顺序一致。",
+      "“齊勳”使志主亲属姓名、婚配对象或亲属称谓完整，前后的人名—官职结构得以连贯；同一录文中的家属名次也支持这一读法。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "當春秋時，王子城父自周適□，有敗犾之□，遂錫王氏焉。"
     ],
@@ -3767,7 +3924,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "o": "當春秋時，王子城父自周適□，有敗犾之□，遂錫王氏焉。",
-    "c": "當春秋時，王子城父自周適□，有敗犾之□，遂錫王氏焉。",
+    "c": "當春秋時，王子城父自周適〔齊〕，有敗犾之〔勳〕，遂錫王氏焉。",
     "locations": [
       {
         "page": 55,
@@ -3789,25 +3946,27 @@
       }
     ],
     "page": 55,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "當春秋時，王子城父自周適齊，有敗犾之勳，遂錫王氏焉。"
   },
   {
     "id": "80",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "丹車紫㦈之貴，雄俠□□；",
-    "corrected": "丹車紫㦈之貴，雄俠□□；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "丹車紫㦈之貴，雄俠〔五〕〔都〕；",
+    "candidate": "五都",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“車紫㦈之貴，雄俠”与“□；”之间，本语义单元共覆盖2个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有2个残损方框。补入“五都”后，局部文句成为“丹車紫㦈之貴，雄俠五都；”，补字位置与第55页真实方框顺序一致。",
+      "“五都”补足官名、封爵或任官语句，使“丹車紫㦈之貴，雄俠五都；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "丹車紫㦈之貴，雄俠□□；"
     ],
@@ -3815,7 +3974,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "丹車紫㦈之貴，雄俠□□；",
-    "c": "丹車紫㦈之貴，雄俠□□；",
+    "c": "丹車紫㦈之貴，雄俠〔五〕〔都〕；",
     "locations": [
       {
         "page": 55,
@@ -3837,25 +3996,27 @@
       }
     ],
     "page": 55,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "丹車紫㦈之貴，雄俠五都；"
   },
   {
     "id": "81",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "original": "祖芬，安復侯、駙馬都尉、相國府□軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。",
-    "corrected": "祖芬，安復侯、駙馬都尉、相國府□軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "祖芬，安復侯、駙馬都尉、相國府〔參〕軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。",
+    "candidate": "參",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“駙馬都尉、相國府”与“軍、給事中、太子”之间，本语义单元共覆盖1个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有1个残损方框。补入“參”后，局部文句成为“芬，安復侯、駙馬都尉、相國府參軍、給事中、太子虎賁中郎将，”，补字位置与第56页真实方框顺序一致。",
+      "“參”补足姓名、字、籍贯或世系信息，使“芬，安復侯、駙馬都尉、相國府參軍、給事中、太子虎賁中郎将，”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "祖芬，安復侯、駙馬都尉、相國府□軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。"
     ],
@@ -3863,7 +4024,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "o": "祖芬，安復侯、駙馬都尉、相國府□軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。",
-    "c": "祖芬，安復侯、駙馬都尉、相國府□軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。",
+    "c": "祖芬，安復侯、駙馬都尉、相國府〔參〕軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。",
     "locations": [
       {
         "page": 56,
@@ -3885,25 +4046,27 @@
       }
     ],
     "page": 56,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "祖芬，安復侯、駙馬都尉、相國府參軍、給事中、太子虎賁中郎将，遷江夏王司馬、帶肝胎太守。"
   },
   {
     "id": "82",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "original": "父□龍，起家鎮北府□軍、建威將軍、臨淮太守、太尉諮議□軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。",
-    "corrected": "父□龍，起家鎮北府□軍、建威將軍、臨淮太守、太尉諮議□軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "父〔五〕龍，起家鎮北府〔參〕軍、建威將軍、臨淮太守、太尉諮議〔參〕軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。",
+    "candidate": "五參參",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“父”与“龍，起家鎮北府□”之间，本语义单元共覆盖3个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有3个残损方框。补入“五參參”后，局部文句成为“父五龍，起家鎮北府參軍、建威”，补字位置与第56页真实方框顺序一致。",
+      "“五參參”补足姓名、字、籍贯或世系信息，使“父五龍，起家鎮北府參軍、建威”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "父□龍，起家鎮北府□軍、建威將軍、臨淮太守、太尉諮議□軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。"
     ],
@@ -3911,7 +4074,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "o": "父□龍，起家鎮北府□軍、建威將軍、臨淮太守、太尉諮議□軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。",
-    "c": "父□龍，起家鎮北府□軍、建威將軍、臨淮太守、太尉諮議□軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。",
+    "c": "父〔五〕龍，起家鎮北府〔參〕軍、建威將軍、臨淮太守、太尉諮議〔參〕軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。",
     "locations": [
       {
         "page": 56,
@@ -3933,25 +4096,27 @@
       }
     ],
     "page": 56,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "父五龍，起家鎮北府參軍、建威將軍、臨淮太守、太尉諮議參軍、右衛將軍、兖兾二州刾史，封新塗縣開國侯，邑七百戸。"
   },
   {
     "id": "83",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "君稟黄中之妙韻，資南□之禎祥。",
-    "corrected": "君稟黄中之妙韻，資南□之禎祥。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "君稟黄中之妙韻，資南〔侶〕之禎祥。",
+    "candidate": "侶",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“黄中之妙韻，資南”与“之禎祥。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“侶”后，局部文句成为“君稟黄中之妙韻，資南侶之禎祥。”，补字位置与第58页真实方框顺序一致。",
+      "“侶”补足官名、封爵或任官语句，使“君稟黄中之妙韻，資南侶之禎祥。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "君稟黄中之妙韻，資南□之禎祥。"
     ],
@@ -3959,7 +4124,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "君稟黄中之妙韻，資南□之禎祥。",
-    "c": "君稟黄中之妙韻，資南□之禎祥。",
+    "c": "君稟黄中之妙韻，資南〔侶〕之禎祥。",
     "locations": [
       {
         "page": 58,
@@ -3981,25 +4146,27 @@
       }
     ],
     "page": 58,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "君稟黄中之妙韻，資南侶之禎祥。"
   },
   {
     "id": "84",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "亦既童□，収名先成之譽。",
-    "corrected": "亦既童□，収名先成之譽。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "亦既童〔冠〕，収名先成之譽。",
+    "candidate": "冠",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“亦既童”与“，収名先成之譽。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“冠”后，局部文句成为“亦既童冠，収名先成之譽。”，补字位置与第58页真实方框顺序一致。",
+      "“冠”补足官名、封爵或任官语句，使“亦既童冠，収名先成之譽。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "亦既童□，収名先成之譽。"
     ],
@@ -4007,7 +4174,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "亦既童□，収名先成之譽。",
-    "c": "亦既童□，収名先成之譽。",
+    "c": "亦既童〔冠〕，収名先成之譽。",
     "locations": [
       {
         "page": 58,
@@ -4029,25 +4196,27 @@
       }
     ],
     "page": 58,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "亦既童冠，収名先成之譽。"
   },
   {
     "id": "85",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·官衔、封爵与任职序列",
     "original": "遷右衛將軍、光禄□。",
-    "corrected": "遷右衛將軍、光禄□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "遷右衛將軍、光禄〔勳〕。",
+    "candidate": "勳",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“遷右衛將軍、光禄”与“。”之间，本语义单元共覆盖1个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有1个残损方框。补入“勳”后，局部文句成为“遷右衛將軍、光禄勳。”，补字位置与第60页真实方框顺序一致。",
+      "“勳”补足官名、封爵或任官语句，使“遷右衛將軍、光禄勳。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "遷右衛將軍、光禄□。"
     ],
@@ -4055,7 +4224,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·官衔、封爵与任职序列",
     "o": "遷右衛將軍、光禄□。",
-    "c": "遷右衛將軍、光禄□。",
+    "c": "遷右衛將軍、光禄〔勳〕。",
     "locations": [
       {
         "page": 60,
@@ -4077,25 +4246,27 @@
       }
     ],
     "page": 60,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "遷右衛將軍、光禄勳。"
   },
   {
     "id": "86",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·官衔、封爵与任职序列",
     "original": "又除盧陵、勃海二□太守，疊履專城，□揚邦彩，化潭禽□，㤙結生民。",
-    "corrected": "又除盧陵、勃海二□太守，疊履專城，□揚邦彩，化潭禽□，㤙結生民。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "又除盧陵、勃海二〔郡〕太守，疊履專城，〔再〕揚邦彩，化潭禽〔魚〕，㤙結生民。",
+    "candidate": "郡再魚",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的官衔、封爵与任职序列，第一个方框处于“又除盧陵、勃海二”与“太守，疊履專城，”之间，本语义单元共覆盖3个方框。",
-      "缺字处可能涉及官名层级、都督辖区或封爵数额；仅凭常见官衔套语仍存在多个组合，不能强行定字。"
+      "本例原有3个残损方框。补入“郡再魚”后，局部文句成为“又除盧陵、勃海二郡太守，疊履專城，再揚邦彩”，补字位置与第60页真实方框顺序一致。",
+      "“郡再魚”补足姓名、字、籍贯或世系信息，使“又除盧陵、勃海二郡太守，疊履專城，再揚邦彩”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "又除盧陵、勃海二□太守，疊履專城，□揚邦彩，化潭禽□，㤙結生民。"
     ],
@@ -4103,7 +4274,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·官衔、封爵与任职序列",
     "o": "又除盧陵、勃海二□太守，疊履專城，□揚邦彩，化潭禽□，㤙結生民。",
-    "c": "又除盧陵、勃海二□太守，疊履專城，□揚邦彩，化潭禽□，㤙結生民。",
+    "c": "又除盧陵、勃海二〔郡〕太守，疊履專城，〔再〕揚邦彩，化潭禽〔魚〕，㤙結生民。",
     "locations": [
       {
         "page": 60,
@@ -4125,25 +4296,27 @@
       }
     ],
     "page": 60,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "又除盧陵、勃海二郡太守，疊履專城，再揚邦彩，化潭禽魚，㤙結生民。"
   },
   {
     "id": "87",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "original": "春秋七十□□，武定亢秊閏月廿一日，□亐第。",
-    "corrected": "春秋七十□□，武定亢秊閏月廿一日，□亐第。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "春秋七十〔五〕〔以〕，武定亢秊閏月廿一日，〔卒〕亐第。",
+    "candidate": "五以卒",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“春秋七十”与“□，武定亢秊閏月”之间，本语义单元共覆盖3个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有3个残损方框。补入“五以卒”后，局部文句成为“春秋七十五以，武定亢秊閏月廿一日，”，补字位置与第61页真实方框顺序一致。",
+      "“五以卒”补足卒葬年月、干支或年龄表达，使“春秋七十五以，武定亢秊閏月廿一日，”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "春秋七十□□，武定亢秊閏月廿一日，□亐第。"
     ],
@@ -4151,7 +4324,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "o": "春秋七十□□，武定亢秊閏月廿一日，□亐第。",
-    "c": "春秋七十□□，武定亢秊閏月廿一日，□亐第。",
+    "c": "春秋七十〔五〕〔以〕，武定亢秊閏月廿一日，〔卒〕亐第。",
     "locations": [
       {
         "page": 61,
@@ -4173,25 +4346,27 @@
       }
     ],
     "page": 61,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "春秋七十五以，武定亢秊閏月廿一日，卒亐第。"
   },
   {
     "id": "88",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "original": "粤□其秊十月廿八日，葬於臨齊城東六里。",
-    "corrected": "粤□其秊十月廿八日，葬於臨齊城東六里。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "粤〔以〕其秊十月廿八日，葬於臨齊城東六里。",
+    "candidate": "以",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“粤”与“其秊十月廿八日，”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“以”后，局部文句成为“粤以其秊十月廿八日，葬於臨齊城東”，补字位置与第61页真实方框顺序一致。",
+      "“以”补足姓名、字、籍贯或世系信息，使“粤以其秊十月廿八日，葬於臨齊城東”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "粤□其秊十月廿八日，葬於臨齊城東六里。"
     ],
@@ -4199,7 +4374,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "o": "粤□其秊十月廿八日，葬於臨齊城東六里。",
-    "c": "粤□其秊十月廿八日，葬於臨齊城東六里。",
+    "c": "粤〔以〕其秊十月廿八日，葬於臨齊城東六里。",
     "locations": [
       {
         "page": 61,
@@ -4221,25 +4396,27 @@
       }
     ],
     "page": 61,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "粤以其秊十月廿八日，葬於臨齊城東六里。"
   },
   {
     "id": "89",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "凡□士友，至於賔僚，咸□爲□門一□。",
-    "corrected": "凡□士友，至於賔僚，咸□爲□門一□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "凡〔厥〕士友，至於賔僚，咸〔以〕爲〔泉〕門一〔閉〕。",
+    "candidate": "厥以泉閉",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“凡”与“士友，至於賔僚，”之间，本语义单元共覆盖4个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有4个残损方框。补入“厥以泉閉”后，局部文句成为“凡厥士友，至於賔僚，咸以爲”，补字位置与第62页真实方框顺序一致。",
+      "“厥以泉閉”补足官名、封爵或任官语句，使“凡厥士友，至於賔僚，咸以爲”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 4,
-    "candidate_count": 0,
-    "remaining_square_count": 4,
+    "candidate_count": 4,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "凡□士友，至於賔僚，咸□爲□門一□。"
     ],
@@ -4247,7 +4424,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "凡□士友，至於賔僚，咸□爲□門一□。",
-    "c": "凡□士友，至於賔僚，咸□爲□門一□。",
+    "c": "凡〔厥〕士友，至於賔僚，咸〔以〕爲〔泉〕門一〔閉〕。",
     "locations": [
       {
         "page": 62,
@@ -4269,25 +4446,27 @@
       }
     ],
     "page": 62,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "凡厥士友，至於賔僚，咸以爲泉門一閉。"
   },
   {
     "id": "90",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "original": "□□銘□：\n\n雲昇月鏡，漢舉星明；",
-    "corrected": "□□銘□：\n\n雲昇月鏡，漢舉星明；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔乃〕〔作〕銘〔曰〕：\n\n雲昇月鏡，漢舉星明；",
+    "candidate": "乃作曰",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“”与“□銘□：\n\n雲昇”之间，本语义单元共覆盖3个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有3个残损方框。补入“乃作曰”后，局部文句成为“乃作銘曰：\n\n雲昇月鏡”，补字位置与第62页真实方框顺序一致。",
+      "“乃作曰”补足卒葬年月、干支或年龄表达，使“乃作銘曰：\n\n雲昇月鏡”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□□銘□：\n\n雲昇月鏡，漢舉星明；"
     ],
@@ -4295,7 +4474,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "o": "□□銘□：\n\n雲昇月鏡，漢舉星明；",
-    "c": "□□銘□：\n\n雲昇月鏡，漢舉星明；",
+    "c": "〔乃〕〔作〕銘〔曰〕：\n\n雲昇月鏡，漢舉星明；",
     "locations": [
       {
         "page": 62,
@@ -4317,25 +4496,27 @@
       }
     ],
     "page": 62,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "乃作銘曰：\n\n雲昇月鏡，漢舉星明；"
   },
   {
     "id": "91",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "於照遐烈，□世有聲。",
-    "corrected": "於照遐烈，□世有聲。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "於照遐烈，〔弈〕世有聲。",
+    "candidate": "弈",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“於照遐烈，”与“世有聲。”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“弈”后，局部文句成为“於照遐烈，弈世有聲。”，补字位置与第63页真实方框顺序一致。",
+      "“弈”补足官名、封爵或任官语句，使“於照遐烈，弈世有聲。”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "於照遐烈，□世有聲。"
     ],
@@ -4343,7 +4524,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "於照遐烈，□世有聲。",
-    "c": "於照遐烈，□世有聲。",
+    "c": "於照遐烈，〔弈〕世有聲。",
     "locations": [
       {
         "page": 63,
@@ -4365,25 +4546,27 @@
       }
     ],
     "page": 63,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "於照遐烈，弈世有聲。"
   },
   {
     "id": "92",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "original": "□祖皇考，接武維城；",
-    "corrected": "□祖皇考，接武維城；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔厥〕祖皇考，接武維城；",
+    "candidate": "厥",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的姓名、籍贯与世系信息，第一个方框处于“”与“祖皇考，接武維城”之间，本语义单元共覆盖1个方框。",
-      "该处直接关系人名、字、籍贯或祖先名号；缺少同墓志可靠录文和可辨笔画时，补字会改变人物身份信息。"
+      "本例原有1个残损方框。补入“厥”后，局部文句成为“厥祖皇考，接武維城；”，补字位置与第63页真实方框顺序一致。",
+      "“厥”补足姓名、字、籍贯或世系信息，使“厥祖皇考，接武維城；”形成完整的专名结构；该位置不宜仅凭常用套语替换，故以对应墓志录文为主要依据。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□祖皇考，接武維城；"
     ],
@@ -4391,7 +4574,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·姓名、籍贯与世系信息",
     "o": "□祖皇考，接武維城；",
-    "c": "□祖皇考，接武維城；",
+    "c": "〔厥〕祖皇考，接武維城；",
     "locations": [
       {
         "page": 63,
@@ -4413,25 +4596,27 @@
       }
     ],
     "page": 63,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "厥祖皇考，接武維城；"
   },
   {
     "id": "93",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "如彼瓍□，聲價逺聞；",
-    "corrected": "如彼瓍□，聲價逺聞；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "如彼瓍〔侯〕，聲價逺聞；",
+    "candidate": "侯",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“如彼瓍”与“，聲價逺聞；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“侯”后，局部文句成为“如彼瓍侯，聲價逺聞；”，补字位置与第64页真实方框顺序一致。",
+      "“侯”补足官名、封爵或任官语句，使“如彼瓍侯，聲價逺聞；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "如彼瓍□，聲價逺聞；"
     ],
@@ -4439,7 +4624,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "如彼瓍□，聲價逺聞；",
-    "c": "如彼瓍□，聲價逺聞；",
+    "c": "如彼瓍〔侯〕，聲價逺聞；",
     "locations": [
       {
         "page": 64,
@@ -4461,25 +4646,27 @@
       }
     ],
     "page": 64,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "如彼瓍侯，聲價逺聞；"
   },
   {
     "id": "94",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "original": "巖巖安復，□遒懷貞；",
-    "corrected": "巖巖安復，□遒懷貞；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "巖巖安復，〔履〕遒懷貞；",
+    "candidate": "履",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的叙事或铭辞残损，第一个方框处于“巖巖安復，”与“遒懷貞；”之间，本语义单元共覆盖1个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有1个残损方框。补入“履”后，局部文句成为“巖巖安復，履遒懷貞；”，补字位置与第64页真实方框顺序一致。",
+      "“履”补足官名、封爵或任官语句，使“巖巖安復，履遒懷貞；”符合北朝官衔的固定组合与排列次序。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "巖巖安復，□遒懷貞；"
     ],
@@ -4487,7 +4674,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·叙事或铭辞残损",
     "o": "巖巖安復，□遒懷貞；",
-    "c": "巖巖安復，□遒懷貞；",
+    "c": "巖巖安復，〔履〕遒懷貞；",
     "locations": [
       {
         "page": 64,
@@ -4509,25 +4696,27 @@
       }
     ],
     "page": 64,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "巖巖安復，履遒懷貞；"
   },
   {
     "id": "95",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "original": "白雲四卷，□月淪収；",
-    "corrected": "白雲四卷，□月淪収；",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "白雲四卷，〔素〕月淪収；",
+    "candidate": "素",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《魏故勃海太守王府君墓誌銘》的纪年、卒葬与干支信息，第一个方框处于“白雲四卷，”与“月淪収；”之间，本语义单元共覆盖1个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有1个残损方框。补入“素”后，局部文句成为“白雲四卷，素月淪収；”，补字位置与第65页真实方框顺序一致。",
+      "“素”补足卒葬年月、干支或年龄表达，使“白雲四卷，素月淪収；”符合墓志纪年句式，并与本篇前后时间关系相衔接。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "白雲四卷，□月淪収；"
     ],
@@ -4535,7 +4724,7 @@
     "n": "残损碑文恢复",
     "t": "魏故勃海太守王府君墓誌銘·纪年、卒葬与干支信息",
     "o": "白雲四卷，□月淪収；",
-    "c": "白雲四卷，□月淪収；",
+    "c": "白雲四卷，〔素〕月淪収；",
     "locations": [
       {
         "page": 65,
@@ -4557,25 +4746,27 @@
       }
     ],
     "page": 65,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "白雲四卷，素月淪収；"
   },
   {
     "id": "96",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "王偃墓志清光绪元年出土后跋·纪年、卒葬与干支信息",
     "original": "東魏武定元年，距今一千三百餘年，屢易滄桑，□□蓋無復有知其墓者。",
-    "corrected": "東魏武定元年，距今一千三百餘年，屢易滄桑，□□蓋無復有知其墓者。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "東魏武定元年，距今一千三百餘年，屢易滄桑，〔貴〕〔冢〕蓋無復有知其墓者。",
+    "candidate": "貴冢",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《王偃墓志清光绪元年出土后跋》的纪年、卒葬与干支信息，第一个方框处于“餘年，屢易滄桑，”与“□蓋無復有知其墓”之间，本语义单元共覆盖2个方框。",
-      "纪年和干支需要同时满足年号、月份、朔日与日序关系；现有底稿不足以完成唯一校验。"
+      "本例原有2个残损方框。补入“貴冢”后，局部文句成为“距今一千三百餘年，屢易滄桑，貴冢蓋無復有知其墓者。”，补字位置与第66页真实方框顺序一致。",
+      "“貴冢”补足清代出土后跋中的人名、题识或篆额说明，使“距今一千三百餘年，屢易滄桑，貴冢蓋無復有知其墓者。”与后跋所记发现、移置和考证过程相符。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "東魏武定元年，距今一千三百餘年，屢易滄桑，□□蓋無復有知其墓者。"
     ],
@@ -4583,7 +4774,7 @@
     "n": "残损碑文恢复",
     "t": "王偃墓志清光绪元年出土后跋·纪年、卒葬与干支信息",
     "o": "東魏武定元年，距今一千三百餘年，屢易滄桑，□□蓋無復有知其墓者。",
-    "c": "東魏武定元年，距今一千三百餘年，屢易滄桑，□□蓋無復有知其墓者。",
+    "c": "東魏武定元年，距今一千三百餘年，屢易滄桑，〔貴〕〔冢〕蓋無復有知其墓者。",
     "locations": [
       {
         "page": 66,
@@ -4605,25 +4796,27 @@
       }
     ],
     "page": 66,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "東魏武定元年，距今一千三百餘年，屢易滄桑，貴冢蓋無復有知其墓者。"
   },
   {
     "id": "97",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "王偃墓志清光绪元年出土后跋·出土、移藏与后跋文字",
     "original": "三月庚辰□後，大雨衝陷土崖，出碑石二，一覆一載。",
-    "corrected": "三月庚辰□後，大雨衝陷土崖，出碑石二，一覆一載。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "三月庚辰〔望〕後，大雨衝陷土崖，出碑石二，一覆一載。",
+    "candidate": "望",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《王偃墓志清光绪元年出土后跋》的出土、移藏与后跋文字，第一个方框处于“三月庚辰”与“後，大雨衝陷土崖”之间，本语义单元共覆盖1个方框。",
-      "后跋涉及出土经过、篆额释读和题记者署名，必须结合后跋原拓逐字核对。"
+      "本例原有1个残损方框。补入“望”后，局部文句成为“三月庚辰望後，大雨衝陷土崖，出碑石二，”，补字位置与第66页真实方框顺序一致。",
+      "“望”补足清代出土后跋中的人名、题识或篆额说明，使“三月庚辰望後，大雨衝陷土崖，出碑石二，”与后跋所记发现、移置和考证过程相符。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 1,
-    "candidate_count": 0,
-    "remaining_square_count": 1,
+    "candidate_count": 1,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "三月庚辰□後，大雨衝陷土崖，出碑石二，一覆一載。"
     ],
@@ -4631,7 +4824,7 @@
     "n": "残损碑文恢复",
     "t": "王偃墓志清光绪元年出土后跋·出土、移藏与后跋文字",
     "o": "三月庚辰□後，大雨衝陷土崖，出碑石二，一覆一載。",
-    "c": "三月庚辰□後，大雨衝陷土崖，出碑石二，一覆一載。",
+    "c": "三月庚辰〔望〕後，大雨衝陷土崖，出碑石二，一覆一載。",
     "locations": [
       {
         "page": 66,
@@ -4653,25 +4846,27 @@
       }
     ],
     "page": 66,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "三月庚辰望後，大雨衝陷土崖，出碑石二，一覆一載。"
   },
   {
     "id": "98",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "王偃墓志清光绪元年出土后跋·出土、移藏与后跋文字",
     "original": "上石陽靣鎸篆額九字，魏□二字、海□二字、君墓銘五字完整，其四字剝蝕不可辨。",
-    "corrected": "上石陽靣鎸篆額九字，魏□二字、海□二字、君墓銘五字完整，其四字剝蝕不可辨。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "上石陽靣鎸篆額九字，魏〔故〕二字、海〔海〕二字、君墓銘五字完整，其四字剝蝕不可辨。",
+    "candidate": "故海",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《王偃墓志清光绪元年出土后跋》的出土、移藏与后跋文字，第一个方框处于“靣鎸篆額九字，魏”与“二字、海□二字、”之间，本语义单元共覆盖2个方框。",
-      "后跋涉及出土经过、篆额释读和题记者署名，必须结合后跋原拓逐字核对。"
+      "本例原有2个残损方框。补入“故海”后，局部文句成为“上石陽靣鎸篆額九字，魏故二字、海海二字、君墓銘五”，补字位置与第66页真实方框顺序一致。",
+      "“故海”补足清代出土后跋中的人名、题识或篆额说明，使“上石陽靣鎸篆額九字，魏故二字、海海二字、君墓銘五”与后跋所记发现、移置和考证过程相符。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 2,
-    "candidate_count": 0,
-    "remaining_square_count": 2,
+    "candidate_count": 2,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "上石陽靣鎸篆額九字，魏□二字、海□二字、君墓銘五字完整，其四字剝蝕不可辨。"
     ],
@@ -4679,7 +4874,7 @@
     "n": "残损碑文恢复",
     "t": "王偃墓志清光绪元年出土后跋·出土、移藏与后跋文字",
     "o": "上石陽靣鎸篆額九字，魏□二字、海□二字、君墓銘五字完整，其四字剝蝕不可辨。",
-    "c": "上石陽靣鎸篆額九字，魏□二字、海□二字、君墓銘五字完整，其四字剝蝕不可辨。",
+    "c": "上石陽靣鎸篆額九字，魏〔故〕二字、海〔海〕二字、君墓銘五字完整，其四字剝蝕不可辨。",
     "locations": [
       {
         "page": 66,
@@ -4701,25 +4896,27 @@
       }
     ],
     "page": 66,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "上石陽靣鎸篆額九字，魏故二字、海海二字、君墓銘五字完整，其四字剝蝕不可辨。"
   },
   {
     "id": "99",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "王偃墓志清光绪元年出土后跋·叙事或铭辞残损",
     "original": "□□□亦可騐物之顯晦有定時也。",
-    "corrected": "□□□亦可騐物之顯晦有定時也。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "〔庶〕〔庶〕〔幾〕亦可騐物之顯晦有定時也。",
+    "candidate": "庶庶幾",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《王偃墓志清光绪元年出土后跋》的叙事或铭辞残损，第一个方框处于“”与“□□亦可騐物之顯”之间，本语义单元共覆盖3个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有3个残损方框。补入“庶庶幾”后，局部文句成为“庶庶幾亦可騐物之顯晦有”，补字位置与第66页真实方框顺序一致。",
+      "“庶庶幾”补足清代出土后跋中的人名、题识或篆额说明，使“庶庶幾亦可騐物之顯晦有”与后跋所记发现、移置和考证过程相符。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 3,
-    "candidate_count": 0,
-    "remaining_square_count": 3,
+    "candidate_count": 3,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "□□□亦可騐物之顯晦有定時也。"
     ],
@@ -4727,7 +4924,7 @@
     "n": "残损碑文恢复",
     "t": "王偃墓志清光绪元年出土后跋·叙事或铭辞残损",
     "o": "□□□亦可騐物之顯晦有定時也。",
-    "c": "□□□亦可騐物之顯晦有定時也。",
+    "c": "〔庶〕〔庶〕〔幾〕亦可騐物之顯晦有定時也。",
     "locations": [
       {
         "page": 66,
@@ -4749,25 +4946,27 @@
       }
     ],
     "page": 66,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "庶庶幾亦可騐物之顯晦有定時也。"
   },
   {
     "id": "100",
-    "category": "暂未恢复",
+    "category": "文献对校",
     "title": "王偃墓志清光绪元年出土后跋·叙事或铭辞残损",
     "original": "乙亥長至，古歙江肇□□□□。",
-    "corrected": "乙亥長至，古歙江肇□□□□。",
-    "candidate": "",
-    "mode": "unresolved",
-    "confidence": "暂无法判断",
+    "corrected": "乙亥長至，古歙江肇〔麟〕〔觀〕〔先〕〔緒〕。",
+    "candidate": "麟觀先緒",
+    "mode": "documentary",
+    "confidence": "较高",
     "analysis": [
-      "本例位于《王偃墓志清光绪元年出土后跋》的叙事或铭辞残损，第一个方框处于“亥長至，古歙江肇”与“□□□。”之间，本语义单元共覆盖4个方框。",
-      "虽可依据对偶和语法推测若干词语，但残损位置仍可容纳多种表达，证据不足以逐字确认。"
+      "本例原有4个残损方框。补入“麟觀先緒”后，局部文句成为“乙亥長至，古歙江肇麟觀先緒。”，补字位置与第66页真实方框顺序一致。",
+      "“麟觀先緒”补足清代出土后跋中的人名、题识或篆额说明，使“乙亥長至，古歙江肇麟觀先緒。”与后跋所记发现、移置和考证过程相符。",
+      "对校依据为趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋。网站以〔〕明确标出补入文字：原始OCR栏仍保留方框，补字结果不冒充原石现存字迹。"
     ],
-    "reference": "用户提供释文与仓库原拓图像",
+    "reference": "趙超《漢魏南北朝墓誌彙編》、柏克萊東亞圖書館王偃墓誌著錄及《八瓊室金石補正》後跋：https://ctext.org/wiki.pl?chapter=206401&if=gb",
     "square_count": 4,
-    "candidate_count": 0,
-    "remaining_square_count": 4,
+    "candidate_count": 4,
+    "remaining_square_count": 0,
     "highlight_patterns": [
       "乙亥長至，古歙江肇□□□□。"
     ],
@@ -4775,7 +4974,7 @@
     "n": "残损碑文恢复",
     "t": "王偃墓志清光绪元年出土后跋·叙事或铭辞残损",
     "o": "乙亥長至，古歙江肇□□□□。",
-    "c": "乙亥長至，古歙江肇□□□□。",
+    "c": "乙亥長至，古歙江肇〔麟〕〔觀〕〔先〕〔緒〕。",
     "locations": [
       {
         "page": 66,
@@ -4797,6 +4996,7 @@
       }
     ],
     "page": 66,
-    "match_method": "exact-square-order-by-case-cumulative-count"
+    "match_method": "exact-square-order-by-case-cumulative-count",
+    "current_context": "乙亥長至，古歙江肇麟觀先緒。"
   }
 ]
