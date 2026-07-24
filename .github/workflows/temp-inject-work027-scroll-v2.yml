@@ -1,0 +1,32 @@
+name: Temporary inject work027 scroll v2
+on:
+  push:
+    branches: [fix/work027-list-scroll-v2]
+jobs:
+  inject:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/work027-list-scroll-v2
+          fetch-depth: 0
+      - name: Inject script tag
+        run: python scripts/inject_work027_list_scroll_fix.py
+      - name: Validate
+        run: |
+          node --check js/work-027-list-scroll-fix.js
+          grep -q 'work-027-list-scroll-fix.js?v=20260725_work027_scroll_v2' detail.html
+          grep -q 'getBoundingClientRect' js/work-027-list-scroll-fix.js
+          grep -q 'list.scrollTop+delta' js/work-027-list-scroll-fix.js
+      - name: Remove temporary branch script
+        run: rm -f scripts/inject_work027_list_scroll_fix.py
+      - name: Commit result
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add detail.html js/work-027-list-scroll-fix.js
+          git add -u scripts/inject_work027_list_scroll_fix.py
+          git commit -m '使用真实坐标修复027案例列表定位'
+          git push origin HEAD:fix/work027-list-scroll-v2
