@@ -6,7 +6,7 @@
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="020"||window.__WORK_020_COORDINATE_ADAPTER__)return;
 
-  const CACHE_TAG="20260724_huadusi_v1";
+  const CACHE_TAG="20260724_huadusi_v2";
   const ROOT="data/glyph_boxes/iiif/020";
   const original=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();
@@ -77,19 +77,5 @@
 
   window.WORK_020_COORDINATES={loadPageRows:fetchRows};
   window.__WORK_020_COORDINATE_ADAPTER__=true;
-
-  function refreshReader(attempt=0){
-    try{
-      if(typeof pages!=="undefined"&&Array.isArray(pages)&&pages.length&&typeof loadPage==="function"){
-        loadPage(typeof currentPageIndex==="number"?currentPageIndex:0);
-        return;
-      }
-    }catch(error){
-      console.warn("[work-020-coordinate-adapter] reader refresh",error);
-    }
-    if(attempt<100)setTimeout(()=>refreshReader(attempt+1),100);
-  }
-
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>refreshReader(),{once:true});
-  else refreshReader();
+  window.dispatchEvent(new CustomEvent("work-020-coordinate-adapter-ready"));
 })();
