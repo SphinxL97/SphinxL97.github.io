@@ -1,0 +1,48 @@
+name: Temporary patch work028 routes
+on:
+  pull_request:
+    branches: [main]
+    types: [synchronize]
+    paths:
+      - scripts/final_patch_work028_routes.py
+      - .work028-route-trigger
+jobs:
+  patch:
+    if: github.head_ref == 'agent/work028-jintang-nine'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work028-jintang-nine
+          fetch-depth: 0
+      - name: Patch routes
+        run: python scripts/final_patch_work028_routes.py
+      - name: Validate routes
+        run: |
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          python - <<'PY'
+          from pathlib import Path
+          router=Path('js/damage_ai_reading.js').read_text(encoding='utf-8')
+          entry=Path('js/detail_info_patch.js').read_text(encoding='utf-8')
+          assert router.count('"028":"晋唐小楷九种"')==1
+          assert router.count('"027","028"]')>=2
+          assert entry.count('"028":"晋唐小楷九种"')==1
+          assert '"028","028"' not in entry
+          assert 'work028-no-location-map' in entry
+          assert 'js/work-028-coordinate-adapter.js?v=20260725_jintang_nine_v2' in router
+          assert 'js/work-028.js?v=20260725_jintang_nine_v2' in router
+          print('028 route validation passed')
+          PY
+      - name: Remove temporary route files
+        run: rm -f scripts/final_patch_work028_routes.py .work028-route-trigger
+      - name: Commit route fixes
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add js/damage_ai_reading.js js/detail_info_patch.js
+          git add -u scripts/final_patch_work028_routes.py .work028-route-trigger
+          git commit -m '修正028共享路由隔离与初始地图状态'
+          git push origin HEAD:agent/work028-jintang-nine
