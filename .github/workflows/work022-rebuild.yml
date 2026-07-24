@@ -1,6 +1,9 @@
 name: Build work022
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - agent/work022-wangjushi-rebuild
