@@ -42,7 +42,7 @@
   const dataUrl="data/beitie_header_info.json?v=20260725_jintang_nine_v2";
 
   function applyImmediateWorkMenu(){
-    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","028":"晋唐小楷九种"};
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种"};
     const name=names[workId];if(!name)return;
     const apply=()=>{
       const side=document.querySelector(".side");
@@ -59,6 +59,7 @@
   }
   applyImmediateWorkMenu();
   if(workId==="027")document.documentElement.classList.add("work027-no-location-map");
+  if(workId==="028")document.documentElement.classList.add("work028-no-location-map");
 
   function appendScript(src,datasetKey,onDone){
     const path=src.split("?")[0];
@@ -93,7 +94,7 @@
   }
 
   function forceDedicatedRouter(){
-    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","028"].includes(workId))return;
+    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028"].includes(workId))return;
     if(workId==="024"){
       loadWork024Directly();
       return;
