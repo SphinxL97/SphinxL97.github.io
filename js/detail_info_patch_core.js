@@ -260,6 +260,7 @@
       }
       .work-hero .info-panel .meta-line span{
         min-width:0;
+        font-size:15px!important;
         line-height:1.42!important;
         overflow-wrap:anywhere;
       }
@@ -267,8 +268,12 @@
         grid-column:1/-1!important;
       }
       .work-hero .info-panel .meta-line.compact-note{
-        font-size:13.5px!important;
-        line-height:1.4!important;
+        font-size:15px!important;
+        line-height:1.42!important;
+      }
+      .work-hero .info-panel .meta-line.compact-note span{
+        font-size:15px!important;
+        line-height:1.42!important;
       }
       .work-hero .info-panel .meta-lines::-webkit-scrollbar{width:6px;}
       .work-hero .info-panel .meta-lines::-webkit-scrollbar-thumb{
