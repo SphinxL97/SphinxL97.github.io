@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V20__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V21__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V21__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V20__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V19__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V18__=true;
@@ -34,10 +35,46 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260724_xuanjing_v1";
+  const dataUrl="data/beitie_header_info.json?v=20260724_work024_hotfix_v1";
+
+  function appendScript(src,datasetKey,onDone){
+    const path=src.split("?")[0];
+    const existing=Array.from(document.scripts).find(node=>(node.getAttribute("src")||"").split("?")[0].endsWith(path));
+    if(existing){
+      if(typeof onDone==="function")setTimeout(onDone,0);
+      return existing;
+    }
+    const script=document.createElement("script");
+    script.src=src;
+    script.async=false;
+    if(datasetKey)script.dataset[datasetKey]="true";
+    if(typeof onDone==="function")script.addEventListener("load",onDone,{once:true});
+    script.addEventListener("error",()=>{
+      console.error("[detail-patch] 专属脚本加载失败",src);
+      if(typeof onDone==="function")onDone();
+    },{once:true});
+    document.head.appendChild(script);
+    return script;
+  }
+
+  function loadWork024Directly(){
+    if(window.__WORK_024_DIRECT_BOOTSTRAP__)return;
+    window.__WORK_024_DIRECT_BOOTSTRAP__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V63__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V62__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V61__=true;
+    document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
+    const loadContent=()=>appendScript("js/work-024.js?v=20260724_work024_hotfix_v1","work024Direct",null);
+    appendScript("js/work-024-coordinate-adapter.js?v=20260724_work024_hotfix_v1","work024CoordinateDirect",loadContent);
+  }
 
   function forceDedicatedRouter(){
-    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024"].includes(workId)||document.querySelector("script[data-dedicated-forced-router]"))return;
+    if(!["007","010","011","013","014","015","016","017","018","020","022","023","024"].includes(workId))return;
+    if(workId==="024"){
+      loadWork024Directly();
+      return;
+    }
+    if(document.querySelector("script[data-dedicated-forced-router]"))return;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());
     window.__DAMAGE_AI_READING_ROUTER_V42__=true;
     window.__DAMAGE_AI_READING_ROUTER_V47__=true;
@@ -56,7 +93,6 @@
     window.__DAMAGE_AI_READING_ROUTER_V60__=true;
     window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     window.__DAMAGE_AI_READING_ROUTER_V62__=true;
-    window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     const script=document.createElement("script");
     script.src="js/damage_ai_reading.js?v=20260724_xuanjing_v1";
     script.async=false;
