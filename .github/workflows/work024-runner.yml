@@ -7,6 +7,13 @@ on:
       - main
     paths:
       - .github/workflows/work024-runner.yml
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
@@ -17,7 +24,7 @@ concurrency:
 
 jobs:
   build:
-    if: contains(github.event.head_commit.message, '[run-work024]')
+    if: contains(github.event.head_commit.message || '', '[run-work024]') || (github.event_name == 'pull_request' && github.head_ref == 'agent/work024-xuanjing')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout work branch
