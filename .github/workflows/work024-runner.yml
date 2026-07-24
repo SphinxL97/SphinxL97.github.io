@@ -1,0 +1,67 @@
+name: One-off build work024
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/work024-runner.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: one-off-work024
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: contains(github.event.head_commit.message, '[run-work024]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout work branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/work024-xuanjing
+          fetch-depth: 0
+
+      - name: Build 024 dedicated content
+        run: python3 scripts/build_work024.py
+
+      - name: Validate generated content
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('.')
+          text=(root/'data/work024_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads((root/'data/work024_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads((root/'data/work024_coordinate_report.json').read_text(encoding='utf-8'))
+          assert text.count('□') == 23
+          assert len(cases) == 19
+          assert sum(item['square_count'] for item in cases) == 23
+          assert sum(item['candidate_count'] for item in cases) == 23
+          assert all('□' not in item['corrected'] for item in cases)
+          assert report['located_case_count'] == 19, report
+          assert report['column_four']['uses_same_cases_as_column_three'] is True
+          assert len(list((root/'data/glyph_boxes/iiif/024').glob('page_*.json'))) == 37
+          print(json.dumps(report, ensure_ascii=False, indent=2))
+          PY
+          node --check js/work-024.js
+          node --check js/work-024-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+
+      - name: Remove branch-only build files
+        run: |
+          rm -f scripts/build_work024.py
+          rm -f .github/work024-trigger.txt
+          rm -f .github/workflows/build-work024.yml
+
+      - name: Commit generated work024 files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Complete work024 Xuanjing four-section content"
+          git push origin HEAD:agent/work024-xuanjing
