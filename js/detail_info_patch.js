@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V19__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V20__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V20__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V19__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V18__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V17__=true;
@@ -53,8 +54,9 @@
     window.__DAMAGE_AI_READING_ROUTER_V58__=true;
     window.__DAMAGE_AI_READING_ROUTER_V59__=true;
     window.__DAMAGE_AI_READING_ROUTER_V60__=true;
+    window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     const script=document.createElement("script");
-    script.src="js/damage_ai_reading.js?v=20260724_guifeng_v2";
+    script.src="js/damage_ai_reading.js?v=20260724_guifeng_v3";
     script.async=false;
     script.dataset.dedicatedForcedRouter=workId;
     script.addEventListener("error",()=>console.error(`[detail-patch] ${workId}当前路由加载失败`,script.src),{once:true});
