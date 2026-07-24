@@ -1,0 +1,50 @@
+[
+  {
+    "id": "01",
+    "n": "残损碑文恢复",
+    "t": "众经之轨躅也",
+    "o": "盖真如圣教者，诸法之玄宗，众经之轨?也。",
+    "c": "盖真如圣教者，诸法之玄宗，众经之轨〔躅〕也。",
+    "page": 23,
+    "category": "残损碑文恢复",
+    "title": "众经之轨躅也",
+    "original": "盖真如圣教者，诸法之玄宗，众经之轨?也。",
+    "corrected": "盖真如圣教者，诸法之玄宗，众经之轨〔躅〕也。",
+    "candidate": "躅",
+    "mode": "documentary",
+    "confidence": "高",
+    "analysis": [
+      "“轨躅”是固定词语，表示可遵循的行迹、法度或准则。",
+      "本句先称真如圣教为“诸法之玄宗”，再称其为“众经之轨躅”，两部分结构与语义相承。",
+      "《述三藏圣记》的可靠录文在对应位置保存“众经之轨躅也”，一个“躅”正好对应底稿中的一个问号疑难位置。"
+    ],
+    "reference": "《述三藏圣记》相关可靠录文",
+    "problem_count": 1,
+    "candidate_count": 1,
+    "remaining_problem_count": 0,
+    "highlight_patterns": [
+      "盖真如圣教者，诸法之玄宗，众经之轨?也。"
+    ],
+    "locations": [
+      {
+        "page": 23,
+        "glyph_id": "025_集王羲之书三藏圣教序_p0023_c006",
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "bbox": {
+          "x": 1112.0,
+          "y": 930.0,
+          "w": 181.0,
+          "h": 165.0
+        },
+        "image": "assets/page_images/025_集王羲之书三藏圣教序/images/0023_二十三.jpg",
+        "bbox_source": "model_border_refined",
+        "match_method": "anchor-fuzzy",
+        "match_score": 0.92,
+        "target_char_in_model": "轨"
+      }
+    ]
+  }
+]
