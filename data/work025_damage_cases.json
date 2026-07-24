@@ -28,22 +28,23 @@
     "locations": [
       {
         "page": 23,
-        "glyph_id": "025_集王羲之书三藏圣教序_p0023_c006",
+        "glyph_id": "025_集王羲之书三藏圣教序_p0023_c007",
         "canvas": {
           "w": 1444,
           "h": 2214
         },
         "bbox": {
-          "x": 1112.0,
-          "y": 930.0,
-          "w": 181.0,
-          "h": 165.0
+          "x": 1111.0,
+          "y": 1080.0,
+          "w": 184.0,
+          "h": 174.0
         },
         "image": "assets/page_images/025_集王羲之书三藏圣教序/images/0023_二十三.jpg",
         "bbox_source": "model_border_refined",
-        "match_method": "anchor-fuzzy",
-        "match_score": 0.92,
-        "target_char_in_model": "轨"
+        "match_method": "manual-sequence-confirmed",
+        "match_score": 1.0,
+        "target_char_in_model": "□",
+        "review_note": "自动锚点最初停在前一字“轨”；人工按“轨□也”的连续模型序列复核后，改用其后的真实方框槽位c007。"
       }
     ]
   }
