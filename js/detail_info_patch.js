@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V14__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V15__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V15__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V14__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V13__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V12__=true;
@@ -27,7 +28,7 @@
 
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-  const coreUrl="js/detail_info_patch_core.js?v=20260717_stable_header_v1";
+  const coreUrl="js/detail_info_patch_core.js?v=20260724_compact_header_v1";
   const dataUrl="data/beitie_header_info.json?v=20260724_wangjushi_v1";
 
   function forceDedicatedRouter(){
@@ -59,12 +60,24 @@
   function clean(value){return String(value==null?"":value).trim();}
   function first(...values){for(const value of values){const text=clean(value);if(text)return text;}return "";}
   function buildRows(record,title){
-    const b=record?.basic||{},rows=[];const push=(label,value,wide=false)=>{const text=clean(value);if(text)rows.push({label,value:text,wide});};
-    const firstTitle=first(b["首题"]);if(firstTitle&&firstTitle!==title)push("首题",firstTitle,firstTitle.length>24);
-    push("其他题名",b["其他题名"],true);push("额题",b["额题"]);push("责任者",b["责任者"]);push("书体",b["书体"]);push("版本",b["版本"]);push("影印版本",b["影印版本"]);push("版本说明",b["版本说明"],true);push("数量",b["数量"]);push("尺寸",b["尺寸"],true);push("年代",first(b["刻立年代"],b["年代"],b["时代"]));push("刻立地点",first(b["刻立地点"],b["地点"]));push("出土地点",b["出土地点"]);push("馆藏",b["馆藏"]);push("镌刻特征",b["镌刻特征"],true);push("铭文行款",b["铭文行款"],true);push("来源",b["来源"],true);return rows;
+    const b=record?.basic||{},rows=[];
+    const push=(label,value,{wide=false,compact=false}={})=>{const text=clean(value);if(text)rows.push({label,value:text,wide,compact});};
+    const firstTitle=first(b["首题"]);if(firstTitle&&firstTitle!==title)push("首题",firstTitle,{wide:true});
+    push("其他题名",b["其他题名"],{wide:true});
+    push("额题",b["额题"]);
+    push("责任者",b["责任者"]);push("书体",b["书体"]);
+    push("版本",b["版本"]);push("影印版本",b["影印版本"]);
+    push("数量",b["数量"]);push("铭文行款",b["铭文行款"]);
+    push("尺寸",b["尺寸"]);push("年代",first(b["刻立年代"],b["年代"],b["时代"]));
+    push("刻立地点",first(b["刻立地点"],b["地点"]));push("出土地点",b["出土地点"]);
+    push("馆藏",b["馆藏"]);
+    push("版本说明",b["版本说明"],{wide:true,compact:true});
+    push("镌刻特征",b["镌刻特征"],{wide:true,compact:true});
+    push("来源",b["来源"],{wide:true,compact:true});
+    return rows;
   }
-  function rowSignature(rows){return rows.map(item=>`${item.label}\u0001${item.value}\u0001${item.wide?1:0}`).join("\u0002");}
-  function currentSignature(box){return Array.from(box.querySelectorAll(":scope > .meta-line")).map(line=>`${clean(line.querySelector("b")?.textContent)}\u0001${clean(line.querySelector("span")?.textContent)}\u0001${line.classList.contains("wide")?1:0}`).join("\u0002");}
+  function rowSignature(rows){return rows.map(item=>`${item.label}\u0001${item.value}\u0001${item.wide?1:0}\u0001${item.compact?1:0}`).join("\u0002");}
+  function currentSignature(box){return Array.from(box.querySelectorAll(":scope > .meta-line")).map(line=>`${clean(line.querySelector("b")?.textContent)}\u0001${clean(line.querySelector("span")?.textContent)}\u0001${line.classList.contains("wide")?1:0}\u0001${line.classList.contains("compact-note")?1:0}`).join("\u0002");}
 
   let observer=null,rendering=false,pending=false,recordCache=null;
   function render(record){
@@ -74,7 +87,7 @@
     rendering=true;if(observer)observer.disconnect();
     document.title=`${title} · 碑帖智能读析平台`;
     const titleNodes=[document.querySelector(".info-panel h1"),document.querySelector(".side .work-name"),document.querySelector(".cover-label")];titleNodes.forEach(node=>{if(node&&clean(node.textContent)!==title)node.textContent=title;});
-    if(currentSignature(box)!==signature){const fragment=document.createDocumentFragment();rows.forEach(item=>{const line=document.createElement("div");line.className="meta-line";if(item.wide||item.value.length>38)line.classList.add("wide");const term=document.createElement("b");term.textContent=item.label;const value=document.createElement("span");value.textContent=item.value;line.append(term,value);fragment.appendChild(line);});box.replaceChildren(fragment);}
+    if(currentSignature(box)!==signature){const fragment=document.createDocumentFragment();rows.forEach(item=>{const line=document.createElement("div");line.className="meta-line";if(item.wide)line.classList.add("wide");if(item.compact)line.classList.add("compact-note");const term=document.createElement("b");term.textContent=item.label;const value=document.createElement("span");value.textContent=item.value;line.append(term,value);fragment.appendChild(line);});box.replaceChildren(fragment);}
     box.dataset.completeHeaderWork=workId;box.dataset.headerSignature=signature;rendering=false;observe();
     document.documentElement.classList.remove("beitie-header-pending","detail-header-pending");window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,title}}));
   }
