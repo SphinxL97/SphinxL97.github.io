@@ -85,13 +85,13 @@
   "base_text_square_count": 161,
   "model_square_count": 161,
   "case_count": 100,
-  "candidate_count": 0,
-  "remaining_square_count": 161,
+  "candidate_count": 161,
+  "remaining_square_count": 0,
   "located_case_count": 100,
-  "unresolved_case_count": 100,
-  "documentary_case_count": 0,
+  "unresolved_case_count": 0,
+  "documentary_case_count": 98,
   "mixed_case_count": 0,
-  "ai_provisional_case_count": 0,
+  "ai_provisional_case_count": 2,
   "mapping_method": "exact-square-order-by-case-cumulative-count",
   "user_sequence_length": 3135,
   "model_sequence_length": 3135,
@@ -102,6 +102,47 @@
   },
   "case_first_square_locations_verified": true,
   "unlocated_case_count": 0,
-  "cache_version": "20260724_wei_five_v2",
-  "section_heading_rendering": "五种墓志题名与王偃墓志光绪后跋独立显示"
+  "cache_version": "20260724_wei_five_v3",
+  "section_heading_rendering": "五种墓志题名与王偃墓志光绪后跋独立显示",
+  "all_corrected_text_square_free": true,
+  "full_text_square_free": true,
+  "fallback_candidate_count": 2,
+  "completion_policy": "全部方框均给出候选字；原始OCR保留方框，补字结果与当前上下文不保留方框。",
+  "reference_alignment": [
+    {
+      "section": 1,
+      "title": "魏故懷令李君墓誌銘",
+      "original_length": 632,
+      "reference_length": 630,
+      "squares": 24
+    },
+    {
+      "section": 2,
+      "title": "魏故咸陽太守劉府君墓誌銘",
+      "original_length": 314,
+      "reference_length": 312,
+      "squares": 20
+    },
+    {
+      "section": 3,
+      "title": "滄州刺史王僧墓誌銘",
+      "original_length": 614,
+      "reference_length": 613,
+      "squares": 29
+    },
+    {
+      "section": 4,
+      "title": "魏故使持節侍中驃騎大將軍太保太尉公錄尚書事劉君墓誌銘",
+      "original_length": 905,
+      "reference_length": 904,
+      "squares": 44
+    },
+    {
+      "section": 5,
+      "title": "魏故勃海太守王府君墓誌銘",
+      "original_length": 671,
+      "reference_length": 674,
+      "squares": 44
+    }
+  ]
 }
