@@ -118,7 +118,7 @@
     "uses_same_cases_as_column_three": true,
     "case_count": 226
   },
-  "cache_version": "20260725_jintang_nine_v1",
+  "cache_version": "20260725_jintang_nine_v2",
   "section_alignment": [
     {
       "heading": "一、黃庭經（一）",
@@ -218,5 +218,7 @@
     }
   ],
   "completion_policy": "全部方框均给出候选字；原始OCR栏保留方框，补字结果、当前上下文与栏目二阅读版不保留方框。",
-  "scroll_policy": "栏目三使用滚动框与当前高亮项的getBoundingClientRect中心差调整scrollTop，切换、翻页和展开后均复核。"
+  "scroll_policy": "栏目三使用滚动框与当前高亮项的getBoundingClientRect中心差调整scrollTop，切换、翻页和展开后均复核。",
+  "manual_reviewed_case_count": 53,
+  "manual_review_policy": "逐例检查原句、候选和补后句；对自动对齐中的重复字、长段脱文和题跋错位进行人工校正，证据不足者明确标为AI暂拟。"
 }

@@ -93,8 +93,8 @@
       {src:"js/work-027.js?v=20260725_wei_five_scroll_v1",key:"w027",ready:()=>Boolean(window.__WORK_027_STABLE_READY__&&window.__WORK_027_CROWDSOURCE_READY__)}
     ],
     "028":[
-      {src:"js/work-028-coordinate-adapter.js?v=20260725_jintang_nine_v1",key:"w028c",ready:()=>Boolean(window.__WORK_028_COORDINATE_ADAPTER__)},
-      {src:"js/work-028.js?v=20260725_jintang_nine_v1",key:"w028",ready:()=>Boolean(window.__WORK_028_STABLE_READY__&&window.__WORK_028_CROWDSOURCE_READY__)}
+      {src:"js/work-028-coordinate-adapter.js?v=20260725_jintang_nine_v2",key:"w028c",ready:()=>Boolean(window.__WORK_028_COORDINATE_ADAPTER__)},
+      {src:"js/work-028.js?v=20260725_jintang_nine_v2",key:"w028",ready:()=>Boolean(window.__WORK_028_STABLE_READY__&&window.__WORK_028_CROWDSOURCE_READY__)}
     ]
   };
 

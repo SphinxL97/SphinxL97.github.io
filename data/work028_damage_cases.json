@@ -447,21 +447,21 @@
     "title": "一、黃庭經（一）·第10处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "養行□□□□□。",
     "original": "養行□□□□□。",
-    "c": "養行〔玉〕〔樹〕〔令〕〔可〕〔壯〕。",
-    "corrected": "養行〔玉〕〔樹〕〔令〕〔可〕〔壯〕。",
-    "current_context": "養行玉樹令可壯。",
-    "candidate": "玉樹令可壯",
+    "c": "養子〔玉〕〔樹〕〔令〕〔可〕〔壯〕。",
+    "corrected": "養子〔玉〕〔樹〕〔令〕〔可〕〔壯〕。",
+    "current_context": "養子玉樹令可壯。",
+    "candidate": "玉｜樹｜令｜可｜壯",
     "candidate_count": 5,
     "square_count": 5,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《唐褚遂良临右军书黄庭经》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
+    "reference": "故宫录文作“養子玉樹令可壯”，底稿“養行”中的“行”按同册异本校为“子”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
     "analysis": [
-      "本例位于“一、黃庭經（一）”，原句含5个残损方框，依次补入“玉樹令可壯”；补后局部文句为“養行玉樹令可壯。”。",
-      "候选字通过底稿与国立故宫博物院《唐褚遂良临右军书黄庭经》释文逐字对齐获得，当前段落的非方框字符匹配率约为92.9%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含5个残损方框，按方框先后次序拟补为“玉｜樹｜令｜可｜壯”；补后文句为“養子玉樹令可壯。”。",
+      "故宫录文作“養子玉樹令可壯”，底稿“養行”中的“行”按同册异本校为“子”。",
+      "候选字与第9页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "養行〔玉〕〔樹〕〔令〕〔可〕〔壯〕。"
@@ -1474,23 +1474,23 @@
     "n": "残损碑文恢复",
     "t": "一、黃庭經（一）·第31处残损",
     "title": "一、黃庭經（一）·第31处残损",
-    "category": "文献对校",
-    "mode": "documentary",
-    "confidence": "高",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
     "o": "肺之為□□□焦起。",
     "original": "肺之為□□□焦起。",
-    "c": "肺之為〔為〕〔氣〕〔三〕焦起。",
-    "corrected": "肺之為〔為〕〔氣〕〔三〕焦起。",
-    "current_context": "肺之為為氣三焦起。",
-    "candidate": "為氣三",
+    "c": "肺之〔為〕〔氣〕〔三〕焦起。",
+    "corrected": "肺之〔為〕〔氣〕〔三〕焦起。",
+    "current_context": "肺之為氣三焦起。",
+    "candidate": "為｜氣｜三",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《唐褚遂良临右军书黄庭经》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
+    "reference": "传世《黄庭经》此处句式为“肺之為氣三焦起”；底稿在方框前另存一“為”，疑为重识，故候选虽有录文支持，仍按版面语境暂拟。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
     "analysis": [
-      "本例位于“一、黃庭經（一）”，原句含3个残损方框，依次补入“為氣三”；补后局部文句为“肺之為為氣三焦起。”。",
-      "候选字通过底稿与国立故宫博物院《唐褚遂良临右军书黄庭经》释文逐字对齐获得，当前段落的非方框字符匹配率约为92.9%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“為｜氣｜三”；补后文句为“肺之為氣三焦起。”。",
+      "传世《黄庭经》此处句式为“肺之為氣三焦起”；底稿在方框前另存一“為”，疑为重识，故候选虽有录文支持，仍按版面语境暂拟。",
+      "候选字与第14页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "肺之為〔為〕〔氣〕〔三〕焦起。"
@@ -1574,21 +1574,21 @@
     "title": "一、黃庭經（一）·第33处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "下于龍侯何落□。",
     "original": "下于龍侯何落□。",
-    "c": "下于龍侯何落〔落〕。",
-    "corrected": "下于龍侯何落〔落〕。",
-    "current_context": "下于龍侯何落落。",
+    "c": "下于嚨喉何落〔落〕。",
+    "corrected": "下于嚨喉何落〔落〕。",
+    "current_context": "下于嚨喉何落落。",
     "candidate": "落",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《唐褚遂良临右军书黄庭经》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
+    "reference": "故宫录文作“下于嚨喉何落落”，底稿“龍侯”属于形近误识。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
     "analysis": [
-      "本例位于“一、黃庭經（一）”，原句含1个残损方框，依次补入“落”；补后局部文句为“下于龍侯何落落。”。",
-      "候选字通过底稿与国立故宫博物院《唐褚遂良临右军书黄庭经》释文逐字对齐获得，当前段落的非方框字符匹配率约为92.9%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“落”；补后文句为“下于嚨喉何落落。”。",
+      "故宫录文作“下于嚨喉何落落”，底稿“龍侯”属于形近误识。",
+      "候选字与第14页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "下于龍侯何落〔落〕。"
@@ -1724,18 +1724,18 @@
     "confidence": "中",
     "o": "右軍摛華，□敻絶今古。",
     "original": "右軍摛華，□敻絶今古。",
-    "c": "右軍摛華，〔夐〕敻絶今古。",
-    "corrected": "右軍摛華，〔夐〕敻絶今古。",
-    "current_context": "右軍摛華，夐敻絶今古。",
-    "candidate": "夐",
+    "c": "右軍摛華，〔敻〕絕今古。",
+    "corrected": "右軍摛華，〔敻〕絕今古。",
+    "current_context": "右軍摛華，敻絕今古。",
+    "candidate": "敻",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "相关题跋有“夐绝千古”与“敻绝今古”两种著录；本册现存“敻”前另有一残位，按句法拟作“敻”，但不伪称唯一答案。",
     "analysis": [
-      "本例位于“附：右軍題跋”，原句含1个残损方框，依次补入“夐”；补后局部文句为“右軍摛華，夐敻絶今古。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“敻”；补后文句为“右軍摛華，敻絕今古。”。",
+      "相关题跋有“夐绝千古”与“敻绝今古”两种著录；本册现存“敻”前另有一残位，按句法拟作“敻”，但不伪称唯一答案。",
+      "候选字与第16页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "右軍摛華，〔夐〕敻絶今古。"
@@ -1773,18 +1773,18 @@
     "confidence": "中",
     "o": "遺蹤展翫，□龍蟠鳯翥。",
     "original": "遺蹤展翫，□龍蟠鳯翥。",
-    "c": "遺蹤展翫，〔玩〕龍蟠鳯翥。",
-    "corrected": "遺蹤展翫，〔玩〕龍蟠鳯翥。",
-    "current_context": "遺蹤展翫，玩龍蟠鳯翥。",
-    "candidate": "玩",
+    "c": "遺蹤展翫，〔若〕龍蟠鳳翥。",
+    "corrected": "遺蹤展翫，〔若〕龍蟠鳳翥。",
+    "current_context": "遺蹤展翫，若龍蟠鳳翥。",
+    "candidate": "若",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "传世题跋常作“遗踪展玩，龙蟠凤翥”；本册在“龙”前多一残位，依比况句式暂拟“若”。",
     "analysis": [
-      "本例位于“附：右軍題跋”，原句含1个残损方框，依次补入“玩”；补后局部文句为“遺蹤展翫，玩龍蟠鳯翥。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“若”；补后文句为“遺蹤展翫，若龍蟠鳳翥。”。",
+      "传世题跋常作“遗踪展玩，龙蟠凤翥”；本册在“龙”前多一残位，依比况句式暂拟“若”。",
+      "候选字与第16页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "遺蹤展翫，〔玩〕龍蟠鳯翥。"
@@ -1822,18 +1822,18 @@
     "confidence": "中",
     "o": "蔵諸巾襲，□□□耀書府。",
     "original": "蔵諸巾襲，□□□耀書府。",
-    "c": "蔵諸巾襲，〔襲〕〔冠〕〔冠〕耀書府。",
-    "corrected": "蔵諸巾襲，〔襲〕〔冠〕〔冠〕耀書府。",
-    "current_context": "蔵諸巾襲，襲冠冠耀書府。",
-    "candidate": "襲冠冠",
+    "c": "藏諸巾襲，〔足〕〔以〕〔冠〕耀書府。",
+    "corrected": "藏諸巾襲，〔足〕〔以〕〔冠〕耀書府。",
+    "current_context": "藏諸巾襲，足以冠耀書府。",
+    "candidate": "足｜以｜冠",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "相关题跋作“藏诸巾袭，冠耀书府”；本册三处连续残位据语法补作“足以冠”，属于语境扩补。",
     "analysis": [
-      "本例位于“附：右軍題跋”，原句含3个残损方框，依次补入“襲冠冠”；补后局部文句为“蔵諸巾襲，襲冠冠耀書府。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“足｜以｜冠”；补后文句为“藏諸巾襲，足以冠耀書府。”。",
+      "相关题跋作“藏诸巾袭，冠耀书府”；本册三处连续残位据语法补作“足以冠”，属于语境扩补。",
+      "候选字与第16页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "蔵諸巾襲，〔襲〕〔冠〕〔冠〕耀書府。"
@@ -1866,23 +1866,23 @@
     "n": "残损碑文恢复",
     "t": "二、樂毅論·第39处残损",
     "title": "二、樂毅論·第39处残损",
-    "category": "文献对校",
-    "mode": "documentary",
-    "confidence": "高",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
     "o": "或者□□□未盡乎。",
     "original": "或者□□□未盡乎。",
-    "c": "或者〔者〕〔其〕〔其〕未盡乎。",
-    "corrected": "或者〔者〕〔其〕〔其〕未盡乎。",
-    "current_context": "或者者其其未盡乎。",
-    "candidate": "者其其",
+    "c": "或者〔其〕〔旨〕〔趣〕未盡乎。",
+    "corrected": "或者〔其〕〔旨〕〔趣〕未盡乎。",
+    "current_context": "或者其旨趣未盡乎。",
+    "candidate": "其｜旨｜趣",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之乐毅论》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
+    "reference": "通行《乐毅论》作“或者其未尽乎”；本册连续三处残位多于通行本，依据“乐氏之趣”上下文拟为“其旨趣”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
     "analysis": [
-      "本例位于“二、樂毅論”，原句含3个残损方框，依次补入“者其其”；补后局部文句为“或者者其其未盡乎。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之乐毅论》释文逐字对齐获得，当前段落的非方框字符匹配率约为96.4%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“其｜旨｜趣”；补后文句为“或者其旨趣未盡乎。”。",
+      "通行《乐毅论》作“或者其未尽乎”；本册连续三处残位多于通行本，依据“乐氏之趣”上下文拟为“其旨趣”。",
+      "候选字与第18页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "或者〔者〕〔其〕〔其〕未盡乎。"
@@ -2162,21 +2162,21 @@
     "title": "二、樂毅論·第45处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "則幾扵湯□大綱。",
     "original": "則幾扵湯□大綱。",
-    "c": "則幾扵湯〔恢〕大綱。",
-    "corrected": "則幾扵湯〔恢〕大綱。",
-    "current_context": "則幾扵湯恢大綱。",
-    "candidate": "恢",
+    "c": "則幾扵湯〔武之事矣。樂生方恢〕大綱。",
+    "corrected": "則幾扵湯〔武之事矣。樂生方恢〕大綱。",
+    "current_context": "則幾扵湯武之事矣。樂生方恢大綱。",
+    "candidate": "武之事矣。樂生方恢",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之乐毅论》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
+    "reference": "通行录文在“汤”后有“武之事矣，乐生方恢大纲”，本册一个长残位覆盖该段。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
     "analysis": [
-      "本例位于“二、樂毅論”，原句含1个残损方框，依次补入“恢”；补后局部文句为“則幾扵湯恢大綱。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之乐毅论》释文逐字对齐获得，当前段落的非方框字符匹配率约为96.4%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“武之事矣。樂生方恢”；补后文句为“則幾扵湯武之事矣。樂生方恢大綱。”。",
+      "通行录文在“汤”后有“武之事矣，乐生方恢大纲”，本册一个长残位覆盖该段。",
+      "候选字与第21页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "則幾扵湯〔恢〕大綱。"
@@ -2211,21 +2211,21 @@
     "title": "二、樂毅論·第46处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "牧民眀□仇其上。",
     "original": "牧民眀□仇其上。",
-    "c": "牧民眀〔顧〕仇其上。",
-    "corrected": "牧民眀〔顧〕仇其上。",
-    "current_context": "牧民眀顧仇其上。",
-    "candidate": "顧",
+    "c": "牧民眀〔信。以待其弊。使即墨莒人。顧〕仇其上。",
+    "corrected": "牧民眀〔信。以待其弊。使即墨莒人。顧〕仇其上。",
+    "current_context": "牧民眀信。以待其弊。使即墨莒人。顧仇其上。",
+    "candidate": "信。以待其弊。使即墨莒人。顧",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之乐毅论》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
+    "reference": "通行录文为“牧民明信，以待其弊，使即墨莒人顾仇其上”，本册残位覆盖中间长段。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
     "analysis": [
-      "本例位于“二、樂毅論”，原句含1个残损方框，依次补入“顧”；补后局部文句为“牧民眀顧仇其上。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之乐毅论》释文逐字对齐获得，当前段落的非方框字符匹配率约为96.4%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“信。以待其弊。使即墨莒人。顧”；补后文句为“牧民眀信。以待其弊。使即墨莒人。顧仇其上。”。",
+      "通行录文为“牧民明信，以待其弊，使即墨莒人顾仇其上”，本册残位覆盖中间长段。",
+      "候选字与第21页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "牧民眀〔顧〕仇其上。"
@@ -2260,21 +2260,21 @@
     "title": "二、樂毅論·第47处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "願釋干□。",
     "original": "願釋干□。",
-    "c": "願釋干〔施〕。",
-    "corrected": "願釋干〔施〕。",
-    "current_context": "願釋干施。",
-    "candidate": "施",
+    "c": "願釋干〔戈〕。",
+    "corrected": "願釋干〔戈〕。",
+    "current_context": "願釋干戈。",
+    "candidate": "戈",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之乐毅论》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
+    "reference": "固定词为“干戈”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
     "analysis": [
-      "本例位于“二、樂毅論”，原句含1个残损方框，依次补入“施”；补后局部文句为“願釋干施。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之乐毅论》释文逐字对齐获得，当前段落的非方框字符匹配率约为96.4%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“戈”；补后文句为“願釋干戈。”。",
+      "固定词为“干戈”。",
+      "候选字与第21页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "願釋干〔施〕。"
@@ -2309,21 +2309,21 @@
     "title": "二、樂毅論·第48处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "然則求□。",
     "original": "然則求□。",
-    "c": "然則求〔從〕。",
-    "corrected": "然則求〔從〕。",
-    "current_context": "然則求從。",
-    "candidate": "從",
+    "c": "然則求〔仁得仁。即墨大夫之義也。任窮則從〕。",
+    "corrected": "然則求〔仁得仁。即墨大夫之義也。任窮則從〕。",
+    "current_context": "然則求仁得仁。即墨大夫之義也。任窮則從。",
+    "candidate": "仁得仁。即墨大夫之義也。任窮則從",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之乐毅论》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
+    "reference": "通行录文在“求”后保存“仁得仁……任穷则从”，本册一个长残位覆盖该段。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
     "analysis": [
-      "本例位于“二、樂毅論”，原句含1个残损方框，依次补入“從”；补后局部文句为“然則求從。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之乐毅论》释文逐字对齐获得，当前段落的非方框字符匹配率约为96.4%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“仁得仁。即墨大夫之義也。任窮則從”；补后文句为“然則求仁得仁。即墨大夫之義也。任窮則從。”。",
+      "通行录文在“求”后保存“仁得仁……任穷则从”，本册一个长残位覆盖该段。",
+      "候选字与第21页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "然則求〔從〕。"
@@ -2358,21 +2358,21 @@
     "title": "二、樂毅論·第49处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "微子適□。",
     "original": "微子適□。",
-    "c": "微子適〔徒〕。",
-    "corrected": "微子適〔徒〕。",
-    "current_context": "微子適徒。",
-    "candidate": "徒",
+    "c": "微子適〔周〕。",
+    "corrected": "微子適〔周〕。",
+    "current_context": "微子適周。",
+    "candidate": "周",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之乐毅论》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
+    "reference": "典故为“微子适周”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21574?dep=P&mode=full",
     "analysis": [
-      "本例位于“二、樂毅論”，原句含1个残损方框，依次补入“徒”；补后局部文句为“微子適徒。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之乐毅论》释文逐字对齐获得，当前段落的非方框字符匹配率约为96.4%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“周”；补后文句为“微子適周。”。",
+      "典故为“微子适周”。",
+      "候选字与第21页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "微子適〔徒〕。"
@@ -2407,21 +2407,21 @@
     "title": "三、孝女曹娥碑·第50处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "其先與周同□。",
     "original": "其先與周同□。",
-    "c": "其先與周同〔同〕。",
-    "corrected": "其先與周同〔同〕。",
-    "current_context": "其先與周同同。",
-    "candidate": "同",
+    "c": "其先與周同〔祖〕。",
+    "corrected": "其先與周同〔祖〕。",
+    "current_context": "其先與周同祖。",
+    "candidate": "祖",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之孝女曹娥碑》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21576?dep=P&mode=full",
+    "reference": "曹娥碑传世录文作“其先与周同祖”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21576?dep=P&mode=full",
     "analysis": [
-      "本例位于“三、孝女曹娥碑”，原句含1个残损方框，依次补入“同”；补后局部文句为“其先與周同同。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之孝女曹娥碑》释文逐字对齐获得，当前段落的非方框字符匹配率约为91.0%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“祖”；补后文句为“其先與周同祖。”。",
+      "曹娥碑传世录文作“其先与周同祖”。",
+      "候选字与第24页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "其先與周同〔同〕。"
@@ -2848,21 +2848,21 @@
     "title": "三、孝女曹娥碑·第59处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□沉□□。",
     "original": "□沉□□。",
-    "c": "〔女〕沉〔乍〕〔浮〕。",
-    "corrected": "〔女〕沉〔乍〕〔浮〕。",
-    "current_context": "女沉乍浮。",
-    "candidate": "女乍浮",
+    "c": "〔乍〕沉〔乍〕〔浮〕。",
+    "corrected": "〔乍〕沉〔乍〕〔浮〕。",
+    "current_context": "乍沉乍浮。",
+    "candidate": "乍｜乍｜浮",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之孝女曹娥碑》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21576?dep=P&mode=full",
+    "reference": "传世录文作“乍沉乍浮”，与上下水势描写相合。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21576?dep=P&mode=full",
     "analysis": [
-      "本例位于“三、孝女曹娥碑”，原句含3个残损方框，依次补入“女乍浮”；补后局部文句为“女沉乍浮。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之孝女曹娥碑》释文逐字对齐获得，当前段落的非方框字符匹配率约为91.0%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“乍｜乍｜浮”；补后文句为“乍沉乍浮。”。",
+      "传世录文作“乍沉乍浮”，与上下水势描写相合。",
+      "候选字与第25页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔女〕沉〔乍〕〔浮〕。"
@@ -2897,21 +2897,21 @@
     "title": "三、孝女曹娥碑·第60处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "千夫□聲。",
     "original": "千夫□聲。",
-    "c": "千夫〔失〕聲。",
-    "corrected": "千夫〔失〕聲。",
-    "current_context": "千夫失聲。",
-    "candidate": "失",
+    "c": "千夫〔共〕聲。",
+    "corrected": "千夫〔共〕聲。",
+    "current_context": "千夫共聲。",
+    "candidate": "共",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王羲之孝女曹娥碑》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21576?dep=P&mode=full",
+    "reference": "传世录文作“千夫共声”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21576?dep=P&mode=full",
     "analysis": [
-      "本例位于“三、孝女曹娥碑”，原句含1个残损方框，依次补入“失”；补后局部文句为“千夫失聲。”。",
-      "候选字通过底稿与国立故宫博物院《王羲之孝女曹娥碑》释文逐字对齐获得，当前段落的非方框字符匹配率约为91.0%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“共”；补后文句为“千夫共聲。”。",
+      "传世录文作“千夫共声”。",
+      "候选字与第25页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "千夫〔失〕聲。"
@@ -3779,21 +3779,21 @@
     "title": "四、東方先生畫贊·第78处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□不可以乆安也。",
     "original": "□不可以乆安也。",
-    "c": "〔明〕不可以乆安也。",
-    "corrected": "〔明〕不可以乆安也。",
-    "current_context": "明不可以乆安也。",
-    "candidate": "明",
+    "c": "〔明節〕不可以乆安也。",
+    "corrected": "〔明節〕不可以乆安也。",
+    "current_context": "明節不可以乆安也。",
+    "candidate": "明節",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《东方朔画赞》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21577?dep=P&mode=full",
+    "reference": "《东方朔画赞》通行文作“明节不可以久安也”，一个残位覆盖两字。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21577?dep=P&mode=full",
     "analysis": [
-      "本例位于“四、東方先生畫贊”，原句含1个残损方框，依次补入“明”；补后局部文句为“明不可以乆安也。”。",
-      "候选字通过底稿与国立故宫博物院《东方朔画赞》释文逐字对齐获得，当前段落的非方框字符匹配率约为88.0%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“明節”；补后文句为“明節不可以乆安也。”。",
+      "《东方朔画赞》通行文作“明节不可以久安也”，一个残位覆盖两字。",
+      "候选字与第28页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔明〕不可以乆安也。"
@@ -3975,21 +3975,21 @@
     "title": "四、東方先生畫贊·第82处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□先生。",
     "original": "□先生。",
-    "c": "〔矯〕先生。",
-    "corrected": "〔矯〕先生。",
-    "current_context": "矯先生。",
-    "candidate": "矯",
+    "c": "〔矯矯〕先生。",
+    "corrected": "〔矯矯〕先生。",
+    "current_context": "矯矯先生。",
+    "candidate": "矯矯",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《东方朔画赞》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21577?dep=P&mode=full",
+    "reference": "赞辞起句为“矫矫先生”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21577?dep=P&mode=full",
     "analysis": [
-      "本例位于“四、東方先生畫贊”，原句含1个残损方框，依次补入“矯”；补后局部文句为“矯先生。”。",
-      "候选字通过底稿与国立故宫博物院《东方朔画赞》释文逐字对齐获得，当前段落的非方框字符匹配率约为88.0%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“矯矯”；补后文句为“矯矯先生。”。",
+      "赞辞起句为“矫矫先生”。",
+      "候选字与第30页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔矯〕先生。"
@@ -4808,21 +4808,21 @@
     "title": "五、王獻之書・洛神賦殘段·第99处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "子敬好□洛神□，人間合有數，奉此其一焉。",
     "original": "子敬好□洛神□，人間合有數，奉此其一焉。",
-    "c": "子敬好〔飛〕洛神〔飛〕，人間合有數，奉此其一焉。",
-    "corrected": "子敬好〔飛〕洛神〔飛〕，人間合有數，奉此其一焉。",
-    "current_context": "子敬好飛洛神飛，人間合有數，奉此其一焉。",
-    "candidate": "飛飛",
+    "c": "子敬好〔寫〕洛神〔賦〕，人間合有數本，奉此其一焉。",
+    "corrected": "子敬好〔寫〕洛神〔賦〕，人間合有數本，奉此其一焉。",
+    "current_context": "子敬好寫洛神賦，人間合有數本，奉此其一焉。",
+    "candidate": "寫｜賦",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《王献之洛神赋》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21578?dep=P&mode=full",
+    "reference": "柳公权题记通行录文作“子敬好写洛神赋，人间合有数本，奉此其一焉”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21578?dep=P&mode=full",
     "analysis": [
-      "本例位于“五、王獻之書・洛神賦殘段”，原句含2个残损方框，依次补入“飛飛”；补后局部文句为“子敬好飛洛神飛，人間合有數，奉此其一焉。”。",
-      "候选字通过底稿与国立故宫博物院《王献之洛神赋》释文逐字对齐获得，当前段落的非方框字符匹配率约为86.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“寫｜賦”；补后文句为“子敬好寫洛神賦，人間合有數本，奉此其一焉。”。",
+      "柳公权题记通行录文作“子敬好写洛神赋，人间合有数本，奉此其一焉”。",
+      "候选字与第36页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "子敬好〔飛〕洛神〔飛〕，人間合有數，奉此其一焉。"
@@ -4857,21 +4857,21 @@
     "title": "六、破邪論序·第100处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "太子中書舎人□□世南撰□并書。",
     "original": "太子中書舎人□□世南撰□并書。",
-    "c": "太子中書舎人〔若〕〔若〕世南撰〔若〕并書。",
-    "corrected": "太子中書舎人〔若〕〔若〕世南撰〔若〕并書。",
-    "current_context": "太子中書舎人若若世南撰若并書。",
-    "candidate": "若若若",
+    "c": "太子中書舍人〔吳郡〕〔虞〕世南撰〔并〕書。",
+    "corrected": "太子中書舍人〔吳郡〕〔虞〕世南撰〔并〕書。",
+    "current_context": "太子中書舍人吳郡虞世南撰并書。",
+    "candidate": "吳郡｜虞｜并",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "题署通行录文为“太子中书舍人吴郡虞世南撰并书”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含3个残损方框，依次补入“若若若”；补后局部文句为“太子中書舎人若若世南撰若并書。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“吳郡｜虞｜并”；补后文句为“太子中書舍人吳郡虞世南撰并書。”。",
+      "题署通行录文为“太子中书舍人吴郡虞世南撰并书”。",
+      "候选字与第38页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "太子中書舎人〔若〕〔若〕世南撰〔若〕并書。"
@@ -4906,21 +4906,21 @@
     "title": "六、破邪論序·第101处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "至理凝□。",
     "original": "至理凝□。",
-    "c": "至理凝〔邈〕。",
-    "corrected": "至理凝〔邈〕。",
-    "current_context": "至理凝邈。",
-    "candidate": "邈",
+    "c": "至理凝〔邃〕。",
+    "corrected": "至理凝〔邃〕。",
+    "current_context": "至理凝邃。",
+    "candidate": "邃",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "《破邪论序》通行文作“至理凝邃”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含1个残损方框，依次补入“邈”；补后局部文句为“至理凝邈。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“邃”；补后文句为“至理凝邃。”。",
+      "《破邪论序》通行文作“至理凝邃”。",
+      "候选字与第38页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "至理凝〔邈〕。"
@@ -5053,21 +5053,21 @@
     "title": "六、破邪論序·第104处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□□□寘者乎。",
     "original": "□□□寘者乎。",
-    "c": "〔窺〕〔其〕〔窅〕寘者乎。",
-    "corrected": "〔窺〕〔其〕〔窅〕寘者乎。",
-    "current_context": "窺其窅寘者乎。",
-    "candidate": "窺其窅",
+    "c": "〔窺〕〔其〕〔窅〕冥者乎。",
+    "corrected": "〔窺〕〔其〕〔窅〕冥者乎。",
+    "current_context": "窺其窅冥者乎。",
+    "candidate": "窺｜其｜窅",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "通行文为“安可凭诸天纵，窥其窅冥者乎”。底稿“寘”按文义校为“冥”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含3个残损方框，依次补入“窺其窅”；补后局部文句为“窺其窅寘者乎。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“窺｜其｜窅”；补后文句为“窺其窅冥者乎。”。",
+      "通行文为“安可凭诸天纵，窥其窅冥者乎”。底稿“寘”按文义校为“冥”。",
+      "候选字与第38页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔窺〕〔其〕〔窅〕寘者乎。"
@@ -5249,21 +5249,21 @@
     "title": "六、破邪論序·第108处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□祖□伯。",
     "original": "□祖□伯。",
-    "c": "〔爰〕祖〔及〕伯。",
-    "corrected": "〔爰〕祖〔及〕伯。",
-    "current_context": "爰祖及伯。",
-    "candidate": "爰及",
+    "c": "〔爰〕祖〔迺〕伯。",
+    "corrected": "〔爰〕祖〔迺〕伯。",
+    "current_context": "爰祖迺伯。",
+    "candidate": "爰｜迺",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "故宫录文作“爰祖迺伯”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含2个残损方框，依次补入“爰及”；补后局部文句为“爰祖及伯。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“爰｜迺”；补后文句为“爰祖迺伯。”。",
+      "故宫录文作“爰祖迺伯”。",
+      "候选字与第39页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔爰〕祖〔及〕伯。"
@@ -5445,21 +5445,21 @@
     "title": "六、破邪論序·第112处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□連清□。",
     "original": "□連清□。",
-    "c": "〔留〕連清〔翰〕。",
-    "corrected": "〔留〕連清〔翰〕。",
-    "current_context": "留連清翰。",
-    "candidate": "留翰",
+    "c": "〔留〕連清〔翕〕。",
+    "corrected": "〔留〕連清〔翕〕。",
+    "current_context": "留連清翕。",
+    "candidate": "留｜翕",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "故宫录文此处保存“留连清翕”的字序；“翕”为生僻用字，仍以〔〕标示。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含2个残损方框，依次补入“留翰”；补后局部文句为“留連清翰。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“留｜翕”；补后文句为“留連清翕。”。",
+      "故宫录文此处保存“留连清翕”的字序；“翕”为生僻用字，仍以〔〕标示。",
+      "候选字与第39页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔留〕連清〔翰〕。"
@@ -5494,21 +5494,21 @@
     "title": "六、破邪論序·第113处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "比地方春□顯仁之量。",
     "original": "比地方春□顯仁之量。",
-    "c": "比地方春〔用〕顯仁之量。",
-    "corrected": "比地方春〔用〕顯仁之量。",
-    "current_context": "比地方春用顯仁之量。",
-    "candidate": "用",
+    "c": "比地方春〔迺用〕顯仁之量。",
+    "corrected": "比地方春〔迺用〕顯仁之量。",
+    "current_context": "比地方春迺用顯仁之量。",
+    "candidate": "迺用",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "通行录文在“方春”后为“迺用显仁之量”，一个残位对应两字。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含1个残损方框，依次补入“用”；补后局部文句为“比地方春用顯仁之量。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“迺用”；补后文句为“比地方春迺用顯仁之量。”。",
+      "通行录文在“方春”后为“迺用显仁之量”，一个残位对应两字。",
+      "候选字与第39页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "比地方春〔用〕顯仁之量。"
@@ -5641,21 +5641,21 @@
     "title": "六、破邪論序·第116处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "□人之羽儀者矣。",
     "original": "□人之羽儀者矣。",
-    "c": "〔生〕人之羽儀者矣。",
-    "corrected": "〔生〕人之羽儀者矣。",
-    "current_context": "生人之羽儀者矣。",
-    "candidate": "生",
+    "c": "〔至〕人之羽儀者矣。",
+    "corrected": "〔至〕人之羽儀者矣。",
+    "current_context": "至人之羽儀者矣。",
+    "candidate": "至",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "固定搭配为“至人之羽仪”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含1个残损方框，依次补入“生”；补后局部文句为“生人之羽儀者矣。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“至”；补后文句为“至人之羽儀者矣。”。",
+      "固定搭配为“至人之羽仪”。",
+      "候选字与第40页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔生〕人之羽儀者矣。"
@@ -6082,21 +6082,21 @@
     "title": "六、破邪論序·第125处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "披薜荔□阿。",
     "original": "披薜荔□阿。",
-    "c": "披薜荔〔山〕阿。",
-    "corrected": "披薜荔〔山〕阿。",
-    "current_context": "披薜荔山阿。",
-    "candidate": "山",
+    "c": "披薜荔〔於山〕阿。",
+    "corrected": "披薜荔〔於山〕阿。",
+    "current_context": "披薜荔於山阿。",
+    "candidate": "於山",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "通行录文作“披薜荔于山阿”，一个残位覆盖“于山”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含1个残损方框，依次补入“山”；补后局部文句为“披薜荔山阿。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“於山”；补后文句为“披薜荔於山阿。”。",
+      "通行录文作“披薜荔于山阿”，一个残位覆盖“于山”。",
+      "候选字与第41页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "披薜荔〔山〕阿。"
@@ -6180,21 +6180,21 @@
     "title": "六、破邪論序·第127处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "萇松臣□。",
     "original": "萇松臣□。",
-    "c": "萇松臣〔壑〕。",
-    "corrected": "萇松臣〔壑〕。",
-    "current_context": "萇松臣壑。",
+    "c": "長松巨〔壑〕。",
+    "corrected": "長松巨〔壑〕。",
+    "current_context": "長松巨壑。",
     "candidate": "壑",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "传世录文作“长松巨壑”；底稿“臣”按形近字校为“巨”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含1个残损方框，依次补入“壑”；补后局部文句为“萇松臣壑。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“壑”；补后文句为“長松巨壑。”。",
+      "传世录文作“长松巨壑”；底稿“臣”按形近字校为“巨”。",
+      "候选字与第42页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "萇松臣〔壑〕。"
@@ -6523,21 +6523,21 @@
     "title": "六、破邪論序·第134处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "凡解□鎖。",
     "original": "凡解□鎖。",
-    "c": "凡解〔冰〕鎖。",
-    "corrected": "凡解〔冰〕鎖。",
-    "current_context": "凡解冰鎖。",
+    "c": "瓦解〔冰〕銷。",
+    "corrected": "瓦解〔冰〕銷。",
+    "current_context": "瓦解冰銷。",
     "candidate": "冰",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《破邪论序》及国立故宫博物院同帖释文：https://zh.wikisource.org/wiki/破邪論序",
+    "reference": "通行文作“瓦解冰销”，底稿“凡解□锁”为连续形近误识。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/21579?dep=P&mode=full",
     "analysis": [
-      "本例位于“六、破邪論序”，原句含1个残损方框，依次补入“冰”；补后局部文句为“凡解冰鎖。”。",
-      "候选字通过底稿与维基文库《破邪论序》及国立故宫博物院同帖释文逐字对齐获得，当前段落的非方框字符匹配率约为91.3%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“冰”；补后文句为“瓦解冰銷。”。",
+      "通行文作“瓦解冰销”，底稿“凡解□锁”为连续形近误识。",
+      "候选字与第43页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "凡解〔冰〕鎖。"
@@ -7062,21 +7062,21 @@
     "title": "七、蘭亭序·第145处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "此地□山有峻領，茂林脩竹，又有清流激湍，暵帶左右。",
     "original": "此地□山有峻領，茂林脩竹，又有清流激湍，暵帶左右。",
-    "c": "此地〔有〕山有峻領，茂林脩竹，又有清流激湍，暵帶左右。",
-    "corrected": "此地〔有〕山有峻領，茂林脩竹，又有清流激湍，暵帶左右。",
-    "current_context": "此地有山有峻領，茂林脩竹，又有清流激湍，暵帶左右。",
-    "candidate": "有",
+    "c": "此地〔有崇〕山峻嶺，茂林脩竹，又有清流激湍，映帶左右。",
+    "corrected": "此地〔有崇〕山峻嶺，茂林脩竹，又有清流激湍，映帶左右。",
+    "current_context": "此地有崇山峻嶺，茂林脩竹，又有清流激湍，映帶左右。",
+    "candidate": "有崇",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《兰亭集序》：https://zh.wikisource.org/wiki/蘭亭集序",
+    "reference": "《兰亭集序》通行文作“此地有崇山峻岭……映带左右”，一个残位覆盖“有崇”。：https://zh.wikisource.org/wiki/蘭亭集序",
     "analysis": [
-      "本例位于“七、蘭亭序”，原句含1个残损方框，依次补入“有”；补后局部文句为“此地有山有峻領，茂林脩竹，又有清流激湍，暵帶左右。”。",
-      "候选字通过底稿与维基文库《兰亭集序》逐字对齐获得，当前段落的非方框字符匹配率约为93.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“有崇”；补后文句为“此地有崇山峻嶺，茂林脩竹，又有清流激湍，映帶左右。”。",
+      "《兰亭集序》通行文作“此地有崇山峻岭……映带左右”，一个残位覆盖“有崇”。",
+      "候选字与第46页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "此地〔有〕山有峻領，茂林脩竹，又有清流激湍，暵帶左右。"
@@ -7452,23 +7452,23 @@
     "n": "残损碑文恢复",
     "t": "七、蘭亭序·第153处残损",
     "title": "七、蘭亭序·第153处残损",
-    "category": "文献对校",
-    "mode": "documentary",
-    "confidence": "高",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
     "o": "後之視今，亦由今之視昔，□。",
     "original": "後之視今，亦由今之視昔，□。",
-    "c": "後之視今，亦由今之視昔，〔昔〕。",
-    "corrected": "後之視今，亦由今之視昔，〔昔〕。",
-    "current_context": "後之視今，亦由今之視昔，昔。",
-    "candidate": "昔",
+    "c": "後之視今，亦由今之視昔〔也〕。",
+    "corrected": "後之視今，亦由今之視昔〔也〕。",
+    "current_context": "後之視今，亦由今之視昔也。",
+    "candidate": "也",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《兰亭集序》：https://zh.wikisource.org/wiki/蘭亭集序",
+    "reference": "通行本在“视昔”后直接句断，本册却保留一处残位；依判断句语气暂拟“也”。：https://zh.wikisource.org/wiki/蘭亭集序",
     "analysis": [
-      "本例位于“七、蘭亭序”，原句含1个残损方框，依次补入“昔”；补后局部文句为“後之視今，亦由今之視昔，昔。”。",
-      "候选字通过底稿与维基文库《兰亭集序》逐字对齐获得，当前段落的非方框字符匹配率约为93.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“也”；补后文句为“後之視今，亦由今之視昔也。”。",
+      "通行本在“视昔”后直接句断，本册却保留一处残位；依判断句语气暂拟“也”。",
+      "候选字与第51页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "後之視今，亦由今之視昔，〔昔〕。"
@@ -8777,21 +8777,21 @@
     "title": "八、黃庭經（二）·第180处残损",
     "category": "文献对校",
     "mode": "documentary",
-    "confidence": "高",
+    "confidence": "较高",
     "o": "上合三焦道飲□。",
     "original": "上合三焦道飲□。",
-    "c": "上合三焦道飲〔醬〕。",
-    "corrected": "上合三焦道飲〔醬〕。",
-    "current_context": "上合三焦道飲醬。",
-    "candidate": "醬",
+    "c": "上合三焦道飲〔醬漿〕。",
+    "corrected": "上合三焦道飲〔醬漿〕。",
+    "current_context": "上合三焦道飲醬漿。",
+    "candidate": "醬漿",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "国立故宫博物院《唐褚遂良临右军书黄庭经》释文：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
+    "reference": "故宫《黄庭经》录文作“上合三焦道饮浆”，同册另一通本作“饮酱浆”；一个残位按同册异文补两字。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
     "analysis": [
-      "本例位于“八、黃庭經（二）”，原句含1个残损方框，依次补入“醬”；补后局部文句为“上合三焦道飲醬。”。",
-      "候选字通过底稿与国立故宫博物院《唐褚遂良临右军书黄庭经》释文逐字对齐获得，当前段落的非方框字符匹配率约为93.1%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“醬漿”；补后文句为“上合三焦道飲醬漿。”。",
+      "故宫《黄庭经》录文作“上合三焦道饮浆”，同册另一通本作“饮酱浆”；一个残位按同册异文补两字。",
+      "候选字与第60页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "上合三焦道飲〔醬〕。"
@@ -9172,18 +9172,18 @@
     "confidence": "中",
     "o": "昇元三年十月□日重題。",
     "original": "昇元三年十月□日重題。",
-    "c": "昇元三年十月〔月〕日重題。",
-    "corrected": "昇元三年十月〔月〕日重題。",
-    "current_context": "昇元三年十月月日重題。",
-    "candidate": "月",
+    "c": "昇元三年十月〔吉〕日重題。",
+    "corrected": "昇元三年十月〔吉〕日重題。",
+    "current_context": "昇元三年十月吉日重題。",
+    "candidate": "吉",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "故宫著录仅作“十月日”，具体日序缺失；依题识常用“吉日”暂拟，不视为定论。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
     "analysis": [
-      "本例位于“附：昇元題識”，原句含1个残损方框，依次补入“月”；补后局部文句为“昇元三年十月月日重題。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“吉”；补后文句为“昇元三年十月吉日重題。”。",
+      "故宫著录仅作“十月日”，具体日序缺失；依题识常用“吉日”暂拟，不视为定论。",
+      "候选字与第64页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "昇元三年十月〔月〕日重題。"
@@ -9216,9 +9216,9 @@
     "n": "残损碑文恢复",
     "t": "附：昇元題識·第189处残损",
     "title": "附：昇元題識·第189处残损",
-    "category": "AI暂拟",
-    "mode": "ai_provisional",
-    "confidence": "中",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "较高",
     "o": "殿副使，知崇英院事兼文房官撿□工部尚書臣王庚。",
     "original": "殿副使，知崇英院事兼文房官撿□工部尚書臣王庚。",
     "c": "殿副使，知崇英院事兼文房官撿〔校〕工部尚書臣王庚。",
@@ -9228,11 +9228,11 @@
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "官衔固定写法为“检校工部尚书”。：https://digitalarchive.npm.gov.tw/opendata/Pub/DetailEng/28094?dep=P&mode=full",
     "analysis": [
-      "本例位于“附：昇元題識”，原句含1个残损方框，依次补入“校”；补后局部文句为“殿副使，知崇英院事兼文房官撿校工部尚書臣王庚。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“校”；补后文句为“殿副使，知崇英院事兼文房官撿校工部尚書臣王庚。”。",
+      "官衔固定写法为“检校工部尚书”。",
+      "候选字与第65页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "殿副使，知崇英院事兼文房官撿〔校〕工部尚書臣王庚。"
@@ -9270,18 +9270,18 @@
     "confidence": "较高",
     "o": "維貞觀廿三年□廿六日己已，太宗皇帝崩于翠微宫之合風殿。",
     "original": "維貞觀廿三年□廿六日己已，太宗皇帝崩于翠微宫之合風殿。",
-    "c": "維貞觀廿三年〔二〕廿六日己已，太宗皇帝崩于翠微宫之合風殿。",
-    "corrected": "維貞觀廿三年〔二〕廿六日己已，太宗皇帝崩于翠微宫之合風殿。",
-    "current_context": "維貞觀廿三年二廿六日己已，太宗皇帝崩于翠微宫之合風殿。",
-    "candidate": "二",
+    "c": "維貞觀廿三年〔歲次己酉五月甲辰朔〕廿六日己巳，太宗皇帝崩于翠微宫之含風殿。",
+    "corrected": "維貞觀廿三年〔歲次己酉五月甲辰朔〕廿六日己巳，太宗皇帝崩于翠微宫之含風殿。",
+    "current_context": "維貞觀廿三年歲次己酉五月甲辰朔廿六日己巳，太宗皇帝崩于翠微宫之含風殿。",
+    "candidate": "歲次己酉五月甲辰朔",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "《唐太宗文皇帝哀册文》开篇作“维贞观廿三年岁次己酉五月甲辰朔廿六日己巳……含风殿”，一个长残位覆盖纪年。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含1个残损方框，依次补入“二”；补后局部文句为“維貞觀廿三年二廿六日己已，太宗皇帝崩于翠微宫之合風殿。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“歲次己酉五月甲辰朔”；补后文句为“維貞觀廿三年歲次己酉五月甲辰朔廿六日己巳，太宗皇帝崩于翠微宫之含風殿。”。",
+      "《唐太宗文皇帝哀册文》开篇作“维贞观廿三年岁次己酉五月甲辰朔廿六日己巳……含风殿”，一个长残位覆盖纪年。",
+      "候选字与第66页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "維貞觀廿三年〔二〕廿六日己已，太宗皇帝崩于翠微宫之合風殿。"
@@ -9368,18 +9368,18 @@
     "confidence": "较高",
     "o": "化同□绵，區縞素。",
     "original": "化同□绵，區縞素。",
-    "c": "化同〔軫〕绵，區縞素。",
-    "corrected": "化同〔軫〕绵，區縞素。",
-    "current_context": "化同軫绵，區縞素。",
+    "c": "溘化同〔軫〕，綿區縞素。",
+    "corrected": "溘化同〔軫〕，綿區縞素。",
+    "current_context": "溘化同軫，綿區縞素。",
     "candidate": "軫",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "通行录文作“溘化同轸，绵区缟素”；底稿“化同□绵，区缟素”存在断句错位。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含1个残损方框，依次补入“軫”；补后局部文句为“化同軫绵，區縞素。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“軫”；补后文句为“溘化同軫，綿區縞素。”。",
+      "通行录文作“溘化同轸，绵区缟素”；底稿“化同□绵，区缟素”存在断句错位。",
+      "候选字与第67页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "化同〔軫〕绵，區縞素。"
@@ -9412,23 +9412,23 @@
     "n": "残损碑文恢复",
     "t": "九、太宗皇帝哀冊殘段·第193处残损",
     "title": "九、太宗皇帝哀冊殘段·第193处残损",
-    "category": "文献对校",
-    "mode": "documentary",
-    "confidence": "较高",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
     "o": "廹宗祧之是寄，傷□往駕之無慿。",
     "original": "廹宗祧之是寄，傷□往駕之無慿。",
-    "c": "廹宗祧之是寄，傷〔傷〕往駕之無慿。",
-    "corrected": "廹宗祧之是寄，傷〔傷〕往駕之無慿。",
-    "current_context": "廹宗祧之是寄，傷傷往駕之無慿。",
-    "candidate": "傷",
+    "c": "廹宗祧之是寄，傷〔彼〕往駕之無慿。",
+    "corrected": "廹宗祧之是寄，傷〔彼〕往駕之無慿。",
+    "current_context": "廹宗祧之是寄，傷彼往駕之無慿。",
+    "candidate": "彼",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "通行本多作“迫宗祧之是寄，伤往驾之无凭”，本册在“伤”后确有残位，依指代关系暂拟“彼”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含1个残损方框，依次补入“傷”；补后局部文句为“廹宗祧之是寄，傷傷往駕之無慿。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“彼”；补后文句为“廹宗祧之是寄，傷彼往駕之無慿。”。",
+      "通行本多作“迫宗祧之是寄，伤往驾之无凭”，本册在“伤”后确有残位，依指代关系暂拟“彼”。",
+      "候选字与第68页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "廹宗祧之是寄，傷〔傷〕往駕之無慿。"
@@ -9466,18 +9466,18 @@
     "confidence": "较高",
     "o": "爰詔司存，傳芳瓊□□，詞□三微。",
     "original": "爰詔司存，傳芳瓊□□，詞□三微。",
-    "c": "爰詔司存，傳芳瓊〔宇〕〔其〕，詞〔曰〕三微。",
-    "corrected": "爰詔司存，傳芳瓊〔宇〕〔其〕，詞〔曰〕三微。",
-    "current_context": "爰詔司存，傳芳瓊宇其，詞曰三微。",
-    "candidate": "宇其曰",
+    "c": "爰詔司存，傳芳瓊〔宇〕。〔其〕詞〔曰〕：三微。",
+    "corrected": "爰詔司存，傳芳瓊〔宇〕。〔其〕詞〔曰〕：三微。",
+    "current_context": "爰詔司存，傳芳瓊宇。其詞曰：三微。",
+    "candidate": "宇｜其｜曰",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "通行录文为“爰诏司存，传芳琼宇。其词曰：三微”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含3个残损方框，依次补入“宇其曰”；补后局部文句为“爰詔司存，傳芳瓊宇其，詞曰三微。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“宇｜其｜曰”；补后文句为“爰詔司存，傳芳瓊宇。其詞曰：三微。”。",
+      "通行录文为“爰诏司存，传芳琼宇。其词曰：三微”。",
+      "候选字与第69页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "爰詔司存，傳芳瓊〔宇〕〔其〕，詞〔曰〕三微。"
@@ -9613,18 +9613,18 @@
     "confidence": "较高",
     "o": "夙表餘雄，先□及正。",
     "original": "夙表餘雄，先□及正。",
-    "c": "夙表餘雄，先〔懷〕及正。",
-    "corrected": "夙表餘雄，先〔懷〕及正。",
-    "current_context": "夙表餘雄，先懷及正。",
+    "c": "夙表餘雄，先〔懷〕反正。",
+    "corrected": "夙表餘雄，先〔懷〕反正。",
+    "current_context": "夙表餘雄，先懷反正。",
     "candidate": "懷",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "通行录文作“夙表余雄，先怀反正”；底稿“及正”按传本校为“反正”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含1个残损方框，依次补入“懷”；补后局部文句为“夙表餘雄，先懷及正。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“懷”；补后文句为“夙表餘雄，先懷反正。”。",
+      "通行录文作“夙表余雄，先怀反正”；底稿“及正”按传本校为“反正”。",
+      "候选字与第70页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "夙表餘雄，先〔懷〕及正。"
@@ -9809,18 +9809,18 @@
     "confidence": "较高",
     "o": "□風順軌，疑啚奉□。",
     "original": "□風順軌，疑啚奉□。",
-    "c": "〔修〕風順軌，疑啚奉〔奉〕。",
-    "corrected": "〔修〕風順軌，疑啚奉〔奉〕。",
-    "current_context": "修風順軌，疑啚奉奉。",
-    "candidate": "修奉",
+    "c": "〔修〕風順軌，凝圖奉〔睿〕。",
+    "corrected": "〔修〕風順軌，凝圖奉〔睿〕。",
+    "current_context": "修風順軌，凝圖奉睿。",
+    "candidate": "修｜睿",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "通行录文作“修风顺轨，凝图奉睿”；底稿“疑啚”按传本校为“凝图”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含2个残损方框，依次补入“修奉”；补后局部文句为“修風順軌，疑啚奉奉。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“修｜睿”；补后文句为“修風順軌，凝圖奉睿。”。",
+      "通行录文作“修风顺轨，凝图奉睿”；底稿“疑啚”按传本校为“凝图”。",
+      "候选字与第71页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔修〕風順軌，疑啚奉〔奉〕。"
@@ -10005,18 +10005,18 @@
     "confidence": "较高",
     "o": "東旌若术西旆條支，龍鄉委□□胙来儀。",
     "original": "東旌若术西旆條支，龍鄉委□□胙来儀。",
-    "c": "東旌若术西旆條支，龍鄉委〔質〕〔鳥〕胙来儀。",
-    "corrected": "東旌若术西旆條支，龍鄉委〔質〕〔鳥〕胙来儀。",
-    "current_context": "東旌若术西旆條支，龍鄉委質鳥胙来儀。",
-    "candidate": "質鳥",
+    "c": "東旌若木，西旆條支；龍鄉委〔質〕，〔鳥〕服來儀。",
+    "corrected": "東旌若木，西旆條支；龍鄉委〔質〕，〔鳥〕服來儀。",
+    "current_context": "東旌若木，西旆條支；龍鄉委質，鳥服來儀。",
+    "candidate": "質｜鳥",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "哀册录文作“东旌若木，西旆条支；龙乡委质，鸟服来仪”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含2个残损方框，依次补入“質鳥”；补后局部文句为“東旌若术西旆條支，龍鄉委質鳥胙来儀。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“質｜鳥”；补后文句为“東旌若木，西旆條支；龍鄉委質，鳥服來儀。”。",
+      "哀册录文作“东旌若木，西旆条支；龙乡委质，鸟服来仪”。",
+      "候选字与第73页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "東旌若术西旆條支，龍鄉委〔質〕〔鳥〕胙来儀。"
@@ -10201,18 +10201,18 @@
     "confidence": "较高",
     "o": "松□望幸瑶華方薦，仙丹斂術星飛告變，□沵氣□升年，掩璿暉扵離殿。",
     "original": "松□望幸瑶華方薦，仙丹斂術星飛告變，□沵氣□升年，掩璿暉扵離殿。",
-    "c": "松〔荑〕望幸瑶華方薦，仙丹斂術星飛告變，〔凝〕沵氣〔於〕升年，掩璿暉扵離殿。",
-    "corrected": "松〔荑〕望幸瑶華方薦，仙丹斂術星飛告變，〔凝〕沵氣〔於〕升年，掩璿暉扵離殿。",
-    "current_context": "松荑望幸瑶華方薦，仙丹斂術星飛告變，凝沵氣於升年，掩璿暉扵離殿。",
-    "candidate": "荑凝於",
+    "c": "松〔荑〕望幸，瑶華方薦；仙丹斂術，星飛告變；〔凝〕濔氣〔於〕升年，掩璿暉扵離殿。",
+    "corrected": "松〔荑〕望幸，瑶華方薦；仙丹斂術，星飛告變；〔凝〕濔氣〔於〕升年，掩璿暉扵離殿。",
+    "current_context": "松荑望幸，瑶華方薦；仙丹斂術，星飛告變；凝濔氣於升年，掩璿暉扵離殿。",
+    "candidate": "荑｜凝｜於",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文作“松荑望幸……凝濔气于升年”，三处候选与残位顺序对应。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含3个残损方框，依次补入“荑凝於”；补后局部文句为“松荑望幸瑶華方薦，仙丹斂術星飛告變，凝沵氣於升年，掩璿暉扵離殿。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“荑｜凝｜於”；补后文句为“松荑望幸，瑶華方薦；仙丹斂術，星飛告變；凝濔氣於升年，掩璿暉扵離殿。”。",
+      "刻帖录文作“松荑望幸……凝濔气于升年”，三处候选与残位顺序对应。",
+      "候选字与第74页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "松〔荑〕望幸瑶華方薦，仙丹斂術星飛告變，〔凝〕沵氣〔於〕升年，掩璿暉扵離殿。"
@@ -10299,18 +10299,18 @@
     "confidence": "较高",
     "o": "商管初飛，秋絃罷□。",
     "original": "商管初飛，秋絃罷□。",
-    "c": "商管初飛，秋絃罷〔舞〕。",
-    "corrected": "商管初飛，秋絃罷〔舞〕。",
-    "current_context": "商管初飛，秋絃罷舞。",
-    "candidate": "舞",
+    "c": "商管初飛，秋絃罷〔脩〕。",
+    "corrected": "商管初飛，秋絃罷〔脩〕。",
+    "current_context": "商管初飛，秋絃罷脩。",
+    "candidate": "脩",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "本册刻帖异文作“秋弦罢脩”，并非通行本“钧天罢舞”，应尊重本册字序。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含1个残损方框，依次补入“舞”；补后局部文句为“商管初飛，秋絃罷舞。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“脩”；补后文句为“商管初飛，秋絃罷脩。”。",
+      "本册刻帖异文作“秋弦罢脩”，并非通行本“钧天罢舞”，应尊重本册字序。",
+      "候选字与第75页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "商管初飛，秋絃罷〔舞〕。"
@@ -10397,18 +10397,18 @@
     "confidence": "较高",
     "o": "情其知失□清秋扵，廣路□悲風扵長經。",
     "original": "情其知失□清秋扵，廣路□悲風扵長經。",
-    "c": "情其知失〔凝〕清秋扵，廣路〔溯〕悲風扵長經。",
-    "corrected": "情其知失〔凝〕清秋扵，廣路〔溯〕悲風扵長經。",
-    "current_context": "情其知失凝清秋扵，廣路溯悲風扵長經。",
-    "candidate": "凝溯",
+    "c": "情其知失〔凝〕清秋扵廣路，〔溯〕悲風扵長經。",
+    "corrected": "情其知失〔凝〕清秋扵廣路，〔溯〕悲風扵長經。",
+    "current_context": "情其知失凝清秋扵廣路，溯悲風扵長經。",
+    "candidate": "凝｜溯",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文保留“凝清秋于广路，溯悲风于长经”的句式；底稿逗号位置错置。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含2个残损方框，依次补入“凝溯”；补后局部文句为“情其知失凝清秋扵，廣路溯悲風扵長經。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“凝｜溯”；补后文句为“情其知失凝清秋扵廣路，溯悲風扵長經。”。",
+      "刻帖录文保留“凝清秋于广路，溯悲风于长经”的句式；底稿逗号位置错置。",
+      "候选字与第76页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "情其知失〔凝〕清秋扵，廣路〔溯〕悲風扵長經。"
@@ -10446,18 +10446,18 @@
     "confidence": "较高",
     "o": "迤動邊□□蕭瑟嗚，呼哀㦲□營□竁漢。",
     "original": "迤動邊□□蕭瑟嗚，呼哀㦲□營□竁漢。",
-    "c": "迤動邊〔笳〕〔之〕蕭瑟嗚，呼哀㦲〔周〕營〔甫〕竁漢。",
-    "corrected": "迤動邊〔笳〕〔之〕蕭瑟嗚，呼哀㦲〔周〕營〔甫〕竁漢。",
-    "current_context": "迤動邊笳之蕭瑟嗚，呼哀㦲周營甫竁漢。",
-    "candidate": "笳之周甫",
+    "c": "迤動邊〔笳〕〔之〕蕭瑟。嗚呼哀㦲！〔周〕營〔甫〕竁，漢泉闈。",
+    "corrected": "迤動邊〔笳〕〔之〕蕭瑟。嗚呼哀㦲！〔周〕營〔甫〕竁，漢泉闈。",
+    "current_context": "迤動邊笳之蕭瑟。嗚呼哀㦲！周營甫竁，漢泉闈。",
+    "candidate": "笳｜之｜周｜甫",
     "candidate_count": 4,
     "square_count": 4,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文作“迤动边笳之萧瑟……周营甫竁，汉泉闱”，四处残位按次序补入。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含4个残损方框，依次补入“笳之周甫”；补后局部文句为“迤動邊笳之蕭瑟嗚，呼哀㦲周營甫竁漢。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含4个残损方框，按方框先后次序拟补为“笳｜之｜周｜甫”；补后文句为“迤動邊笳之蕭瑟。嗚呼哀㦲！周營甫竁，漢泉闈。”。",
+      "刻帖录文作“迤动边笳之萧瑟……周营甫竁，汉泉闱”，四处残位按次序补入。",
+      "候选字与第76页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "迤動邊〔笳〕〔之〕蕭瑟嗚，呼哀㦲〔周〕營〔甫〕竁漢。"
@@ -10495,18 +10495,18 @@
     "confidence": "较高",
     "o": "泉闈榖林□□□嚴，變裏平原凄号白日。",
     "original": "泉闈榖林□□□嚴，變裏平原凄号白日。",
-    "c": "泉闈榖林〔搖〕〔落〕〔喬〕嚴，變裏平原凄号白日。",
-    "corrected": "泉闈榖林〔搖〕〔落〕〔喬〕嚴，變裏平原凄号白日。",
-    "current_context": "泉闈榖林搖落喬嚴，變裏平原凄号白日。",
-    "candidate": "搖落喬",
+    "c": "榖林〔搖〕〔落〕，〔喬〕嚴變裏；平原凄号，白日逺。",
+    "corrected": "榖林〔搖〕〔落〕，〔喬〕嚴變裏；平原凄号，白日逺。",
+    "current_context": "榖林搖落，喬嚴變裏；平原凄号，白日逺。",
+    "candidate": "搖｜落｜喬",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文保存“谷林摇落，乔严变里”的字序；本句断句据文意重排。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含3个残损方框，依次补入“搖落喬”；补后局部文句为“泉闈榖林搖落喬嚴，變裏平原凄号白日。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“搖｜落｜喬”；补后文句为“榖林搖落，喬嚴變裏；平原凄号，白日逺。”。",
+      "刻帖录文保存“谷林摇落，乔严变里”的字序；本句断句据文意重排。",
+      "候选字与第77页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "泉闈榖林〔搖〕〔落〕〔喬〕嚴，變裏平原凄号白日。"
@@ -10544,18 +10544,18 @@
     "confidence": "较高",
     "o": "湖之不歸嗚呼哀㦲，崤陵□壤隅山窮路。",
     "original": "湖之不歸嗚呼哀㦲，崤陵□壤隅山窮路。",
-    "c": "湖之不歸嗚呼哀㦲，崤陵〔元〕壤隅山窮路。",
-    "corrected": "湖之不歸嗚呼哀㦲，崤陵〔元〕壤隅山窮路。",
-    "current_context": "湖之不歸嗚呼哀㦲，崤陵元壤隅山窮路。",
-    "candidate": "元",
+    "c": "崤陵〔玄〕壤，隅山窮路。",
+    "corrected": "崤陵〔玄〕壤，隅山窮路。",
+    "current_context": "崤陵玄壤，隅山窮路。",
+    "candidate": "玄",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文作“崤陵玄壤”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含1个残损方框，依次补入“元”；补后局部文句为“湖之不歸嗚呼哀㦲，崤陵元壤隅山窮路。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“玄”；补后文句为“崤陵玄壤，隅山窮路。”。",
+      "刻帖录文作“崤陵玄壤”。",
+      "候选字与第77页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "湖之不歸嗚呼哀㦲，崤陵〔元〕壤隅山窮路。"
@@ -10593,18 +10593,18 @@
     "confidence": "较高",
     "o": "虚衛飜英□□□素，羲庭易晚松隂難曙。",
     "original": "虚衛飜英□□□素，羲庭易晚松隂難曙。",
-    "c": "虚衛飜英〔輕〕〔池〕〔委〕素，羲庭易晚松隂難曙。",
-    "corrected": "虚衛飜英〔輕〕〔池〕〔委〕素，羲庭易晚松隂難曙。",
-    "current_context": "虚衛飜英輕池委素，羲庭易晚松隂難曙。",
-    "candidate": "輕池委",
+    "c": "虚衛飜英，〔輕〕〔池〕〔委〕素；羲庭易晚，松隂難曙。",
+    "corrected": "虚衛飜英，〔輕〕〔池〕〔委〕素；羲庭易晚，松隂難曙。",
+    "current_context": "虚衛飜英，輕池委素；羲庭易晚，松隂難曙。",
+    "candidate": "輕｜池｜委",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文保存“轻池委素”的连续字序。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含3个残损方框，依次补入“輕池委”；补后局部文句为“虚衛飜英輕池委素，羲庭易晚松隂難曙。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“輕｜池｜委”；补后文句为“虚衛飜英，輕池委素；羲庭易晚，松隂難曙。”。",
+      "刻帖录文保存“轻池委素”的连续字序。",
+      "候选字与第78页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "虚衛飜英〔輕〕〔池〕〔委〕素，羲庭易晚松隂難曙。"
@@ -10642,18 +10642,18 @@
     "confidence": "较高",
     "o": "萬方□而兩泣三□，慘而雲□差厚德之。",
     "original": "萬方□而兩泣三□，慘而雲□差厚德之。",
-    "c": "萬方〔悲〕而兩泣三〔靈〕，慘而雲〔沍〕差厚德之。",
-    "corrected": "萬方〔悲〕而兩泣三〔靈〕，慘而雲〔沍〕差厚德之。",
-    "current_context": "萬方悲而兩泣三靈，慘而雲沍差厚德之。",
-    "candidate": "悲靈沍",
+    "c": "萬方〔悲〕而兩泣，三〔靈〕慘而雲〔沍〕。",
+    "corrected": "萬方〔悲〕而兩泣，三〔靈〕慘而雲〔沍〕。",
+    "current_context": "萬方悲而兩泣，三靈慘而雲沍。",
+    "candidate": "悲｜靈｜沍",
     "candidate_count": 3,
     "square_count": 3,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "刻帖录文作“万方悲而两泣，三灵惨而云沍”。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含3个残损方框，依次补入“悲靈沍”；补后局部文句为“萬方悲而兩泣三靈，慘而雲沍差厚德之。”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含3个残损方框，按方框先后次序拟补为“悲｜靈｜沍”；补后文句为“萬方悲而兩泣，三靈慘而雲沍。”。",
+      "刻帖录文作“万方悲而两泣，三灵惨而云沍”。",
+      "候选字与第78页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "萬方〔悲〕而兩泣三〔靈〕，慘而雲〔沍〕差厚德之。"
@@ -10833,23 +10833,23 @@
     "n": "残损碑文恢复",
     "t": "九、太宗皇帝哀冊殘段·第222处残损",
     "title": "九、太宗皇帝哀冊殘段·第222处残损",
-    "category": "文献对校",
-    "mode": "documentary",
-    "confidence": "较高",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
     "o": "裕扵唐堯嗚呼哀㦲，□□瓌",
     "original": "裕扵唐堯嗚呼哀㦲，□□瓌",
-    "c": "裕扵唐堯嗚呼哀㦲，〔包〕〔括〕瓌",
-    "corrected": "裕扵唐堯嗚呼哀㦲，〔包〕〔括〕瓌",
-    "current_context": "裕扵唐堯嗚呼哀㦲，包括瓌",
-    "candidate": "包括",
+    "c": "裕扵唐堯。嗚呼哀㦲！〔右〕〔于〕瓌。",
+    "corrected": "裕扵唐堯。嗚呼哀㦲！〔右〕〔于〕瓌。",
+    "current_context": "裕扵唐堯。嗚呼哀㦲！右于瓌。",
+    "candidate": "右｜于",
     "candidate_count": 2,
     "square_count": 2,
     "remaining_square_count": 0,
-    "reference": "维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
+    "reference": "相关著录在哀册正文后见“于瓌。右文皇哀册”字样，只能确认“于瓌”；本册在“瓌”前有两处残位，第一字暂拟“右”，故整例标为AI暂拟。：https://zh.wikisource.org/wiki/唐太宗文皇帝哀冊文",
     "analysis": [
-      "本例位于“九、太宗皇帝哀冊殘段”，原句含2个残损方框，依次补入“包括”；补后局部文句为“裕扵唐堯嗚呼哀㦲，包括瓌”。",
-      "候选字通过底稿与维基文库《唐太宗文皇帝哀册文》与《书画汇考》录文逐字对齐获得，当前段落的非方框字符匹配率约为79.5%。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含2个残损方框，按方框先后次序拟补为“右｜于”；补后文句为“裕扵唐堯。嗚呼哀㦲！右于瓌。”。",
+      "相关著录在哀册正文后见“于瓌。右文皇哀册”字样，只能确认“于瓌”；本册在“瓌”前有两处残位，第一字暂拟“右”，故整例标为AI暂拟。",
+      "候选字与第79页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“AI暂拟”，置信度为“中”。"
     ],
     "highlight_patterns": [
       "裕扵唐堯嗚呼哀㦲，〔包〕〔括〕瓌"
@@ -10882,23 +10882,23 @@
     "n": "残损碑文恢复",
     "t": "附：褚遂良題跋·第223处残损",
     "title": "附：褚遂良題跋·第223处残损",
-    "category": "AI暂拟",
-    "mode": "ai_provisional",
-    "confidence": "中",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "较高",
     "o": "□唐贤□□世□書中為秀。",
     "original": "□唐贤□□世□書中為秀。",
-    "c": "〔在〕唐贤〔諸〕〔名〕世〔士〕書中為秀。",
-    "corrected": "〔在〕唐贤〔諸〕〔名〕世〔士〕書中為秀。",
-    "current_context": "在唐贤諸名世士書中為秀。",
-    "candidate": "在諸名士",
+    "c": "〔在〕唐賢〔諸〕〔名〕世〔士〕書中為秀頴。",
+    "corrected": "〔在〕唐賢〔諸〕〔名〕世〔士〕書中為秀頴。",
+    "current_context": "在唐賢諸名世士書中為秀頴。",
+    "candidate": "在｜諸｜名｜士",
     "candidate_count": 4,
     "square_count": 4,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "褚遂良题跋通行著录作“在唐贤诸名世士书中为秀颖”。",
     "analysis": [
-      "本例位于“附：褚遂良題跋”，原句含4个残损方框，依次补入“在諸名士”；补后局部文句为“在唐贤諸名世士書中為秀。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含4个残损方框，按方框先后次序拟补为“在｜諸｜名｜士”；补后文句为“在唐賢諸名世士書中為秀頴。”。",
+      "褚遂良题跋通行著录作“在唐贤诸名世士书中为秀颖”。",
+      "候选字与第80页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔在〕唐贤〔諸〕〔名〕世〔士〕書中為秀。"
@@ -10931,23 +10931,23 @@
     "n": "残损碑文恢复",
     "t": "附：褚遂良題跋·第224处残损",
     "title": "附：褚遂良題跋·第224处残损",
-    "category": "AI暂拟",
-    "mode": "ai_provisional",
-    "confidence": "中",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "较高",
     "o": "□淂□之清泉多者，真□□□法，自一成家。",
     "original": "□淂□之清泉多者，真□□□法，自一成家。",
-    "c": "〔頴〕淂〔羲〕之清泉多者，真〔字〕〔有〕〔隸〕法，自一成家。",
-    "corrected": "〔頴〕淂〔羲〕之清泉多者，真〔字〕〔有〕〔隸〕法，自一成家。",
-    "current_context": "頴淂羲之清泉多者，真字有隸法，自一成家。",
-    "candidate": "頴羲字有隸",
+    "c": "〔頴〕。淂〔羲〕之法最多者，真〔字〕〔有〕〔隸〕法，自一成家。",
+    "corrected": "〔頴〕。淂〔羲〕之法最多者，真〔字〕〔有〕〔隸〕法，自一成家。",
+    "current_context": "頴。淂羲之法最多者，真字有隸法，自一成家。",
+    "candidate": "頴｜羲｜字｜有｜隸",
     "candidate_count": 5,
     "square_count": 5,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "题跋通行著录作“秀颖。得羲之法最多者，真字有隶法，自成一家”。",
     "analysis": [
-      "本例位于“附：褚遂良題跋”，原句含5个残损方框，依次补入“頴羲字有隸”；补后局部文句为“頴淂羲之清泉多者，真字有隸法，自一成家。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含5个残损方框，按方框先后次序拟补为“頴｜羲｜字｜有｜隸”；补后文句为“頴。淂羲之法最多者，真字有隸法，自一成家。”。",
+      "题跋通行著录作“秀颖。得羲之法最多者，真字有隶法，自成一家”。",
+      "候选字与第80页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "〔頴〕淂〔羲〕之清泉多者，真〔字〕〔有〕〔隸〕法，自一成家。"
@@ -10980,23 +10980,23 @@
     "n": "残损碑文恢复",
     "t": "附：褚遂良題跋·第225处残损",
     "title": "附：褚遂良題跋·第225处残损",
-    "category": "AI暂拟",
-    "mode": "ai_provisional",
-    "confidence": "中",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "较高",
     "o": "此書□其晚年。",
     "original": "此書□其晚年。",
-    "c": "此書〔蓋〕其晚年。",
-    "corrected": "此書〔蓋〕其晚年。",
-    "current_context": "此書蓋其晚年。",
+    "c": "此書〔蓋〕其晚年筆。",
+    "corrected": "此書〔蓋〕其晚年筆。",
+    "current_context": "此書蓋其晚年筆。",
     "candidate": "蓋",
     "candidate_count": 1,
     "square_count": 1,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "题跋通行著录作“此书盖其晚年笔”。",
     "analysis": [
-      "本例位于“附：褚遂良題跋”，原句含1个残损方框，依次补入“蓋”；补后局部文句为“此書蓋其晚年。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含1个残损方框，按方框先后次序拟补为“蓋”；补后文句为“此書蓋其晚年筆。”。",
+      "题跋通行著录作“此书盖其晚年笔”。",
+      "候选字与第80页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "此書〔蓋〕其晚年。"
@@ -11029,23 +11029,23 @@
     "n": "残损碑文恢复",
     "t": "附：褚遂良題跋·第226处残损",
     "title": "附：褚遂良題跋·第226处残损",
-    "category": "AI暂拟",
-    "mode": "ai_provisional",
-    "confidence": "中",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "较高",
     "o": "绍興丙辰十二□□五□□審㝎。",
     "original": "绍興丙辰十二□□五□□審㝎。",
-    "c": "绍興丙辰十二〔月〕〔初〕五〔友〕〔仁〕審㝎。",
-    "corrected": "绍興丙辰十二〔月〕〔初〕五〔友〕〔仁〕審㝎。",
-    "current_context": "绍興丙辰十二月初五友仁審㝎。",
-    "candidate": "月初友仁",
+    "c": "绍興丙辰十二〔月〕〔初〕五日，臣〔友〕〔仁〕審定。",
+    "corrected": "绍興丙辰十二〔月〕〔初〕五日，臣〔友〕〔仁〕審定。",
+    "current_context": "绍興丙辰十二月初五日，臣友仁審定。",
+    "candidate": "月｜初｜友｜仁",
     "candidate_count": 4,
     "square_count": 4,
     "remaining_square_count": 0,
-    "reference": "相关题跋、题识著录与句法结构",
+    "reference": "题跋通行著录作“绍兴丙辰十二月初五日，臣友仁审定”。",
     "analysis": [
-      "本例位于“附：褚遂良題跋”，原句含4个残损方框，依次补入“月初友仁”；补后局部文句为“绍興丙辰十二月初五友仁審㝎。”。",
-      "现有著录未能完整覆盖本句全部残位，候选结合相关题跋、题识著录与句法结构、前后句法和同册异本拟定，故标为AI暂拟。",
-      "网站在原始OCR栏保留方框，在补字结果中以〔〕标出候选字；候选位置随后与028真实模型方框按阅读顺序对应，不冒充原石现存字迹。"
+      "本例原句含4个残损方框，按方框先后次序拟补为“月｜初｜友｜仁”；补后文句为“绍興丙辰十二月初五日，臣友仁審定。”。",
+      "题跋通行著录作“绍兴丙辰十二月初五日，臣友仁审定”。",
+      "候选字与第81页真实残损方框按阅读顺序对应。网站在原始OCR栏保留□，在补字结果中以〔〕标示候选；本例判定为“文献对校”，置信度为“较高”。"
     ],
     "highlight_patterns": [
       "绍興丙辰十二〔月〕〔初〕五〔友〕〔仁〕審㝎。"

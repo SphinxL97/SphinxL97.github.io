@@ -4,7 +4,7 @@
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="028"||window.__WORK_028_COORDINATE_ADAPTER__)return;
-  const CACHE_TAG="20260725_jintang_nine_v1";
+  const CACHE_TAG="20260725_jintang_nine_v2";
   const ROOT="data/glyph_boxes/iiif/028";
   const originalLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();

@@ -12,7 +12,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
   document.documentElement.classList.add("work028-no-location-map");
   const TITLE="晋唐小楷九种";
-  const VERSION="20260725_jintang_nine_v1";
+  const VERSION="20260725_jintang_nine_v2";
   const TEXT_URL=`data/work028_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work028_damage_cases.json?v=${VERSION}`;
   const IMAGE_ROOT="assets/page_images/028_晋唐小楷九种/images";
