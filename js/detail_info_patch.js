@@ -45,7 +45,6 @@
     window.__DAMAGE_AI_READING_ROUTER_V56__=true;
     window.__DAMAGE_AI_READING_ROUTER_V57__=true;
     window.__DAMAGE_AI_READING_ROUTER_V58__=true;
-    window.__DAMAGE_AI_READING_ROUTER_V59__=true;
     const script=document.createElement("script");
     script.src="js/damage_ai_reading.js?v=20260724_huadusi_v2";
     script.async=false;
