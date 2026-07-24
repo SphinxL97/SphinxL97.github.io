@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: agent/work022-wangjushi-rebuild
-          fetch-depth: 0
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -35,9 +35,13 @@ jobs:
               json.loads(p.read_text(encoding='utf-8'))
           print('json ok')
           PY
+          echo 'checking work-022.js'
           node --check js/work-022.js
+          echo 'checking work-022-coordinate-adapter.js'
           node --check js/work-022-coordinate-adapter.js
+          echo 'checking damage_ai_reading.js'
           node --check js/damage_ai_reading.js
+          echo 'checking detail_info_patch.js'
           node --check js/detail_info_patch.js
       - name: Commit generated files and remove temporary files
         run: |
