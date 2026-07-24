@@ -1,0 +1,81 @@
+name: Repair work024 menu flash
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/work024-menu-flash-main.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: contains(github.event.head_commit.message, '[run-work024-menu-flash]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Add synchronous 024 menu preboot
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path=Path('detail.html')
+          text=path.read_text(encoding='utf-8')
+          old='''  window.__DAMAGE_AI_READING_ROUTER_V61__=true;
+  function append(src,key,done){'''
+          new='''  window.__DAMAGE_AI_READING_ROUTER_V61__=true;
+
+  document.title="张从申书李玄靖碑 · 碑帖智能读析平台";
+  const menuPrebootStyle=document.createElement("style");
+  menuPrebootStyle.id="work024-menu-preboot-style";
+  menuPrebootStyle.textContent="html.work024-menu-preboot .side{visibility:hidden!important}";
+  document.head.appendChild(menuPrebootStyle);
+  document.documentElement.classList.add("work024-menu-preboot");
+
+  function prepareWork024Menu(){
+    const side=document.querySelector(".side");
+    if(!side){
+      document.documentElement.classList.remove("work024-menu-preboot");
+      return;
+    }
+    const workName=side.querySelector(".work-name");
+    const links=side.querySelectorAll("a");
+    if(workName)workName.textContent="张从申书李玄靖碑";
+    const labels=["一、碑帖浏览","二、碑文释文","三、碑文残损与AI释读","四、众智释读"];
+    links.forEach((link,index)=>{if(labels[index])link.textContent=labels[index];});
+    document.documentElement.classList.remove("work024-menu-preboot");
+  }
+  document.addEventListener("DOMContentLoaded",prepareWork024Menu,{once:true});
+
+  function append(src,key,done){'''
+          if old not in text:
+              raise RuntimeError('024 early bootstrap insertion point not found')
+          text=text.replace(old,new,1)
+          text=text.replace('20260724_work024_bootstrap_v2','20260724_work024_menu_v1')
+          path.write_text(text,encoding='utf-8')
+          PY
+
+      - name: Validate and clean
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          text=Path('detail.html').read_text(encoding='utf-8')
+          assert 'work024-menu-preboot' in text
+          assert '张从申书李玄靖碑 · 碑帖智能读析平台' in text
+          assert '三、碑文残损与AI释读' in text
+          assert '20260724_work024_menu_v1' in text
+          PY
+          rm -f .github/workflows/work024-menu-flash-main.yml
+
+      - name: Commit repair
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Prevent work024 menu label flash"
+          git push origin HEAD:main
