@@ -2,6 +2,7 @@
 (function(){
   "use strict";
   if(window.__DETAIL_INFO_STABLE_ENTRY_V23__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V23__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V22__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V21__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V20__=true;
@@ -81,7 +82,6 @@
     window.__WORK_024_DIRECT_BOOTSTRAP__=true;
     window.__DAMAGE_AI_READING_ROUTER_V63__=true;
     window.__DAMAGE_AI_READING_ROUTER_V62__=true;
-    window.__DAMAGE_AI_READING_ROUTER_V63__=true;
     window.__DAMAGE_AI_READING_ROUTER_V64__=true;
     window.__DAMAGE_AI_READING_ROUTER_V61__=true;
     document.querySelectorAll("script[src*='js/damage_ai_reading.js']").forEach(script=>script.remove());

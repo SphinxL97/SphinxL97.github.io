@@ -2,6 +2,7 @@
 (function(){
   "use strict";
   if(window.__DAMAGE_AI_READING_ROUTER_V64__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V64__=true;
   window.__DAMAGE_AI_READING_ROUTER_V63__=true;
   window.__DAMAGE_AI_READING_ROUTER_V62__=true;
   window.__DAMAGE_AI_READING_ROUTER_V61__=true;
