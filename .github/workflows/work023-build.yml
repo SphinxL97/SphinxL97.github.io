@@ -1,0 +1,64 @@
+name: Build work023
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.head_ref == 'agent/work023-guifeng'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work023-guifeng
+          fetch-depth: 1
+
+      - name: Build confirmed work023 data
+        run: python scripts/build_work023.py
+
+      - name: Validate formal files
+        run: |
+          node --check js/work-023.js
+          node --check js/work-023-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('data/work023_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work023_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work023_coordinate_report.json').read_text(encoding='utf-8'))
+          index=json.loads(Path('data/page_images_index.json').read_text(encoding='utf-8'))
+          assert text.count('□') == 93
+          assert len(cases) == 14
+          assert sum(c['square_count'] for c in cases) == 93
+          assert sum(c['candidate_count'] for c in cases) == 25
+          assert sum(c['remaining_square_count'] for c in cases) == 68
+          assert report['page_count'] == 91
+          assert len(index['works']['023']['pages']) == 91
+          assert all(Path(f'data/glyph_boxes/iiif/023/page_{i:04d}.json').exists() for i in range(1,92))
+          assert '"023"' in Path('js/damage_ai_reading.js').read_text(encoding='utf-8')
+          print({'model_rows':report['model_rows'],'located':report['located_cases'],'unlocated':report['unlocated_cases'],'coordinate_pages':report['coordinate_pages']})
+          PY
+
+      - name: Remove temporary build files
+        run: |
+          rm -f \
+            .github/workflows/work023-build.yml \
+            .github/workflows/work023-inspect.yml \
+            .work023-inspect-trigger \
+            scripts/build_work023.py \
+            data/work023_damage_cases_seed.json \
+            data/work023_model_inspection.json
+
+      - name: Commit formal work023 files
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m 'Build 023 圭峰定慧禅师碑四栏目与逐页坐标'
+          git push origin HEAD:agent/work023-guifeng
