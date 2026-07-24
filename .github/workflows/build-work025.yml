@@ -1,0 +1,62 @@
+name: Build work025 Shengjiaoxu
+
+on:
+  push:
+    branches:
+      - agent/work025-shengjiaoxu
+    paths:
+      - .github/work025-trigger.txt
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work025-shengjiaoxu
+          fetch-depth: 0
+
+      - name: Build confirmed work025 content and coordinates
+        run: python3 scripts/build_work025.py
+
+      - name: Validate generated data and scripts
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('data/work025_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work025_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work025_coordinate_report.json').read_text(encoding='utf-8'))
+          assert text.count('?') == 1 and text.count('□') == 0
+          assert len(cases) == 1
+          case=cases[0]
+          assert case['n'] == '残损碑文恢复'
+          assert case['o'].count('?') == 1
+          assert case['c'].count('〔躅〕') == 1
+          assert report['candidate_count'] == 1
+          assert report['remaining_problem_count'] == 0
+          assert report['column_four']['uses_same_cases_as_column_three'] is True
+          assert len(list(Path('data/glyph_boxes/iiif/025').glob('page_*.json'))) == 47
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          node --check js/work-025.js
+          node --check js/work-025-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+
+      - name: Remove one-off build files
+        run: |
+          rm -f scripts/build_work025.py
+          rm -f .github/work025-trigger.txt
+          rm -f .github/workflows/build-work025.yml
+
+      - name: Commit formal work025 files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Complete work025 Shengjiaoxu content and coordinates"
+          git push origin HEAD:agent/work025-shengjiaoxu
