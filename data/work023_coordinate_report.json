@@ -1,0 +1,515 @@
+{
+  "work_id": "023",
+  "title": "圭峰定慧禅师碑",
+  "page_count": 91,
+  "status": "confirmed-audit-built-v1",
+  "source_files": [
+    "data/model_boxes/glyph_model_border_021_025.json"
+  ],
+  "model_rows": 2119,
+  "model_square_count": 93,
+  "text_comparable_characters": 2125,
+  "text_square_count": 93,
+  "covered_square_count": 93,
+  "candidate_count": 25,
+  "remaining_square_count": 68,
+  "case_count": 14,
+  "located_cases": 14,
+  "located_case_ids": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14"
+  ],
+  "unlocated_cases": [],
+  "sequence_similarity": 0.9986,
+  "coordinate_pages": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91
+  ],
+  "coordinate_range": [
+    8,
+    85
+  ],
+  "classification_summary": {
+    "documentary": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "06",
+      "07",
+      "12",
+      "14"
+    ],
+    "mixed": [
+      "10"
+    ],
+    "ai_provisional": [],
+    "unresolved": [
+      "05",
+      "08",
+      "09",
+      "11",
+      "13"
+    ]
+  },
+  "case_locations": [
+    {
+      "id": "01",
+      "located": true,
+      "page": 16,
+      "glyph_id": "023_圭峰定慧禅师碑_p0016_c001",
+      "score": 1.0,
+      "margin": 0.7643,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 16,
+          "glyph_id": "023_圭峰定慧禅师碑_p0016_c001"
+        },
+        {
+          "score": 0.2357,
+          "page": 18,
+          "glyph_id": "023_圭峰定慧禅师碑_p0018_c006"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c017"
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "located": true,
+      "page": 22,
+      "glyph_id": "023_圭峰定慧禅师碑_p0022_c012",
+      "score": 1.0,
+      "margin": 1.0,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 22,
+          "glyph_id": "023_圭峰定慧禅师碑_p0022_c012"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c017"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c007"
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "located": true,
+      "page": 38,
+      "glyph_id": "023_圭峰定慧禅师碑_p0038_c023",
+      "score": 1.0,
+      "margin": 1.0,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 38,
+          "glyph_id": "023_圭峰定慧禅师碑_p0038_c023"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c017"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c007"
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "located": true,
+      "page": 54,
+      "glyph_id": "023_圭峰定慧禅师碑_p0054_c007",
+      "score": 1.0,
+      "margin": 1.0,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 54,
+          "glyph_id": "023_圭峰定慧禅师碑_p0054_c007"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c017"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c007"
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "located": true,
+      "page": 58,
+      "glyph_id": "023_圭峰定慧禅师碑_p0058_c002",
+      "score": 1.0,
+      "margin": 1.0,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 58,
+          "glyph_id": "023_圭峰定慧禅师碑_p0058_c002"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c017"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c007"
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "located": true,
+      "page": 62,
+      "glyph_id": "023_圭峰定慧禅师碑_p0062_c023",
+      "score": 1.0,
+      "margin": 0.89,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 62,
+          "glyph_id": "023_圭峰定慧禅师碑_p0062_c023"
+        },
+        {
+          "score": 0.11,
+          "page": 79,
+          "glyph_id": "023_圭峰定慧禅师碑_p0079_c019"
+        },
+        {
+          "score": 0.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c017"
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "located": true,
+      "page": 71,
+      "glyph_id": "023_圭峰定慧禅师碑_p0071_c012",
+      "score": 1.0,
+      "margin": 0.83,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 71,
+          "glyph_id": "023_圭峰定慧禅师碑_p0071_c012"
+        },
+        {
+          "score": 0.17,
+          "page": 79,
+          "glyph_id": "023_圭峰定慧禅师碑_p0079_c023"
+        },
+        {
+          "score": 0.15,
+          "page": 79,
+          "glyph_id": "023_圭峰定慧禅师碑_p0079_c022"
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "located": true,
+      "page": 79,
+      "glyph_id": "023_圭峰定慧禅师碑_p0079_c019",
+      "score": 1.0,
+      "margin": 0.29,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 79,
+          "glyph_id": "023_圭峰定慧禅师碑_p0079_c019"
+        },
+        {
+          "score": 0.71,
+          "page": 79,
+          "glyph_id": "023_圭峰定慧禅师碑_p0079_c020"
+        },
+        {
+          "score": 0.38,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c035"
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "located": true,
+      "page": 82,
+      "glyph_id": "023_圭峰定慧禅师碑_p0082_c001",
+      "score": 1.0,
+      "margin": 0.0,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 82,
+          "glyph_id": "023_圭峰定慧禅师碑_p0082_c001"
+        },
+        {
+          "score": 1.0,
+          "page": 81,
+          "glyph_id": "023_圭峰定慧禅师碑_p0081_c024"
+        },
+        {
+          "score": 1.0,
+          "page": 81,
+          "glyph_id": "023_圭峰定慧禅师碑_p0081_c023"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "located": true,
+      "page": 83,
+      "glyph_id": "023_圭峰定慧禅师碑_p0083_c004",
+      "score": 1.0,
+      "margin": 0.2593,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 83,
+          "glyph_id": "023_圭峰定慧禅师碑_p0083_c004"
+        },
+        {
+          "score": 0.7407,
+          "page": 83,
+          "glyph_id": "023_圭峰定慧禅师碑_p0083_c005"
+        },
+        {
+          "score": 0.4214,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c034"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "located": true,
+      "page": 83,
+      "glyph_id": "023_圭峰定慧禅师碑_p0083_c026",
+      "score": 1.0,
+      "margin": 0.4663,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 83,
+          "glyph_id": "023_圭峰定慧禅师碑_p0083_c026"
+        },
+        {
+          "score": 0.5337,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c032"
+        },
+        {
+          "score": 0.5337,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c031"
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "located": true,
+      "page": 84,
+      "glyph_id": "023_圭峰定慧禅师碑_p0084_c019",
+      "score": 1.0,
+      "margin": 0.8625,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c019"
+        },
+        {
+          "score": 0.1375,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c029"
+        },
+        {
+          "score": 0.1375,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c028"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "located": true,
+      "page": 84,
+      "glyph_id": "023_圭峰定慧禅师碑_p0084_c028",
+      "score": 1.0,
+      "margin": 0.0179,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c028"
+        },
+        {
+          "score": 0.9821,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c029"
+        },
+        {
+          "score": 0.7441,
+          "page": 84,
+          "glyph_id": "023_圭峰定慧禅师碑_p0084_c030"
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "located": true,
+      "page": 85,
+      "glyph_id": "023_圭峰定慧禅师碑_p0085_c007",
+      "score": 1.0,
+      "margin": 0.7,
+      "top_candidates": [
+        {
+          "score": 1.0,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c007"
+        },
+        {
+          "score": 0.3,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c004"
+        },
+        {
+          "score": 0.25,
+          "page": 85,
+          "glyph_id": "023_圭峰定慧禅师碑_p0085_c003"
+        }
+      ]
+    }
+  ],
+  "special_review": [
+    "案例05可能是OCR误增方框或错位方框；低分时不应使用相邻完整字代替。",
+    "案例08、09及碑末大段连续方框只定位第一个真实问题字，其余方框不分别截图。",
+    "案例10按审核稿部分恢复，保留一处未定方框。"
+  ]
+}
