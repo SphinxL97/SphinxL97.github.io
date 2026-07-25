@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V28__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V29__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V29__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V28__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V27__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V26__=true;
@@ -43,14 +44,15 @@
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
   const dataUrl="data/beitie_header_info.json?v=20260725_xianyu029_v1";
-  const recoveryVersion="20260725_global_route_recovery_v4";
+  const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
+  const recoveryVersion="20260725_global_route_recovery_v5";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
   const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
-  const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029"]);
+  const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029","030"]);
 
   function applyImmediateWorkMenu(){
-    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志"};
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭"};
     const name=names[workId];if(!name)return;
     const apply=()=>{
       const side=document.querySelector(".side");
@@ -98,7 +100,7 @@
 
   function disableStaleDamageScripts(){
     document.querySelectorAll("script[src*='js/damage_ai_reading.js'],script[src*='js/damage-category-standardizer.js']").forEach(script=>script.remove());
-    [42,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67].forEach(version=>{window[`__DAMAGE_AI_READING_ROUTER_V${version}__`]=true;});
+    [42,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68].forEach(version=>{window[`__DAMAGE_AI_READING_ROUTER_V${version}__`]=true;});
     window.__DAMAGE_CATEGORY_STANDARDIZER_V1__=true;
   }
 
@@ -169,7 +171,18 @@
   }
   async function loadHeader(){
     document.documentElement.classList.add("beitie-header-pending");
-    try{const response=await fetch(dataUrl,{cache:"no-store"});if(!response.ok)throw new Error(`${dataUrl} ${response.status}`);const data=await response.json();recordCache=data?.[workId]||null;if(recordCache)render(recordCache);else throw new Error(`missing header ${workId}`);}catch(error){console.error("[header-card] 当前碑帖信息卡加载失败",error);document.documentElement.classList.remove("beitie-header-pending","detail-header-pending");window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,error:true}}));}
+    try{
+      const url=workId==="030"?work030DataUrl:dataUrl;
+      const response=await fetch(url,{cache:"no-store"});
+      if(!response.ok)throw new Error(`${url} ${response.status}`);
+      const data=await response.json();
+      recordCache=workId==="030"?(data?.header||data?.["030"]||data):data?.[workId]||null;
+      if(recordCache)render(recordCache);else throw new Error(`missing header ${workId}`);
+    }catch(error){
+      console.error("[header-card] 当前碑帖信息卡加载失败",error);
+      document.documentElement.classList.remove("beitie-header-pending","detail-header-pending");
+      window.dispatchEvent(new CustomEvent("beitie-header-ready",{detail:{workId,error:true}}));
+    }
   }
 
   try{
