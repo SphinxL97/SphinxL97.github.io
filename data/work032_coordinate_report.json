@@ -1,0 +1,51 @@
+{
+  "work_id": "032",
+  "title": "许真人井铭",
+  "source": "data/glyph_boxes/iiif/032/page_XXXX.json",
+  "image_count": 25,
+  "coordinate_pages": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    21,
+    22,
+    23,
+    24,
+    25
+  ],
+  "real_glyph_box_count": 98,
+  "case_count": 14,
+  "located_case_count": 14,
+  "problem_position_count": 48,
+  "missing_slot_count": 39,
+  "ocr_misrecognition_count": 9,
+  "high_confidence_position_count": 46,
+  "variant_position_count": 2,
+  "generated_bbox_count": 0,
+  "estimated_bbox_count": 0,
+  "generated_glyph_id_count": 0,
+  "notes": [
+    "第8至20页使用仓库既有IIIF逐字坐标；其余页面只显示原图。",
+    "14组案例全部至少包含一个真实字框；跨页案例按页分别显示原拓和红框。",
+    "芝／芷、床／牀保留为版本异文，不制造唯一答案。"
+  ]
+}
