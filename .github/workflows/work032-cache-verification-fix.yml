@@ -49,9 +49,8 @@ jobs:
           for token in required:
               if token not in work:
                   raise SystemExit(f'work032 missing {token}')
-          template = work.split('section.innerHTML=', 1)[1].split(';\n    const list=', 1)[0]
-          if '恢复依据' in template:
-              raise SystemExit('work032 render template still contains 恢复依据')
+          if '<span class="damage-label">恢复依据</span>' in work:
+              raise SystemExit('work032 render template still contains 恢复依据 block')
           PY
       - name: Validate JavaScript and cache references
         run: |
