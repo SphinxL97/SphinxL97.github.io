@@ -5,7 +5,6 @@ on:
     branches:
       - agent/work029-xianyu-guangzu
     paths:
-      - .github/workflows/work029-coordinate-audit.yml
       - tmp/work029_coordinate_trigger.txt
 
 permissions:
@@ -19,102 +18,187 @@ jobs:
         with:
           ref: agent/work029-xianyu-guangzu
           fetch-depth: 0
-      - name: Extract only work 029 records
+      - name: Extract verified work 029 model rows
         shell: bash
         run: |
           python - <<'PY'
-          import json
+          import json, re, shutil
           from pathlib import Path
 
-          src = Path('data/model_boxes/glyph_model_border_026_030.json')
-          out = Path('tmp/work029_model_inspect.json')
-          out.parent.mkdir(parents=True, exist_ok=True)
-          raw = src.read_text(encoding='utf-8')
+          SRC = Path('data/model_boxes/glyph_model_border_026_030.json')
+          OUT_ROOT = Path('data/glyph_boxes/iiif/029')
+          SUMMARY = Path('tmp/work029_model_summary.json')
+          OUT_ROOT.mkdir(parents=True, exist_ok=True)
+          for p in OUT_ROOT.glob('page_*.json'):
+              p.unlink()
 
-          def is_029_primitive(v):
-              if isinstance(v, bool) or v is None:
-                  return False
-              if isinstance(v, (int, float)):
-                  return v == 29
-              if not isinstance(v, str):
-                  return False
-              s = v.strip().replace('\\\\', '/')
-              return (
-                  s == '029' or s == '29' or s.startswith('029_') or
-                  '/029/' in s or '/029_' in s or '029_鲜于光祖墓志' in s or
-                  '鲜于光祖墓志' in s or '鮮于光祖墓誌' in s or '18A356' in s
-              )
+          data = json.loads(SRC.read_text(encoding='utf-8'))
 
-          def shallow_match(node):
-              if not isinstance(node, dict):
-                  return False
-              return any(is_029_primitive(k) or is_029_primitive(v) for k, v in node.items())
+          work_keys = {'work_id','workId','beitie_id','beitieId','item_id','itemId','work','volume_id','volumeId'}
+          page_keys = ['canvas_index','canvasIndex','page','page_no','pageNo','page_index','pageIndex','image_index','imageIndex']
+          order_keys = ['order_in_page','orderInPage','annotation_index','annotationIndex','index','order','seq']
+          char_keys = ['char','text','label','ocr_text','ocrText','recognized_char','recognizedChar','value']
 
-          def summarize(node):
+          def norm_id(v):
+              if v is None or isinstance(v, bool):
+                  return None
+              if isinstance(v, (int,float)):
+                  try: return f'{int(v):03d}'
+                  except: return None
+              s = str(v).strip()
+              m = re.match(r'^(\d{1,3})(?:\D|$)', s)
+              return f'{int(m.group(1)):03d}' if m else None
+
+          def contains_029(v):
+              if v is None: return False
+              s = str(v).replace('\\','/')
+              return ('029_鲜于光祖墓志' in s or '鲜于光祖墓志' in s or '鮮于光祖墓誌' in s or '18A356' in s)
+
+          def get_bbox(d):
+              b = d.get('bbox')
+              if isinstance(b, dict):
+                  x=b.get('x',b.get('left')); y=b.get('y',b.get('top')); w=b.get('w',b.get('width')); h=b.get('h',b.get('height'))
+              elif isinstance(b,(list,tuple)) and len(b)>=4:
+                  x,y,w,h=b[:4]
+              else:
+                  x=d.get('x',d.get('bbox_x',d.get('left')))
+                  y=d.get('y',d.get('bbox_y',d.get('top')))
+                  w=d.get('w',d.get('bbox_w',d.get('width')))
+                  h=d.get('h',d.get('bbox_h',d.get('height')))
+              try:
+                  x=float(x); y=float(y); w=float(w); h=float(h)
+              except Exception:
+                  return None
+              if w<=0 or h<=0: return None
+              return [x,y,w,h]
+
+          def get_page(d):
+              for k in page_keys:
+                  if k in d:
+                      try:
+                          n=int(float(d[k]))
+                          if k in {'page_index','pageIndex','image_index','imageIndex'} and n==0:
+                              n=1
+                          if n>0: return n
+                      except: pass
+              for k,v in d.items():
+                  if isinstance(v,str):
+                      m=re.search(r'(?:page_|/|^)(\d{1,4})(?:\D|$)',v)
+                      if m:
+                          n=int(m.group(1))
+                          if 1<=n<=500: return n
+                      m=re.search(r'(\d{4})_[一二三四五六七八九十百]+\.jpg$',v)
+                      if m: return int(m.group(1))
+              return None
+
+          def get_order(d, fallback):
+              for k in order_keys:
+                  if k in d:
+                      try: return int(float(d[k]))
+                      except: pass
+              return fallback
+
+          def get_char(d):
+              for k in char_keys:
+                  if k in d and d[k] is not None:
+                      s=str(d[k]).strip()
+                      if s: return s[0]
+              return ''
+
+          schemas = {}
+          candidate_rows = []
+          seen = set()
+          path_hits = []
+
+          def walk(node, path='$', inherited_work=None):
+              current_work = inherited_work
               if isinstance(node, dict):
-                  return {'type': 'dict', 'keys': list(node.keys())[:100], 'size': len(node)}
-              if isinstance(node, list):
-                  return {'type': 'list', 'size': len(node), 'first_types': [type(x).__name__ for x in node[:10]]}
-              return {'type': type(node).__name__, 'value': node}
-
-          try:
-              data = json.loads(raw)
-              parse_mode = 'json'
-          except Exception:
-              data = []
-              parse_mode = 'jsonl'
-              for line_no, line in enumerate(raw.splitlines(), 1):
-                  line = line.strip()
-                  if not line:
-                      continue
-                  try:
-                      data.append({'_line': line_no, '_value': json.loads(line)})
-                  except Exception:
-                      pass
-
-          matches, keyed_sections, samples, seen = [], [], [], set()
-          def add(kind, path, node):
-              marker = json.dumps(node, ensure_ascii=False, sort_keys=True, default=str)
-              key = (kind, path, marker[:500])
-              if key not in seen:
-                  seen.add(key)
-                  matches.append({'kind': kind, 'path': path, 'value': node})
-
-          def walk(node, path='$', depth=0):
-              if depth > 14:
-                  return
-              if isinstance(node, dict):
-                  if depth <= 2 and len(samples) < 12:
-                      samples.append({'path': path, 'summary': summarize(node), 'sample': dict(list(node.items())[:6])})
-                  if shallow_match(node):
-                      add('matching_record', path, node)
-                  for k, v in node.items():
-                      kp = f'{path}.{k}'
-                      if is_029_primitive(k):
-                          keyed_sections.append({'path': kp, 'value': v})
-                      walk(v, kp, depth + 1)
-              elif isinstance(node, list):
-                  if depth <= 2 and len(samples) < 12:
-                      samples.append({'path': path, 'summary': summarize(node), 'sample': node[:3]})
-                  for i, v in enumerate(node):
-                      walk(v, f'{path}[{i}]', depth + 1)
+                  for k in work_keys:
+                      if k in node:
+                          current_work = norm_id(node.get(k)) or current_work
+                  if any(contains_029(v) for v in node.values() if isinstance(v,(str,int,float))):
+                      current_work='029'
+                  bbox=get_bbox(node)
+                  if bbox is not None and current_work=='029':
+                      marker=(path,tuple(bbox),get_page(node),get_char(node),get_order(node,len(candidate_rows)+1))
+                      if marker not in seen:
+                          seen.add(marker)
+                          candidate_rows.append((path,node,bbox))
+                  if current_work=='029' and len(path_hits)<100:
+                      path_hits.append(path)
+                  for k,v in node.items():
+                      child_work=current_work
+                      kid=norm_id(k)
+                      if kid in {'026','027','028','029','030'}:
+                          child_work=kid
+                      if contains_029(k): child_work='029'
+                      walk(v,f'{path}.{k}',child_work)
+              elif isinstance(node,list):
+                  for i,v in enumerate(node):
+                      walk(v,f'{path}[{i}]',current_work)
 
           walk(data)
-          payload = {
-              'source': str(src),
-              'source_size_bytes': src.stat().st_size,
-              'parse_mode': parse_mode,
-              'root_summary': summarize(data),
-              'keyed_sections': keyed_sections,
-              'matches': matches,
-              'samples': samples,
-              'match_count': len(matches),
+
+          pages={}
+          invalid_page=0
+          for fallback,(path,row,bbox) in enumerate(candidate_rows,1):
+              page=get_page(row)
+              if not page:
+                  invalid_page+=1
+                  continue
+              order=get_order(row,fallback)
+              char=get_char(row)
+              x,y,w,h=bbox
+              normalized={
+                  'work_id':'029',
+                  'canvas_index':page,
+                  'glyph_id':str(row.get('glyph_id') or row.get('id') or f'029_{page}_{order}'),
+                  'char':char,
+                  'text':char,
+                  'order_in_page':order,
+                  'bbox_x':x,'bbox_y':y,'bbox_w':w,'bbox_h':h,
+                  'bbox':[x,y,w,h]
+              }
+              for key in ('canvas_width','canvas_height','image_width','image_height','local_image','image','source_image'):
+                  if key in row: normalized[key]=row[key]
+              pages.setdefault(page,[]).append(normalized)
+              schema=','.join(sorted(row.keys()))
+              schemas[schema]=schemas.get(schema,0)+1
+
+          duplicate_orders={}
+          for page,rows in pages.items():
+              rows.sort(key=lambda r:(r['order_in_page'],r['bbox_y'],r['bbox_x']))
+              used=set()
+              for i,r in enumerate(rows,1):
+                  if r['order_in_page'] in used:
+                      duplicate_orders[page]=duplicate_orders.get(page,0)+1
+                      r['order_in_page']=i
+                  used.add(r['order_in_page'])
+                  if not r['glyph_id'] or r['glyph_id'].startswith('029_'):
+                      r['glyph_id']=f'029_{page}_{i}'
+              out=OUT_ROOT/f'page_{page:04d}.json'
+              out.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          summary={
+              'source':str(SRC),
+              'source_size_bytes':SRC.stat().st_size,
+              'root_type':type(data).__name__,
+              'root_size':len(data) if hasattr(data,'__len__') else None,
+              'candidate_bbox_records':len(candidate_rows),
+              'rows_without_page':invalid_page,
+              'page_count':len(pages),
+              'pages':[{ 'page':p, 'rows':len(pages[p]), 'chars_preview':''.join(r['char'] for r in pages[p][:80]) } for p in sorted(pages)],
+              'total_rows':sum(len(v) for v in pages.values()),
+              'schema_counts':dict(sorted(schemas.items(),key=lambda kv:-kv[1])[:12]),
+              'duplicate_order_repairs':duplicate_orders,
+              'path_hits_preview':path_hits[:30]
           }
-          out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-          print(json.dumps({k: payload[k] for k in ('source_size_bytes','parse_mode','root_summary','match_count')}, ensure_ascii=False, indent=2))
+          SUMMARY.parent.mkdir(parents=True,exist_ok=True)
+          SUMMARY.write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(json.dumps(summary,ensure_ascii=False,indent=2))
           PY
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add tmp/work029_model_inspect.json
-          git commit -m "temp: extract 029 model records" || exit 0
+          git add data/glyph_boxes/iiif/029 tmp/work029_model_summary.json
+          git commit -m "temp: normalize 029 real model coordinates" || exit 0
           git push origin HEAD:agent/work029-xianyu-guangzu
