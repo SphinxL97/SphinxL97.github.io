@@ -62,7 +62,7 @@
   function locationHTML(item){
     const page=Number(item.page||item.locations?.[0]?.page||0),meta=pageMap.get(page),image=meta?.image||"",loc=item.locations?.[0]||null;
     if(!image)return '<div class="damage-location-missing"><p>当前案例尚未获得可用页图路径，不显示推测性局部图。</p></div>';
-    if(!loc?.bbox)return `<div class="work034-page-only"><img src="${esc(image)}" alt="第${page}页原拓"><p>第${page}页可核验，但模型未检测到缺失“之”字的独立字框；本例不估算bbox。</p></div>`;
+    if(!loc?.bbox)return `<div class="work034-page-only"><img src="${esc(image)}" alt="第${page}页原拓"><p>第${page}页可核验，但本例未获得可用的独立问题字框；不估算bbox。</p></div>`;
     const b=loc.bbox,cw=Number(loc.canvas_width||1524),ch=Number(loc.canvas_height||2250),left=b.x/cw*100,top=b.y/ch*100,width=b.w/cw*100,height=b.h/ch*100;
     return `<div class="work034-case-image"><div class="work034-image-stage"><img src="${esc(image)}" alt="第${page}页原拓"><span class="work034-real-box" style="left:${left}%;top:${top}%;width:${width}%;height:${height}%" title="${esc(loc.glyph_id||"")}"></span></div><p>第${page}页 · 真实模型字框 ${esc(loc.glyph_id||"")}</p></div>`;
   }

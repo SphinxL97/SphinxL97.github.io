@@ -37,8 +37,8 @@
   "case_count": 14,
   "candidate_count": 15,
   "unresolved_placeholders": 9,
-  "located_cases": 14,
-  "unlocated_cases": 0,
+  "located_cases": 12,
+  "unlocated_cases": 2,
   "alignment_score": 2146,
   "placeholder_mapping": [
     {
@@ -154,10 +154,10 @@
     {
       "order": 11,
       "model_index": 352,
-      "accepted": true,
+      "accepted": false,
       "context_exact": 0,
       "context_total": 16,
-      "method": "sequence-marker",
+      "method": "low-context-rejected",
       "glyph_id": "034_章吉老墓志_p0014_c020",
       "page": 14,
       "model_char": "□"
@@ -165,10 +165,10 @@
     {
       "order": 12,
       "model_index": 374,
-      "accepted": true,
+      "accepted": false,
       "context_exact": 1,
       "context_total": 16,
-      "method": "sequence-marker",
+      "method": "low-context-rejected",
       "glyph_id": "034_章吉老墓志_p0015_c009",
       "page": 15,
       "model_char": "□"
@@ -231,10 +231,10 @@
     {
       "order": 18,
       "model_index": 571,
-      "accepted": true,
+      "accepted": false,
       "context_exact": 2,
       "context_total": 16,
-      "method": "sequence-marker",
+      "method": "low-context-rejected",
       "glyph_id": "034_章吉老墓志_p0021_c001",
       "page": 21,
       "model_char": "□"
@@ -286,10 +286,10 @@
     {
       "order": 23,
       "model_index": 738,
-      "accepted": true,
+      "accepted": false,
       "context_exact": 1,
       "context_total": 16,
-      "method": "sequence-marker",
+      "method": "low-context-rejected",
       "glyph_id": "034_章吉老墓志_p0026_c005",
       "page": 26,
       "model_char": "□"
@@ -297,10 +297,10 @@
     {
       "order": 24,
       "model_index": 773,
-      "accepted": true,
+      "accepted": false,
       "context_exact": 1,
       "context_total": 10,
-      "method": "sequence-marker",
+      "method": "low-context-rejected",
       "glyph_id": "034_章吉老墓志_p0027_c008",
       "page": 27,
       "model_char": "□"
@@ -311,5 +311,6 @@
     "每例只绑定第一个问题字",
     "上下文不足时不生成bbox",
     "不使用相邻完整字框冒充残损槽位"
-  ]
+  ],
+  "location_acceptance_rule": "模型方框数量为132，只有邻近上下文至少匹配3字的位置才绑定到栏目三；低于阈值的定位撤回。"
 }
