@@ -1,0 +1,27 @@
+name: work029-selftest
+
+on:
+  push:
+    branches:
+      - agent/work029-xianyu-guangzu
+    paths:
+      - .github/workflows/work029-selftest.yml
+
+permissions:
+  contents: write
+
+jobs:
+  selftest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work029-xianyu-guangzu
+      - run: |
+          mkdir -p tmp
+          printf 'workflow triggered\n' > tmp/work029_selftest_passed.txt
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add tmp/work029_selftest_passed.txt
+          git commit -m "temp: confirm work029 workflow trigger"
+          git push origin HEAD:agent/work029-xianyu-guangzu
