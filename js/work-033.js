@@ -99,7 +99,7 @@
       const [rows,index]=await Promise.all([fetchJSON(CASE_URL),fetchJSON(PAGE_INDEX_URL)]);cases=(Array.isArray(rows)?rows:[]).map(normalizeCase);if(!cases.length)throw new Error("033案例数据为空");
       const pages=index?.works?.["033"]?.pages||[];pageMap=new Map(pages.map(page=>[Number(page.page),page]));publishCases(cases);if(Array.isArray(window.DAMAGE_AI_CASES)&&window.DAMAGE_AI_CASES.length)cases=window.DAMAGE_AI_CASES;
       await renderTranscript(cases);renderDamage();ensureCrowdsource();window.__WORK_033_CONTENT_READY__=true;window.__WORK_033_STABLE_READY__=true;window.dispatchEvent(new CustomEvent("work-033-stable-ready",{detail:{cases:cases.length}}));
-    }catch(error){console.error("[work-033]",error);const transcript=document.getElementById("calligraphy");if(transcript)transcript.innerHTML='<h2 class="section-title">二、碑文释文</h2><div class="full-transcript-error">033碑文数据读取失败，请刷新页面后重试。</div>';if(damage)damage.innerHTML='<h2 class="section-title">三、碑文残损与AI释读</h2><div class="full-transcript-error">033案例数据读取失败，请刷新页面后重试。</div>';window.__WORK_033_CROWDSSOURCE_READY__=true;window.__WORK_033_CROWDSOURCE_READY__=true;window.__WORK_033_STABLE_READY__=true;}
+    }catch(error){console.error("[work-033]",error);const transcript=document.getElementById("calligraphy");if(transcript)transcript.innerHTML='<h2 class="section-title">二、碑文释文</h2><div class="full-transcript-error">033碑文数据读取失败，请刷新页面后重试。</div>';if(damage)damage.innerHTML='<h2 class="section-title">三、碑文残损与AI释读</h2><div class="full-transcript-error">033案例数据读取失败，请刷新页面后重试。</div>';window.__WORK_033_CROWDSOURCE_READY__=true;window.__WORK_033_STABLE_READY__=true;}
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
 })();
