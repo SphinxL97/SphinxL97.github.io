@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V27__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V28__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V28__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V27__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V26__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V25__=true;
@@ -45,7 +46,7 @@
   const recoveryVersion="20260725_global_route_recovery_v4";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
-  const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v1";
+  const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
   const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029"]);
 
   function applyImmediateWorkMenu(){
