@@ -6,6 +6,7 @@ on:
       - agent/work029-xianyu-guangzu
     paths:
       - .github/workflows/work029-coordinate-audit.yml
+      - tmp/work029_coordinate_trigger.txt
 
 permissions:
   contents: write
@@ -47,10 +48,7 @@ jobs:
           def shallow_match(node):
               if not isinstance(node, dict):
                   return False
-              for k, v in node.items():
-                  if is_029_primitive(k) or is_029_primitive(v):
-                      return True
-              return False
+              return any(is_029_primitive(k) or is_029_primitive(v) for k, v in node.items())
 
           def summarize(node):
               if isinstance(node, dict):
@@ -74,24 +72,16 @@ jobs:
                   except Exception:
                       pass
 
-          matches = []
-          keyed_sections = []
-          samples = []
-          seen = set()
-
+          matches, keyed_sections, samples, seen = [], [], [], set()
           def add(kind, path, node):
-              try:
-                  marker = json.dumps(node, ensure_ascii=False, sort_keys=True)
-              except Exception:
-                  marker = repr(node)
+              marker = json.dumps(node, ensure_ascii=False, sort_keys=True, default=str)
               key = (kind, path, marker[:500])
-              if key in seen:
-                  return
-              seen.add(key)
-              matches.append({'kind': kind, 'path': path, 'value': node})
+              if key not in seen:
+                  seen.add(key)
+                  matches.append({'kind': kind, 'path': path, 'value': node})
 
           def walk(node, path='$', depth=0):
-              if depth > 12:
+              if depth > 14:
                   return
               if isinstance(node, dict):
                   if depth <= 2 and len(samples) < 12:
