@@ -1,12 +1,13 @@
 name: work032-cache-verification-fix
 on:
-  push:
-    branches: [agent/work032-clean-removal-audit]
-    paths: [.work032-cache-fix-trigger]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 permissions:
   contents: write
 jobs:
   patch:
+    if: github.head_ref == 'agent/work032-clean-removal-audit'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
