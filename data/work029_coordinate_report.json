@@ -1,0 +1,285 @@
+{
+  "work_id": "029",
+  "title": "鲜于光祖墓志",
+  "source": "data/model_boxes/glyph_model_border_026_030.json",
+  "coordinate_policy": "仅使用仓库既有深度学习模型真实坐标；不生成、不估算bbox。",
+  "image_total": 33,
+  "coordinate_pages": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "image_only_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    32,
+    33
+  ],
+  "coordinate_page_count": 24,
+  "total_glyph_boxes": 1769,
+  "raw_box_total": 20,
+  "main_text_case_total": 16,
+  "candidate_total": 16,
+  "retained_box_in_column3": 0,
+  "postscript_boxes_excluded_from_column3": 4,
+  "located_case_count": 12,
+  "unlocated_case_count": 4,
+  "located_cases": [
+    "001",
+    "003",
+    "004",
+    "005",
+    "006",
+    "007",
+    "008",
+    "011",
+    "012",
+    "013",
+    "014",
+    "016"
+  ],
+  "unlocated_cases": [
+    "002",
+    "009",
+    "010",
+    "015"
+  ],
+  "special_pages": {
+    "8": "原志首题及责任题署，保留真实字框",
+    "9-27": "周砥所撰主志文",
+    "28-31": "盛彪合葬缘故后记；栏目二独立显示，不纳入栏目三、栏目四",
+    "1-7,32-33": "题签、装帧、题跋或其他非正文页面；无可靠模型字框时只显示原图"
+  },
+  "cases": [
+    {
+      "id": "001",
+      "page": 9,
+      "candidate": "徙",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0009_c008",
+      "bbox": {
+        "x": 1204.0,
+        "y": 1112.0,
+        "w": 138.0,
+        "h": 111.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "002",
+      "page": 12,
+      "candidate": "付",
+      "located": false,
+      "glyph_id": null,
+      "bbox": null,
+      "verification": "相邻残损槽位过多，无法唯一定位；不写入bbox"
+    },
+    {
+      "id": "003",
+      "page": 13,
+      "candidate": "請",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0013_c009",
+      "bbox": {
+        "x": 1196.0,
+        "y": 1177.0,
+        "w": 139.0,
+        "h": 117.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "004",
+      "page": 14,
+      "candidate": "為",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0014_c003",
+      "bbox": {
+        "x": 632.0,
+        "y": 673.0,
+        "w": 139.0,
+        "h": 106.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "005",
+      "page": 15,
+      "candidate": "君",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0015_c059",
+      "bbox": {
+        "x": 806.0,
+        "y": 1289.0,
+        "w": 125.0,
+        "h": 102.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "006",
+      "page": 16,
+      "candidate": "喪",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0016_c006",
+      "bbox": {
+        "x": 627.0,
+        "y": 956.0,
+        "w": 146.0,
+        "h": 117.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "007",
+      "page": 17,
+      "candidate": "徙",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0017_c020",
+      "bbox": {
+        "x": 1059.0,
+        "y": 778.0,
+        "w": 124.0,
+        "h": 124.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "008",
+      "page": 18,
+      "candidate": "盡",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0018_c014",
+      "bbox": {
+        "x": 624.0,
+        "y": 1662.0,
+        "w": 151.0,
+        "h": 110.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "009",
+      "page": 20,
+      "candidate": "碎",
+      "located": false,
+      "glyph_id": null,
+      "bbox": null,
+      "verification": "相邻残损槽位过多，无法唯一定位；不写入bbox"
+    },
+    {
+      "id": "010",
+      "page": 21,
+      "candidate": "君",
+      "located": false,
+      "glyph_id": null,
+      "bbox": null,
+      "verification": "相邻残损槽位过多，无法唯一定位；不写入bbox"
+    },
+    {
+      "id": "011",
+      "page": 22,
+      "candidate": "及",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0022_c004",
+      "bbox": {
+        "x": 634.0,
+        "y": 748.0,
+        "w": 146.0,
+        "h": 104.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "012",
+      "page": 23,
+      "candidate": "徒",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0023_c015",
+      "bbox": {
+        "x": 1201.0,
+        "y": 1671.0,
+        "w": 141.0,
+        "h": 97.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "013",
+      "page": 24,
+      "candidate": "柩",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0024_c012",
+      "bbox": {
+        "x": 633.0,
+        "y": 1394.0,
+        "w": 147.0,
+        "h": 113.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "014",
+      "page": 25,
+      "candidate": "不",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0025_c014",
+      "bbox": {
+        "x": 1208.0,
+        "y": 1575.0,
+        "w": 132.0,
+        "h": 97.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    },
+    {
+      "id": "015",
+      "page": 25,
+      "candidate": "次",
+      "located": false,
+      "glyph_id": null,
+      "bbox": null,
+      "verification": "相邻残损槽位过多，无法唯一定位；不写入bbox"
+    },
+    {
+      "id": "016",
+      "page": 27,
+      "candidate": "搏",
+      "located": true,
+      "glyph_id": "029_鲜于光祖墓志_p0027_c001",
+      "bbox": {
+        "x": 1195.0,
+        "y": 480.0,
+        "w": 140.0,
+        "h": 115.0
+      },
+      "verification": "当前页局部字符序列＋问题槽位＋前后锚点"
+    }
+  ]
+}
