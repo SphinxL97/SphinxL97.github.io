@@ -12,12 +12,12 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
   
   const TITLE="鲜于光祖墓志";
-  const VERSION="20260725_xianyu_v1";
+  const VERSION="20260725_xianyu_v2";
   const TEXT_URL=`data/work029_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work029_damage_cases.json?v=${VERSION}`;
   const IMAGE_ROOT="assets/page_images/029_鲜于光祖墓志/images";
   const NOTE="本节页面展示用户确认的阅读底稿。段落和标点由AI辅助整理；原底稿中的残损方框继续保留，候选字仅在栏目三中提出，不直接写入栏目二正文。";
-  const INTRO="本篇底稿共标出20个残损方框，按句子整理为20例。仅在公开录文或局部语境足以支持时提出候选字；证据不足者保留方框并标记为暂无法判断。栏目三与栏目四读取同一份案例数据。";
+  const INTRO="本篇底稿共标出20个残损方框，按句子整理为20例：文献对校3例、AI暂拟11例、暂无法判断6例。证据不足者继续保留方框。栏目三与栏目四读取同一份案例数据。";
   const esc=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=v=>JSON.parse(JSON.stringify(v));
   const digits=["零","一","二","三","四","五","六","七","八","九"];
