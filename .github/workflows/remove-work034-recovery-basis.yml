@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/work034-remove-recovery-basis
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
