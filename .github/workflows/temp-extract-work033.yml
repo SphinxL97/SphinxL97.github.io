@@ -1,4 +1,4 @@
-name: Temporary extract work033 coordinates
+name: Temporary finalize work033
 
 on:
   push:
@@ -12,92 +12,112 @@ permissions:
   contents: write
 
 jobs:
-  extract:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/work033-zhengzuowei
           fetch-depth: 0
-      - name: Extract work033 rows
+      - name: Patch shared data and routes
         run: |
           python - <<'PY'
           import json
-          from collections import defaultdict
+          import re
           from pathlib import Path
 
-          source = Path('data/model_boxes/glyph_model_border_031_035.json')
-          rows = json.loads(source.read_text(encoding='utf-8'))
-          target = [row for row in rows if str(row.get('work_id', '')).zfill(3) == '033']
-          target.sort(key=lambda row: (int(row.get('canvas_index') or 0), int(row.get('order_in_page') or 0)))
+          info = json.loads(Path('data/work033_info.json').read_text(encoding='utf-8'))
 
-          root = Path('data/glyph_boxes/iiif/033')
-          root.mkdir(parents=True, exist_ok=True)
-          for old in root.glob('page_*.json'):
-              old.unlink()
+          catalog_path = Path('data/beitie_catalog.json')
+          catalog = json.loads(catalog_path.read_text(encoding='utf-8'))
+          found = False
+          for index, item in enumerate(catalog):
+              if str(item.get('id', '')).zfill(3) == '033':
+                  catalog[index] = info['catalog']
+                  found = True
+                  break
+          if not found:
+              catalog.append(info['catalog'])
+          catalog_path.write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-          grouped = defaultdict(list)
-          for row in target:
-              grouped[int(row.get('canvas_index') or 0)].append(row)
+          header_path = Path('data/beitie_header_info.json')
+          headers = json.loads(header_path.read_text(encoding='utf-8'))
+          headers['033'] = info['header']
+          header_path.write_text(json.dumps(headers, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-          page_summaries = {}
-          for page, page_rows in sorted(grouped.items()):
-              out = root / f'page_{page:04d}.json'
-              out.write_text(json.dumps(page_rows, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-              page_summaries[str(page)] = {
-                  'count': len(page_rows),
-                  'text': ''.join(str(row.get('char') or '')[:1] for row in page_rows),
-                  'canvas_width': page_rows[0].get('canvas_width'),
-                  'canvas_height': page_rows[0].get('canvas_height'),
-                  'first_glyph_id': page_rows[0].get('glyph_id'),
-                  'last_glyph_id': page_rows[-1].get('glyph_id')
-              }
-
-          coordinate_pages = sorted(grouped)
-          image_only_pages = [page for page in range(1, 43) if page not in grouped]
-          inventory = {
-              'work_id': '033',
-              'title': '争座位帖',
-              'source': str(source),
-              'image_total': 42,
-              'total_glyph_boxes': len(target),
-              'coordinate_pages': coordinate_pages,
-              'image_only_pages': image_only_pages,
-              'pages': page_summaries
-          }
-          Path('data/work033_coordinate_inventory.tmp.json').write_text(
-              json.dumps(inventory, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          router_path = Path('js/damage_ai_reading.js')
+          router = router_path.read_text(encoding='utf-8')
+          router = router.replace(
+              'if(window.__DAMAGE_AI_READING_ROUTER_V69__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V69__=true;',
+              'if(window.__DAMAGE_AI_READING_ROUTER_V70__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V70__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V69__=true;',
+              1
           )
-          Path('data/work033_coordinate_report.json').write_text(
-              json.dumps({
-                  'work_id': '033',
-                  'title': '争座位帖',
-                  'source': str(source),
-                  'coordinate_policy': '仅使用仓库既有深度学习模型真实坐标；不生成、不估算bbox。',
-                  'image_total': 42,
-                  'coordinate_pages': coordinate_pages,
-                  'image_only_pages': image_only_pages,
-                  'coordinate_page_count': len(coordinate_pages),
-                  'total_glyph_boxes': len(target),
-                  'case_total': 4,
-                  'candidate_total': 4,
-                  'located_case_count': 0,
-                  'unlocated_case_count': 4,
-                  'located_cases': [],
-                  'unlocated_cases': ['01', '02', '03', '04'],
-                  'cases': []
-              }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          old_route = '    "030":[{src:"js/work-030.js?v=20260725_jiuchenggong_030_v1",key:"w030",ready:()=>Boolean(window.__WORK_030_STABLE_READY__&&window.__WORK_030_CROWDSOURCE_READY__)}]'
+          new_route = old_route + ',\n    "033":[{src:"js/work-033-coordinate-adapter.js?v=20260725_zhengzuowei_033_v1",key:"w033c",ready:()=>Boolean(window.__WORK_033_COORDINATE_ADAPTER__)},{src:"js/work-033.js?v=20260725_zhengzuowei_033_v1",key:"w033",ready:()=>Boolean(window.__WORK_033_STABLE_READY__&&window.__WORK_033_CROWDSOURCE_READY__)}]'
+          if old_route not in router:
+              raise SystemExit('030 route anchor missing')
+          router = router.replace(old_route, new_route, 1)
+          router = router.replace('"030":"九成宫醴泉铭"};', '"030":"九成宫醴泉铭","033":"争座位帖"};', 1)
+          router = router.replace(',"030"].includes(id)', ',"030","033"].includes(id)')
+          router_path.write_text(router, encoding='utf-8')
+
+          detail_path = Path('js/detail_info_patch.js')
+          detail = detail_path.read_text(encoding='utf-8')
+          detail = detail.replace(
+              'if(window.__DETAIL_INFO_STABLE_ENTRY_V29__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V29__=true;',
+              'if(window.__DETAIL_INFO_STABLE_ENTRY_V30__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V30__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V29__=true;',
+              1
           )
-          print(json.dumps(inventory, ensure_ascii=False))
+          detail = detail.replace(
+              'const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";',
+              'const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";\n  const work033DataUrl="data/work033_info.json?v=20260725_zhengzuowei_033_v1";',
+              1
+          )
+          detail = detail.replace('const recoveryVersion="20260725_global_route_recovery_v5";', 'const recoveryVersion="20260725_global_route_recovery_v6";', 1)
+          detail = detail.replace('data/beitie_header_info.json?v=20260725_xianyu029_v1', 'data/beitie_header_info.json?v=20260725_zhengzuowei033_v1')
+          detail = detail.replace(',"030"]);', ',"030","033"]);', 1)
+          detail = detail.replace('"030":"九成宫醴泉铭"};', '"030":"九成宫醴泉铭","033":"争座位帖"};', 1)
+          detail = detail.replace(',68].forEach(version=>', ',68,69].forEach(version=>', 1)
+          detail = detail.replace(
+              'const url=workId==="030"?work030DataUrl:dataUrl;',
+              'const url=workId==="030"?work030DataUrl:(workId==="033"?work033DataUrl:dataUrl);',
+              1
+          )
+          detail = detail.replace(
+              'recordCache=workId==="030"?(data?.header||data?.["030"]||data):data?.[workId]||null;',
+              'recordCache=["030","033"].includes(workId)?(data?.header||data?.[workId]||data):data?.[workId]||null;',
+              1
+          )
+          detail_path.write_text(detail, encoding='utf-8')
+
+          html_path = Path('detail.html')
+          html = html_path.read_text(encoding='utf-8')
+          html = re.sub(r'js/detail_info_patch\.js\?v=[^"\']+', 'js/detail_info_patch.js?v=20260725_zhengzuowei033_v1', html)
+          html = re.sub(r'js/damage_ai_reading\.js\?v=[^"\']+', 'js/damage_ai_reading.js?v=20260725_zhengzuowei033_v1', html)
+          html_path.write_text(html, encoding='utf-8')
+
+          work_path = Path('js/work-033.js')
+          work = work_path.read_text(encoding='utf-8').replace('window.__WORK_033_CROWDSSOURCE_READY__=true;', '')
+          work_path.write_text(work, encoding='utf-8')
+
+          Path('data/work033_coordinate_inventory.tmp.json').unlink(missing_ok=True)
+          Path('.work033-coordinate-trigger').unlink(missing_ok=True)
+          Path('.github/workflows/temp-extract-work033.yml').unlink(missing_ok=True)
+
+          json.loads(catalog_path.read_text(encoding='utf-8'))
+          json.loads(header_path.read_text(encoding='utf-8'))
+          json.loads(Path('data/work033_damage_cases.json').read_text(encoding='utf-8'))
+          json.loads(Path('data/work033_coordinate_report.json').read_text(encoding='utf-8'))
+          json.loads(Path('data/work033_info.json').read_text(encoding='utf-8'))
           PY
-      - name: Commit generated coordinate files
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          node --check js/work-033-coordinate-adapter.js
+          node --check js/work-033.js
+      - name: Commit finalized work033
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/glyph_boxes/iiif/033 data/work033_coordinate_inventory.tmp.json data/work033_coordinate_report.json
-          if git diff --cached --quiet; then
-            echo "No coordinate changes"
-          else
-            git commit -m "生成033真实坐标页文件"
-            git push origin HEAD:agent/work033-zhengzuowei
-          fi
+          git add -A
+          git commit -m "接入033争座位帖专属内容"
+          git push origin HEAD:agent/work033-zhengzuowei
