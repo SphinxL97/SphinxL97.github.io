@@ -1,7 +1,8 @@
 /* 全部碑帖栏目二、三共享路由，并统一栏目三案例分类。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V71__)return;
+  if(window.__DAMAGE_AI_READING_ROUTER_V72__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V72__=true;
   window.__DAMAGE_AI_READING_ROUTER_V71__=true;
   window.__DAMAGE_AI_READING_ROUTER_V70__=true;
   window.__DAMAGE_AI_READING_ROUTER_V69__=true;
@@ -48,7 +49,7 @@
     "028":[{src:"js/work-028-coordinate-adapter.js?v=20260725_jintang_nine_v2",key:"w028c",ready:()=>Boolean(window.__WORK_028_COORDINATE_ADAPTER__)},{src:"js/work-028.js?v=20260725_jintang_nine_v2",key:"w028",ready:()=>Boolean(window.__WORK_028_STABLE_READY__&&window.__WORK_028_CROWDSOURCE_READY__)}],
     "029":[{src:"js/work-029-coordinate-adapter.js?v=20260725_xianyu029_loading_fix_v2",key:"w029c",ready:()=>Boolean(window.__WORK_029_COORDINATE_ADAPTER__)},{src:"js/work-029.js?v=20260725_xianyu029_loading_fix_v2",key:"w029",ready:()=>Boolean(window.__WORK_029_STABLE_READY__&&window.__WORK_029_CROWDSOURCE_READY__)}],
     "030":[{src:"js/work-030.js?v=20260725_jiuchenggong_030_v1",key:"w030",ready:()=>Boolean(window.__WORK_030_STABLE_READY__&&window.__WORK_030_CROWDSOURCE_READY__)}],
-    "032":[{src:"js/work-032-coordinate-adapter.js?v=20260725_xuzhenren_032_v1",key:"w032c",ready:()=>Boolean(window.__WORK_032_COORDINATE_ADAPTER__)},{src:"js/work-032.js?v=20260725_xuzhenren_032_v1",key:"w032",ready:()=>Boolean(window.__WORK_032_STABLE_READY__&&window.__WORK_032_CROWDSOURCE_READY__)}],
+    "032":[{src:"js/work-032-coordinate-adapter.js?v=20260725_xuzhenren_032_v1",key:"w032c",ready:()=>Boolean(window.__WORK_032_COORDINATE_ADAPTER__)},{src:"js/work-032.js?v=20260726_xuzhenren_032_v2",key:"w032",ready:()=>Boolean(window.__WORK_032_STABLE_READY__&&window.__WORK_032_CROWDSOURCE_READY__)}],
     "033":[{src:"js/work-033-coordinate-adapter.js?v=20260725_zhengzuowei_033_v1",key:"w033c",ready:()=>Boolean(window.__WORK_033_COORDINATE_ADAPTER__)},{src:"js/work-033.js?v=20260725_zhengzuowei_033_v1",key:"w033",ready:()=>Boolean(window.__WORK_033_STABLE_READY__&&window.__WORK_033_CROWDSOURCE_READY__)}]
   };
 
