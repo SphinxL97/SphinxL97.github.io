@@ -12,7 +12,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="许真人井铭";
-  const VERSION="20260725_xuzhenren_032_v1";
+  const VERSION="20260726_xuzhenren_032_v2";
   const TEXT_URL=`data/work032_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work032_damage_cases.json?v=${VERSION}`;
   const PAGE_INDEX_URL=`data/page_images_index.json?v=${VERSION}`;
@@ -58,6 +58,20 @@
   }
   function markedHTML(value){let html="",offset=0,match;const text=String(value||""),pattern=/〔([^〕]*)〕/g;while((match=pattern.exec(text))){html+=esc(text.slice(offset,match.index));html+=`<span class="damage-added">〔${esc(match[1])}〕</span>`;offset=match.index+match[0].length;}return html+esc(text.slice(offset));}
   const plainRestored=value=>String(value||"").replace(/[〔〕]/g,"");
+  function removeRecoveryBasis(root=document.getElementById("people")){
+    if(!root)return;
+    root.querySelectorAll(".damage-basis-block,.damage-basis-card,[data-damage-basis]").forEach(node=>node.remove());
+    root.querySelectorAll(".damage-block").forEach(block=>{
+      const label=block.querySelector(":scope > .damage-label");
+      if(label&&label.textContent.trim()==="恢复依据")block.remove();
+    });
+  }
+  function observeRecoveryBasis(){
+    const root=document.getElementById("people");if(!root||root.dataset.work032BasisObserver==="true")return;
+    root.dataset.work032BasisObserver="true";let scheduled=false;
+    new MutationObserver(()=>{if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;removeRecoveryBasis(root);});}).observe(root,{childList:true,subtree:true});
+    removeRecoveryBasis(root);
+  }
   function caseTabs(){return cases.map((item,index)=>`<button class="damage-tab${index===current?" active":""}" data-case-index="${index}" type="button" aria-pressed="${index===current}"><b>${esc(item.id)}</b><span class="name">${esc(item.category)}</span></button>`).join("");}
   function locationHTML(item){
     const byPage=new Map();
@@ -77,10 +91,11 @@
     section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{current=Number(button.dataset.caseIndex)||0;expanded=false;renderDamage();}));
     section.querySelectorAll("[data-action]").forEach(button=>button.addEventListener("click",()=>{if(button.dataset.action==="prev"&&current>0)current-=1;else if(button.dataset.action==="next"&&current<cases.length-1)current+=1;else if(button.dataset.action==="expand")expanded=!expanded;renderDamage();}));
     if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();
+    removeRecoveryBasis(section);
   }
   function ensureStyle(){
     if(document.getElementById("work032-xuzhenren-style"))return;const style=document.createElement("style");style.id="work032-xuzhenren-style";
-    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.work032-location-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:start}.work032-image-stage{position:relative;width:min(100%,430px);margin:auto}.work032-image-stage img{width:100%;height:auto;display:block;border-radius:10px}.work032-real-box{position:absolute;border:3px solid #e23020;background:rgba(226,48,32,.12);box-shadow:0 0 0 2px rgba(255,255,255,.8)}.work032-case-image p{margin:10px 0 0!important;text-indent:0!important;font-size:12px;color:#766657;text-align:center}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:250px;padding:30px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a;text-align:center}";
+    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.work032-location-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;align-items:start}.work032-image-stage{position:relative;width:min(100%,430px);margin:auto}.work032-image-stage img{width:100%;height:auto;display:block;border-radius:10px}.work032-real-box{position:absolute;border:3px solid #e23020;background:rgba(226,48,32,.12);box-shadow:0 0 0 2px rgba(255,255,255,.8)}.work032-case-image p{margin:10px 0 0!important;text-indent:0!important;font-size:12px;color:#766657;text-align:center}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:250px;padding:30px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a;text-align:center}#people[data-work032-dedicated=\"true\"] .damage-basis-block,#people[data-work032-dedicated=\"true\"] .damage-basis-card,#people[data-work032-dedicated=\"true\"] [data-damage-basis]{display:none!important}";
     document.head.appendChild(style);
   }
   function applySupplementalInfo(){
@@ -97,7 +112,7 @@
     const scriptPath="assets/js/crowdsource-v9.js";if(!Array.from(document.scripts).some(script=>(script.getAttribute("src")||"").split("?")[0].endsWith(scriptPath))){const script=document.createElement("script");script.src=`${scriptPath}?v=${VERSION}`;script.async=false;script.addEventListener("load",()=>{window.__WORK_032_CROWDSOURCE_READY__=true;window.dispatchEvent(new CustomEvent("work-032-crowdsource-ready",{detail:{count:cases.length}}));},{once:true});document.head.appendChild(script);}else window.__WORK_032_CROWDSOURCE_READY__=true;
   }
   async function init(){
-    ensureStyle();applySupplementalInfo();const damage=document.getElementById("people");if(damage)damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${TITLE}》释读案例……</div></div>`;
+    ensureStyle();applySupplementalInfo();observeRecoveryBasis();const damage=document.getElementById("people");if(damage)damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${TITLE}》释读案例……</div></div>`;
     try{
       const [rows,index]=await Promise.all([fetchJSON(CASE_URL),fetchJSON(PAGE_INDEX_URL)]);cases=(Array.isArray(rows)?rows:[]).map(normalizeCase);if(!cases.length)throw new Error("032案例数据为空");
       const pages=index?.works?.["032"]?.pages||[];pageMap=new Map(pages.map(page=>[Number(page.page),page]));publishCases(cases);if(Array.isArray(window.DAMAGE_AI_CASES)&&window.DAMAGE_AI_CASES.length)cases=window.DAMAGE_AI_CASES;
