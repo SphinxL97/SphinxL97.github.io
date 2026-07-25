@@ -4,7 +4,8 @@
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   const supported=new Set(["024","027","028","029"]);
-  if(!supported.has(workId)||window.__TRANSCRIPT_FORMAT_NORMALIZER_V1__)return;
+  if(!supported.has(workId)||window.__TRANSCRIPT_FORMAT_NORMALIZER_V2__)return;
+  window.__TRANSCRIPT_FORMAT_NORMALIZER_V2__=true;
   window.__TRANSCRIPT_FORMAT_NORMALIZER_V1__=true;
 
   const STANDARD_NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
@@ -66,6 +67,17 @@
       const compact=(title.textContent||"").replace(/\s+/g,"");
       if(compact==="鮮于府君墓誌銘。"||compact==="鲜于府君墓志铭。")title.remove();
     });
+
+    /* 合葬缘故晚于通用脚本异步写入，按标题定点处理其后一段。 */
+    body.querySelectorAll("h4.work029-part-title").forEach(heading=>{
+      const label=(heading.textContent||"").replace(/\s+/g,"");
+      if(!label.includes("合葬缘故"))return;
+      const postscript=heading.nextElementSibling;
+      if(postscript?.matches("p")){
+        postscript.dataset.work029Postscript="true";
+        rebuildSentenceMarks(postscript);
+      }
+    });
   }
 
   function ensureStyle(){
@@ -82,8 +94,7 @@
     if(observer)observer.disconnect();
     observer=new MutationObserver(()=>{
       if(applying)return;
-      clearTimeout(timer);
-      timer=setTimeout(apply,40);
+      scheduleApply(40);
     });
     observer.observe(section,{childList:true,subtree:true});
   }
@@ -108,16 +119,29 @@
     body.querySelectorAll("h4").forEach(heading=>{
       if(restore&&/〔[^〕]*〕/.test(heading.textContent||""))rebuildSentenceMarks(heading,{restore:true});
     });
-    body.dataset.transcriptFormatNormalized="20260725_v1";
+
+    /* 通用遍历后再次锁定029后记，避免其他脚本重写其内部标记。 */
+    if(workId==="029")normalize029(body);
+    body.dataset.transcriptFormatNormalized="20260725_v2";
     applying=false;
     connect();
+  }
+
+  function scheduleApply(delay=0){
+    clearTimeout(timer);
+    timer=setTimeout(apply,delay);
   }
 
   function start(){
     connect();
     apply();
-    setTimeout(apply,120);
+    scheduleApply(120);
     setTimeout(apply,700);
+    if(workId==="029"){
+      window.addEventListener("work-029-cases-ready",()=>scheduleApply(0));
+      window.addEventListener("work-029-stable-ready",()=>scheduleApply(0));
+      window.addEventListener("work-029-crowdsource-ready",()=>scheduleApply(0));
+    }
   }
 
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});
