@@ -1,0 +1,49 @@
+name: work029-patch-finalizer
+
+on:
+  push:
+    branches:
+      - agent/work029-xianyu-guangzu
+    paths:
+      - .github/workflows/work029-patch-finalizer.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work029-xianyu-guangzu
+          fetch-depth: 0
+      - name: Patch and retrigger finalizer
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('.github/workflows/work029-coordinate-audit.yml')
+          text=path.read_text(encoding='utf-8')
+          old="          image_by_page={int(p['canvas_index']):p['image'] for p in page_index['works']['029']['pages']}"
+          new="""          image_by_page={}\n          for fallback_page,p in enumerate(page_index['works']['029']['pages'],1):\n              page_no=int(p.get('canvas_index') or p.get('page') or p.get('page_no') or p.get('page_index') or fallback_page)\n              image_path=p.get('image') or p.get('local_image') or p.get('path')\n              assert image_path,(page_no,p)\n              image_by_page[page_no]=image_path"""
+          assert old in text
+          text=text.replace(old,new,1)
+          old_cleanup="          rm -f .github/workflows/work029-coordinate-audit.yml\n          rm -f tmp/work029_coordinate_trigger.txt tmp/work029_model_inspect.json tmp/work029_model_summary.json"
+          new_cleanup="""          rm -f .github/workflows/work029-coordinate-audit.yml .github/workflows/work029-selftest.yml .github/workflows/work029-finalizer-debug.yml .github/workflows/work029-patch-finalizer.yml\n          rm -f tmp/work029_coordinate_trigger.txt tmp/work029_model_inspect.json tmp/work029_model_summary.json tmp/work029_selftest_passed.txt tmp/work029_finalizer_error.log"""
+          assert old_cleanup in text
+          text=text.replace(old_cleanup,new_cleanup,1)
+          old_test="          test -z \"$(git diff --cached --name-only | grep -E '^(\\.github/workflows/|tmp/)' || true)\""
+          new_test="""          test ! -e .github/workflows/work029-coordinate-audit.yml\n          test ! -e .github/workflows/work029-selftest.yml\n          test ! -e .github/workflows/work029-finalizer-debug.yml\n          test ! -e .github/workflows/work029-patch-finalizer.yml\n          test ! -e tmp/work029_coordinate_trigger.txt\n          test ! -e tmp/work029_finalizer_error.log"""
+          assert old_test in text
+          text=text.replace(old_test,new_test,1)
+          path.write_text(text,encoding='utf-8')
+          trigger=Path('tmp/work029_coordinate_trigger.txt')
+          trigger.parent.mkdir(parents=True,exist_ok=True)
+          trigger.write_text('trigger work029 final build v4\n',encoding='utf-8')
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .github/workflows/work029-coordinate-audit.yml tmp/work029_coordinate_trigger.txt
+          git commit -m "修正029最终构建页表读取"
+          git push origin HEAD:agent/work029-xianyu-guangzu
