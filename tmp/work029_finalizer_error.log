@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/work029_finalizer.py", line 20, in <module>
+    image_by_page={int(p['canvas_index']):p['image'] for p in page_index['works']['029']['pages']}
+                       ~^^^^^^^^^^^^^^^^
+KeyError: 'canvas_index'
+
+exit_status=1
