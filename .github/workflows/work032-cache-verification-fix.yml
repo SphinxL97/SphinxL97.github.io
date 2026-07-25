@@ -14,8 +14,8 @@ jobs:
           ref: agent/work032-clean-removal-audit
           fetch-depth: 0
       - name: Patch cache chain
-        shell: python
         run: |
+          python - <<'PY'
           from pathlib import Path
 
           replacements = {
@@ -51,7 +51,7 @@ jobs:
           template = work.split('section.innerHTML=', 1)[1].split(';\n    const list=', 1)[0]
           if '恢复依据' in template:
               raise SystemExit('work032 render template still contains 恢复依据')
-
+          PY
       - name: Validate JavaScript and cache references
         run: |
           node --check js/work-032.js
