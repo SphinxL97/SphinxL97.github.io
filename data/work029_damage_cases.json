@@ -1,0 +1,566 @@
+[
+  {
+    "id": "001",
+    "title": "范阳迁居博州",
+    "original": "鮮于君初自范陽□家於博。",
+    "corrected": "鮮于君初自范陽〔徙〕家於博。",
+    "candidate": "徙",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 9,
+    "analysis": [
+      "“徙家”是迁居、移居的常用表达，与“自范陽……家於博”的迁徙叙述相合。",
+      "网络参考录文亦见“自范阳徙家于博”，但来源可靠性不足，因此不标为文献对校。"
+    ],
+    "reference": "用户底稿、原拓图像与网络参考录文",
+    "locations": [
+      {
+        "page": 9,
+        "glyph_id": "029_鲜于光祖墓志_p0009_c008",
+        "char": "□",
+        "bbox": {
+          "x": 1204.0,
+          "y": 1112.0,
+          "w": 138.0,
+          "h": 111.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0009_九.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "鮮于君初自范陽〔徙〕家於博。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "002",
+    "title": "逃妇交付有司",
+    "original": "义翼白於官曰：“我昨村下捕淂逃婦一人，随□有司。”",
+    "corrected": "义翼白於官曰：“我昨村下捕淂逃婦一人，随〔付〕有司。”",
+    "candidate": "付",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "低",
+    "page": 12,
+    "analysis": [
+      "上下文说明先捕得逃妇，随后交由官府处置，“付有司”符合动作逻辑。",
+      "模型在“随”与“有司”之间识别出多个连续残损槽位，不能唯一确定本方框对应哪一个字框，因此不展示局部红框。"
+    ],
+    "reference": "用户底稿、上下文语法与第12页原拓",
+    "locations": [],
+    "current_context": "义翼白於官曰：“我昨村下捕淂逃婦一人，随〔付〕有司。”",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "003",
+    "title": "请撰埋铭",
+    "original": "今啔菆期州教陳應，既状其行實，願以埋銘為□。",
+    "corrected": "今啔菆期州教陳應，既状其行實，願以埋銘為〔請〕。",
+    "candidate": "請",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 13,
+    "analysis": [
+      "“以……为请”是提出请托的文言结构。",
+      "此处鲜于枢陈述行实并请周砥撰写墓铭，补“請”与叙事目的相合。"
+    ],
+    "reference": "用户底稿、原拓图像与文言句法",
+    "locations": [
+      {
+        "page": 13,
+        "glyph_id": "029_鲜于光祖墓志_p0013_c009",
+        "char": "□",
+        "bbox": {
+          "x": 1196.0,
+          "y": 1177.0,
+          "w": 139.0,
+          "h": 117.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0013_十三.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "今啔菆期州教陳應，既状其行實，願以埋銘為〔請〕。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "004",
+    "title": "世次断自高祖为始",
+    "original": "譜諜廢已久，不如流俗妄倫世次，令斷高□始。",
+    "corrected": "譜諜廢已久，不如流俗妄倫世次，令斷高〔為〕始。",
+    "candidate": "為",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "高",
+    "page": 14,
+    "analysis": [
+      "可靠对校资料说明上图本此处原为“高祖為始”，其中“為”字磨泐。",
+      "用户底稿只有“高□始”一个方框，且方框紧邻“始”，因此只补与该槽位对应的“為”，不在方框外增补“祖”。"
+    ],
+    "reference": "陈麦青相关考释及同碑异本对校",
+    "locations": [
+      {
+        "page": 14,
+        "glyph_id": "029_鲜于光祖墓志_p0014_c003",
+        "char": "□",
+        "bbox": {
+          "x": 632.0,
+          "y": 673.0,
+          "w": 139.0,
+          "h": 106.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0014_十四.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": "“高”后有两个真实残损槽位，本案例定位至紧邻“始”的第二个槽位。"
+      }
+    ],
+    "current_context": "譜諜廢已久，不如流俗妄倫世次，令斷高〔為〕始。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "005",
+    "title": "府君勉励借款者",
+    "original": "□謂曰：“悔敗謀成，吾望汝也。”",
+    "corrected": "〔君〕謂曰：“悔敗謀成，吾望汝也。”",
+    "candidate": "君",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 15,
+    "analysis": [
+      "前文叙述鲜于府君出资帮助借款者，后接直接引语，主语应承接为“君”。",
+      "“君謂曰”语法完整，并与全段叙事主体一致。"
+    ],
+    "reference": "用户底稿、原拓图像与上下文主语",
+    "locations": [
+      {
+        "page": 15,
+        "glyph_id": "029_鲜于光祖墓志_p0015_c059",
+        "char": "□",
+        "bbox": {
+          "x": 806.0,
+          "y": 1289.0,
+          "w": 125.0,
+          "h": 102.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0015_十五.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "〔君〕謂曰：“悔敗謀成，吾望汝也。”",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "006",
+    "title": "帮助贫者举丧",
+    "original": "貧不能舉□者，往賵賻，畢其葬祀。",
+    "corrected": "貧不能舉〔喪〕者，往賵賻，畢其葬祀。",
+    "candidate": "喪",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 16,
+    "analysis": [
+      "“举丧”指办理丧事，是稳定词组。",
+      "后文“賵賻、葬祀”均属丧葬语汇，补“喪”可形成完整语义链。"
+    ],
+    "reference": "用户底稿、原拓图像与丧葬语汇",
+    "locations": [
+      {
+        "page": 16,
+        "glyph_id": "029_鲜于光祖墓志_p0016_c006",
+        "char": "□",
+        "bbox": {
+          "x": 627.0,
+          "y": 956.0,
+          "w": 146.0,
+          "h": 117.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0016_十六.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "貧不能舉〔喪〕者，往賵賻，畢其葬祀。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "007",
+    "title": "辗转许台之间",
+    "original": "母李氏獨擕幼稚達亰師，眀秊復走河南，轉□許臺之間，俻極艱苦。",
+    "corrected": "母李氏獨擕幼稚達亰師，眀秊復走河南，轉〔徙〕許臺之間，俻極艱苦。",
+    "candidate": "徙",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 17,
+    "analysis": [
+      "“转徙”意为辗转迁移，与“达京师、复走河南、备极艰苦”相承。",
+      "方框前为“轉”、后为地点范围，补“徙”在语法和语义上均顺畅。"
+    ],
+    "reference": "用户底稿、原拓图像与固定词语",
+    "locations": [
+      {
+        "page": 17,
+        "glyph_id": "029_鲜于光祖墓志_p0017_c020",
+        "char": "□",
+        "bbox": {
+          "x": 1059.0,
+          "y": 778.0,
+          "w": 124.0,
+          "h": 124.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0017_十七.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "母李氏獨擕幼稚達亰師，眀秊復走河南，轉〔徙〕許臺之間，俻極艱苦。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "008",
+    "title": "尽刮险纵之习",
+    "original": "既改莭讀書，務窮道理，□刮險縱之習。",
+    "corrected": "既改莭讀書，務窮道理，〔盡〕刮險縱之習。",
+    "candidate": "盡",
+    "category": "文献对校",
+    "mode": "documentary",
+    "confidence": "高",
+    "page": 18,
+    "analysis": [
+      "可靠对校资料保存“盡刮去險縱之習”，并指出上图本“盡”字磨泐。",
+      "用户底稿只在“刮”前标出一个方框，因此仅补“盡”；外部录文多出的“去”不写入栏目二或恢复句。"
+    ],
+    "reference": "陈麦青相关考释及同碑异本对校",
+    "locations": [
+      {
+        "page": 18,
+        "glyph_id": "029_鲜于光祖墓志_p0018_c014",
+        "char": "□",
+        "bbox": {
+          "x": 624.0,
+          "y": 1662.0,
+          "w": 151.0,
+          "h": 110.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0018_十八.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "既改莭讀書，務窮道理，〔盡〕刮險縱之習。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "009",
+    "title": "琉璃碎顽石之难",
+    "original": "盖以彼彊大，視君為□之難，出人所不尔也。",
+    "corrected": "盖以彼彊大，視君為〔碎〕之難，出人所不尔也。",
+    "candidate": "碎",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 20,
+    "analysis": [
+      "前一句市歌为“琉璃碎頑石”，本句紧接着解释彼强君弱之事。",
+      "补“碎”可回扣市歌中的核心动作。模型在“視君為”后识别出多个相邻残损槽位，无法唯一绑定到某一bbox，因此不展示虚假定位。"
+    ],
+    "reference": "用户底稿、前后文互证与第20页原拓",
+    "locations": [],
+    "current_context": "盖以彼彊大，視君為〔碎〕之難，出人所不尔也。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "010",
+    "title": "首辟府君任仓职",
+    "original": "先朝經略江淮都轉運使周調軍儲於衞，首辟□舉廣濟倉，尋兼諸知。",
+    "corrected": "先朝經略江淮都轉運使周調軍儲於衞，首辟〔君〕舉廣濟倉，尋兼諸知。",
+    "candidate": "君",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 21,
+    "analysis": [
+      "本段转入府君任职经历，“辟君”可表示征召府君任事。",
+      "方框外“舉、諸知”等文字也可能存在OCR问题，本轮只补原方框。模型在“首辟”后存在多个相邻残损槽位，故不展示局部红框。"
+    ],
+    "reference": "用户底稿、任官语境与第21页原拓",
+    "locations": [],
+    "current_context": "先朝經略江淮都轉運使周調軍儲於衞，首辟〔君〕舉廣濟倉，尋兼諸知。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "011",
+    "title": "及围武昌",
+    "original": "□圍武昌，以有司糧遣都役，授君謀為經畫，水利軍食，用是不之師勞，皆蒙賞。",
+    "corrected": "〔及〕圍武昌，以有司糧遣都役，授君謀為經畫，水利軍食，用是不之師勞，皆蒙賞。",
+    "candidate": "及",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 22,
+    "analysis": [
+      "上文先叙南伐与转运粮饷，随后进入武昌之役，“及围武昌”符合事件递进。",
+      "真实模型在“圍武昌”前保留两个残损槽位，定位时只能使用紧邻“圍”的槽位，不能以相邻完整字冒充。"
+    ],
+    "reference": "用户底稿、原拓模型字框与时间承接",
+    "locations": [
+      {
+        "page": 22,
+        "glyph_id": "029_鲜于光祖墓志_p0022_c004",
+        "char": "□",
+        "bbox": {
+          "x": 634.0,
+          "y": 748.0,
+          "w": 146.0,
+          "h": 104.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0022_二十二.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": "“圍”前有两个真实残损槽位，本案例定位至紧邻“圍”的第二个槽位。"
+      }
+    ],
+    "current_context": "〔及〕圍武昌，以有司糧遣都役，授君謀為經畫，水利軍食，用是不之師勞，皆蒙賞。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "012",
+    "title": "徒以簿书从事",
+    "original": "又無戰多□，以簿書徵縱之，豈封侯事哉？",
+    "corrected": "又無戰多〔徒〕，以簿書徵縱之，豈封侯事哉？",
+    "candidate": "徒",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 23,
+    "analysis": [
+      "整句意在自叹无战功而仅以簿书事务任职，“徒以……”可表达“只是、仅仅”。",
+      "方框外“多、徵縱”疑有OCR错乱，本轮严格只替换方框。"
+    ],
+    "reference": "用户底稿、原拓图像与整句语义",
+    "locations": [
+      {
+        "page": 23,
+        "glyph_id": "029_鲜于光祖墓志_p0023_c015",
+        "char": "□",
+        "bbox": {
+          "x": 1201.0,
+          "y": 1671.0,
+          "w": 141.0,
+          "h": 97.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0023_二十三.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "又無戰多〔徒〕，以簿書徵縱之，豈封侯事哉？",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "013",
+    "title": "泣血迎柩",
+    "original": "越三日，訃玉樞泣血迎□藳濵城北開元寺，將以年月君氏祔。",
+    "corrected": "越三日，訃玉樞泣血迎〔柩〕藳濵城北開元寺，將以年月君氏祔。",
+    "candidate": "柩",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 24,
+    "analysis": [
+      "父丧之后“迎柩”是常见治丧表达，指迎接灵柩。",
+      "后续“藳濵”很可能也有OCR疑误，但本轮不修改方框外文字。"
+    ],
+    "reference": "用户底稿、原拓图像与丧葬语境",
+    "locations": [
+      {
+        "page": 24,
+        "glyph_id": "029_鲜于光祖墓志_p0024_c012",
+        "char": "□",
+        "bbox": {
+          "x": 633.0,
+          "y": 1394.0,
+          "w": 147.0,
+          "h": 113.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0024_二十四.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": ""
+      }
+    ],
+    "current_context": "越三日，訃玉樞泣血迎〔柩〕藳濵城北開元寺，將以年月君氏祔。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "014",
+    "title": "才志不尽施于时",
+    "original": "未衰勇退，□盡施於時，而人鮮有知者，為可巳。",
+    "corrected": "未衰勇退，〔不〕盡施於時，而人鮮有知者，為可巳。",
+    "candidate": "不",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 25,
+    "analysis": [
+      "“不尽施于时”说明才志未能充分施展，与后文“人鲜有知者”构成因果。",
+      "真实模型显示底稿方框可能错位：残损槽位后仍识别出完整“不”字；定位时只能使用该真实“不”字bbox并明确说明错位。"
+    ],
+    "reference": "用户底稿、第25页真实模型坐标与上下文",
+    "locations": [
+      {
+        "page": 25,
+        "glyph_id": "029_鲜于光祖墓志_p0025_c014",
+        "char": "□",
+        "bbox": {
+          "x": 1208.0,
+          "y": 1575.0,
+          "w": 132.0,
+          "h": 97.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0025_二十五.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": "用户底稿方框疑似错位；此处框选真实残损槽位，不使用后面的完整“不”字代替。"
+      }
+    ],
+    "current_context": "未衰勇退，〔不〕盡施於時，而人鮮有知者，為可巳。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "015",
+    "title": "子女婚配次序",
+    "original": "再王女一，適何巨濟、天胡昌吴□日阿堂。",
+    "corrected": "再王女一，適何巨濟、天胡昌吴〔次〕日阿堂。",
+    "candidate": "次",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "中",
+    "page": 25,
+    "analysis": [
+      "亲属段原意很可能按“长适……，次……，次……”排列女儿婚配。",
+      "现有OCR序列与“次胡昌祖、次吴日章”一类结构大体对应。第25—26页该段存在多处连续残损，无法唯一对应模型bbox，因此不伪造定位。"
+    ],
+    "reference": "用户底稿、亲属记述结构与第25—26页原拓",
+    "locations": [],
+    "current_context": "再王女一，適何巨濟、天胡昌吴〔次〕日阿堂。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  },
+  {
+    "id": "016",
+    "title": "手搏鲸鱼的比喻",
+    "original": "肝裂壯府君古風莭，忘寧作寸折手□鯨，不畏其匪中行。",
+    "corrected": "肝裂壯府君古風莭，忘寧作寸折手〔搏〕鯨，不畏其匪中行。",
+    "candidate": "搏",
+    "category": "AI暂拟",
+    "mode": "ai_provisional",
+    "confidence": "低",
+    "page": 27,
+    "analysis": [
+      "“手搏鲸”形成完整动宾结构，以徒手搏击巨鲸比喻勇烈、不畏强暴。",
+      "铭辞周边OCR残乱，候选主要依据句法和意象，故标为低置信度。"
+    ],
+    "reference": "用户底稿、第27页原拓与铭辞意象",
+    "locations": [
+      {
+        "page": 27,
+        "glyph_id": "029_鲜于光祖墓志_p0027_c001",
+        "char": "□",
+        "bbox": {
+          "x": 1195.0,
+          "y": 480.0,
+          "w": 140.0,
+          "h": 115.0
+        },
+        "canvas": {
+          "w": 1444,
+          "h": 2214
+        },
+        "image": "assets/page_images/029_鲜于光祖墓志/images/0027_二十七.jpg",
+        "verification": "当前页局部字符序列＋问题槽位＋前后锚点",
+        "note": "“手”在第26页末，问题槽位“□”位于第27页首；本案例只框选第27页真实残损槽位。"
+      }
+    ],
+    "current_context": "肝裂壯府君古風莭，忘寧作寸折手〔搏〕鯨，不畏其匪中行。",
+    "box_count": 1,
+    "candidate_count": 1,
+    "retained_box_count": 0
+  }
+]
