@@ -2,7 +2,7 @@
 (function(){
   "use strict";
   if(window.__DETAIL_INFO_STABLE_ENTRY_V26__)return;
-  window.__DETAIL_INFO_STABLE_ENTRY_V25__=true;
+  window.__DETAIL_INFO_STABLE_ENTRY_V26__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V24__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V23__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V22__=true;
@@ -42,7 +42,7 @@
   const dataUrl="data/beitie_header_info.json?v=20260725_xianyu_v1";
 
   function applyImmediateWorkMenu(){
-    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志";
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志"};
     const name=names[workId];if(!name)return;
     const apply=()=>{
       const side=document.querySelector(".side");
