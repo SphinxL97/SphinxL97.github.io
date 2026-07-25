@@ -1,0 +1,130 @@
+name: work029-coordinate-audit
+
+on:
+  push:
+    branches:
+      - agent/work029-xianyu-guangzu
+    paths:
+      - .github/workflows/work029-coordinate-audit.yml
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work029-xianyu-guangzu
+          fetch-depth: 0
+      - name: Extract only work 029 records
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          src = Path('data/model_boxes/glyph_model_border_026_030.json')
+          out = Path('tmp/work029_model_inspect.json')
+          out.parent.mkdir(parents=True, exist_ok=True)
+          raw = src.read_text(encoding='utf-8')
+
+          def is_029_primitive(v):
+              if isinstance(v, bool) or v is None:
+                  return False
+              if isinstance(v, (int, float)):
+                  return v == 29
+              if not isinstance(v, str):
+                  return False
+              s = v.strip().replace('\\\\', '/')
+              return (
+                  s == '029' or s == '29' or s.startswith('029_') or
+                  '/029/' in s or '/029_' in s or '029_鲜于光祖墓志' in s or
+                  '鲜于光祖墓志' in s or '鮮于光祖墓誌' in s or '18A356' in s
+              )
+
+          def shallow_match(node):
+              if not isinstance(node, dict):
+                  return False
+              for k, v in node.items():
+                  if is_029_primitive(k) or is_029_primitive(v):
+                      return True
+              return False
+
+          def summarize(node):
+              if isinstance(node, dict):
+                  return {'type': 'dict', 'keys': list(node.keys())[:100], 'size': len(node)}
+              if isinstance(node, list):
+                  return {'type': 'list', 'size': len(node), 'first_types': [type(x).__name__ for x in node[:10]]}
+              return {'type': type(node).__name__, 'value': node}
+
+          try:
+              data = json.loads(raw)
+              parse_mode = 'json'
+          except Exception:
+              data = []
+              parse_mode = 'jsonl'
+              for line_no, line in enumerate(raw.splitlines(), 1):
+                  line = line.strip()
+                  if not line:
+                      continue
+                  try:
+                      data.append({'_line': line_no, '_value': json.loads(line)})
+                  except Exception:
+                      pass
+
+          matches = []
+          keyed_sections = []
+          samples = []
+          seen = set()
+
+          def add(kind, path, node):
+              try:
+                  marker = json.dumps(node, ensure_ascii=False, sort_keys=True)
+              except Exception:
+                  marker = repr(node)
+              key = (kind, path, marker[:500])
+              if key in seen:
+                  return
+              seen.add(key)
+              matches.append({'kind': kind, 'path': path, 'value': node})
+
+          def walk(node, path='$', depth=0):
+              if depth > 12:
+                  return
+              if isinstance(node, dict):
+                  if depth <= 2 and len(samples) < 12:
+                      samples.append({'path': path, 'summary': summarize(node), 'sample': dict(list(node.items())[:6])})
+                  if shallow_match(node):
+                      add('matching_record', path, node)
+                  for k, v in node.items():
+                      kp = f'{path}.{k}'
+                      if is_029_primitive(k):
+                          keyed_sections.append({'path': kp, 'value': v})
+                      walk(v, kp, depth + 1)
+              elif isinstance(node, list):
+                  if depth <= 2 and len(samples) < 12:
+                      samples.append({'path': path, 'summary': summarize(node), 'sample': node[:3]})
+                  for i, v in enumerate(node):
+                      walk(v, f'{path}[{i}]', depth + 1)
+
+          walk(data)
+          payload = {
+              'source': str(src),
+              'source_size_bytes': src.stat().st_size,
+              'parse_mode': parse_mode,
+              'root_summary': summarize(data),
+              'keyed_sections': keyed_sections,
+              'matches': matches,
+              'samples': samples,
+              'match_count': len(matches),
+          }
+          out.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(json.dumps({k: payload[k] for k in ('source_size_bytes','parse_mode','root_summary','match_count')}, ensure_ascii=False, indent=2))
+          PY
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add tmp/work029_model_inspect.json
+          git commit -m "temp: extract 029 model records" || exit 0
+          git push origin HEAD:agent/work029-xianyu-guangzu
