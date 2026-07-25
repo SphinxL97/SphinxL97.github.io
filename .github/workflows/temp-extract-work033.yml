@@ -1,0 +1,103 @@
+name: Temporary extract work033 coordinates
+
+on:
+  push:
+    branches:
+      - agent/work033-zhengzuowei
+    paths:
+      - .github/workflows/temp-extract-work033.yml
+      - .work033-coordinate-trigger
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work033-zhengzuowei
+          fetch-depth: 0
+      - name: Extract work033 rows
+        run: |
+          python - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+
+          source = Path('data/model_boxes/glyph_model_border_031_035.json')
+          rows = json.loads(source.read_text(encoding='utf-8'))
+          target = [row for row in rows if str(row.get('work_id', '')).zfill(3) == '033']
+          target.sort(key=lambda row: (int(row.get('canvas_index') or 0), int(row.get('order_in_page') or 0)))
+
+          root = Path('data/glyph_boxes/iiif/033')
+          root.mkdir(parents=True, exist_ok=True)
+          for old in root.glob('page_*.json'):
+              old.unlink()
+
+          grouped = defaultdict(list)
+          for row in target:
+              grouped[int(row.get('canvas_index') or 0)].append(row)
+
+          page_summaries = {}
+          for page, page_rows in sorted(grouped.items()):
+              out = root / f'page_{page:04d}.json'
+              out.write_text(json.dumps(page_rows, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+              page_summaries[str(page)] = {
+                  'count': len(page_rows),
+                  'text': ''.join(str(row.get('char') or '')[:1] for row in page_rows),
+                  'canvas_width': page_rows[0].get('canvas_width'),
+                  'canvas_height': page_rows[0].get('canvas_height'),
+                  'first_glyph_id': page_rows[0].get('glyph_id'),
+                  'last_glyph_id': page_rows[-1].get('glyph_id')
+              }
+
+          coordinate_pages = sorted(grouped)
+          image_only_pages = [page for page in range(1, 43) if page not in grouped]
+          inventory = {
+              'work_id': '033',
+              'title': '争座位帖',
+              'source': str(source),
+              'image_total': 42,
+              'total_glyph_boxes': len(target),
+              'coordinate_pages': coordinate_pages,
+              'image_only_pages': image_only_pages,
+              'pages': page_summaries
+          }
+          Path('data/work033_coordinate_inventory.tmp.json').write_text(
+              json.dumps(inventory, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          Path('data/work033_coordinate_report.json').write_text(
+              json.dumps({
+                  'work_id': '033',
+                  'title': '争座位帖',
+                  'source': str(source),
+                  'coordinate_policy': '仅使用仓库既有深度学习模型真实坐标；不生成、不估算bbox。',
+                  'image_total': 42,
+                  'coordinate_pages': coordinate_pages,
+                  'image_only_pages': image_only_pages,
+                  'coordinate_page_count': len(coordinate_pages),
+                  'total_glyph_boxes': len(target),
+                  'case_total': 4,
+                  'candidate_total': 4,
+                  'located_case_count': 0,
+                  'unlocated_case_count': 4,
+                  'located_cases': [],
+                  'unlocated_cases': ['01', '02', '03', '04'],
+                  'cases': []
+              }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          print(json.dumps(inventory, ensure_ascii=False))
+          PY
+      - name: Commit generated coordinate files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/glyph_boxes/iiif/033 data/work033_coordinate_inventory.tmp.json data/work033_coordinate_report.json
+          if git diff --cached --quiet; then
+            echo "No coordinate changes"
+          else
+            git commit -m "生成033真实坐标页文件"
+            git push origin HEAD:agent/work033-zhengzuowei
+          fi
