@@ -21,13 +21,13 @@ jobs:
 
           replacements = {
               Path('js/damage_ai_reading.js'): [
-                  ('__DAMAGE_AI_READING_ROUTER_V71__', '__DAMAGE_AI_READING_ROUTER_V72__'),
-                  ('window.__DAMAGE_AI_READING_ROUTER_V72__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V70__=true;', 'window.__DAMAGE_AI_READING_ROUTER_V72__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V71__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V70__=true;'),
+                  ('if(window.__DAMAGE_AI_READING_ROUTER_V71__)return;', 'if(window.__DAMAGE_AI_READING_ROUTER_V72__)return;'),
+                  ('window.__DAMAGE_AI_READING_ROUTER_V71__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V70__=true;', 'window.__DAMAGE_AI_READING_ROUTER_V72__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V71__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V70__=true;'),
                   ('js/work-032.js?v=20260725_xuzhenren_032_v1', 'js/work-032.js?v=20260726_xuzhenren_032_v2'),
               ],
               Path('js/detail_info_patch.js'): [
-                  ('__DETAIL_INFO_STABLE_ENTRY_V31__', '__DETAIL_INFO_STABLE_ENTRY_V32__'),
-                  ('window.__DETAIL_INFO_STABLE_ENTRY_V32__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V30__=true;', 'window.__DETAIL_INFO_STABLE_ENTRY_V32__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V31__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V30__=true;'),
+                  ('if(window.__DETAIL_INFO_STABLE_ENTRY_V31__)return;', 'if(window.__DETAIL_INFO_STABLE_ENTRY_V32__)return;'),
+                  ('window.__DETAIL_INFO_STABLE_ENTRY_V31__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V30__=true;', 'window.__DETAIL_INFO_STABLE_ENTRY_V32__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V31__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V30__=true;'),
                   ('20260725_global_route_recovery_v7', '20260726_global_route_recovery_v8'),
               ],
               Path('detail.html'): [
