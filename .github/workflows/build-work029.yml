@@ -1,0 +1,68 @@
+name: Build work029
+on:
+  push:
+    branches: [agent/work029-xianyu]
+    paths:
+      - data/work029_raw_text.txt
+      - scripts/build_work029.py
+      - .github/workflows/build-work029.yml
+      - .work029-build-trigger
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout work branch
+        uses: actions/checkout@v4
+        with:
+          ref: agent/work029-xianyu
+          fetch-depth: 0
+      - name: Build 029 data and modules
+        run: python scripts/build_work029.py
+      - name: Validate formal outputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          raw=Path('data/work029_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work029_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work029_coordinate_report.json').read_text(encoding='utf-8'))
+          assert raw.count('□')==20
+          assert len(cases)==20
+          assert sum(x['square_count'] for x in cases)==20
+          assert sum(x['candidate_count']+x['remaining_square_count'] for x in cases)==20
+          assert all(x['analysis'] for x in cases)
+          assert report['base_text_square_count']==20
+          assert report['case_count']==20
+          assert report['column_four']['uses_same_cases_as_column_three'] is True
+          assert len(list(Path('data/glyph_boxes/iiif/029').glob('page_*.json')))==33
+          assert 'nth-square' in report['mapping_method'] and 'no nth-square forced binding' in report['mapping_method']
+          for item in cases:
+              for loc in item.get('locations',[]):
+                  assert loc['bbox']['w']>0 and loc['bbox']['h']>0
+                  assert loc['match']=='local-context-verified-model-square'
+          print({k:report[k] for k in ('model_rows','model_square_count','candidate_count','remaining_square_count','located_case_count','unlocated_case_count')})
+          PY
+          node --check js/work-029.js
+          node --check js/work-029-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          grep -q '20260725_xianyu_v1' detail.html
+          grep -q '"029"' js/damage_ai_reading.js
+          grep -q '鲜于光祖墓志' js/detail_info_patch.js
+      - name: Remove temporary build inputs
+        run: |
+          rm -f scripts/build_work029.py
+          rm -f data/work029_raw_text.txt
+          rm -f .github/workflows/build-work029.yml
+          rm -f .work029-build-trigger
+      - name: Commit formal outputs
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/beitie_catalog.json data/beitie_header_info.json data/page_images_index.json detail.html js/damage_ai_reading.js js/detail_info_patch.js
+          git add data/work029_full_text.txt data/work029_damage_cases.json data/work029_coordinate_report.json js/work-029.js js/work-029-coordinate-adapter.js data/glyph_boxes/iiif/029
+          git add -u scripts/build_work029.py data/work029_raw_text.txt .github/workflows/build-work029.yml .work029-build-trigger
+          git commit -m '完成029鲜于光祖墓志专属内容'
+          git push origin HEAD:agent/work029-xianyu
