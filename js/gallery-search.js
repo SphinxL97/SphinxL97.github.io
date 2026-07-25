@@ -37,6 +37,16 @@
       viewer_url:"http://iiif.library.sh.cn/api/viewer/22BT006",
       manifest_url:"https://iiif.library.sh.cn/p/3/26aeaed6-6c05-11ee-bab6-9cb6d0bbaaae",
       canvas_count:124,has_volumes:false
+    },
+    {
+      id:"030",title:"九成宫醴泉铭",
+      cover:"assets/page_images/030_九成宫醴泉铭/images/0001_一.jpg",
+      dynasty:"唐贞观六年（632）",script:"楷书",
+      creator:"魏徵撰文，欧阳询书",active:true,
+      detail_url:"detail.html?id=030",status:"专属内容已接入",
+      subtitle:"52页图像、完整释文、8例AI释读与众智校订已接入。",year:"632",
+      brief_source:"上海图书馆馆藏碑帖数字图像",
+      canvas_count:52,has_volumes:false
     }
   ];
 
