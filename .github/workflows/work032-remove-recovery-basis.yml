@@ -1,0 +1,104 @@
+name: work032-remove-recovery-basis
+on:
+  push:
+    branches: [agent/work032-remove-recovery-basis]
+    paths: [.work032-remove-basis-trigger]
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work032-remove-recovery-basis
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Patch dedicated display
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p=Path('js/work-032.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('const VERSION="20260725_xuzhenren_032_v1";','const VERSION="20260726_xuzhenren_032_v2";',1)
+          anchor='  const plainRestored=value=>String(value||"").replace(/[〔〕]/g,"");\n'
+          insertion='''  const plainRestored=value=>String(value||"").replace(/[〔〕]/g,"");
+  function removeRecoveryBasis(root=document.getElementById("people")){
+    if(!root)return;
+    root.querySelectorAll(".damage-basis-block,.damage-basis-card,[data-damage-basis]").forEach(node=>node.remove());
+    root.querySelectorAll(".damage-block").forEach(block=>{
+      const label=block.querySelector(":scope > .damage-label");
+      if(label&&label.textContent.trim()==="恢复依据")block.remove();
+    });
+  }
+  function observeRecoveryBasis(){
+    const root=document.getElementById("people");if(!root||root.dataset.work032BasisObserver==="true")return;
+    root.dataset.work032BasisObserver="true";let scheduled=false;
+    new MutationObserver(()=>{if(scheduled)return;scheduled=true;queueMicrotask(()=>{scheduled=false;removeRecoveryBasis(root);});}).observe(root,{childList:true,subtree:true});
+    removeRecoveryBasis(root);
+  }
+'''
+          if anchor not in s: raise SystemExit('plainRestored anchor missing')
+          s=s.replace(anchor,insertion,1)
+          old='    if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();\n'
+          new='    if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();\n    removeRecoveryBasis(section);\n'
+          if old not in s: raise SystemExit('render cleanup anchor missing')
+          s=s.replace(old,new,1)
+          old='    ensureStyle();applySupplementalInfo();const damage=document.getElementById("people");if(damage)damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${TITLE}》释读案例……</div></div>`;\n'
+          new='    ensureStyle();applySupplementalInfo();observeRecoveryBasis();const damage=document.getElementById("people");if(damage)damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${TITLE}》释读案例……</div></div>`;\n'
+          if old not in s: raise SystemExit('init anchor missing')
+          s=s.replace(old,new,1)
+          style_old='.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:250px;padding:30px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a;text-align:center}";'
+          style_new='.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:250px;padding:30px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a;text-align:center}#people[data-work032-dedicated="true"] .damage-basis-block,#people[data-work032-dedicated="true"] .damage-basis-card,#people[data-work032-dedicated="true"] [data-damage-basis]{display:none!important}";'
+          if style_old not in s: raise SystemExit('style anchor missing')
+          s=s.replace(style_old,style_new,1)
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('js/damage_ai_reading.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('if(window.__DAMAGE_AI_READING_ROUTER_V71__)return;','if(window.__DAMAGE_AI_READING_ROUTER_V72__)return;',1)
+          s=s.replace('window.__DAMAGE_AI_READING_ROUTER_V71__=true;','window.__DAMAGE_AI_READING_ROUTER_V72__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V71__=true;',1)
+          s=s.replace('js/work-032-coordinate-adapter.js?v=20260725_xuzhenren_032_v1','js/work-032-coordinate-adapter.js?v=20260726_xuzhenren_032_v2',1)
+          s=s.replace('js/work-032.js?v=20260725_xuzhenren_032_v1','js/work-032.js?v=20260726_xuzhenren_032_v2',1)
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('js/detail_info_patch.js')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('if(window.__DETAIL_INFO_STABLE_ENTRY_V31__)return;','if(window.__DETAIL_INFO_STABLE_ENTRY_V32__)return;',1)
+          s=s.replace('window.__DETAIL_INFO_STABLE_ENTRY_V31__=true;','window.__DETAIL_INFO_STABLE_ENTRY_V32__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V31__=true;',1)
+          s=s.replace('const recoveryVersion="20260725_global_route_recovery_v7";','const recoveryVersion="20260726_global_route_recovery_v8";',1)
+          s=s.replace('68,69,70].forEach','68,69,70,71].forEach',1)
+          p.write_text(s,encoding='utf-8')
+
+          p=Path('detail.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('js/detail_info_patch.js?v=20260725_xuzhenren032_v1','js/detail_info_patch.js?v=20260726_work032_remove_basis_v1',1)
+          s=s.replace('js/damage_ai_reading.js?v=20260725_xuzhenren032_v1','js/damage_ai_reading.js?v=20260726_work032_remove_basis_v1',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Validate
+        run: |
+          node --check js/work-032.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('js/work-032.js').read_text(encoding='utf-8')
+          assert 'label.textContent.trim()==="恢复依据"' in s
+          assert '恢复后的上下文' in s
+          assert 'AI分析依据' in s
+          assert 'damage-evidence-block' in s
+          assert 'removeRecoveryBasis(section)' in s
+          print('work032 recovery-basis cleanup validated')
+          PY
+      - name: Commit changes and remove temporary files
+        run: |
+          rm -f .work032-remove-basis-trigger .github/workflows/work032-remove-recovery-basis.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add js/work-032.js js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          git add -u .github/workflows .work032-remove-basis-trigger
+          git commit -m "Remove recovery basis blocks from work032"
+          git push origin HEAD:agent/work032-remove-recovery-basis
