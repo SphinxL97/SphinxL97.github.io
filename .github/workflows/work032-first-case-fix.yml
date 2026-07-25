@@ -1,0 +1,71 @@
+name: Fix work032 first case
+on:
+  push:
+    branches: [agent/work032-first-case-fix]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work032-first-case-fix
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Patch cases
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('data/work032_damage_cases.json')
+          rows=json.loads(path.read_text(encoding='utf-8'))
+          first=rows[0]
+          first.update({
+            'title':'徐鉉文并書；長史',
+            'original':'徐銡文并□□。',
+            'corrected':'徐〔鉉〕文并〔書〕。〔長〕',
+            'analysis':[
+              '第9页按右列、左列的正常阅读次序为“徐鉉文并書長”，其中“書”结束署题，“長”是正文首句“長史含道”的开头。',
+              '传世著录保存“徐鉉文并書。長史含道，棲神九天”的连续文字，因此两个缺字应分别补作“書”和“長”，不能继续保留方框，也不能误补为“篆書”。',
+              '“銡”“書”“長”三个位置均保存第9页真实IIIF字框，栏目三直接回看原拓，不使用估算坐标。'
+            ],
+            'highlight_patterns':['徐鉉文并書。','長史含道，棲神九天。'],
+            'page':9,
+            'locations':[
+              {'page':9,'glyph_id':'032_许真人井铭_p0009_c002','char':'銡','bbox':{'x':844,'y':852,'w':444,'h':605},'canvas_width':1464,'canvas_height':2234,'source':'iiif_annotation_target_xywh'},
+              {'page':9,'glyph_id':'032_许真人井铭_p0009_c005','char':'□','bbox':{'x':326,'y':833,'w':421,'h':613},'canvas_width':1464,'canvas_height':2234,'source':'iiif_annotation_target_xywh'},
+              {'page':9,'glyph_id':'032_许真人井铭_p0009_c006','char':'□','bbox':{'x':326,'y':1448,'w':421,'h':640},'canvas_width':1464,'canvas_height':2234,'source':'iiif_annotation_target_xywh'}
+            ]
+          })
+          second=rows[1]
+          second.update({
+            'title':'長史含道，棲神九天',
+            'original':'□□□□□九天',
+            'corrected':'〔史〕〔含〕〔道〕，〔棲〕〔神〕九天',
+            'analysis':[
+              '本例承接上一例末字“長”，与第10页五个残损槽位合成“長史含道，棲神九天”。',
+              '补入“史、含、道、棲、神”后，正文首句恢复为两个完整四言分句。',
+              '本例只保留第10页五个真实IIIF字框，避免与第一例的“書、長”位置重复计算。'
+            ],
+            'highlight_patterns':['長史含道，棲神九天。'],
+            'page':10,
+            'locations':[loc for loc in second.get('locations',[]) if loc.get('page')==10]
+          })
+          path.write_text(json.dumps(rows,ensure_ascii=False,separators=(',',':')),encoding='utf-8')
+          assert rows[0]['corrected']=='徐〔鉉〕文并〔書〕。〔長〕'
+          assert len(rows[0]['locations'])==3
+          assert len(rows[1]['locations'])==5
+          assert len(rows)==14
+          print('validated first case and case split')
+          PY
+      - name: Commit patch and remove workflow
+        run: |
+          rm .github/workflows/work032-first-case-fix.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/work032_damage_cases.json .github/workflows/work032-first-case-fix.yml
+          git commit -m "complete work032 first recovery case"
+          git push origin HEAD:agent/work032-first-case-fix
