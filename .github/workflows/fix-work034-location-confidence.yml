@@ -1,0 +1,46 @@
+name: Fix work034 location confidence
+
+on:
+  push:
+    branches:
+      - agent/work034-zhangjilao
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work034-zhangjilao
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply conservative location threshold
+        run: |
+          python scripts/fix_work034_location_confidence.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          cases=json.loads(Path('data/work034_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work034_coordinate_report.json').read_text(encoding='utf-8'))
+          assert len(cases)==14
+          assert sum(bool(case.get('locations')) for case in cases)==12
+          assert report['located_cases']==12
+          assert report['unlocated_cases']==2
+          assert [item['order'] for item in report['placeholder_mapping'] if not item['accepted']]==[11,12,18,23,24]
+          assert '缺失“之”字' not in Path('js/work-034.js').read_text(encoding='utf-8')
+          PY
+          node --check js/work-034.js
+      - name: Commit review corrections
+        run: |
+          rm -f scripts/fix_work034_location_confidence.py .github/workflows/fix-work034-location-confidence.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "收紧034问题字坐标置信度"
+          git push origin agent/work034-zhangjilao
