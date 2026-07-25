@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V26__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V27__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V27__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V26__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V25__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V24__=true;
@@ -41,9 +42,10 @@
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
   const dataUrl="data/beitie_header_info.json?v=20260725_xianyu029_v1";
-  const recoveryVersion="20260725_global_route_recovery_v3";
+  const recoveryVersion="20260725_global_route_recovery_v4";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
+  const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v1";
   const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029"]);
 
   function applyImmediateWorkMenu(){
@@ -86,6 +88,12 @@
     document.head.appendChild(script);
     return script;
   }
+
+  function loadTranscriptFormatter(){
+    if(!["024","027","028","029"].includes(workId))return;
+    appendScript(transcriptFormatUrl,"transcriptFormatNormalizer",null);
+  }
+  loadTranscriptFormatter();
 
   function disableStaleDamageScripts(){
     document.querySelectorAll("script[src*='js/damage_ai_reading.js'],script[src*='js/damage-category-standardizer.js']").forEach(script=>script.remove());
