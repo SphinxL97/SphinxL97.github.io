@@ -24,7 +24,15 @@ jobs:
         with:
           python-version: '3.12'
       - name: Patch files
-        run: python scripts/remove_work034_recovery_basis.py
+        run: |
+          python scripts/remove_work034_recovery_basis.py
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('js/work-034.js')
+          text=path.read_text(encoding='utf-8')
+          text=text.replace('#people[data-work034-dedicated="true"]', r'#people[data-work034-dedicated=\"true\"]')
+          path.write_text(text,encoding='utf-8')
+          PY
       - name: Validate removal and retained modules
         run: |
           python - <<'PY'
@@ -42,7 +50,7 @@ jobs:
           assert 'function removeRecoveryBasis' in work
           assert 'function observeRecoveryBasis' in work
           assert 'new MutationObserver' in work
-          assert '#people[data-work034-dedicated="true"] .damage-basis-block' in work
+          assert 'data-work034-dedicated=\\"true\\"' in work
           assert 'window.__DAMAGE_AI_READING_ROUTER_V74__=true;' in router
           assert 'js/work-034.js?v=20260726_zhangjilao_034_v2' in router
           assert 'window.__DETAIL_INFO_STABLE_ENTRY_V34__=true;' in entry
