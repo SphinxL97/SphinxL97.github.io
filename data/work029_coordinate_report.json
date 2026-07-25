@@ -1,0 +1,82 @@
+{
+  "work_id": "029",
+  "title": "鲜于光祖墓志",
+  "digital_pages": 33,
+  "model_rows": 1769,
+  "pages_with_coordinates": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "coordinate_range": [
+    8,
+    31
+  ],
+  "pages_without_coordinates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    32,
+    33
+  ],
+  "base_text_square_count": 20,
+  "model_square_count": 231,
+  "case_count": 20,
+  "candidate_count": 14,
+  "remaining_square_count": 6,
+  "documentary_case_count": 3,
+  "ai_provisional_case_count": 11,
+  "unresolved_case_count": 6,
+  "located_case_count": 20,
+  "unlocated_case_count": 0,
+  "mapping_method": "local-before-after-context-to-real-model-square; no nth-square forced binding",
+  "raw_sequence_length": 1344,
+  "model_sequence_length": 1769,
+  "column_four": {
+    "uses_same_cases_as_column_three": true,
+    "case_count": 20
+  },
+  "cache_version": "20260725_xianyu_v1",
+  "main_base_sha_at_start": "1e713e59e9429a7cffa3e626d88647cdc5042cff",
+  "reference_sources": [
+    {
+      "title": "鲜于氏资料页所录《鲜于光祖墓志》片段",
+      "url": "https://wiki.zupulu.com/doc.php?action=view&docid=455"
+    },
+    {
+      "title": "中国孔子网赵孟頫碑刻传承研究",
+      "url": "https://www.chinakongzi.org/rmdq/chuanshi/201804/t20180403_175311.htm"
+    },
+    {
+      "title": "《鲜于光祖墓志》图录著录",
+      "url": "https://www.sanmin.com.tw/product/index/005539498"
+    }
+  ],
+  "text_policy": "栏目二保存用户确认底稿，20个方框原样保留；候选字只进入栏目三/四案例JSON。",
+  "coordinate_policy": "只有局部前后文相似度达到0.50且目标模型字符本身为方框时写入bbox；未通过者不定位。"
+}

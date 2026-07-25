@@ -1,0 +1,47 @@
+{
+  "raw_square_count": true,
+  "case_count": true,
+  "case_square_sum": true,
+  "candidate_plus_remaining": true,
+  "analysis_present": true,
+  "report_square_count": true,
+  "report_case_count": true,
+  "same_cases_col3_col4": true,
+  "page_files_33": true,
+  "mapping_not_nth_forced": true,
+  "all_locations_real": true
+}
+{
+  "model_rows": 1769,
+  "model_square_count": 231,
+  "candidate_count": 14,
+  "remaining_square_count": 6,
+  "located_case_count": 20,
+  "unlocated_case_count": 0
+}
+python_status=0
+work_js_status=0
+coord_js_status=0
+/home/runner/work/SphinxL97.github.io/SphinxL97.github.io/js/damage_ai_reading.js:105
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑","016":"上尊号碑受禅表合册","017":"张猛龙碑并阴","018":"中岳嵩高灵庙碑并额","020":"化度寺邕禅师舍利塔铭","022":"王居士砖塔铭","023":"圭峰定慧禅师碑","024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志";
+                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+
+SyntaxError: Unexpected token ';'
+    at wrapSafe (node:internal/modules/cjs/loader:1713:18)
+    at checkSyntax (node:internal/main/check_syntax:78:3)
+
+Node.js v22.23.1
+router_status=1
+/home/runner/work/SphinxL97.github.io/SphinxL97.github.io/js/detail_info_patch.js:45
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志";
+                                                                                                                ^
+
+SyntaxError: Unexpected token ';'
+    at wrapSafe (node:internal/modules/cjs/loader:1713:18)
+    at checkSyntax (node:internal/main/check_syntax:78:3)
+
+Node.js v22.23.1
+detail_patch_status=1
+detail_cache_status=0
+router_029_status=0
+detail_029_status=0
