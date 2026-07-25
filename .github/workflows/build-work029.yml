@@ -1,7 +1,8 @@
 name: Build work029
 on:
-  push:
-    branches: [agent/work029-xianyu]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
     paths:
       - data/work029_raw_text.txt
       - scripts/build_work029.py
@@ -9,6 +10,7 @@ on:
       - .work029-build-trigger
 jobs:
   build:
+    if: github.head_ref == 'agent/work029-xianyu'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -37,7 +39,7 @@ jobs:
           assert report['case_count']==20
           assert report['column_four']['uses_same_cases_as_column_three'] is True
           assert len(list(Path('data/glyph_boxes/iiif/029').glob('page_*.json')))==33
-          assert 'nth-square' in report['mapping_method'] and 'no nth-square forced binding' in report['mapping_method']
+          assert 'no nth-square forced binding' in report['mapping_method']
           for item in cases:
               for loc in item.get('locations',[]):
                   assert loc['bbox']['w']>0 and loc['bbox']['h']>0
