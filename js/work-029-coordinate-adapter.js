@@ -1,13 +1,15 @@
-/* 029《鲜于光祖墓志》逐页真实坐标适配。 */
+/* 029《鲜于光祖墓志》逐页真实坐标适配，并优先启动栏目二、三加载修复。 */
 (function(){
   "use strict";
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
-  if(workId!=="029"||window.__WORK_029_COORDINATE_ADAPTER__)return;
-  const CACHE_TAG="20260725_xianyu029_v1";
+  if(workId!=="029")return;
+
+  const CACHE_TAG="20260725_xianyu029_loading_fix_v2";
   const ROOT="data/glyph_boxes/iiif/029";
   const originalLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();
+
   function rect(row){return{x:Number(row.x??row.bbox_x??row.bbox?.[0]??0),y:Number(row.y??row.bbox_y??row.bbox?.[1]??0),w:Number(row.w??row.bbox_w??row.bbox?.[2]??0),h:Number(row.h??row.bbox_h??row.bbox?.[3]??0)};}
   function normalizeRow(row,page,index){
     const box=rect(row);if(box.w<=0||box.h<=0)return null;
@@ -27,14 +29,33 @@
     })().catch(error=>{pagePromises.delete(pageNo);console.warn("[work-029-coordinate-adapter]",pageNo,error);return[];});
     pagePromises.set(pageNo,promise);return promise;
   }
-  window.loadPageGlyphBoxes=async function(id,pageObj){
-    const normalized=String(id||"").match(/^(\d{3})/)?.[1]||String(id||"").padStart(3,"0");
-    if(normalized!=="029")return originalLoader?originalLoader(id,pageObj):[];
-    const page=Number(pageObj?.canvas_index||pageObj?.page||0);
-    const rows=(await fetchRows(page)).map(row=>({...row,local_image:pageObj?.image||row.local_image||""}));
-    return rows.length?rows:(originalLoader?originalLoader(id,pageObj):[]);
-  };
-  window.WORK_029_COORDINATES={loadPageRows:fetchRows};
-  window.__WORK_029_COORDINATE_ADAPTER__=true;
-  window.dispatchEvent(new CustomEvent("work-029-coordinate-adapter-ready"));
+
+  if(!window.__WORK_029_COORDINATE_ADAPTER__){
+    window.loadPageGlyphBoxes=async function(id,pageObj){
+      const normalized=String(id||"").match(/^(\d{3})/)?.[1]||String(id||"").padStart(3,"0");
+      if(normalized!=="029")return originalLoader?originalLoader(id,pageObj):[];
+      const page=Number(pageObj?.canvas_index||pageObj?.page||0);
+      const rows=(await fetchRows(page)).map(row=>({...row,local_image:pageObj?.image||row.local_image||""}));
+      return rows.length?rows:(originalLoader?originalLoader(id,pageObj):[]);
+    };
+    window.WORK_029_COORDINATES={loadPageRows:fetchRows};
+    window.__WORK_029_COORDINATE_ADAPTER__=true;
+    window.dispatchEvent(new CustomEvent("work-029-coordinate-adapter-ready"));
+  }
+
+  /* 阻止旧版 work-029.js 再次初始化；修复脚本独立负责栏目二、三。 */
+  window.__WORK_029_XIANYU_GUANGZU__=true;
+  const hotfixPath="js/work-029-loading-hotfix.js";
+  if(!window.__WORK_029_LOADING_HOTFIX_V2__&&!Array.from(document.scripts).some(script=>(script.getAttribute("src")||"").split("?")[0].endsWith(hotfixPath))){
+    const script=document.createElement("script");
+    script.src=`${hotfixPath}?v=${CACHE_TAG}`;
+    script.async=false;
+    script.dataset.work029LoadingHotfix="true";
+    script.addEventListener("error",()=>{
+      console.error("[work-029-coordinate-adapter] 029加载修复脚本读取失败",script.src);
+      window.__WORK_029_CROWDSOURCE_READY__=true;
+      window.__WORK_029_STABLE_READY__=true;
+    },{once:true});
+    document.head.appendChild(script);
+  }
 })();
