@@ -1,0 +1,62 @@
+name: Build work034 dedicated content
+
+on:
+  push:
+    branches:
+      - agent/work034-zhangjilao
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work034-zhangjilao
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build and audit 034
+        run: |
+          python scripts/build_work034.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('data/work034_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work034_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work034_coordinate_report.json').read_text(encoding='utf-8'))
+          assert text.count('□') == 24
+          assert len(cases) == 14
+          assert sum(case['original'].count('□') for case in cases) == 24
+          assert sum(case['corrected'].count('〔') for case in cases) == 15
+          assert all('placeholder_orders' not in case for case in cases)
+          assert report['case_count'] == 14
+          assert report['transcript_placeholders'] == 24
+          assert report['candidate_count'] == 15
+          assert report['unresolved_placeholders'] == 9
+          assert report['model_rows'] > 0
+          page_files=list(Path('data/glyph_boxes/iiif/034').glob('page_*.json'))
+          assert len(page_files) == report['coordinate_page_count']
+          dedicated=Path('js/work-034.js').read_text(encoding='utf-8')
+          for phrase in ('恢复依据','资料查证结果','资料使用原则','使用说明'):
+              assert phrase not in dedicated
+          assert '"034"' in Path('js/damage_ai_reading.js').read_text(encoding='utf-8')
+          assert '章吉老墓志' in Path('js/detail_info_patch.js').read_text(encoding='utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          PY
+          node --check js/work-034.js
+          node --check js/work-034-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+      - name: Commit generated files
+        run: |
+          rm -f scripts/build_work034.py .github/workflows/build-work034.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "完成034章吉老墓志专属内容"
+          git push origin agent/work034-zhangjilao
