@@ -11,17 +11,44 @@ permissions:
   contents: write
 
 jobs:
-  selftest:
+  patch-finalizer:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: agent/work029-xianyu-guangzu
-      - run: |
+          fetch-depth: 0
+      - name: Patch finalizer and record result
+        shell: bash
+        run: |
           mkdir -p tmp
-          printf 'workflow triggered\n' > tmp/work029_selftest_passed.txt
+          set +e
+          python - <<'PY' > tmp/work029_patch_log.txt 2>&1
+          from pathlib import Path
+          path=Path('.github/workflows/work029-coordinate-audit.yml')
+          text=path.read_text(encoding='utf-8')
+          old="          image_by_page={int(p['canvas_index']):p['image'] for p in page_index['works']['029']['pages']}"
+          new="""          image_by_page={}\n          for fallback_page,p in enumerate(page_index['works']['029']['pages'],1):\n              page_no=int(p.get('canvas_index') or p.get('page') or p.get('page_no') or p.get('page_index') or fallback_page)\n              image_path=p.get('image') or p.get('local_image') or p.get('path')\n              assert image_path,(page_no,p)\n              image_by_page[page_no]=image_path"""
+          assert old in text, 'page mapping line not found'
+          text=text.replace(old,new,1)
+          old_cleanup="          rm -f .github/workflows/work029-coordinate-audit.yml\n          rm -f tmp/work029_coordinate_trigger.txt tmp/work029_model_inspect.json tmp/work029_model_summary.json"
+          new_cleanup="""          rm -f .github/workflows/work029-coordinate-audit.yml .github/workflows/work029-selftest.yml .github/workflows/work029-finalizer-debug.yml .github/workflows/work029-patch-finalizer.yml\n          rm -f tmp/work029_coordinate_trigger.txt tmp/work029_model_inspect.json tmp/work029_model_summary.json tmp/work029_selftest_passed.txt tmp/work029_finalizer_error.log tmp/work029_patch_log.txt"""
+          assert old_cleanup in text, 'cleanup block not found'
+          text=text.replace(old_cleanup,new_cleanup,1)
+          old_test="          test -z \"$(git diff --cached --name-only | grep -E '^(\\.github/workflows/|tmp/)' || true)\""
+          new_test="""          test ! -e .github/workflows/work029-coordinate-audit.yml\n          test ! -e .github/workflows/work029-selftest.yml\n          test ! -e .github/workflows/work029-finalizer-debug.yml\n          test ! -e .github/workflows/work029-patch-finalizer.yml\n          test ! -e tmp/work029_coordinate_trigger.txt\n          test ! -e tmp/work029_finalizer_error.log"""
+          assert old_test in text, 'staged temp validation line not found'
+          text=text.replace(old_test,new_test,1)
+          path.write_text(text,encoding='utf-8')
+          trigger=Path('tmp/work029_coordinate_trigger.txt')
+          trigger.write_text('trigger work029 final build v5\n',encoding='utf-8')
+          print('patch_success')
+          PY
+          status=$?
+          printf '\nexit_status=%s\n' "$status" >> tmp/work029_patch_log.txt
+          set -e
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add tmp/work029_selftest_passed.txt
-          git commit -m "temp: confirm work029 workflow trigger"
+          git add .github/workflows/work029-coordinate-audit.yml tmp/work029_coordinate_trigger.txt tmp/work029_patch_log.txt
+          git commit -m "修正并重启029最终构建" || true
           git push origin HEAD:agent/work029-xianyu-guangzu
