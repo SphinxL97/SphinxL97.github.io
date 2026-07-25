@@ -1,9 +1,11 @@
 /* 栏目三统一分类：古字识别、形近字纠错、残损碑文修复、AI暂拟。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_CATEGORY_STANDARDIZER_V1__)return;
+  if(window.__DAMAGE_CATEGORY_STANDARDIZER_V2__)return;
+  window.__DAMAGE_CATEGORY_STANDARDIZER_V2__=true;
   window.__DAMAGE_CATEGORY_STANDARDIZER_V1__=true;
 
+  const RULE_VERSION="20260725_v2";
   const CATEGORY_DEFINITIONS={
     "古字识别":"碑面字形基本完整，但属于古字、异体字、生僻字或扩展区字符；任务是确认该字的规范释读，不涉及误字纠正或缺损补字。",
     "形近字纠错":"原识别已经给出一个具体汉字，但因偏旁、轮廓或残笔相近而认成了另一个字；依据字形与上下文把误识字改正。",
@@ -36,18 +38,14 @@
   }
 
   function classifyDamageCase(item){
-    const original=getOriginal(item),corrected=getCorrected(item);
-    const text=evidenceText(item);
+    const original=getOriginal(item),corrected=getCorrected(item),text=evidenceText(item);
     const rawCategory=clean(item?.category||item?.crowdsourceCategory||item?.n);
     const mode=clean(item?.mode).toLowerCase();
     const confidence=clean(item?.confidence);
     const hasMissing=MISSING_RE.test(original)||/□|缺|残损|漫漶|泐/.test(rawCategory);
 
     if(ANCIENT_RE.test(`${rawCategory} ${text}`))return "古字识别";
-
-    if(original&&corrected&&unmark(original)!==unmark(corrected)&&!MISSING_RE.test(original)){
-      return "形近字纠错";
-    }
+    if(original&&corrected&&unmark(original)!==unmark(corrected)&&!MISSING_RE.test(original))return "形近字纠错";
 
     if(hasMissing){
       if(mode==="ai_provisional"||PROVISIONAL_RE.test(`${rawCategory} ${text}`))return "AI暂拟";
@@ -67,12 +65,23 @@
   function standardizeDamageCases(items){
     if(!Array.isArray(items))return [];
     return items.map((item,index)=>{
-      const category=classifyDamageCase(item||{});
-      return {...item,category,crowdsourceCategory:category,classificationCategory:category,classificationReason:classificationReason(item||{},category),classificationRuleVersion:"20260725_v1",classificationIndex:index+1};
+      const source=item||{};
+      const category=classifyDamageCase(source);
+      return {...source,category,crowdsourceCategory:category,classificationCategory:category,classificationReason:classificationReason(source,category),classificationRuleVersion:RULE_VERSION,classificationIndex:index+1};
     });
   }
 
   let storedCases=standardizeDamageCases(Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES:[]);
+  let observer=null,observedSection=null,applying=false,scheduledTimer=0;
+
+  function scheduleApply(delay=24){
+    if(scheduledTimer)return;
+    scheduledTimer=window.setTimeout(()=>{
+      scheduledTimer=0;
+      applyDamageCategoryUI();
+    },delay);
+  }
+
   try{
     Object.defineProperty(window,"DAMAGE_AI_CASES",{
       configurable:true,
@@ -87,34 +96,69 @@
 
   function countsOf(items){
     const counts=Object.fromEntries(ORDER.map(name=>[name,0]));
-    items.forEach(item=>{const category=classifyDamageCase(item);counts[category]=(counts[category]||0)+1;});
+    items.forEach(item=>{const category=item?.classificationRuleVersion===RULE_VERSION?item.category:classifyDamageCase(item);counts[category]=(counts[category]||0)+1;});
     return counts;
   }
 
+  function countText(counts){return `本碑：${ORDER.map(name=>`${name} ${counts[name]||0}`).join(" · ")}`;}
+
   function makeLegend(items){
-    const counts=countsOf(items);
-    const wrap=document.createElement("details");
+    const counts=countsOf(items),wrap=document.createElement("details");
     wrap.className="damage-category-standard";
     wrap.open=false;
-    wrap.innerHTML=`<summary><strong>栏目三分类标准</strong><span>本碑：${ORDER.map(name=>`${name} ${counts[name]||0}`).join(" · ")}</span></summary><div class="damage-category-grid">${ORDER.map(name=>`<section><h4>${name}</h4><p>${CATEGORY_DEFINITIONS[name]}</p></section>`).join("")}</div>`;
+    wrap.innerHTML=`<summary><strong>栏目三分类标准</strong><span>${countText(counts)}</span></summary><div class="damage-category-grid">${ORDER.map(name=>`<section><h4>${name}</h4><p>${CATEGORY_DEFINITIONS[name]}</p></section>`).join("")}</div>`;
     return wrap;
   }
 
-  let applying=false,scheduled=false;
+  function ensureLegend(section,items){
+    let legend=section.querySelector(".damage-category-standard");
+    if(!legend){
+      const anchor=section.querySelector(".damage-intro")||section.querySelector(".section-title");
+      legend=makeLegend(items);
+      if(anchor)anchor.insertAdjacentElement("afterend",legend);
+      else section.prepend(legend);
+      return legend;
+    }
+    const summaryCount=legend.querySelector("summary span");
+    const next=countText(countsOf(items));
+    if(summaryCount&&summaryCount.textContent!==next)summaryCount.textContent=next;
+    return legend;
+  }
+
   function setText(node,value){if(node&&node.textContent!==value)node.textContent=value;}
+
+  function connectObserver(){
+    const section=document.getElementById("people");
+    if(!section)return;
+    if(!observer){
+      observer=new MutationObserver(mutations=>{
+        if(applying)return;
+        const externalChange=mutations.some(mutation=>{
+          const target=mutation.target?.nodeType===1?mutation.target:mutation.target?.parentElement;
+          return !target?.closest?.(".damage-category-standard");
+        });
+        if(externalChange)scheduleApply(40);
+      });
+    }
+    if(observedSection===section)return;
+    observer.disconnect();
+    observer.observe(section,{childList:true,subtree:true});
+    observedSection=section;
+  }
+
   function applyDamageCategoryUI(){
     if(applying)return;
     const section=document.getElementById("people");
-    if(!section)return;
+    if(!section){observedSection=null;return;}
     const items=standardizeDamageCases(storedCases);
-    if(!items.length)return;
+    if(!items.length){connectObserver();return;}
+
     applying=true;
+    if(observer)observer.disconnect();
+    observedSection=null;
     try{
-      const oldLegend=section.querySelector(".damage-category-standard");
-      const anchor=section.querySelector(".damage-intro")||section.querySelector(".section-title");
-      const legend=makeLegend(items);
-      if(oldLegend)oldLegend.replaceWith(legend);
-      else if(anchor)anchor.insertAdjacentElement("afterend",legend);
+      storedCases=items;
+      ensureLegend(section,items);
 
       const tabs=Array.from(section.querySelectorAll(".damage-tab"));
       tabs.forEach((tab,index)=>{
@@ -123,6 +167,7 @@
         tab.dataset.standardCategory=item.category;
         tab.title=item.classificationReason||CATEGORY_DEFINITIONS[item.category];
       });
+
       let activeIndex=tabs.findIndex(tab=>tab.classList.contains("active"));
       if(activeIndex<0){
         const match=clean(section.querySelector(".damage-count")?.textContent).match(/(\d+)\s*\/\s*(\d+)/);
@@ -139,14 +184,13 @@
         const block=corrected?.closest(".damage-block");
         setText(block?.querySelector(".damage-label"),current.category);
       }
-      section.dataset.categoryStandardVersion="20260725_v1";
-      window.__DAMAGE_CATEGORY_AUDIT__={counts:countsOf(items),total:items.length,cases:items.map(item=>({id:item.id||item.classificationIndex,category:item.category,reason:item.classificationReason}))};
-    }finally{applying=false;}
-  }
 
-  function scheduleApply(){
-    if(scheduled)return;scheduled=true;
-    queueMicrotask(()=>{scheduled=false;applyDamageCategoryUI();});
+      section.dataset.categoryStandardVersion=RULE_VERSION;
+      window.__DAMAGE_CATEGORY_AUDIT__={counts:countsOf(items),total:items.length,cases:items.map(item=>({id:item.id||item.classificationIndex,category:item.category,reason:item.classificationReason}))};
+    }finally{
+      applying=false;
+      connectObserver();
+    }
   }
 
   function ensureStyle(){
@@ -163,9 +207,8 @@
   window.standardizeDamageCases=standardizeDamageCases;
   window.applyDamageCategoryUI=applyDamageCategoryUI;
 
-  const observer=new MutationObserver(scheduleApply);
-  const observe=()=>{const section=document.getElementById("people");if(section){observer.observe(section,{childList:true,subtree:true,characterData:true});scheduleApply();}};
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",observe,{once:true});else observe();
-  window.addEventListener("load",scheduleApply,{once:true});
-  [100,300,700,1500,3000].forEach(delay=>setTimeout(scheduleApply,delay));
+  const start=()=>{connectObserver();scheduleApply();};
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
+  window.addEventListener("load",()=>scheduleApply(20),{once:true});
+  [120,500,1200,2800].forEach(delay=>setTimeout(()=>scheduleApply(20),delay));
 })();
