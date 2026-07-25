@@ -1,7 +1,8 @@
 /* 全部碑帖栏目二、三共享路由，并统一栏目三案例分类。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V67__)return;
+  if(window.__DAMAGE_AI_READING_ROUTER_V68__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V68__=true;
   window.__DAMAGE_AI_READING_ROUTER_V67__=true;
   window.__DAMAGE_AI_READING_ROUTER_V66__=true;
   window.__DAMAGE_AI_READING_ROUTER_V65__=true;
@@ -62,7 +63,7 @@
 
   async function start(){
     installMask();if(raw==="014"){location.replace("detail.html?id=014-01");return;}const title=titles[routeId]||titles[id]||`碑帖${id}`;renderLoading(title);
-    await load({src:"js/damage-category-standardizer.js?v=20260725_category_v1",key:"categoryStandardizer",ready:()=>Boolean(window.__DAMAGE_CATEGORY_STANDARDIZER_V1__)});
+    await load({src:"js/damage-category-standardizer.js?v=20260725_category_v2_loopfix",key:"categoryStandardizer",ready:()=>Boolean(window.__DAMAGE_CATEGORY_STANDARDIZER_V2__)});
     await load({src:"js/reader-box-alignment-patch.js?v=20260718_box_align_v1",key:"align",ready:()=>Boolean(window.__READER_BOX_ALIGNMENT_PATCH_V1__)});
     if(!["003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029"].includes(id)){
       await load({src:"js/damage_case_audit.js?v=20260717_stable_v1",key:"audit",ready:()=>Boolean(window.__DAMAGE_CASE_AUDIT_V2__)});
