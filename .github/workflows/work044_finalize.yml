@@ -1,0 +1,33 @@
+name: Finalize Work044 implementation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.head_ref == 'agent/work044-cui-jingyong-v1' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work044-cui-jingyong-v1
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apply Work044 implementation
+        run: python tools/work044_finalize_temp.py
+      - name: Commit final files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git status --short
+          git commit -m "完成044崔敬邕墓志专属内容 [skip ci]"
+          git push origin HEAD:agent/work044-cui-jingyong-v1
