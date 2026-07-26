@@ -53,16 +53,29 @@ jobs:
                   draw.text((x+10,y+thumb_h+10), f'PAGE {page:02d} | {path.name}', fill='black')
               sheet.save(out/f'contact_{sheet_i+1:02d}.jpg', quality=92)
 
-          model_path = Path('data/model_boxes/glyph_model_border_041_045.json')
-          rows_data = json.loads(model_path.read_text(encoding='utf-8'))
+          rows_data = json.loads(Path('data/model_boxes/glyph_model_border_041_045.json').read_text(encoding='utf-8'))
           work = [r for r in rows_data if str(r.get('work_id','')).zfill(3) == '044']
-          summary = {'count': len(work), 'pages': {}, 'question_like': []}
+          question_like = [r for r in work if str(r.get('char','')) in {'□','?','？'}]
+          summary = {'count': len(work), 'pages': {}, 'question_like': question_like}
           for r in work:
               page = str(r.get('canvas_index'))
               summary['pages'][page] = summary['pages'].get(page,0)+1
-              if str(r.get('char','')) in {'□','?','？'}:
-                  summary['question_like'].append(r)
           (out/'coordinates_044.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')
+
+          for index, r in enumerate(question_like, start=1):
+              page = int(r['canvas_index'])
+              path = files[page-1]
+              with Image.open(path) as im:
+                  im = ImageOps.exif_transpose(im).convert('RGB')
+                  draw = ImageDraw.Draw(im)
+                  x,y,w,h = map(int,(r['x'],r['y'],r['w'],r['h']))
+                  draw.rectangle((x,y,x+w,y+h), outline='red', width=8)
+                  im.save(out/f'case_{index:02d}_page_{page:02d}_full.jpg', quality=94)
+                  pad_x,pad_y = 320,420
+                  x1=max(0,x-pad_x); y1=max(0,y-pad_y)
+                  x2=min(im.width,x+w+pad_x); y2=min(im.height,y+h+pad_y)
+                  crop=im.crop((x1,y1,x2,y2))
+                  crop.save(out/f'case_{index:02d}_page_{page:02d}_crop.jpg', quality=96)
           PY
       - uses: actions/upload-artifact@v4
         with:
