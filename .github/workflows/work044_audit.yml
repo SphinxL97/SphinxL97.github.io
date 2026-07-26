@@ -1,12 +1,13 @@
 name: Audit Work044 images and coordinates
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/work044-cui-jingyong-v1
+      - main
 
 jobs:
   audit:
+    if: github.head_ref == 'agent/work044-cui-jingyong-v1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,7 +20,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          from PIL import Image, ImageOps, ImageDraw, ImageFont
+          from PIL import Image, ImageOps, ImageDraw
           import json, math
 
           src = Path('assets/page_images/044_崔敬邕墓誌/images')
@@ -55,11 +56,7 @@ jobs:
           model_path = Path('data/model_boxes/glyph_model_border_041_045.json')
           rows_data = json.loads(model_path.read_text(encoding='utf-8'))
           work = [r for r in rows_data if str(r.get('work_id','')).zfill(3) == '044']
-          summary = {
-              'count': len(work),
-              'pages': {},
-              'question_like': [],
-          }
+          summary = {'count': len(work), 'pages': {}, 'question_like': []}
           for r in work:
               page = str(r.get('canvas_index'))
               summary['pages'][page] = summary['pages'].get(page,0)+1
