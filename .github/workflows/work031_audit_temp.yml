@@ -32,8 +32,10 @@ jobs:
               '031-02': base / '02_黄庭堅青原山诗刻石(第一辑)册二',
           }
           report = {'volumes': {}, 'coordinate_hits': [], 'json_files_scanned': []}
+          page_paths = {}
           for vid, folder in volumes.items():
               files = sorted(folder.glob('*.jpg'))
+              page_paths[vid] = {i+1:path for i,path in enumerate(files)}
               entries = []
               thumbs = []
               for index, path in enumerate(files, 1):
@@ -73,6 +75,30 @@ jobs:
                       stack.extend(obj.values())
                   elif isinstance(obj, list):
                       stack.extend(obj)
+
+          for vid in volumes:
+              records = [h['record'] for h in report['coordinate_hits'] if h['record'].get('virtual_id') == vid and h['record'].get('char') == '□']
+              records.sort(key=lambda r:(int(r.get('canvas_index',0)),int(r.get('order_in_page',0))))
+              tiles=[]
+              for r in records:
+                  p=int(r['canvas_index']); path=page_paths[vid].get(p)
+                  if not path: continue
+                  with Image.open(path) as im:
+                      im=im.convert('RGB'); iw,ih=im.size
+                      x,y,w,h=[int(r[k]) for k in ('x','y','w','h')]
+                      pad_x=max(120,w//3); pad_y=max(160,h//2)
+                      x1=max(0,x-pad_x); y1=max(0,y-pad_y); x2=min(iw,x+w+pad_x); y2=min(ih,y+h+pad_y)
+                      crop=im.crop((x1,y1,x2,y2))
+                      crop=ImageOps.contain(crop,(340,420))
+                      tile=Image.new('RGB',(360,470),'white'); tile.paste(crop,((360-crop.width)//2,36))
+                      dr=ImageDraw.Draw(tile); dr.text((8,5),f"p{p:02d} {r['glyph_id']}",fill='black')
+                      sx=crop.width/(x2-x1); sy=crop.height/(y2-y1); ox=(360-crop.width)//2; oy=36
+                      dr.rectangle((ox+(x-x1)*sx,oy+(y-y1)*sy,ox+(x+w-x1)*sx,oy+(y+h-y1)*sy),outline='red',width=5)
+                      tiles.append(tile)
+              cols=4; rows=(len(tiles)+cols-1)//cols
+              sheet=Image.new('RGB',(cols*360,rows*470),'#ddd8cf')
+              for i,t in enumerate(tiles): sheet.paste(t,((i%cols)*360,(i//cols)*470))
+              sheet.save(out/f'{vid}_missing_boxes.jpg',quality=92)
           (out / 'audit.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
           print(json.dumps({'counts': {k:v['count'] for k,v in report['volumes'].items()}, 'coordinate_hits': len(report['coordinate_hits'])}, ensure_ascii=False))
           PY
