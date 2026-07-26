@@ -96,7 +96,7 @@ jobs:
             const page=await browser.newPage({viewport:{width:1536,height:1024}});
             const errors=[];
             page.on('pageerror',error=>errors.push(String(error)));
-            await page.goto('http://127.0.0.1:8000/detail.html?id=043',{waitUntil:'networkidle'});
+            await page.goto('http://127.0.0.1:8000/detail.html?id=043',{waitUntil:'domcontentloaded',timeout:30000});
             await page.waitForTimeout(5000);
             const result=await page.evaluate(()=>({
               title:document.title,
