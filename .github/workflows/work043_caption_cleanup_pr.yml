@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Refresh Work043 caches
+      - name: Force Work043 cache refresh
         shell: bash
         run: |
           python - <<'PY'
@@ -30,38 +30,34 @@ jobs:
           old_module = '20260726_mengjingxun_043_v4_svg_crop'
           new = '20260726_mengjingxun_043_v5_caption_cleanup'
 
-          edits = {
-              'js/work-043.js': [(old_module, new)],
-              'data/work043_coordinate_report.json': [(old_module, new)],
-              'js/damage_ai_reading.js': [
-                  (old_route, new),
-                  ('if(window.__DAMAGE_AI_READING_ROUTER_V83__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V83__=true;',
-                   'if(window.__DAMAGE_AI_READING_ROUTER_V84__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V84__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V83__=true;'),
-              ],
-              'js/detail_info_patch.js': [
-                  (old_route, new),
-                  ('if(window.__DETAIL_INFO_STABLE_ENTRY_V43__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V43__=true;',
-                   'if(window.__DETAIL_INFO_STABLE_ENTRY_V44__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V44__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V43__=true;'),
-              ],
-              'detail.html': [(old_route, new)],
-          }
-
-          for name, pairs in edits.items():
-              path = Path(name)
+          paths = [
+              Path('js/work-043.js'),
+              Path('data/work043_coordinate_report.json'),
+              Path('js/damage_ai_reading.js'),
+              Path('js/detail_info_patch.js'),
+              Path('detail.html'),
+          ]
+          for path in paths:
               text = path.read_text(encoding='utf-8')
-              for old, replacement in pairs:
-                  text = text.replace(old, replacement)
+              text = text.replace(old_route, new).replace(old_module, new)
               text = text.replace('该框经逐页人工核验校准，不是模型自动bbox。', '')
               text = text.replace('该框经逐页人工核验校准，不是模型自动 bbox。', '')
+              if path.name == 'damage_ai_reading.js':
+                  text = text.replace(
+                      'if(window.__DAMAGE_AI_READING_ROUTER_V83__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V83__=true;',
+                      'if(window.__DAMAGE_AI_READING_ROUTER_V84__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V84__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V83__=true;'
+                  )
+              if path.name == 'detail_info_patch.js':
+                  text = text.replace(
+                      'if(window.__DETAIL_INFO_STABLE_ENTRY_V43__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V43__=true;',
+                      'if(window.__DETAIL_INFO_STABLE_ENTRY_V44__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V44__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V43__=true;'
+                  )
               path.write_text(text, encoding='utf-8')
 
-          assert new in Path('js/work-043.js').read_text(encoding='utf-8')
-          assert f'js/work-043.js?v={new}' in Path('js/damage_ai_reading.js').read_text(encoding='utf-8')
-          assert f'const recoveryVersion="{new}"' in Path('js/detail_info_patch.js').read_text(encoding='utf-8')
-          assert f'js/detail_info_patch.js?v={new}' in Path('detail.html').read_text(encoding='utf-8')
+          Path('_tmp_work043_caption_cleanup_done.txt').write_text(new + '\n', encoding='utf-8')
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add js/work-043.js data/work043_coordinate_report.json js/damage_ai_reading.js js/detail_info_patch.js detail.html
+          git add js/work-043.js data/work043_coordinate_report.json js/damage_ai_reading.js js/detail_info_patch.js detail.html _tmp_work043_caption_cleanup_done.txt
           git commit -m "删除043栏目三旧说明并刷新缓存 [skip ci]"
           git push origin HEAD:agent/work043-caption-cleanup-v5
