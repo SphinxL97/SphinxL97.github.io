@@ -1,0 +1,27 @@
+name: Temporary audit work035 coordinates
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/_tmp_audit_work035.py'
+      - '.github/workflows/_tmp_audit_work035.yml'
+      - 'data/model_boxes/glyph_model_border_031_035.json'
+      - 'data/work035_damage_cases.json'
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit real work035 model boxes
+        run: python3 scripts/_tmp_audit_work035.py
+      - name: Upload audit output
+        uses: actions/upload-artifact@v4
+        with:
+          name: work035-coordinate-audit
+          path: work035-audit-output.json
+          retention-days: 1
