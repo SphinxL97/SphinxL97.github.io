@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/diagnose-work034-recovery-basis
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: read
