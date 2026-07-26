@@ -1,49 +1,132 @@
-name: Work043 page audit
+name: Finalize Work043 page and crowdsource fix
 
 on:
   push:
     branches:
       - agent/fix-work043-page-crowdsource
-  pull_request:
-    branches:
-      - main
+
+permissions:
+  contents: write
 
 jobs:
-  build-audit-images:
-    if: github.head_ref == 'agent/fix-work043-page-crowdsource' || github.ref == 'refs/heads/agent/fix-work043-page-crowdsource'
+  finalize:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-work043-page-crowdsource
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: python -m pip install pillow
-      - name: Build labeled page previews
+      - name: Apply verified fixes and clean temporary files
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          from PIL import Image, ImageOps, ImageDraw
+          import json
 
-          source = Path('assets/page_images/043_司马昞妻孟敬训墓志/images')
-          out = Path('work043_page_audit')
-          out.mkdir(exist_ok=True)
-          files = sorted(source.glob('*.jpg'))
-          if len(files) != 20:
-              raise SystemExit(f'expected 20 images, found {len(files)}')
-          for index, path in enumerate(files, start=1):
-              with Image.open(path) as image:
-                  image = ImageOps.exif_transpose(image).convert('RGB')
-                  image.thumbnail((1800, 1800), Image.Resampling.LANCZOS)
-                  canvas = Image.new('RGB', (image.width, image.height + 100), 'white')
-                  canvas.paste(image, (0, 100))
-                  draw = ImageDraw.Draw(canvas)
-                  draw.text((30, 30), f'PAGE {index:02d} | {path.name}', fill='black')
-                  canvas.save(out / f'page_{index:02d}.jpg', quality=90, optimize=True)
+          OLD = '20260726_mengjingxun_043_v1'
+          NEW = '20260726_mengjingxun_043_v2_page_crowdsource'
+
+          case_path = Path('data/work043_damage_cases.json')
+          cases = json.loads(case_path.read_text(encoding='utf-8'))
+          if len(cases) != 1:
+              raise SystemExit(f'expected one case, got {len(cases)}')
+          case = cases[0]
+          case['n'] = '残损碑文恢复'
+          case['category'] = '残损碑文恢复'
+          case['page'] = 9
+          case_path.write_text(json.dumps(cases, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          report_path = Path('data/work043_coordinate_report.json')
+          report = json.loads(report_path.read_text(encoding='utf-8'))
+          report['version'] = NEW
+          report['confirmed_page_count'] = 1
+          report['confirmed_case_pages'] = {'01': 9}
+          report['located_case_count'] = 0
+          report['unlocated_case_count'] = 1
+          report['unlocated_case_ids'] = ['01']
+          report['coordinate_policy'] = '已逐页核验确认案例01位于数字化第9页；仓库仍无043真实模型bbox，因此只显示第9页原图和页码，不生成推测性红框。'
+          report['special_pages'] = '第6—15页为墓志拓片正文页；案例01位于第9页。20页均保留原图，当前不制作伪造字框。'
+          report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          work_path = Path('js/work-043.js')
+          text = work_path.read_text(encoding='utf-8')
+          text = text.replace(OLD, NEW)
+          text = text.replace('残损碑文修复', '残损碑文恢复')
+          old_intro = '本栏目整理《司马昞妻孟敬训墓志》唯一一处缺字校读。候选字由同位置录文、字形构成和上下文对举共同支持；仓库当前没有043真实模型坐标，因此图片区明确标示暂未可靠定位，不显示推测性红框。'
+          new_intro = '本栏目整理《司马昞妻孟敬训墓志》唯一一处缺字校读。经逐页核验，该句位于数字化第9页；候选字由同位置录文、字形构成和上下文对举共同支持。仓库当前仍无043真实模型字框，因此显示第9页原图与页码，但不制造推测性红框。'
+          if old_intro not in text:
+              raise SystemExit('work043 intro anchor missing')
+          text = text.replace(old_intro, new_intro)
+          old_location = "  function locationHTML(){return '<div class=\"damage-location-missing work043-location-missing\"><p>本例暂未获得可靠页码与真实字框，不显示推测性局部图。</p></div>';}"
+          new_location = '''  function locationHTML(item){
+    const page=Number(item?.page||0);
+    if(!page)return '<div class="damage-location-missing work043-location-missing"><p>本例暂未获得可靠页码与真实字框，不显示推测性局部图。</p></div>';
+    const labels=["","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十"];
+    const image=`assets/page_images/043_司马昞妻孟敬训墓志/images/${String(page).padStart(4,"0")}_${labels[page]||page}.jpg`;
+    return `<div class="work043-page-only"><img src="${esc(image)}" alt="《${TITLE}》第${page}页原拓"><p class="damage-caption">《${TITLE}》第${page}页，本句第一个问题字所在页；真实字框暂未接入，不显示推测性红框。</p></div>`;
+  }'''
+          if old_location not in text:
+              raise SystemExit('work043 location anchor missing')
+          text = text.replace(old_location, new_location)
+          text = text.replace('${locationHTML()}</section>', '${locationHTML(item)}</section>')
+          old_style = '.work043-location-missing{min-height:430px;margin:0 16px 16px}'
+          new_style = '.damage-image-card{overflow:hidden!important}.work043-location-missing{min-height:430px;margin:0 16px 16px}.work043-page-only{display:flex;flex:1 1 auto;min-height:0;flex-direction:column;margin:0 14px 14px;padding:12px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0}.work043-page-only img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;border-radius:10px}.work043-page-only p{flex:0 0 auto;margin:6px 0 0!important;padding:0 4px!important;text-indent:0!important;font-size:12px;line-height:1.5!important;color:#766657;text-align:center}'
+          if old_style not in text:
+              raise SystemExit('work043 style anchor missing')
+          text = text.replace(old_style, new_style)
+          work_path.write_text(text, encoding='utf-8')
+
+          router_path = Path('js/damage_ai_reading.js')
+          router = router_path.read_text(encoding='utf-8').replace(OLD, NEW)
+          old_guard = '  if(window.__DAMAGE_AI_READING_ROUTER_V81__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V81__=true;'
+          new_guard = '  if(window.__DAMAGE_AI_READING_ROUTER_V82__)return;\n  window.__DAMAGE_AI_READING_ROUTER_V82__=true;\n  window.__DAMAGE_AI_READING_ROUTER_V81__=true;'
+          if old_guard not in router:
+              raise SystemExit('router guard anchor missing')
+          router_path.write_text(router.replace(old_guard, new_guard), encoding='utf-8')
+
+          detail_patch_path = Path('js/detail_info_patch.js')
+          detail_patch = detail_patch_path.read_text(encoding='utf-8').replace(OLD, NEW)
+          old_entry = '  if(window.__DETAIL_INFO_STABLE_ENTRY_V41__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V41__=true;'
+          new_entry = '  if(window.__DETAIL_INFO_STABLE_ENTRY_V42__)return;\n  window.__DETAIL_INFO_STABLE_ENTRY_V42__=true;\n  window.__DETAIL_INFO_STABLE_ENTRY_V41__=true;'
+          if old_entry not in detail_patch:
+              raise SystemExit('detail entry anchor missing')
+          detail_patch_path.write_text(detail_patch.replace(old_entry, new_entry), encoding='utf-8')
+
+          detail_html_path = Path('detail.html')
+          detail_html = detail_html_path.read_text(encoding='utf-8')
+          if OLD not in detail_html:
+              raise SystemExit('detail html cache anchor missing')
+          detail_html_path.write_text(detail_html.replace(OLD, NEW), encoding='utf-8')
+
+          # Final structural checks.
+          fixed_cases = json.loads(case_path.read_text(encoding='utf-8'))
+          assert fixed_cases[0]['page'] == 9
+          assert fixed_cases[0]['n'] == '残损碑文恢复'
+          assert fixed_cases[0]['category'] == '残损碑文恢复'
+          assert fixed_cases[0]['locations'] == []
+          fixed_work = work_path.read_text(encoding='utf-8')
+          assert 'locationHTML(item)' in fixed_work
+          assert '第${page}页，本句第一个问题字所在页' in fixed_work
+          assert '恢复依据' not in fixed_work
+          assert '残损碑文修复' not in fixed_work
+          for path in [router_path, detail_patch_path, detail_html_path]:
+              assert OLD not in path.read_text(encoding='utf-8')
+
+          # Remove all temporary audit files, including this workflow.
+          for path in Path('.').glob('_tmp_work043_*'):
+              path.unlink()
+          workflow = Path('.github/workflows/work043_page_audit.yml')
+          if workflow.exists():
+              workflow.unlink()
           PY
-      - uses: actions/upload-artifact@v4
-        with:
-          name: work043-page-audit
-          path: work043_page_audit/*.jpg
-          if-no-files-found: error
-          retention-days: 1
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git status --short
+          git commit -m "修复043页码与众智释读格式 [skip ci]"
+          git push origin HEAD:agent/fix-work043-page-crowdsource
