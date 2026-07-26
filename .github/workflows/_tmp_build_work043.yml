@@ -136,6 +136,18 @@ jobs:
           name: work043-browser-result
           path: /tmp/work043-browser-result.json
 
+      - name: Commit browser diagnostic on failure
+        if: failure()
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp /tmp/work043-browser-result.json data/_tmp_work043_browser_result.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/_tmp_work043_browser_result.json
+          git commit -m '保存043浏览器诊断结果'
+          git push origin HEAD:agent/work043-mengjingxun-v1
+
       - name: Commit formal work043 changes
         shell: bash
         run: |
