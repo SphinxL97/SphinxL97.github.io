@@ -1,0 +1,24 @@
+{
+  "work_id": "044",
+  "title": "崔敬邕墓誌",
+  "version": "20260726_cuijingyong_044_v1",
+  "image_page_count": 52,
+  "image_root": "assets/page_images/044_崔敬邕墓誌/images/",
+  "model_source": "data/model_boxes/glyph_model_border_041_045.json",
+  "model_box_rows": 734,
+  "model_page_range": [
+    8,
+    31
+  ],
+  "page_box_files_created": 24,
+  "case_count": 3,
+  "located_case_count": 3,
+  "unlocated_case_count": 0,
+  "confirmed_case_pages": {
+    "01": 11,
+    "02": 24,
+    "03": 31
+  },
+  "coordinate_policy": "栏目一第8—31页接入仓库既有模型字框；栏目三三例使用同一批真实字框定位。",
+  "special_pages": "第1—7页及第32—52页为封面、题签、题跋、装帧或版本说明等页面，只保留原图；第8—31页为墓志正文拓片页。"
+}
