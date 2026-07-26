@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V34__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V35__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V35__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V34__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V33__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V32__=true;
@@ -52,7 +53,7 @@
   const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
   const work032DataUrl="data/work032_info.json?v=20260725_xuzhenren_032_v1";
   const work033DataUrl="data/work033_info.json?v=20260725_zhengzuowei_033_v1";
-  const recoveryVersion="20260726_zhangjilao_034_v2_no_basis";
+  const recoveryVersion="20260726_zhangjilao_034_v3_no_evidence";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
   const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
