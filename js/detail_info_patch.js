@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V35__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V36__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V36__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V35__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V34__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V33__=true;
@@ -49,18 +50,18 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260726_zhangjilao_034_v1";
+  const dataUrl="data/beitie_header_info.json?v=20260726_wushici_035_v1";
   const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
   const work032DataUrl="data/work032_info.json?v=20260725_xuzhenren_032_v1";
   const work033DataUrl="data/work033_info.json?v=20260725_zhengzuowei_033_v1";
-  const recoveryVersion="20260726_zhangjilao_034_v3_no_evidence";
+  const recoveryVersion="20260726_wushici_035_v1";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
   const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
-  const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029","030","032","033","034"]);
+  const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029","030","032","033","034","035"]);
 
   function applyImmediateWorkMenu(){
-    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭","032":"许真人井铭","033":"争座位帖","034":"章吉老墓志"};
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭","032":"许真人井铭","033":"争座位帖","034":"章吉老墓志","035":"武氏祠画像题字"};
     const name=names[workId];if(!name)return;
     const apply=()=>{
       const side=document.querySelector(".side");
