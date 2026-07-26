@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V44__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V45__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V45__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V44__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V43__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V42__=true;
@@ -58,18 +59,18 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260726_cuijingyong_044_v1";
+  const dataUrl="data/beitie_header_info.json?v=20260727_huangtingjian_031_v1";
   const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
   const work032DataUrl="data/work032_info.json?v=20260725_xuzhenren_032_v1";
   const work033DataUrl="data/work033_info.json?v=20260725_zhengzuowei_033_v1";
-  const recoveryVersion="20260726_cuijingyong_044_v1";
+  const recoveryVersion="20260727_huangtingjian_031_v1";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
   const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
-  const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029","030","032","033","034","035","036","043","044"]);
+  const routedWorks=new Set(["001","002","003","004","005","006","007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029","030","031","032","033","034","035","036","043","044"]);
 
   function applyImmediateWorkMenu(){
-    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭","032":"许真人井铭","033":"争座位帖","034":"章吉老墓志","035":"武氏祠画像题字","036":"瘗鹤铭","043":"司马昞妻孟敬训墓志","044":"崔敬邕墓誌"};
+    const names={"024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭","031":"黄庭堅青原山诗刻石","032":"许真人井铭","033":"争座位帖","034":"章吉老墓志","035":"武氏祠画像题字","036":"瘗鹤铭","043":"司马昞妻孟敬训墓志","044":"崔敬邕墓誌"};
     const name=names[workId];if(!name)return;
     const apply=()=>{
       const side=document.querySelector(".side");
@@ -193,7 +194,7 @@
       const response=await fetch(url,{cache:"no-store"});
       if(!response.ok)throw new Error(`${url} ${response.status}`);
       const data=await response.json();
-      recordCache=["030","032","033"].includes(workId)?(data?.header||data?.[workId]||data):data?.[workId]||null;
+      recordCache=["030","031","032","033"].includes(workId)?(data?.header||data?.[workId]||data):data?.[workId]||null;
       if(recordCache)render(recordCache);else throw new Error(`missing header ${workId}`);
     }catch(error){
       console.error("[header-card] 当前碑帖信息卡加载失败",error);

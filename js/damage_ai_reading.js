@@ -1,7 +1,8 @@
 /* 全部碑帖栏目二、三共享路由，并统一栏目三案例分类。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V84__)return;
+  if(window.__DAMAGE_AI_READING_ROUTER_V85__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V85__=true;
   window.__DAMAGE_AI_READING_ROUTER_V84__=true;
   window.__DAMAGE_AI_READING_ROUTER_V83__=true;
   window.__DAMAGE_AI_READING_ROUTER_V82__=true;
@@ -61,6 +62,8 @@
     "028":[{src:"js/work-028-coordinate-adapter.js?v=20260725_jintang_nine_v2",key:"w028c",ready:()=>Boolean(window.__WORK_028_COORDINATE_ADAPTER__)},{src:"js/work-028.js?v=20260725_jintang_nine_v2",key:"w028",ready:()=>Boolean(window.__WORK_028_STABLE_READY__&&window.__WORK_028_CROWDSOURCE_READY__)}],
     "029":[{src:"js/work-029-coordinate-adapter.js?v=20260725_xianyu029_loading_fix_v2",key:"w029c",ready:()=>Boolean(window.__WORK_029_COORDINATE_ADAPTER__)},{src:"js/work-029.js?v=20260725_xianyu029_loading_fix_v2",key:"w029",ready:()=>Boolean(window.__WORK_029_STABLE_READY__&&window.__WORK_029_CROWDSOURCE_READY__)}],
     "030":[{src:"js/work-030.js?v=20260725_jiuchenggong_030_v1",key:"w030",ready:()=>Boolean(window.__WORK_030_STABLE_READY__&&window.__WORK_030_CROWDSOURCE_READY__)}],
+    "031-01":[{src:"js/work-031-coordinate-adapter.js?v=20260727_huangtingjian_031_01_v1",key:"w03101c",ready:()=>Boolean(window.__WORK_031_01_COORDINATE_ADAPTER__)},{src:"js/work-031.js?v=20260727_huangtingjian_031_01_v1",key:"w03101",ready:()=>Boolean(window.__WORK_031_01_STABLE_READY__&&window.__WORK_031_01_CROWDSOURCE_READY__)}],
+    "031-02":[{src:"js/work-031-02-coordinate-adapter.js?v=20260727_huangtingjian_031_02_v1",key:"w03102c",ready:()=>Boolean(window.__WORK_031_02_COORDINATE_ADAPTER__)},{src:"js/work-031-02.js?v=20260727_huangtingjian_031_02_v1",key:"w03102",ready:()=>Boolean(window.__WORK_031_02_STABLE_READY__&&window.__WORK_031_02_CROWDSOURCE_READY__)}],
     "032":[{src:"js/work-032-coordinate-adapter.js?v=20260725_xuzhenren_032_v1",key:"w032c",ready:()=>Boolean(window.__WORK_032_COORDINATE_ADAPTER__)},{src:"js/work-032.js?v=20260726_xuzhenren_032_v2",key:"w032",ready:()=>Boolean(window.__WORK_032_STABLE_READY__&&window.__WORK_032_CROWDSOURCE_READY__)}],
     "033":[{src:"js/work-033-coordinate-adapter.js?v=20260725_zhengzuowei_033_v1",key:"w033c",ready:()=>Boolean(window.__WORK_033_COORDINATE_ADAPTER__)},{src:"js/work-033.js?v=20260725_zhengzuowei_033_v1",key:"w033",ready:()=>Boolean(window.__WORK_033_STABLE_READY__&&window.__WORK_033_CROWDSOURCE_READY__)}],
     "034":[{src:"js/work-034-coordinate-adapter.js?v=20260726_zhangjilao_034_v1",key:"w034c",ready:()=>Boolean(window.__WORK_034_COORDINATE_ADAPTER__)},{src:"js/work-034.js?v=20260726_zhangjilao_034_v3",key:"w034",ready:()=>Boolean(window.__WORK_034_STABLE_READY__&&window.__WORK_034_CROWDSOURCE_READY__)}],
@@ -70,7 +73,7 @@
     "044":[{src:"js/work-044.js?v=20260726_cuijingyong_044_v1",key:"w044",ready:()=>Boolean(window.__WORK_044_STABLE_READY__&&window.__WORK_044_CROWDSOURCE_READY__)}]
   };
 
-  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑","016":"上尊号碑受禅表合册","017":"张猛龙碑并阴","018":"中岳嵩高灵庙碑并额","020":"化度寺邕禅师舍利塔铭","022":"王居士砖塔铭","023":"圭峰定慧禅师碑","024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭","032":"许真人井铭","033":"争座位帖","034":"章吉老墓志","035":"武氏祠画像题字","036":"瘗鹤铭","043":"司马昞妻孟敬训墓志"};
+  const titles={"001":"道因法师碑","002":"礼器碑并阴","003":"龙藏寺碑","004":"麓山寺碑并阴","005":"虞恭公温彦博碑","006":"史晨后碑","007":"伊阙佛龛碑","010":"赵清献公碑","011":"皇甫诞碑","013":"鲁峻碑","014-01":"颜真卿李玄靖碑册一","014-02":"颜真卿李玄靖碑册二","015":"史晨前碑","016":"上尊号碑受禅表合册","017":"张猛龙碑并阴","018":"中岳嵩高灵庙碑并额","020":"化度寺邕禅师舍利塔铭","022":"王居士砖塔铭","023":"圭峰定慧禅师碑","024":"张从申书李玄靖碑","025":"集王羲之书三藏圣教序","026":"麻姑山仙坛记","027":"旧拓魏志五种","028":"晋唐小楷九种","029":"鲜于光祖墓志","030":"九成宫醴泉铭","031-01":"黄庭堅青原山诗刻石册一","031-02":"黄庭堅青原山诗刻石册二","032":"许真人井铭","033":"争座位帖","034":"章吉老墓志","035":"武氏祠画像题字","036":"瘗鹤铭","043":"司马昞妻孟敬训墓志"};
 
   function installMask(){
     if(["007","010","011","013","014","015","016","017","018","020","022","023","024","025","026","027","028","029","030","032","033","034","035","036","043","044"].includes(id)||document.getElementById("detail-route-pending-style"))return;
