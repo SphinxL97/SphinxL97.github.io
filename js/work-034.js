@@ -12,7 +12,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="章吉老墓志";
-  const VERSION="20260726_zhangjilao_034_v1";
+  const VERSION="20260726_zhangjilao_034_v2";
   const TEXT_URL=`data/work034_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work034_damage_cases.json?v=${VERSION}`;
   const PAGE_INDEX_URL=`data/page_images_index.json?v=${VERSION}`;
@@ -20,7 +20,31 @@
   const INTRO="本栏目依据用户确认底稿、公开资料旁证与仓库既有模型字框，整理14组残损释读，覆盖24个原始方框。暂拟15个候选字，继续保留9个未决方框；每例只显示第一个问题字的真实定位，无法可靠匹配时不估算bbox。";
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=value=>JSON.parse(JSON.stringify(value));
-  let cases=[],current=0,expanded=false,pageMap=new Map(),listScrollTop=0;
+  let cases=[],current=0,expanded=false,pageMap=new Map(),listScrollTop=0,recoveryObserver=null,recoveryCleanupScheduled=false;
+
+  function isRecoveryBasisBlock(node){
+    if(!(node instanceof Element))return false;
+    if(node.matches(".damage-basis-block,.damage-basis-card,[data-damage-basis]"))return true;
+    if(!node.classList.contains("damage-block"))return false;
+    return String(node.querySelector(":scope > .damage-label")?.textContent||"").trim()==="恢复依据";
+  }
+  function removeRecoveryBasis(root=document){
+    const targets=new Set();
+    if(root instanceof Element&&isRecoveryBasisBlock(root))targets.add(root);
+    root.querySelectorAll?.(".damage-basis-block,.damage-basis-card,[data-damage-basis]").forEach(node=>targets.add(node));
+    root.querySelectorAll?.(".damage-block").forEach(node=>{if(isRecoveryBasisBlock(node))targets.add(node);});
+    targets.forEach(node=>node.remove());
+  }
+  function observeRecoveryBasis(root){
+    if(!(root instanceof Element))return;
+    if(recoveryObserver)recoveryObserver.disconnect();
+    recoveryObserver=new MutationObserver(()=>{
+      if(recoveryCleanupScheduled)return;
+      recoveryCleanupScheduled=true;
+      queueMicrotask(()=>{recoveryCleanupScheduled=false;removeRecoveryBasis(root);});
+    });
+    recoveryObserver.observe(root,{childList:true,subtree:true});
+  }
 
   function setMenuTitle(index,title){const link=document.querySelector(`.side a:nth-of-type(${index})`);if(link)link.textContent=title;}
   async function fetchText(url){const response=await fetch(url,{cache:"no-store"});if(!response.ok)throw new Error(`${url} ${response.status}`);return response.text();}
@@ -69,15 +93,15 @@
   function renderDamage(){
     const section=document.getElementById("people");if(!section||!cases.length)return;const item=cases[current],analysis=(item.analysis||[]).map(line=>`<li>${esc(line)}</li>`).join("");
     setMenuTitle(3,"三、碑文残损与AI释读");publishCases(cases);section.className="content-card damage-ai";section.dataset.work034Dedicated="true";
-    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell"><div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(item.confidence)}置信度）</span></div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" ${current===cases.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（定位）</h3>${locationHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别或缺字槽位</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${esc(item.category)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">恢复后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${analysis}</ol><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div></div>`;
+    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell"><div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(item.confidence)}置信度）</span></div><div class="damage-pager"><button data-action="prev" type="button" ${current===0?"disabled":""}>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" ${current===cases.length-1?"disabled":""}>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（定位）</h3>${locationHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别或缺字槽位</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${esc(item.category)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">恢复后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div><div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><div class="damage-evidence${expanded?" open":""}"><ol>${analysis}</ol><p><strong>建议置信度：</strong>${esc(item.confidence)}</p></div><button class="damage-expand" data-action="expand" type="button">${expanded?"收起内容⌃":"展开更多⌄"}</button></div></div></section></div></div></div>`;removeRecoveryBasis(section);observeRecoveryBasis(section);
     const list=section.querySelector(".damage-list");if(list){list.scrollTop=listScrollTop;list.addEventListener("scroll",()=>{listScrollTop=list.scrollTop;},{passive:true});requestAnimationFrame(()=>list.querySelector(".damage-tab.active")?.scrollIntoView({block:"nearest"}));}
     section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{current=Number(button.dataset.caseIndex)||0;expanded=false;renderDamage();}));
     section.querySelectorAll("[data-action]").forEach(button=>button.addEventListener("click",()=>{if(button.dataset.action==="prev"&&current>0)current-=1;else if(button.dataset.action==="next"&&current<cases.length-1)current+=1;else if(button.dataset.action==="expand")expanded=!expanded;renderDamage();}));
-    if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();
+    if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();removeRecoveryBasis(section);
   }
   function ensureStyle(){
     if(document.getElementById("work034-zhangjilao-style"))return;const style=document.createElement("style");style.id="work034-zhangjilao-style";
-    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.work034-image-stage{position:relative;width:min(100%,430px);margin:auto}.work034-image-stage img,.work034-page-only img{width:100%;height:auto;display:block;border-radius:10px}.work034-real-box{position:absolute;border:3px solid #e23020;background:rgba(226,48,32,.12);box-shadow:0 0 0 2px rgba(255,255,255,.8)}.work034-case-image p,.work034-page-only p{margin:10px 0 0!important;text-indent:0!important;font-size:12px;color:#766657;text-align:center}.work034-page-only{padding:12px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:250px;padding:30px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a;text-align:center}";
+    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.work034-image-stage{position:relative;width:min(100%,430px);margin:auto}.work034-image-stage img,.work034-page-only img{width:100%;height:auto;display:block;border-radius:10px}.work034-real-box{position:absolute;border:3px solid #e23020;background:rgba(226,48,32,.12);box-shadow:0 0 0 2px rgba(255,255,255,.8)}.work034-case-image p,.work034-page-only p{margin:10px 0 0!important;text-indent:0!important;font-size:12px;color:#766657;text-align:center}.work034-page-only{padding:12px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0}.damage-location-missing{display:flex;align-items:center;justify-content:center;min-height:250px;padding:30px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0;color:#7b6c5a;text-align:center}#people[data-work034-dedicated=\"true\"] .damage-basis-block,#people[data-work034-dedicated=\"true\"] .damage-basis-card,#people[data-work034-dedicated=\"true\"] [data-damage-basis]{display:none!important}";
     document.head.appendChild(style);
   }
   function applySupplementalInfo(){
@@ -94,7 +118,7 @@
     const scriptPath="assets/js/crowdsource-v9.js";if(!Array.from(document.scripts).some(script=>(script.getAttribute("src")||"").split("?")[0].endsWith(scriptPath))){const script=document.createElement("script");script.src=`${scriptPath}?v=${VERSION}`;script.async=false;script.addEventListener("load",()=>{window.__WORK_034_CROWDSOURCE_READY__=true;window.dispatchEvent(new CustomEvent("work-034-crowdsource-ready",{detail:{count:cases.length}}));},{once:true});document.head.appendChild(script);}else window.__WORK_034_CROWDSOURCE_READY__=true;
   }
   async function init(){
-    ensureStyle();applySupplementalInfo();const damage=document.getElementById("people");if(damage)damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${TITLE}》释读案例……</div></div>`;
+    ensureStyle();applySupplementalInfo();const damage=document.getElementById("people");if(damage){damage.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><div class="damage-shell"><div class="full-transcript-loading">正在读取《${TITLE}》释读案例……</div></div>`;removeRecoveryBasis(damage);observeRecoveryBasis(damage);}
     try{
       const [rows,index]=await Promise.all([fetchJSON(CASE_URL),fetchJSON(PAGE_INDEX_URL)]);cases=(Array.isArray(rows)?rows:[]).map(normalizeCase);if(!cases.length)throw new Error("034案例数据为空");
       const pages=index?.works?.["034"]?.pages||[];pageMap=new Map(pages.map(page=>[Number(page.page),page]));publishCases(cases);if(Array.isArray(window.DAMAGE_AI_CASES)&&window.DAMAGE_AI_CASES.length)cases=window.DAMAGE_AI_CASES;
