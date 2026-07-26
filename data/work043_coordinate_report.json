@@ -1,23 +1,36 @@
 {
   "work_id": "043",
   "title": "司马昞妻孟敬训墓志",
-  "version": "20260726_mengjingxun_043_v2_page_crowdsource",
+  "version": "20260726_mengjingxun_043_v3_manual_red_box",
   "image_page_count": 20,
   "image_root": "assets/page_images/043_司马昞妻孟敬训墓志/images/",
   "model_source": "data/model_boxes/glyph_model_border_041_045.json",
   "model_box_rows": 0,
   "transcript_box_slots": 1,
   "case_count": 1,
-  "located_case_count": 0,
-  "unlocated_case_count": 1,
-  "unlocated_case_ids": [
-    "01"
-  ],
-  "coordinate_policy": "已逐页核验确认案例01位于数字化第9页；仓库仍无043真实模型bbox，因此只显示第9页原图和页码，不生成推测性红框。",
+  "located_case_count": 1,
+  "unlocated_case_count": 0,
+  "unlocated_case_ids": [],
+  "coordinate_policy": "案例01已在数字化第9页完成人工视觉定位，并以人工校准红框显示“𡜱”字；该框不是模型自动bbox，不用于冒充模型坐标。",
   "page_files_created": 0,
   "special_pages": "第6—15页为墓志拓片正文页；案例01位于第9页。20页均保留原图，当前不制作伪造字框。",
   "confirmed_page_count": 1,
   "confirmed_case_pages": {
     "01": 9
+  },
+  "manual_verified_box_rows": 1,
+  "manual_box": {
+    "page": 9,
+    "bbox": {
+      "x": 385,
+      "y": 870,
+      "w": 120,
+      "h": 120
+    },
+    "canvas_width": 1177,
+    "canvas_height": 1800,
+    "source": "manual_visual_verified",
+    "target": "𡜱",
+    "note": "逐页人工核验：第9页左起第一列第四字。该框不是模型自动bbox。"
   }
 }
