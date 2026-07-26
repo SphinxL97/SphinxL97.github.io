@@ -12,11 +12,11 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="司马昞妻孟敬训墓志";
-  const VERSION="20260726_mengjingxun_043_v3_manual_red_box";
+  const VERSION="20260726_mengjingxun_043_v4_svg_crop";
   const TEXT_URL=`data/work043_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work043_damage_cases.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-  const INTRO="本栏目整理《司马昞妻孟敬训墓志》唯一一处缺字校读。经逐页核验，该句位于数字化第9页；候选字由同位置录文、字形构成和上下文对举共同支持。仓库当前仍无043模型自动字框；本例已根据第9页原图完成人工视觉定位，以红框标示“𡜱”字，并明确区分人工校准框与模型bbox。";
+  const INTRO="本栏目整理《司马昞妻孟敬训墓志》唯一一处缺字校读。经逐页核验，该句位于数字化第9页；候选字由同位置录文、字形构成和上下文对举共同支持。";
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=value=>JSON.parse(JSON.stringify(value));
   let cases=[],current=0,listScrollTop=0;
@@ -62,31 +62,31 @@
   function caseTabs(){return cases.map((item,index)=>`<button class="damage-tab${index===current?" active":""}" data-case-index="${index}" type="button" aria-pressed="${index===current}"><b>${esc(item.id)}</b><span class="name">${esc(item.category)}</span></button>`).join("");}
   function locationHTML(item){
     const page=Number(item?.page||0);
-    if(!page)return '<div class="damage-location-missing work043-location-missing"><p>本例暂未获得可靠页码与真实字框，不显示推测性局部图。</p></div>';
-    const labels=["","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十"];
-    const image=`assets/page_images/043_司马昞妻孟敬训墓志/images/${String(page).padStart(4,"0")}_${labels[page]||page}.jpg`;
     const loc=Array.isArray(item?.locations)?item.locations[0]:null;
     const b=loc?.bbox;
-    if(!b)return `<div class="work043-page-only"><div class="work043-image-stage"><img src="${esc(image)}" alt="《${TITLE}》第${page}页原拓"></div><p class="damage-caption">《${TITLE}》第${page}页；尚无可显示的字框。</p></div>`;
+    const crop=loc?.crop||{x:280,y:550,w:360,h:980};
+    if(!page||!b)return '<div class="damage-location-missing work043-location-missing"><p>本例暂未获得可靠页码与字框。</p></div>';
+    const labels=["","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十"];
+    const image=`assets/page_images/043_司马昞妻孟敬训墓志/images/${String(page).padStart(4,"0")}_${labels[page]||page}.jpg`;
     const cw=Number(loc.canvas_width||1177),ch=Number(loc.canvas_height||1800);
-    const left=Number(b.x||0)/cw*100,top=Number(b.y||0)/ch*100,width=Number(b.w||0)/cw*100,height=Number(b.h||0)/ch*100;
-    return `<div class="work043-page-only"><div class="work043-image-stage"><img src="${esc(image)}" alt="《${TITLE}》第${page}页原拓"><span class="work043-manual-box" style="left:${left}%;top:${top}%;width:${width}%;height:${height}%" role="img" aria-label="人工核验红框：𡜱字位置" title="人工核验：𡜱"></span></div><p class="damage-caption">《${TITLE}》第${page}页，红框标示“𡜱”字。该框经逐页人工核验校准，不是模型自动bbox。</p></div>`;
+    return `<div class="damage-viewport" data-image="${esc(image)}" title="双击查看原始拓片"><svg class="damage-crop-svg" viewBox="${crop.x} ${crop.y} ${crop.w} ${crop.h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${esc(item.title)}对应拓片局部"><image href="${esc(image)}" x="0" y="0" width="${cw}" height="${ch}" preserveAspectRatio="none"></image><rect class="damage-box" x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}"></rect></svg></div><p class="damage-caption">《${TITLE}》第${page}页，对应问题字局部</p>`;
   }
   function analysisHTML(item){
-    const rows=item.analysis.length?item.analysis:["现有材料不足以形成具体候选。"];
+    const rows=item.analysis.length?item.analysis:["现有材料不足以形成具体候选。"]; 
     return `<div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><ol class="work043-analysis-list">${rows.map(row=>`<li>${esc(row)}</li>`).join("")}</ol><div class="work043-confidence">建议置信度：<strong>${esc(item.confidence)}</strong></div></div>`;
   }
   function renderDamage(){
     const section=document.getElementById("people");if(!section||!cases.length)return;const item=cases[current];
     setMenuTitle(3,"三、碑文残损与AI释读");publishCases(cases);section.className="content-card damage-ai";section.dataset.work043Dedicated="true";
-    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell"><div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(item.confidence)}置信度）</span></div><div class="damage-pager"><button data-action="prev" type="button" disabled>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" disabled>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（第${item.page}页）</h3>${locationHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别或缺字槽位</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${esc(item.category)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">校读后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div>${analysisHTML(item)}</div></section></div></div></div>`;
+    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell"><div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(item.confidence)}置信度）</span></div><div class="damage-pager"><button data-action="prev" type="button" disabled>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" disabled>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${locationHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别或缺字槽位</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${esc(item.category)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">校读后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div>${analysisHTML(item)}</div></section></div></div></div>`;
     const list=section.querySelector(".damage-list");if(list){list.scrollTop=listScrollTop;list.addEventListener("scroll",()=>{listScrollTop=list.scrollTop;},{passive:true});}
     section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{current=Number(button.dataset.caseIndex)||0;renderDamage();}));
+    section.querySelector(".damage-viewport")?.addEventListener("dblclick",event=>{const src=event.currentTarget.dataset.image;if(src&&typeof window.openZoom==="function")window.openZoom(src);});
     if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();
   }
   function ensureStyle(){
     if(document.getElementById("work043-mengjingxun-style"))return;const style=document.createElement("style");style.id="work043-mengjingxun-style";
-    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-image-card{overflow:hidden!important}.work043-location-missing{min-height:430px;margin:0 16px 16px}.work043-page-only{display:flex;flex:1 1 auto;min-height:0;flex-direction:column;margin:0 14px 14px;padding:12px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0}.work043-image-stage{position:relative;flex:1 1 auto;min-height:0;height:100%;width:auto;max-width:100%;aspect-ratio:1177/1800;margin:auto}.work043-image-stage img{display:block;width:100%;height:100%;object-fit:fill;border-radius:10px}.work043-manual-box{position:absolute;box-sizing:border-box;border:4px solid #e22f20;background:rgba(226,47,32,.12);box-shadow:0 0 0 2px rgba(255,255,255,.88),0 2px 8px rgba(120,20,10,.35);border-radius:3px;pointer-events:none;z-index:2}.work043-page-only p{flex:0 0 auto;margin:6px 0 0!important;padding:0 4px!important;text-indent:0!important;font-size:12px;line-height:1.5!important;color:#766657;text-align:center}.work043-analysis-list{margin:10px 0 0;padding-left:1.35em}.work043-analysis-list li{margin:.45em 0;line-height:1.8}.work043-confidence{margin-top:12px;padding-top:10px;border-top:1px dashed #ddcfb4;color:#675b4e}";
+    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.work043-location-missing{min-height:430px;margin:0 16px 16px}.work043-analysis-list{margin:10px 0 0;padding-left:1.35em}.work043-analysis-list li{margin:.45em 0;line-height:1.8}.work043-confidence{margin-top:12px;padding-top:10px;border-top:1px dashed #ddcfb4;color:#675b4e}";
     document.head.appendChild(style);
   }
   function applySupplementalInfo(){
