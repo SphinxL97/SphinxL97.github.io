@@ -7,18 +7,12 @@ on:
     paths:
       - 'scripts/_tmp_build_work043.py'
       - '.github/workflows/_tmp_build_work043.yml'
-  push:
-    branches: [agent/work043-mengjingxun-v1]
-    paths:
-      - 'scripts/_tmp_build_work043.py'
-      - '.github/workflows/_tmp_build_work043.yml'
 
 permissions:
   contents: write
 
 jobs:
   build-test-commit:
-    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
