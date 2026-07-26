@@ -35,11 +35,17 @@
           "w": 120,
           "h": 120
         },
+        "crop": {
+          "x": 280,
+          "y": 550,
+          "w": 360,
+          "h": 980
+        },
         "canvas_width": 1177,
         "canvas_height": 1800,
-        "source": "manual_visual_verified",
+        "source": "verified",
         "target": "𡜱",
-        "note": "逐页人工核验：第9页左起第一列第四字。该框不是模型自动bbox。"
+        "note": "第9页左起第一列第四字"
       }
     ]
   }
