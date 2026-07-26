@@ -12,7 +12,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="武氏祠画像题字";
-  const VERSION="20260726_wushici_035_v3";
+  const VERSION="20260726_wushici_035_v4";
   const TEXT_URL=`data/work035_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work035_damage_cases.json?v=${VERSION}`;
   const PAGE_INDEX_URL=`data/page_images_index.json?v=${VERSION}`;
@@ -64,7 +64,7 @@
     if(!image)return '<div class="damage-location-missing"><p>本例暂未获得可靠页码与真实字框，不显示推测性局部图。</p></div>';
     if(!loc?.bbox)return `<div class="work035-page-only"><img src="${esc(image)}" alt="第${page}页原拓"><p>第${page}页可核验，但本例尚无可靠的独立问题字框；不估算bbox。</p></div>`;
     const b=loc.bbox,cw=Number(loc.canvas_width||1524),ch=Number(loc.canvas_height||2250),left=b.x/cw*100,top=b.y/ch*100,width=b.w/cw*100,height=b.h/ch*100;
-    return `<div class="work035-case-image"><div class="work035-image-stage"><img src="${esc(image)}" alt="第${page}页原拓"><span class="work035-real-box" style="left:${left}%;top:${top}%;width:${width}%;height:${height}%" title="${esc(loc.glyph_id||"")}"></span></div><p class="damage-caption">《${TITLE}》第${page}页，对应问题字局部</p></div>`;
+    return `<div class="work035-case-image"><div class="work035-image-stage"><img src="${esc(image)}" alt="第${page}页原拓"><span class="work035-real-box" style="left:${left}%;top:${top}%;width:${width}%;height:${height}%" aria-hidden="true"></span></div><p class="damage-caption">《${TITLE}》第${page}页，对应问题字局部</p></div>`;
   }
   function analysisHTML(item){
     const rows=item.analysis.length?item.analysis:["本例为AI推断候选，需结合拓片字形继续复核。"];

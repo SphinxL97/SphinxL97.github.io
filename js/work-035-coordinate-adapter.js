@@ -5,7 +5,7 @@
   const workId=(raw.includes("-")?raw.split("-")[0]:raw).padStart(3,"0");
   if(workId!=="035"||window.__WORK_035_COORDINATE_ADAPTER__)return;
 
-  const CACHE_TAG="20260726_wushici_035_v3";
+  const CACHE_TAG="20260726_wushici_035_v4";
   const ROOT="data/glyph_boxes/iiif/035";
   const originalLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   const pagePromises=new Map();
