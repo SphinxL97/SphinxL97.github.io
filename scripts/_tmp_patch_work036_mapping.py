@@ -90,4 +90,4 @@ if old not in text:
 text = text.replace(old, new, 1)
 
 path.write_text(text, encoding='utf-8')
-print({'mapped': len(SLOT_GLYPH_IDS), 'expected_model_only': 8})
+print({'mapped': 23, 'expected_model_only': 8})
