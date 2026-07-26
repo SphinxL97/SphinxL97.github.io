@@ -1,89 +1,89 @@
-name: Diagnose work034 recovery basis
+name: Fix work034 visible evidence block
 
 on:
   push:
     branches:
       - agent/diagnose-work034-recovery-basis
-  pull_request:
-    branches:
-      - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  diagnose:
+  fix:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: agent/diagnose-work034-recovery-basis
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Apply actual removal
+        run: python scripts/fix_work034_remove_evidence.py
+      - name: Static validation
+        run: |
+          node --check js/work-034.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          python - <<'PY'
+          from pathlib import Path
+          work=Path('js/work-034.js').read_text(encoding='utf-8')
+          assert 'damage-evidence-block' not in work
+          assert '>AI分析依据<' not in work
+          assert '>恢复依据<' not in work
+          assert '>恢复后的上下文<' in work
+          print('static visible-evidence removal passed')
+          PY
       - name: Install browser driver
-        run: npm install --no-save puppeteer-core@24
+        run: npm install --no-save --no-package-lock puppeteer-core@24
       - name: Start local website
         run: |
           python3 -m http.server 8000 > /tmp/work034-http.log 2>&1 &
-          echo $! > /tmp/work034-http.pid
           sleep 2
-      - name: Inspect local and deployed DOM
+      - name: Browser validation
         run: |
           CHROME_PATH="$(which google-chrome || which chromium || which chromium-browser || true)"
-          echo "CHROME_PATH=$CHROME_PATH"
           test -n "$CHROME_PATH"
           CHROME_PATH="$CHROME_PATH" node <<'NODE'
-          const puppeteer = require('puppeteer-core');
-          const fs = require('fs');
+          const puppeteer=require('puppeteer-core');
           (async()=>{
-            const browser = await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:true,args:['--no-sandbox','--disable-setuid-sandbox']});
-            async function inspect(name,url){
-              const page=await browser.newPage();
-              const events=[];
-              page.on('console',msg=>events.push(`[console:${msg.type()}] ${msg.text()}`));
-              page.on('pageerror',error=>events.push(`[pageerror] ${error.stack||error.message}`));
-              page.on('requestfailed',req=>events.push(`[requestfailed] ${req.url()} ${req.failure()?.errorText}`));
-              await page.goto(url,{waitUntil:'networkidle2',timeout:120000});
-              await new Promise(resolve=>setTimeout(resolve,8000));
-              const result=await page.evaluate(()=>{
-                const people=document.getElementById('people');
-                const exact=[];
-                const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
-                let node;
-                while((node=walker.nextNode()))if(String(node.nodeValue||'').includes('恢复依据')){
-                  const el=node.parentElement;
-                  exact.push({text:node.nodeValue,tag:el?.tagName,className:el?.className,parentTag:el?.parentElement?.tagName,parentClass:el?.parentElement?.className,outerHTML:el?.outerHTML?.slice(0,5000)||null,closestDamageBlock:el?.closest('.damage-block')?.outerHTML?.slice(0,5000)||null,ancestors:(()=>{const a=[];let p=el;for(let i=0;p&&i<10;i++,p=p.parentElement)a.push({tag:p.tagName,id:p.id,className:p.className,dataset:{...p.dataset}});return a;})()});
-                }
-                return {
-                  url:location.href,
-                  title:document.title,
-                  workFlags:{dedicated:window.__WORK_034_ZHANGJILAO__,stable:window.__WORK_034_STABLE_READY__,router74:window.__DAMAGE_AI_READING_ROUTER_V74__,router73:window.__DAMAGE_AI_READING_ROUTER_V73__,category:window.__DAMAGE_CATEGORY_STANDARDIZER_V2__},
-                  peopleDataset:people?{...people.dataset}:null,
-                  exact,
-                  allLabels:Array.from(document.querySelectorAll('#people .damage-label')).map(el=>el.textContent.trim()),
-                  damageBlocks:Array.from(document.querySelectorAll('#people .damage-block')).map((el,index)=>({index,className:el.className,label:el.querySelector('.damage-label')?.textContent?.trim()||'',text:el.innerText.slice(0,700),html:el.outerHTML.slice(0,2500)})),
-                  basisSelectors:{block:document.querySelectorAll('#people .damage-basis-block').length,card:document.querySelectorAll('#people .damage-basis-card').length,data:document.querySelectorAll('#people [data-damage-basis]').length},
-                  scripts:Array.from(document.scripts).map(s=>s.src||'[inline]').filter(src=>src.includes('damage')||src.includes('work-034')||src.includes('detail_info')),
-                  styles:Array.from(document.querySelectorAll('link[rel="stylesheet"]')).map(s=>s.href),
-                  peopleHTML:people?.innerHTML||''
-                };
-              });
-              console.log(`=== ${name.toUpperCase()} WORK034 DOM DIAGNOSIS ===`);
-              console.log(JSON.stringify({...result,peopleHTML:undefined,events},null,2));
-              fs.writeFileSync(`/tmp/work034-${name}-people.html`,result.peopleHTML);
-              fs.writeFileSync(`/tmp/work034-${name}-diagnosis.json`,JSON.stringify({...result,peopleHTML:undefined,events},null,2));
-              await page.screenshot({path:`/tmp/work034-${name}-page.png`,fullPage:true});
-              await page.close();
+            const browser=await puppeteer.launch({executablePath:process.env.CHROME_PATH,headless:true,args:['--no-sandbox','--disable-setuid-sandbox']});
+            const page=await browser.newPage();
+            page.on('pageerror',error=>console.error('[pageerror]',error.stack||error.message));
+            await page.goto('http://127.0.0.1:8000/detail.html?id=034',{waitUntil:'networkidle2',timeout:120000});
+            await new Promise(resolve=>setTimeout(resolve,5000));
+            async function audit(stage){
+              const result=await page.evaluate(()=>({
+                labels:Array.from(document.querySelectorAll('#people .damage-label')).map(el=>el.textContent.trim()),
+                evidenceBlocks:document.querySelectorAll('#people .damage-evidence-block').length,
+                expandButtons:document.querySelectorAll('#people [data-action="expand"]').length,
+                basisText:(document.getElementById('people')?.innerText||'').includes('恢复依据'),
+                analysisText:(document.getElementById('people')?.innerText||'').includes('AI分析依据'),
+                contextText:(document.getElementById('people')?.innerText||'').includes('恢复后的上下文'),
+                script:Array.from(document.scripts).map(s=>s.src).find(src=>src.includes('/js/work-034.js'))||''
+              }));
+              console.log(stage,JSON.stringify(result));
+              if(result.evidenceBlocks!==0||result.expandButtons!==0||result.basisText||result.analysisText||!result.contextText||!result.script.includes('20260726_zhangjilao_034_v3'))throw new Error(`browser audit failed at ${stage}`);
             }
-            await inspect('local','http://127.0.0.1:8000/detail.html?id=034');
-            await inspect('live','https://sphinxl97.github.io/detail.html?id=034');
+            await audit('initial');
+            const next=await page.$('#people [data-action="next"]');
+            if(next){await next.click();await new Promise(resolve=>setTimeout(resolve,500));}
+            await audit('after-next');
+            await page.screenshot({path:'/tmp/work034-after-removal.png',fullPage:true});
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1);});
           NODE
-      - uses: actions/upload-artifact@v4
-        with:
-          name: work034-dom-diagnosis
-          path: |
-            /tmp/work034-*-people.html
-            /tmp/work034-*-diagnosis.json
-            /tmp/work034-*-page.png
-            /tmp/work034-http.log
+      - name: Commit clean result
+        run: |
+          rm -rf node_modules
+          rm -f scripts/fix_work034_remove_evidence.py .github/workflows/diagnose-work034-recovery-basis.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add -A
+          git commit -m "彻底删除034依据分析区块"
+          git push origin agent/diagnose-work034-recovery-basis
