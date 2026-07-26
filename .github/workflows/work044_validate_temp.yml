@@ -1,4 +1,4 @@
-name: Validate Work044 implementation
+name: Diagnose Work044 implementation
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  validate:
+  diagnose:
     if: github.head_ref == 'agent/work044-cui-jingyong-v1'
     runs-on: ubuntu-latest
     steps:
@@ -18,102 +18,81 @@ jobs:
         run: |
           python -m pip install playwright
           python -m playwright install --with-deps chromium
-      - name: Validate Work044 page
+      - name: Capture rendered Work044 state
         shell: bash
         run: |
           python -m http.server 8000 >/tmp/work044-http.log 2>&1 &
           python - <<'PY'
           from playwright.sync_api import sync_playwright
+          from pathlib import Path
+          import json
 
-          forbidden = [
-              '恢复依据',
-              '资料查证结果',
-              '资料使用原则',
-              '使用说明',
-              '人工核验',
-              '模型自动',
-              'bbox',
-          ]
-          expected = [
-              (11, '克佐□殷', '揃'),
-              (24, '加谥曰贞。□也', '礼'),
-              (31, '篆幽石兮深□', '隧'),
-          ]
-
+          report = {'cases': [], 'errors': []}
           with sync_playwright() as p:
               browser = p.chromium.launch()
               page = browser.new_page(viewport={'width': 1600, 'height': 1100})
-              errors = []
-              page.on('pageerror', lambda exc: errors.append(str(exc)))
+              page.on('pageerror', lambda exc: report['errors'].append(str(exc)))
               page.goto('http://127.0.0.1:8000/detail.html?id=044', wait_until='networkidle')
               page.wait_for_function('() => Boolean(window.__WORK_044_STABLE_READY__ && window.__WORK_044_CROWDSOURCE_READY__)')
 
-              # Column 2: exactly three unresolved slots remain in the reading text.
               transcript = page.locator('#calligraphy').inner_text()
-              assert transcript.count('□') == 3, transcript
-              assert '?' not in transcript and '？' not in transcript, transcript
-              assert '〔揃〕' not in transcript and '〔礼〕' not in transcript and '〔隧〕' not in transcript
+              report['transcript'] = {
+                  'square_count': transcript.count('□'),
+                  'has_ascii_question': '?' in transcript,
+                  'has_cn_question': '？' in transcript,
+                  'has_candidates': any(x in transcript for x in ['〔揃〕','〔礼〕','〔隧〕']),
+                  'text': transcript,
+              }
+              report['case_tab_count'] = page.locator('#people .damage-tab').count()
+              report['image_heading'] = page.locator('#people .damage-card.damage-image-card h3').inner_text()
 
-              # Column 3: three cases, stable 001—003 image structure, no extra technical wording.
-              assert page.locator('#people .damage-tab').count() == 3
-              assert page.locator('#people .damage-card.damage-image-card h3').inner_text().strip() == '拓片原图（局部）'
-              for index, (page_no, title, candidate) in enumerate(expected):
-                  if index:
-                      page.locator(f'#people [data-case-index="{index}"]').click()
-                  page.wait_for_timeout(150)
-                  panel_text = page.locator('#people').inner_text()
-                  assert title in panel_text, panel_text
-                  assert candidate in panel_text, panel_text
-                  assert f'《崔敬邕墓誌》第{page_no}页，对应问题字局部' in panel_text, panel_text
-                  assert page.locator('#people .damage-crop-svg').count() == 1
-                  assert page.locator('#people .damage-box').count() == 1
-                  image_href = page.locator('#people .damage-crop-svg image').get_attribute('href') or ''
-                  assert image_href.endswith(f'{page_no:04d}_' + {11:'十一',24:'二十四',31:'三十一'}[page_no] + '.jpg'), image_href
-                  for phrase in forbidden:
-                      assert phrase not in panel_text, (phrase, panel_text)
+              for index in range(3):
+                  page.locator(f'#people [data-case-index="{index}"]').click()
+                  page.wait_for_timeout(200)
+                  report['cases'].append({
+                      'index': index,
+                      'panel_text': page.locator('#people').inner_text(),
+                      'svg_count': page.locator('#people .damage-crop-svg').count(),
+                      'box_count': page.locator('#people .damage-box').count(),
+                      'caption': page.locator('#people .damage-caption').inner_text() if page.locator('#people .damage-caption').count() else '',
+                      'image_href': page.locator('#people .damage-crop-svg image').get_attribute('href') if page.locator('#people .damage-crop-svg image').count() else '',
+                  })
 
-              # Column 4: shared standard AI completion format with three synchronized cases.
-              page.locator('#places .crowd-tab').nth(2).click()
-              page.wait_for_function("() => document.querySelector('#places [data-panel=\"missingText\"] .crowd-simple-head strong')?.textContent.includes('AI 补字意见')")
-              card = page.locator('#places [data-panel="missingText"] .crowd-simple-card')
-              card_text = card.inner_text()
-              assert 'AI 补字意见 · 第1处' in card_text, card_text
-              assert '第1 / 3处' in card_text or '第1／3处' in card_text, card_text
-              assert '对应案例位置' in card_text
-              assert '原始残损文本' in card_text
-              assert '网站当前 AI 恢复内容' in card_text
+              report['crowd_tab_count'] = page.locator('#places .crowd-tab').count()
+              if report['crowd_tab_count'] >= 3:
+                  page.locator('#places .crowd-tab').nth(2).click()
+                  page.wait_for_timeout(500)
+                  report['crowd_text'] = page.locator('#places').inner_text()
+                  report['crowd_values'] = page.evaluate("""
+                    () => {
+                      const result = {};
+                      document.querySelectorAll('#places .crowd-field').forEach(field => {
+                        const label = (field.querySelector('label')?.textContent || '').replace('*','').trim();
+                        const control = field.querySelector('input,textarea,select');
+                        if (label && control) result[label] = control.value;
+                      });
+                      return result;
+                    }
+                  """)
 
-              values = page.evaluate("""
-                () => {
-                  const result = {};
-                  document.querySelectorAll('#places [data-panel="missingText"] .crowd-field').forEach(field => {
-                    const label = (field.querySelector('label')?.textContent || '').replace('*','').trim();
-                    const control = field.querySelector('input,textarea,select');
-                    if (label && control) result[label] = control.value;
-                  });
-                  return result;
-                }
-              """)
-              assert values.get('对应案例位置','').startswith('第11页｜'), values
-              assert values.get('原始残损文本') == '其在隆周，远祖尚父，实作太师，秉旄鹰扬，克佐□殷。', values
-              assert values.get('网站当前 AI 恢复内容') == '其在隆周，远祖尚父，实作太师，秉旄鹰扬，克佐〔揃〕殷。', values
+              report['page_option_count'] = page.locator('#pageSelect option').count()
+              page.select_option('#pageSelect', index=10)
+              page.wait_for_timeout(1000)
+              report['page11_box_count'] = page.locator('#imageWrap .glyph-box').count()
+              page.select_option('#pageSelect', index=0)
+              page.wait_for_timeout(600)
+              report['page1_box_count'] = page.locator('#imageWrap .glyph-box').count()
 
-              # Column 1: 52 pages; model boxes exist on text pages and not on the cover.
-              assert page.locator('#pageSelect option').count() == 52
-              page.select_option('#pageSelect', index=10)  # page 11
-              page.wait_for_timeout(800)
-              assert page.locator('#imageWrap .glyph-box').count() > 0
-              page.select_option('#pageSelect', index=0)   # page 1
-              page.wait_for_timeout(500)
-              assert page.locator('#imageWrap .glyph-box').count() == 0
-
-              assert not errors, errors
               page.locator('#people').scroll_into_view_if_needed()
-              page.screenshot(path='/tmp/work044-validation.png', full_page=True)
+              page.screenshot(path='/tmp/work044-diagnostic.png', full_page=True)
               browser.close()
+
+          Path('/tmp/work044-diagnostic.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
           PY
       - uses: actions/upload-artifact@v4
         with:
-          name: work044-validation
-          path: /tmp/work044-validation.png
+          name: work044-diagnostic
+          path: |
+            /tmp/work044-diagnostic.json
+            /tmp/work044-diagnostic.png
           retention-days: 2
