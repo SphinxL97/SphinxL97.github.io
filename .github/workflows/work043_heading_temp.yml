@@ -1,0 +1,38 @@
+name: Finalize Work043 image heading
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  finalize-heading:
+    if: github.head_ref == 'agent/fix-work043-page-crowdsource'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-work043-page-crowdsource
+          fetch-depth: 0
+      - name: Make the verified page number visible in the image heading
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('js/work-043.js')
+          text = path.read_text(encoding='utf-8')
+          old = '<h3>拓片原图（局部）</h3>${locationHTML(item)}'
+          new = '<h3>拓片原图（第${item.page}页）</h3>${locationHTML(item)}'
+          if old not in text:
+              raise SystemExit('heading anchor missing')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          Path('.github/workflows/work043_heading_temp.yml').unlink()
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "强化043案例页码显示 [skip ci]"
+          git push origin HEAD:agent/fix-work043-page-crowdsource
