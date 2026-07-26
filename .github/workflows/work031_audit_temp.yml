@@ -1,12 +1,13 @@
 name: Audit Work031 volumes
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/work031-huangtingjian-volumes-v1
+      - main
 
 jobs:
   audit:
+    if: github.head_ref == 'agent/work031-huangtingjian-volumes-v1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -66,7 +67,8 @@ jobs:
                       wid = str(obj.get('work_id', ''))
                       vid = str(obj.get('virtual_id', ''))
                       gid = str(obj.get('glyph_id', ''))
-                      if wid.startswith('031') or vid.startswith('031') or gid.startswith('031'):
+                      has_bbox = any(k in obj for k in ('bbox','x','bbox_x','model_x','border_x'))
+                      if has_bbox and (wid.startswith('031') or vid.startswith('031') or gid.startswith('031')):
                           report['coordinate_hits'].append({'file': str(path), 'record': obj})
                       stack.extend(obj.values())
                   elif isinstance(obj, list):
