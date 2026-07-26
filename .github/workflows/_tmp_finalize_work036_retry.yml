@@ -1,0 +1,95 @@
+name: Temporary finalize work036 retry
+
+on:
+  push:
+    branches:
+      - agent/add-work036-yiheming
+    paths:
+      - '.github/workflows/_tmp_finalize_work036_retry.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/add-work036-yiheming
+          fetch-depth: 0
+      - name: Generate
+        run: python3 scripts/_tmp_finalize_work036.py
+      - name: Static validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check js/work-036.js
+          node --check js/work-036-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          text=Path('data/work036_full_text.txt').read_text(encoding='utf-8')
+          cases=json.loads(Path('data/work036_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work036_coordinate_report.json').read_text(encoding='utf-8'))
+          assert text.count('□')==23 and len(text.strip().split('\n\n'))==2
+          assert len(cases)==13 and all(c['locations'][0]['bbox'] for c in cases)
+          assert report['model_glyph_count']==138 and report['model_box_count']==31
+          assert report['located_case_count']==13 and report['unmatched_model_box_count']==8
+          assert len(list(Path('data/glyph_boxes/iiif/036').glob('page_*.json')))==64
+          assert '（一）' not in text and '水前本' not in text and '水后本' not in text
+          PY
+          ! grep -F '恢复依据' js/work-036.js
+          ! grep -F '真实模型字框' js/work-036.js
+          ! grep -F 'title="${esc(loc.glyph_id' js/work-036.js
+      - name: Browser validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save playwright@1.55.0
+          npx playwright install chromium
+          python3 -m http.server 8000 >/tmp/work036-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          node <<'JS'
+          const { chromium }=require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1440,height:1000}});
+            await page.goto('http://127.0.0.1:8000/detail.html?id=036',{waitUntil:'networkidle'});
+            await page.waitForFunction(()=>window.__WORK_036_STABLE_READY__===true,{timeout:30000});
+            const result=await page.evaluate(()=>({
+              paragraphs:document.querySelectorAll('#calligraphy .full-transcript-body>p').length,
+              cases:document.querySelectorAll('#people .damage-tab').length,
+              shared:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
+              boxes:document.querySelectorAll('#people .work036-real-box').length,
+              titleAttrs:Array.from(document.querySelectorAll('#people .work036-real-box')).filter(n=>n.hasAttribute('title')).length,
+              caption:document.querySelector('#people .damage-caption')?.textContent?.trim()||'',
+              transcript:document.querySelector('#calligraphy .full-transcript-body')?.innerText||'',
+              forbidden:document.querySelector('#people')?.innerText.includes('恢复依据')||document.body.innerText.includes('真实模型字框')
+            }));
+            if(result.paragraphs!==2||result.cases!==13||result.shared!==13||result.boxes<1||result.titleAttrs!==0||result.forbidden)throw new Error(JSON.stringify(result));
+            if(result.transcript.includes('水前本')||result.transcript.includes('水后本')||/[（(][一二三四五六七八九十]+[）)]/.test(result.transcript))throw new Error(JSON.stringify(result));
+            if(!/^《瘗鹤铭》第\d+页，对应问题字局部$/.test(result.caption))throw new Error(JSON.stringify(result));
+            console.log(JSON.stringify(result,null,2));
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          JS
+      - name: Cleanup and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f scripts/_tmp_audit_work036.py scripts/_tmp_finalize_work036.py
+          rm -f data/_tmp_work036_coordinate_audit.json data/_tmp_work036_case_seed.json
+          rm -f .github/workflows/_tmp_audit_work036.yml
+          rm -f .github/workflows/_tmp_finalize_work036.yml
+          rm -f .github/workflows/_tmp_finalize_work036_retry.yml
+          rm -rf node_modules package-lock.json package.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '完成036瘗鹤铭专属内容 [skip ci]'
+          git push origin HEAD:agent/add-work036-yiheming
