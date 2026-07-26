@@ -1,0 +1,78 @@
+name: Validate Work043 page and crowdsource
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    if: github.head_ref == 'agent/fix-work043-page-crowdsource'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install browser
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Validate rendered page
+        shell: bash
+        run: |
+          python -m http.server 8000 >/tmp/work043-http.log 2>&1 &
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page(viewport={"width": 1500, "height": 1000})
+              errors = []
+              page.on("pageerror", lambda exc: errors.append(str(exc)))
+              page.goto("http://127.0.0.1:8000/detail.html?id=043", wait_until="networkidle")
+              page.wait_for_function("() => Boolean(window.__WORK_043_STABLE_READY__ && window.__WORK_043_CROWDSOURCE_READY__)")
+              page.wait_for_function("() => document.querySelector('#places [data-panel=\"missingText\"] .crowd-simple-head strong')?.textContent.includes('AI 补字意见')")
+
+              damage_text = page.locator('#people').inner_text()
+              assert '第9页' in damage_text, damage_text
+              assert '恢复依据' not in damage_text
+              assert '资料查证结果' not in damage_text
+              assert '资料使用原则' not in damage_text
+              assert page.locator('#people .work043-page-only img').count() == 1
+              img_src = page.locator('#people .work043-page-only img').get_attribute('src') or ''
+              assert img_src.endswith('0009_九.jpg'), img_src
+              assert page.locator('#people .work043-real-box').count() == 0
+
+              card = page.locator('#places [data-panel="missingText"] .crowd-simple-card')
+              card_text = card.inner_text()
+              assert 'AI 补字意见 · 第1处' in card_text, card_text
+              assert '对应案例位置' in card_text
+              assert '原始残损文本' in card_text
+              assert '网站当前 AI 恢复内容' in card_text
+              assert '认同当前 AI 恢复内容' in card_text
+              assert '不认同，需要提出修改' in card_text
+
+              values = page.evaluate("""
+                () => {
+                  const result = {};
+                  document.querySelectorAll('#places [data-panel="missingText"] .crowd-field').forEach(field => {
+                    const label = (field.querySelector('label')?.textContent || '').replace('*','').trim();
+                    const control = field.querySelector('input,textarea,select');
+                    if (label && control) result[label] = control.value;
+                  });
+                  return result;
+                }
+              """)
+              assert values.get('对应案例位置','').startswith('第9页｜'), values
+              assert values.get('原始残损文本') == '又夫人性寡妒□，多于容纳。', values
+              assert values.get('网站当前 AI 恢复内容') == '又夫人性寡妒〔𡜱〕，多于容纳。', values
+              assert not errors, errors
+              page.screenshot(path='/tmp/work043-validation.png', full_page=True)
+              browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: work043-validation
+          path: /tmp/work043-validation.png
+          retention-days: 1
