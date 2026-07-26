@@ -20,76 +20,81 @@ jobs:
         run: |
           python -m pip install playwright
           python -m playwright install --with-deps chromium
-      - name: Capture actual rendering
+      - name: Validate final rendering
         shell: bash
         run: |
           python -m http.server 8000 >/tmp/work031-http.log 2>&1 &
-          python - <<'PY' > /tmp/work031-validation.log 2>&1
+          python - <<'PY'
           from playwright.sync_api import sync_playwright
           from pathlib import Path
-          import json, traceback
+          import json
 
+          banned=['恢复依据','资料查证结果','资料使用原则','使用说明','人工核验校准框','不是模型自动bbox']
           results={}
           with sync_playwright() as p:
               browser=p.chromium.launch()
-              for vid in ('031-01','031-02'):
+              for vid,pages,squares,cases,located,special_index,box_index in [
+                  ('031-01',61,9,5,5,0,8),
+                  ('031-02',60,15,8,6,57,10),
+              ]:
                   page=browser.new_page(viewport={'width':1500,'height':1000})
                   errors=[]
-                  page.on('pageerror',lambda exc, errors=errors: errors.append(str(exc)))
-                  row={'errors':errors}
-                  try:
-                      page.goto(f'http://127.0.0.1:8000/detail.html?id={vid}',wait_until='networkidle')
-                      flag='__WORK_031_01_STABLE_READY__' if vid=='031-01' else '__WORK_031_02_STABLE_READY__'
-                      crowd='__WORK_031_01_CROWDSOURCE_READY__' if vid=='031-01' else '__WORK_031_02_CROWDSOURCE_READY__'
-                      page.wait_for_function(f'() => Boolean(window.{flag} && window.{crowd})',timeout=30000)
-                      page.wait_for_selector('#people .damage-shell',timeout=30000)
-                      page.wait_for_selector('#calligraphy .full-transcript-body',timeout=30000)
-                      transcript=page.locator('#calligraphy .full-transcript-body').inner_text()
-                      row.update({
-                          'options':page.locator('#pageSelect option').count(),
-                          'squares':transcript.count('□'),
-                          'bracket_open':transcript.count('〔'),
-                          'strongs':page.locator('#calligraphy strong.transcript-problem-sentence').count(),
-                          'tabs':page.locator('#people .damage-tab').count(),
-                          'damage_text':page.locator('#people').inner_text(),
-                          'places_text':page.locator('#places').inner_text(),
-                      })
-                      tabs=page.locator('#people .damage-tab')
-                      visual=[]
-                      for i in range(tabs.count()):
-                          tabs.nth(i).click();page.wait_for_timeout(100)
-                          visual.append({
-                              'index':i+1,
-                              'red':page.locator('#people .damage-box').count(),
-                              'caption':page.locator('#people .damage-caption').all_inner_texts(),
-                              'missing':page.locator('#people .work031-location-missing').all_inner_texts(),
-                          })
-                      row['visual']=visual
-                      for label,index in [('special',0 if vid=='031-01' else 57),('model',8 if vid=='031-01' else 10)]:
-                          page.evaluate(f'loadPage({index})');page.wait_for_timeout(650)
-                          row[label+'_boxes']=page.locator('#imageWrap .glyph-box').count()
-                          row[label+'_status']=page.locator('#readerStatus').inner_text()
-                      page.screenshot(path=f'/tmp/{vid}.png',full_page=True)
-                  except Exception as exc:
-                      row['exception']=repr(exc)
-                      row['traceback']=traceback.format_exc()
-                      try: page.screenshot(path=f'/tmp/{vid}.png',full_page=True)
-                      except Exception: pass
-                  results[vid]=row
+                  page.on('pageerror',lambda exc,errors=errors:errors.append(str(exc)))
+                  page.goto(f'http://127.0.0.1:8000/detail.html?id={vid}',wait_until='networkidle')
+                  flag='__WORK_031_01_STABLE_READY__' if vid=='031-01' else '__WORK_031_02_STABLE_READY__'
+                  crowd='__WORK_031_01_CROWDSOURCE_READY__' if vid=='031-01' else '__WORK_031_02_CROWDSOURCE_READY__'
+                  page.wait_for_function(f'() => Boolean(window.{flag} && window.{crowd})',timeout=30000)
+                  page.wait_for_selector('#people .damage-shell')
+                  page.wait_for_selector('#calligraphy .full-transcript-body')
+
+                  transcript=page.locator('#calligraphy .full-transcript-body').inner_text()
+                  assert page.locator('#pageSelect option').count()==pages
+                  assert transcript.count('□')==squares,(vid,transcript.count('□'))
+                  assert '〔' not in transcript and '〕' not in transcript
+                  assert page.locator('#calligraphy strong.transcript-problem-sentence').count()==cases,(vid,'strongs')
+                  damage=page.locator('#people').inner_text()
+                  for word in banned:assert word not in damage,(vid,word)
+                  assert page.locator('#people .damage-tab').count()==cases
+
+                  tabs=page.locator('#people .damage-tab');red=0;missing=0;captions=[]
+                  for i in range(cases):
+                      tabs.nth(i).click();page.wait_for_timeout(80)
+                      if page.locator('#people .damage-box').count():
+                          red+=1
+                          cap=page.locator('#people .damage-caption').inner_text()
+                          captions.append(cap)
+                          assert cap.endswith('本句第一个问题字局部'),cap
+                      else:
+                          missing+=1
+                          assert page.locator('#people .work031-location-missing').inner_text().strip()=='暂未可靠定位'
+                  assert red==located,(vid,red)
+                  assert missing==cases-located,(vid,missing)
+
+                  page.evaluate(f'loadPage({special_index})');page.wait_for_timeout(550)
+                  assert page.locator('#imageWrap .glyph-box').count()==0,(vid,'special boxes')
+                  page.evaluate(f'loadPage({box_index})');page.wait_for_timeout(550)
+                  assert page.locator('#imageWrap .glyph-box').count()>0,(vid,'model boxes')
+
+                  crowd_tabs=page.locator('#places .crowd-tab')
+                  assert crowd_tabs.count()>=3,(vid,'crowd tabs')
+                  crowd_tabs.nth(2).click();page.wait_for_timeout(350)
+                  places=page.locator('#places').inner_text()
+                  assert 'AI补字意见' in places,(vid,places[:600])
+                  assert f'第1／{cases}处' in places or f'第1 / {cases}处' in places or f'第 1 / {cases} 处' in places,(vid,places[:800])
+                  first_original='□一丘壑，似漁非丗漁。獨□頌不遺，' if vid=='031-01' else '蓮子□箭鏃，花葵仄金□。'
+                  assert first_original in places,(vid,'crowd original')
+                  assert not errors,errors
+                  page.screenshot(path=f'/tmp/{vid}.png',full_page=True)
+                  results[vid]={'pages':pages,'squares':squares,'cases':cases,'located':red,'missing':missing,'captions':captions,'crowd_ok':True,'errors':errors}
                   page.close()
               browser.close()
           Path('/tmp/work031-validation.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps(results,ensure_ascii=False,indent=2))
           PY
-          cat /tmp/work031-validation.log
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: work031-validation
+          name: work031-validation-final
           path: |
             /tmp/031-01.png
             /tmp/031-02.png
             /tmp/work031-validation.json
-            /tmp/work031-validation.log
-            /tmp/work031-http.log
           retention-days: 2
