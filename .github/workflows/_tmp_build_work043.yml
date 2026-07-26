@@ -75,7 +75,7 @@ jobs:
           npm install --no-save playwright@1.55.0 >/dev/null 2>&1
           npx playwright install chromium >/dev/null 2>&1
 
-      - name: Test rendered 043 page
+      - name: Capture rendered 043 page
         shell: bash
         run: |
           set -euo pipefail
@@ -87,71 +87,100 @@ jobs:
           const fs=require('fs');
           const { chromium } = require('playwright');
           (async()=>{
-            const browser=await chromium.launch({headless:true});
-            const page=await browser.newPage({viewport:{width:1536,height:1024}});
-            const errors=[];
-            page.on('pageerror',error=>errors.push(String(error)));
-            await page.goto('http://127.0.0.1:8000/detail.html?id=043',{waitUntil:'domcontentloaded',timeout:30000});
-            await page.waitForTimeout(5000);
-            const result=await page.evaluate(()=>({
-              title:document.title,
-              scripts:Array.from(document.scripts).map(s=>s.src).filter(Boolean),
-              router81:Boolean(window.__DAMAGE_AI_READING_ROUTER_V81__),
-              detail41:Boolean(window.__DETAIL_INFO_STABLE_ENTRY_V41__),
-              moduleLoaded:Boolean(window.__WORK_043_MENGJINGXUN__),
-              stableReady:Boolean(window.__WORK_043_STABLE_READY__),
-              crowdReady:Boolean(window.__WORK_043_CROWDSOURCE_READY__),
-              transcriptText:document.querySelector('#calligraphy .full-transcript-body')?.innerText||'',
-              transcriptBoxes:(document.querySelector('#calligraphy .full-transcript-body')?.innerText.match(/□/g)||[]).length,
-              transcriptParagraphs:document.querySelectorAll('#calligraphy .full-transcript-body > p').length,
-              boldCount:document.querySelectorAll('#calligraphy .transcript-problem-sentence').length,
-              cases:document.querySelectorAll('#people .damage-tab').length,
-              missingText:document.querySelector('#people .work043-location-missing')?.innerText||'',
-              redBoxes:document.querySelectorAll('#people .work043-real-box,#people .damage-box').length,
-              peopleText:document.querySelector('#people')?.innerText||'',
-              sharedCases:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
-              pageCount:document.querySelectorAll('#pageSelect option').length,
-              errors
-            }));
-            fs.writeFileSync('/tmp/work043-browser-result.json',JSON.stringify(result,null,2));
-            console.log(JSON.stringify(result,null,2));
-            if(!result.moduleLoaded||!result.stableReady)throw new Error('module not ready');
-            if(result.transcriptBoxes!==1||result.transcriptParagraphs!==3||result.boldCount!==1)throw new Error('transcript mismatch');
-            if(result.cases!==1||result.sharedCases!==1)throw new Error('case mismatch');
-            if(!result.missingText.includes('暂未获得可靠页码与真实字框'))throw new Error('missing-location message absent');
-            if(result.redBoxes!==0)throw new Error('false bbox rendered');
-            if(result.peopleText.includes('恢复依据')||result.peopleText.includes('资料查证结果')||result.peopleText.includes('资料使用原则'))throw new Error('forbidden block rendered');
-            if(!result.crowdReady)throw new Error('crowdsource not ready');
-            if(result.pageCount!==20)throw new Error('page count mismatch');
-            if(result.errors.length)throw new Error('page errors');
-            await browser.close();
-          })().catch(error=>{console.error(error);process.exit(1);});
+            const result={stage:'start',errors:[]};
+            let browser=null;
+            try{
+              browser=await chromium.launch({headless:true});
+              result.stage='browser-launched';
+              const page=await browser.newPage({viewport:{width:1536,height:1024}});
+              page.on('pageerror',error=>result.errors.push(String(error)));
+              await page.goto('http://127.0.0.1:8000/detail.html?id=043',{waitUntil:'domcontentloaded',timeout:30000});
+              result.stage='page-loaded';
+              await page.waitForTimeout(5000);
+              Object.assign(result,await page.evaluate(()=>({
+                title:document.title,
+                scripts:Array.from(document.scripts).map(s=>s.src).filter(Boolean),
+                router81:Boolean(window.__DAMAGE_AI_READING_ROUTER_V81__),
+                detail41:Boolean(window.__DETAIL_INFO_STABLE_ENTRY_V41__),
+                moduleLoaded:Boolean(window.__WORK_043_MENGJINGXUN__),
+                stableReady:Boolean(window.__WORK_043_STABLE_READY__),
+                crowdReady:Boolean(window.__WORK_043_CROWDSOURCE_READY__),
+                transcriptText:document.querySelector('#calligraphy .full-transcript-body')?.innerText||'',
+                transcriptBoxes:(document.querySelector('#calligraphy .full-transcript-body')?.innerText.match(/□/g)||[]).length,
+                transcriptParagraphs:document.querySelectorAll('#calligraphy .full-transcript-body > p').length,
+                boldCount:document.querySelectorAll('#calligraphy .transcript-problem-sentence').length,
+                cases:document.querySelectorAll('#people .damage-tab').length,
+                missingText:document.querySelector('#people .work043-location-missing')?.innerText||'',
+                redBoxes:document.querySelectorAll('#people .work043-real-box,#people .damage-box').length,
+                peopleText:document.querySelector('#people')?.innerText||'',
+                sharedCases:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
+                pageCount:document.querySelectorAll('#pageSelect option').length
+              })));
+              result.stage='captured';
+            }catch(error){
+              result.stage='exception';
+              result.exception=String(error&&error.stack||error);
+            }finally{
+              if(browser)await browser.close().catch(()=>{});
+              fs.writeFileSync('data/_tmp_work043_browser_result.json',JSON.stringify(result,null,2));
+              console.log(JSON.stringify(result,null,2));
+            }
+          })().catch(error=>{fs.writeFileSync('data/_tmp_work043_browser_result.json',JSON.stringify({stage:'outer-exception',exception:String(error&&error.stack||error)},null,2));});
           JS
 
-      - name: Upload browser diagnostic
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: work043-browser-result
-          path: /tmp/work043-browser-result.json
-
-      - name: Commit browser diagnostic on failure
-        if: failure()
+      - name: Validate rendered 043 page
         shell: bash
         run: |
-          set -euo pipefail
-          test -f /tmp/work043-browser-result.json
-          cp /tmp/work043-browser-result.json data/_tmp_work043_browser_result.json
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/_tmp_work043_browser_result.json
-          git commit -m '保存043浏览器诊断结果'
-          git push origin HEAD:agent/work043-mengjingxun-v1
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path('data/_tmp_work043_browser_result.json').read_text(encoding='utf-8'))
+          assert result.get('stage') == 'captured', result
+          assert result.get('moduleLoaded') and result.get('stableReady'), result
+          assert result.get('transcriptBoxes') == 1, result
+          assert result.get('transcriptParagraphs') == 3, result
+          assert result.get('boldCount') == 1, result
+          assert result.get('cases') == 1 and result.get('sharedCases') == 1, result
+          assert '暂未获得可靠页码与真实字框' in result.get('missingText',''), result
+          assert result.get('redBoxes') == 0, result
+          people=result.get('peopleText','')
+          assert '恢复依据' not in people and '资料查证结果' not in people and '资料使用原则' not in people, result
+          assert result.get('crowdReady'), result
+          assert result.get('pageCount') == 20, result
+          assert not result.get('errors'), result
+          PY
+
+      - name: Save browser diagnostic on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, urllib.request, urllib.error
+          from pathlib import Path
+          repo=os.environ['GITHUB_REPOSITORY']
+          branch='agent/work043-mengjingxun-v1'
+          path='data/_tmp_work043_browser_result.json'
+          content=Path(path).read_bytes() if Path(path).exists() else b'{"stage":"diagnostic-file-missing"}'
+          api=f'https://api.github.com/repos/{repo}/contents/{path}'
+          headers={'Authorization':f'Bearer {os.environ["GH_TOKEN"]}','Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'}
+          sha=None
+          try:
+            req=urllib.request.Request(api+'?ref='+branch,headers=headers)
+            with urllib.request.urlopen(req) as response: sha=json.load(response).get('sha')
+          except urllib.error.HTTPError as error:
+            if error.code!=404: raise
+          payload={'message':'保存043浏览器诊断结果','content':base64.b64encode(content).decode(),'branch':branch}
+          if sha: payload['sha']=sha
+          req=urllib.request.Request(api,data=json.dumps(payload).encode(),headers=headers,method='PUT')
+          with urllib.request.urlopen(req) as response: print(json.load(response)['commit']['sha'])
+          PY
 
       - name: Commit formal work043 changes
         shell: bash
         run: |
           set -euo pipefail
+          rm -f data/_tmp_work043_browser_result.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add data/work043_full_text.txt data/work043_damage_cases.json data/work043_coordinate_report.json js/work-043.js data/beitie_catalog.json data/beitie_header_info.json js/damage_ai_reading.js js/detail_info_patch.js detail.html
