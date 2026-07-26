@@ -1,0 +1,29 @@
+name: Kick Work043 SVG red box
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  kick:
+    if: github.head_ref == 'agent/work043-svg-red-box-v4'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/work043-svg-red-box-v4
+          fetch-depth: 0
+      - name: Trigger branch workflow
+        shell: bash
+        run: |
+          if [ -f _tmp_work043_svg_kick2.txt ]; then exit 0; fi
+          echo kick > _tmp_work043_svg_kick2.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _tmp_work043_svg_kick2.txt
+          git commit -m "触发043 SVG红框分支流程"
+          git push origin HEAD:agent/work043-svg-red-box-v4
