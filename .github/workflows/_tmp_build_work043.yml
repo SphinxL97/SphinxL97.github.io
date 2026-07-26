@@ -89,6 +89,7 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           node <<'JS'
+          const fs=require('fs');
           const { chromium } = require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
@@ -111,20 +112,29 @@ jobs:
               crowdReady:window.__WORK_043_CROWDSOURCE_READY__===true,
               stableReady:window.__WORK_043_STABLE_READY__===true,
               sharedCases:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
-              pageCount:document.querySelectorAll('#pageSelect option').length
+              pageCount:document.querySelectorAll('#pageSelect option').length,
+              errors
             }));
-            if(result.transcriptBoxes!==1||result.transcriptParagraphs!==3||result.boldCount!==1)throw new Error('transcript mismatch '+JSON.stringify(result));
-            if(result.cases!==1||result.sharedCases!==1)throw new Error('case mismatch '+JSON.stringify(result));
-            if(!result.missingText.includes('暂未获得可靠页码与真实字框'))throw new Error('missing-location message absent '+JSON.stringify(result));
-            if(result.redBoxes!==0)throw new Error('false bbox rendered '+JSON.stringify(result));
-            if(result.peopleText.includes('恢复依据')||result.peopleText.includes('资料查证结果')||result.peopleText.includes('资料使用原则'))throw new Error('forbidden block rendered '+JSON.stringify(result));
-            if(!result.crowdReady||!result.stableReady)throw new Error('module not ready '+JSON.stringify(result));
-            if(result.pageCount!==20)throw new Error('page count mismatch '+JSON.stringify(result));
-            if(errors.length)throw new Error('page errors '+JSON.stringify(errors));
+            fs.writeFileSync('/tmp/work043-browser-result.json',JSON.stringify(result,null,2));
             console.log(JSON.stringify(result,null,2));
+            if(result.transcriptBoxes!==1||result.transcriptParagraphs!==3||result.boldCount!==1)throw new Error('transcript mismatch');
+            if(result.cases!==1||result.sharedCases!==1)throw new Error('case mismatch');
+            if(!result.missingText.includes('暂未获得可靠页码与真实字框'))throw new Error('missing-location message absent');
+            if(result.redBoxes!==0)throw new Error('false bbox rendered');
+            if(result.peopleText.includes('恢复依据')||result.peopleText.includes('资料查证结果')||result.peopleText.includes('资料使用原则'))throw new Error('forbidden block rendered');
+            if(!result.crowdReady||!result.stableReady)throw new Error('module not ready');
+            if(result.pageCount!==20)throw new Error('page count mismatch');
+            if(result.errors.length)throw new Error('page errors');
             await browser.close();
           })().catch(error=>{console.error(error);process.exit(1);});
           JS
+
+      - name: Upload browser diagnostic
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: work043-browser-result
+          path: /tmp/work043-browser-result.json
 
       - name: Commit formal work043 changes
         shell: bash
