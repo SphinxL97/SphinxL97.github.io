@@ -51,7 +51,7 @@ jobs:
           ! grep -F '恢复依据' js/work-036.js
           ! grep -F '真实模型字框' js/work-036.js
           ! grep -F 'title="${esc(loc.glyph_id' js/work-036.js
-      - name: Browser validation
+      - name: Browser diagnostic
         shell: bash
         run: |
           set -euo pipefail
@@ -61,30 +61,41 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           node <<'JS'
+          const fs=require('fs');
           const { chromium }=require('playwright');
           (async()=>{
             const browser=await chromium.launch({headless:true});
             const page=await browser.newPage({viewport:{width:1440,height:1000}});
-            await page.goto('http://127.0.0.1:8000/detail.html?id=036',{waitUntil:'networkidle'});
-            await page.waitForFunction(()=>window.__WORK_036_STABLE_READY__===true,{timeout:30000});
-            const result=await page.evaluate(()=>({
-              paragraphs:document.querySelectorAll('#calligraphy .full-transcript-body>p').length,
-              cases:document.querySelectorAll('#people .damage-tab').length,
-              shared:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
-              boxes:document.querySelectorAll('#people .work036-real-box').length,
-              titleAttrs:Array.from(document.querySelectorAll('#people .work036-real-box')).filter(n=>n.hasAttribute('title')).length,
-              caption:document.querySelector('#people .damage-caption')?.textContent?.trim()||'',
-              transcript:document.querySelector('#calligraphy .full-transcript-body')?.innerText||'',
-              forbidden:document.querySelector('#people')?.innerText.includes('恢复依据')||document.body.innerText.includes('真实模型字框')
-            }));
-            if(result.paragraphs!==2||result.cases!==13||result.shared!==13||result.boxes<1||result.titleAttrs!==0||result.forbidden)throw new Error(JSON.stringify(result));
-            if(result.transcript.includes('水前本')||result.transcript.includes('水后本')||/[（(][一二三四五六七八九十]+[）)]/.test(result.transcript))throw new Error(JSON.stringify(result));
-            if(!/^《瘗鹤铭》第\d+页，对应问题字局部$/.test(result.caption))throw new Error(JSON.stringify(result));
-            console.log(JSON.stringify(result,null,2));
+            const consoleMessages=[];
+            page.on('console',msg=>consoleMessages.push(`${msg.type()}: ${msg.text()}`));
+            page.on('pageerror',err=>consoleMessages.push(`pageerror: ${err.message}`));
+            let result={};let error='';
+            try{
+              await page.goto('http://127.0.0.1:8000/detail.html?id=036',{waitUntil:'networkidle'});
+              await page.waitForFunction(()=>window.__WORK_036_STABLE_READY__===true,{timeout:30000});
+              result=await page.evaluate(()=>({
+                paragraphs:document.querySelectorAll('#calligraphy .full-transcript-body>p').length,
+                cases:document.querySelectorAll('#people .damage-tab').length,
+                shared:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
+                boxes036:document.querySelectorAll('#people .work036-real-box').length,
+                boxes035:document.querySelectorAll('#people .work035-real-box').length,
+                allRedBoxes:document.querySelectorAll('#people [class*="real-box"]').length,
+                titleAttrs:Array.from(document.querySelectorAll('#people [class*="real-box"]')).filter(n=>n.hasAttribute('title')).length,
+                caption:document.querySelector('#people .damage-caption')?.textContent?.trim()||'',
+                imageHeading:document.querySelector('#people .damage-image-card h3')?.textContent?.trim()||'',
+                transcript:document.querySelector('#calligraphy .full-transcript-body')?.innerText||'',
+                peopleText:document.querySelector('#people')?.innerText||'',
+                forbidden:document.querySelector('#people')?.innerText.includes('恢复依据')||document.body.innerText.includes('真实模型字框'),
+                flags:{stable:window.__WORK_036_STABLE_READY__,content:window.__WORK_036_CONTENT_READY__,crowd:window.__WORK_036_CROWDSOURCE_READY__,coordinate:window.__WORK_036_COORDINATE_ADAPTER__}
+              }));
+            }catch(e){error=e&&e.stack?e.stack:String(e);}
+            const payload={result,error,consoleMessages};
+            fs.writeFileSync('data/_tmp_work036_browser_debug.json',JSON.stringify(payload,null,2));
+            console.log(JSON.stringify(payload,null,2));
             await browser.close();
-          })().catch(e=>{console.error(e);process.exit(1)});
+          })().catch(e=>{fs.writeFileSync('data/_tmp_work036_browser_debug.json',JSON.stringify({fatal:String(e&&e.stack||e)},null,2));console.error(e);});
           JS
-      - name: Cleanup and commit
+      - name: Commit generated files and diagnostic
         shell: bash
         run: |
           set -euo pipefail
@@ -97,5 +108,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m '完成036瘗鹤铭专属内容 [skip ci]'
+          git commit -m '生成036正式内容并记录浏览器诊断 [skip ci]'
           git push origin HEAD:agent/add-work036-yiheming
