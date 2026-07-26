@@ -1,6 +1,17 @@
 name: Temporary build work036
 
 on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+    paths:
+      - 'scripts/_tmp_build_work036.py'
+      - '.github/workflows/_tmp_build_work036.yml'
   push:
     branches:
       - agent/work036-yiheming-v1
@@ -13,7 +24,7 @@ permissions:
 
 jobs:
   build-test-commit:
-    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
