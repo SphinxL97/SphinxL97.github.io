@@ -1,0 +1,81 @@
+name: Temporary fix work036 caption
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'scripts/_tmp_fix_work036_caption.py'
+      - '.github/workflows/_tmp_fix_work036_caption.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-test-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-work036-caption-visibility
+          fetch-depth: 0
+      - name: Apply caption fix
+        run: python3 scripts/_tmp_fix_work036_caption.py
+      - name: Validate JavaScript and cache tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check js/work-036.js
+          node --check js/damage_ai_reading.js
+          grep -F '20260726_yiheming_036_v2_caption' js/work-036.js
+          grep -F '20260726_yiheming_036_v2_caption' js/damage_ai_reading.js
+          grep -F '20260726_yiheming_036_v2_caption' detail.html
+          grep -F 'padding:4px 4px 2px!important' js/work-036.js
+          grep -F 'object-fit:contain' js/work-036.js
+      - name: Browser layout test
+        shell: bash
+        run: |
+          npm install --no-save playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install chromium >/dev/null 2>&1
+          python3 -m http.server 8000 >/tmp/work036-caption-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          node <<'JS'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1536,height:1024}});
+            await page.goto('http://127.0.0.1:8000/detail.html?id=036',{waitUntil:'networkidle'});
+            await page.waitForFunction(()=>window.__WORK_036_STABLE_READY__===true,{timeout:30000});
+            const result=await page.evaluate(()=>{
+              const card=document.querySelector('#people .damage-image-card');
+              const caption=document.querySelector('#people .damage-caption');
+              const image=document.querySelector('#people .work036-image-stage img');
+              const cr=card?.getBoundingClientRect();
+              const tr=caption?.getBoundingClientRect();
+              return {
+                caption:caption?.textContent?.trim()||'',
+                cardBottom:cr?.bottom||0,
+                captionBottom:tr?.bottom||0,
+                captionTop:tr?.top||0,
+                captionVisible:Boolean(caption&&tr&&cr&&tr.top>=cr.top&&tr.bottom<=cr.bottom+1),
+                imageVisible:Boolean(image&&image.getBoundingClientRect().height>0),
+                redBoxes:document.querySelectorAll('#people .work036-real-box').length
+              };
+            });
+            console.log(JSON.stringify(result,null,2));
+            if(!result.captionVisible||!result.imageVisible||result.redBoxes<1)throw new Error('caption layout regression: '+JSON.stringify(result));
+            if(!/^《瘗鹤铭》第\d+页，对应问题字局部$/.test(result.caption))throw new Error('caption text mismatch');
+            await browser.close();
+          })().catch(error=>{console.error(error);process.exit(1);});
+          JS
+      - name: Commit formal changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf node_modules package-lock.json package.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add js/work-036.js js/damage_ai_reading.js detail.html
+          git commit -m '修复036栏目三图注被裁切 [skip ci]'
+          git push origin HEAD:agent/fix-work036-caption-visibility
