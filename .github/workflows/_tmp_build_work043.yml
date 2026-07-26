@@ -82,6 +82,7 @@ jobs:
           python3 -m http.server 8000 >/tmp/work043-http.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
+          curl -fsS --retry 10 --retry-connrefused --retry-delay 1 'http://127.0.0.1:8000/detail.html?id=043' >/dev/null
           node <<'JS'
           const fs=require('fs');
           const { chromium } = require('playwright');
