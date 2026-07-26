@@ -12,7 +12,7 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="司马昞妻孟敬训墓志";
-  const VERSION="20260726_mengjingxun_043_v4_svg_crop";
+  const VERSION="20260726_mengjingxun_043_v5_caption_cleanup";
   const TEXT_URL=`data/work043_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work043_damage_cases.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";

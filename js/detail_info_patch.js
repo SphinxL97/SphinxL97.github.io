@@ -1,7 +1,8 @@
 /* 碑帖详情页统一入口：稳定加载当前碑帖信息卡，并保留既有详情功能。 */
 (function(){
   "use strict";
-  if(window.__DETAIL_INFO_STABLE_ENTRY_V43__)return;
+  if(window.__DETAIL_INFO_STABLE_ENTRY_V44__)return;
+  window.__DETAIL_INFO_STABLE_ENTRY_V44__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V43__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V42__=true;
   window.__DETAIL_INFO_STABLE_ENTRY_V41__=true;
@@ -57,11 +58,11 @@
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
-  const dataUrl="data/beitie_header_info.json?v=20260726_mengjingxun_043_v3_manual_red_box";
+  const dataUrl="data/beitie_header_info.json?v=20260726_mengjingxun_043_v5_caption_cleanup";
   const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
   const work032DataUrl="data/work032_info.json?v=20260725_xuzhenren_032_v1";
   const work033DataUrl="data/work033_info.json?v=20260725_zhengzuowei_033_v1";
-  const recoveryVersion="20260726_mengjingxun_043_v3_manual_red_box";
+  const recoveryVersion="20260726_mengjingxun_043_v5_caption_cleanup";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
   const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
