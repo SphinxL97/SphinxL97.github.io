@@ -1,27 +1,88 @@
-name: Temporary audit work035 coordinates
+name: Temporary build work035 coordinate fix
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - 'scripts/_tmp_audit_work035.py'
+      - 'scripts/_tmp_build_work035_fix.py'
       - '.github/workflows/_tmp_audit_work035.yml'
-      - 'data/model_boxes/glyph_model_border_031_035.json'
-      - 'data/work035_damage_cases.json'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  audit:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Audit real work035 model boxes
-        run: python3 scripts/_tmp_audit_work035.py
-      - name: Upload audit output
-        uses: actions/upload-artifact@v4
         with:
-          name: work035-coordinate-audit
-          path: work035-audit-output.json
-          retention-days: 1
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - name: Generate real page coordinates and case locations
+        run: python3 scripts/_tmp_build_work035_fix.py
+      - name: Validate data and JavaScript
+        run: |
+          python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          cases=json.loads(Path('data/work035_damage_cases.json').read_text(encoding='utf-8'))
+          report=json.loads(Path('data/work035_coordinate_report.json').read_text(encoding='utf-8'))
+          text=Path('data/work035_full_text.txt').read_text(encoding='utf-8')
+          assert len(cases)==29
+          assert report['model_rows']==1423 and report['coordinate_page_count']==61
+          assert report['model_marker_count']==302 and report['located_cases']==29
+          assert not re.search(r'^（[一二三四五六七八九十]+）',text,re.M)
+          assert all(c['locations'][0]['char']=='□' and c['locations'][0]['bbox'] for c in cases)
+          print('DATA VALIDATION OK')
+          PY
+          node --check js/work-035.js
+          node --check js/work-035-coordinate-adapter.js
+          node --check js/damage_ai_reading.js
+          node --check js/detail_info_patch.js
+      - name: Install browser
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Test rendered columns 2, 3 and 4
+        run: |
+          python3 -m http.server 8000 >/tmp/work035-server.log 2>&1 &
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage();
+            await page.goto('http://127.0.0.1:8000/detail.html?id=035',{waitUntil:'domcontentloaded',timeout:60000});
+            await page.waitForFunction(()=>window.__WORK_035_STABLE_READY__===true,null,{timeout:30000});
+            await page.waitForTimeout(1000);
+            const check=await page.evaluate(()=>({
+              text:document.querySelector('#calligraphy')?.innerText||'',
+              subtitles:document.querySelectorAll('#calligraphy .work035-transcript-subtitle').length,
+              tabs:document.querySelectorAll('#people .damage-tab').length,
+              cases:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
+              box:document.querySelectorAll('#people .work035-real-box').length,
+              image:document.querySelectorAll('#people .work035-case-image img').length,
+              crowd:window.__WORK_035_CROWDSOURCE_READY__===true,
+              body:document.body.innerText||''
+            }));
+            if(check.subtitles!==0||check.text.includes('（一）上古帝王画像榜题')||check.text.includes('（十）武氏石阙铭残文'))throw new Error('栏目二仍有人工分段标题');
+            if(check.tabs!==29||check.cases!==29)throw new Error(`案例数量异常 ${check.tabs}/${check.cases}`);
+            if(check.box!==1||check.image!==1)throw new Error('首例真实字框或原图未显示');
+            if(!check.body.includes('四、众智释读')||!check.crowd)throw new Error('栏目四未就绪');
+            for(const index of [2,7,15,28]){
+              await page.click(`#people [data-case-index="${index}"]`);
+              await page.waitForTimeout(150);
+              const located=await page.evaluate(()=>({box:document.querySelectorAll('#people .work035-real-box').length,image:document.querySelectorAll('#people .work035-case-image img').length}));
+              if(located.box!==1||located.image!==1)throw new Error(`案例${index+1}未显示真实定位`);
+            }
+            console.log(JSON.stringify(check));
+            await browser.close();
+          })().catch(error=>{console.error(error);process.exit(1);});
+          NODE
+      - name: Remove temporary files and commit final fix
+        run: |
+          rm -f scripts/_tmp_audit_work035.py scripts/_tmp_build_work035_fix.py .github/workflows/_tmp_audit_work035.yml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data js detail.html .github/workflows scripts
+          git commit -m '修复035栏目二标题与真实字框定位'
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
