@@ -21,8 +21,26 @@ jobs:
         with:
           python-version: '3.11'
       - name: Apply confirmed Work031 implementation
-        run: python tools/work031_apply_temp.py
+        id: apply
+        shell: bash
+        run: |
+          set +e
+          python tools/work031_apply_temp.py > /tmp/work031-apply.log 2>&1
+          code=$?
+          cat /tmp/work031-apply.log
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: work031-apply-log
+          path: /tmp/work031-apply.log
+          retention-days: 1
+      - name: Stop on apply error
+        if: steps.apply.outputs.code != '0'
+        run: exit 1
       - name: Commit formal files
+        if: steps.apply.outputs.code == '0'
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
