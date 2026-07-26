@@ -1,0 +1,35 @@
+{
+  "version": "20260727_huangtingjian_031_02_v1",
+  "work_id": "031-02",
+  "parent_work_id": "031",
+  "title": "黄庭堅青原山诗刻石(第一辑)册二",
+  "digital_page_count": 60,
+  "model_box_count": 113,
+  "coordinate_page_range": "第3—57页",
+  "coordinate_page_count": 55,
+  "original_image_only_pages": "第1—2页、第58—60页",
+  "case_count": 8,
+  "located_case_count": 6,
+  "unlocated_case_count": 2,
+  "unlocated_case_ids": [
+    "03",
+    "08"
+  ],
+  "case_pages": {
+    "01": 11,
+    "02": 15,
+    "03": 22,
+    "04": 28,
+    "05": 35,
+    "06": 41,
+    "07": 45,
+    "08": 52
+  },
+  "coordinate_source": "data/model_boxes/glyph_model_border_031_035.json中的031-02既有model_border_refined记录",
+  "page_loading": "运行时只读取data/glyph_boxes/iiif/031-02当前页文件。",
+  "special_pages": "第1页封面；第2页题签；第58页空白装帧页；第59页后人题记；第60页封底。上述页面只保留原图。",
+  "unlocated_reason": {
+    "03": "第22页模型将“石”及其后续残损区域合并为一个纵向大框，不能只框出底稿中的第一个问题字。",
+    "08": "第52页在“翠微合”与“事催”之间有两个相邻残损框，无法确定哪一个单框只对应底稿中的“王”。"
+  }
+}
