@@ -1,4 +1,3 @@
-# retry trigger
 name: Temporary finalize work036 retry
 
 on:
@@ -7,13 +6,19 @@ on:
       - agent/add-work036-yiheming
     paths:
       - '.github/workflows/_tmp_finalize_work036_retry.yml'
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
 
 jobs:
   finalize:
-    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
