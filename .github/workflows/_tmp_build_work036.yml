@@ -11,12 +11,14 @@ on:
       - ready_for_review
     paths:
       - 'scripts/_tmp_build_work036.py'
+      - 'scripts/_tmp_patch_work036_mapping.py'
       - '.github/workflows/_tmp_build_work036.yml'
   push:
     branches:
       - agent/work036-yiheming-v1
     paths:
       - 'scripts/_tmp_build_work036.py'
+      - 'scripts/_tmp_patch_work036_mapping.py'
       - '.github/workflows/_tmp_build_work036.yml'
 
 permissions:
@@ -31,6 +33,9 @@ jobs:
         with:
           ref: agent/work036-yiheming-v1
           fetch-depth: 0
+
+      - name: Apply approved explicit coordinate mapping
+        run: python3 scripts/_tmp_patch_work036_mapping.py
 
       - name: Audit work036 model coordinates
         shell: bash
@@ -49,18 +54,13 @@ jobs:
             'page_row_counts':dict(sorted(Counter(int(r['canvas_index']) for r in rows).items())),
             'box_count':len(boxes),
             'box_rows':[{
-              'index':i+1,
-              'page':int(r['canvas_index']),
-              'glyph_id':r['glyph_id'],
+              'index':i+1,'page':int(r['canvas_index']),'glyph_id':r['glyph_id'],
               'order_in_page':int(r.get('order_in_page') or 0),
-              'bbox':{'x':r['x'],'y':r['y'],'w':r['w'],'h':r['h']},
-              'before':rows[rows.index(r)-1]['char'] if rows.index(r)>0 else '',
-              'after':rows[rows.index(r)+1]['char'] if rows.index(r)+1<len(rows) else ''
-            } for i,r in enumerate(boxes)],
-            'reading_sequence':' '.join(f"p{int(r['canvas_index']):04d}:{r.get('char','')}" for r in rows)
+              'bbox':{'x':r['x'],'y':r['y'],'w':r['w'],'h':r['h']}
+            } for i,r in enumerate(boxes)]
           }
           Path('/tmp/work036-model-diagnostic.json').write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
-          print(json.dumps({'model_rows':out['model_rows'],'pages':len(out['pages']),'box_count':out['box_count'],'box_ids':[b['glyph_id'] for b in out['box_rows']]},ensure_ascii=False,indent=2))
+          print(json.dumps({'model_rows':out['model_rows'],'pages':len(out['pages']),'box_count':out['box_count']},ensure_ascii=False,indent=2))
           PY
 
       - name: Build work036 files
@@ -92,12 +92,16 @@ jobs:
           assert len(cases) == 13
           assert sum(len(c['slots']) for c in cases) == 23
           assert all(c['locations'] for c in cases)
+          assert report['model_box_rows'] == 31
+          assert report['mapped_model_box_rows'] == 23
+          assert report['model_only_compressed_box_rows'] == 8
           assert report['unbound_case_count'] == 0
           assert len(index['works']['036']['pages']) == 78
           assert any(p['has_char_boxes'] for p in index['works']['036']['pages'])
-          assert '清代题记校读说明' not in Path('js/work-036.js').read_text(encoding='utf-8')
-          assert '真实模型字框' not in Path('js/work-036.js').read_text(encoding='utf-8')
-          assert 'title="${esc(loc.glyph_id' not in Path('js/work-036.js').read_text(encoding='utf-8')
+          js=Path('js/work-036.js').read_text(encoding='utf-8')
+          assert '清代题记校读说明' not in js
+          assert '真实模型字框' not in js
+          assert 'title="${esc(loc.glyph_id' not in js
           PY
           grep -F '__DAMAGE_AI_READING_ROUTER_V80__' js/damage_ai_reading.js
           grep -F '__DETAIL_INFO_STABLE_ENTRY_V40__' js/detail_info_patch.js
@@ -153,6 +157,7 @@ jobs:
         run: |
           set -euo pipefail
           rm scripts/_tmp_build_work036.py
+          rm scripts/_tmp_patch_work036_mapping.py
           rm .github/workflows/_tmp_build_work036.yml
           rm -rf node_modules package-lock.json package.json
           git config user.name 'github-actions[bot]'
