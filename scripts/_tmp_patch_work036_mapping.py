@@ -89,5 +89,44 @@ if old not in text:
     raise RuntimeError('binding rule not found')
 text = text.replace(old, new, 1)
 
+intro_marker = """work036 = re.sub(r'const INTRO="[^"]*";', 'const INTRO="本栏目整理13组《瘗鹤铭》水前本与附水后本残文校读，覆盖用户底稿全部23个方框。能够由历代录文确认时采用文献对校；底稿存在错序、粘连或方框不足时，按审核稿给出混合判断或AI暂拟，并在“AI分析依据”中逐项说明。栏目二保留用户确认原文，栏目三只使用真实模型坐标。";', work036, count=1)
+"""
+cleanup_patch = intro_marker + """work036 = work036.replace(
+    'let cases=[],current=0,pageMap=new Map(),listScrollTop=0;',
+    '''let cases=[],current=0,pageMap=new Map(),listScrollTop=0,basisObserver=null,basisCleanupScheduled=false;
+  function isLegacyBasis(node){
+    if(!(node instanceof Element))return false;
+    if(node.matches(".damage-basis-block,.damage-basis-card,[data-damage-basis]"))return true;
+    if(!node.classList.contains("damage-block"))return false;
+    return String(node.querySelector(":scope > .damage-label")?.textContent||"").trim()===["恢","复","依","据"].join("");
+  }
+  function removeLegacyBasis(root=document){
+    const targets=new Set();
+    if(root instanceof Element&&isLegacyBasis(root))targets.add(root);
+    root.querySelectorAll?.(".damage-basis-block,.damage-basis-card,[data-damage-basis]").forEach(node=>targets.add(node));
+    root.querySelectorAll?.(".damage-block").forEach(node=>{if(isLegacyBasis(node))targets.add(node);});
+    targets.forEach(node=>node.remove());
+  }
+  function observeLegacyBasis(root){
+    if(!(root instanceof Element))return;
+    if(basisObserver)basisObserver.disconnect();
+    basisObserver=new MutationObserver(()=>{
+      if(basisCleanupScheduled)return;
+      basisCleanupScheduled=true;
+      queueMicrotask(()=>{basisCleanupScheduled=false;removeLegacyBasis(root);});
+    });
+    basisObserver.observe(root,{childList:true,subtree:true});
+  }''', 1)
+work036 = work036.replace(
+    'if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();',
+    'if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();removeLegacyBasis(section);observeLegacyBasis(section);', 1)
+"""
+if intro_marker not in text:
+    raise RuntimeError('work036 intro generation marker not found')
+text = text.replace(intro_marker, cleanup_patch, 1)
+
+# The browser-only diagnostic workflow is temporary; remove it from the final commit.
+text += "\ndebug_workflow = ROOT / '.github/workflows/_tmp_debug_work036_browser.yml'\nif debug_workflow.exists():\n    debug_workflow.unlink()\n"
+
 path.write_text(text, encoding='utf-8')
-print({'mapped': 23, 'expected_model_only': 8})
+print({'mapped': 23, 'expected_model_only': 8, 'legacy_basis_cleanup': True})
