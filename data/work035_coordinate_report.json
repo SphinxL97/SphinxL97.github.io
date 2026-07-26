@@ -1,0 +1,44 @@
+{
+  "work_id": "035",
+  "title": "武氏祠画像题字",
+  "digital_pages": 98,
+  "binding_leaves": 37,
+  "model_source_files": [],
+  "model_rows": 0,
+  "coordinate_pages": [],
+  "coordinate_page_count": 0,
+  "model_marker_count": 0,
+  "transcript_placeholders": 57,
+  "case_placeholders": 55,
+  "qing_note_placeholders": 2,
+  "case_count": 29,
+  "documentary_cases": 13,
+  "documentary_reconstruction_cases": 8,
+  "ai_inference_cases": 8,
+  "candidate_slots": 57,
+  "located_cases": 0,
+  "unlocated_cases": 29,
+  "placeholder_mapping": [],
+  "qing_note_candidates": [
+    {
+      "order": 27,
+      "original": "嘉祥□宅山",
+      "corrected": "嘉祥〔武〕宅山"
+    },
+    {
+      "order": 45,
+      "original": "錢唐黄小□",
+      "corrected": "錢唐黄小〔松〕"
+    }
+  ],
+  "audit_note": "当前分支未发现可直接用于035的逐页坐标文件；预期路径data/glyph_boxes/iiif/035/page_XXXX.json尚不存在，仓库代码检索也未返回035字框记录。因此本次不估算页码和bbox，案例图片显示未可靠定位。",
+  "rules": [
+    "57个原始方框均给出候选；公开资料不足者明确标为AI推断",
+    "栏目三29例覆盖55个汉代题字与石阙铭方框，2个清代题记方框另作说明",
+    "每例只允许绑定第一个问题字的真实模型字框",
+    "未找到真实坐标时不生成bbox",
+    "不使用相邻完整字框冒充残损槽位",
+    "栏目三生成AI分析依据，不生成恢复依据"
+  ],
+  "location_acceptance_rule": "后续如补入模型坐标，只有单调序列匹配且邻近上下文至少匹配3字的位置才允许绑定到栏目三；低于阈值不显示红框。"
+}
