@@ -97,10 +97,15 @@ jobs:
             const errors=[];
             page.on('pageerror',error=>errors.push(String(error)));
             await page.goto('http://127.0.0.1:8000/detail.html?id=043',{waitUntil:'networkidle'});
-            await page.waitForFunction(()=>window.__WORK_043_STABLE_READY__===true,{timeout:30000});
-            await page.waitForTimeout(800);
+            await page.waitForTimeout(5000);
             const result=await page.evaluate(()=>({
               title:document.title,
+              scripts:Array.from(document.scripts).map(s=>s.src).filter(Boolean),
+              router81:Boolean(window.__DAMAGE_AI_READING_ROUTER_V81__),
+              detail41:Boolean(window.__DETAIL_INFO_STABLE_ENTRY_V41__),
+              moduleLoaded:Boolean(window.__WORK_043_MENGJINGXUN__),
+              stableReady:Boolean(window.__WORK_043_STABLE_READY__),
+              crowdReady:Boolean(window.__WORK_043_CROWDSOURCE_READY__),
               transcriptText:document.querySelector('#calligraphy .full-transcript-body')?.innerText||'',
               transcriptBoxes:(document.querySelector('#calligraphy .full-transcript-body')?.innerText.match(/□/g)||[]).length,
               transcriptParagraphs:document.querySelectorAll('#calligraphy .full-transcript-body > p').length,
@@ -109,20 +114,19 @@ jobs:
               missingText:document.querySelector('#people .work043-location-missing')?.innerText||'',
               redBoxes:document.querySelectorAll('#people .work043-real-box,#people .damage-box').length,
               peopleText:document.querySelector('#people')?.innerText||'',
-              crowdReady:window.__WORK_043_CROWDSOURCE_READY__===true,
-              stableReady:window.__WORK_043_STABLE_READY__===true,
               sharedCases:Array.isArray(window.DAMAGE_AI_CASES)?window.DAMAGE_AI_CASES.length:0,
               pageCount:document.querySelectorAll('#pageSelect option').length,
               errors
             }));
             fs.writeFileSync('/tmp/work043-browser-result.json',JSON.stringify(result,null,2));
             console.log(JSON.stringify(result,null,2));
+            if(!result.moduleLoaded||!result.stableReady)throw new Error('module not ready');
             if(result.transcriptBoxes!==1||result.transcriptParagraphs!==3||result.boldCount!==1)throw new Error('transcript mismatch');
             if(result.cases!==1||result.sharedCases!==1)throw new Error('case mismatch');
             if(!result.missingText.includes('暂未获得可靠页码与真实字框'))throw new Error('missing-location message absent');
             if(result.redBoxes!==0)throw new Error('false bbox rendered');
             if(result.peopleText.includes('恢复依据')||result.peopleText.includes('资料查证结果')||result.peopleText.includes('资料使用原则'))throw new Error('forbidden block rendered');
-            if(!result.crowdReady||!result.stableReady)throw new Error('module not ready');
+            if(!result.crowdReady)throw new Error('crowdsource not ready');
             if(result.pageCount!==20)throw new Error('page count mismatch');
             if(result.errors.length)throw new Error('page errors');
             await browser.close();
@@ -141,6 +145,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -f /tmp/work043-browser-result.json
           cp /tmp/work043-browser-result.json data/_tmp_work043_browser_result.json
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
