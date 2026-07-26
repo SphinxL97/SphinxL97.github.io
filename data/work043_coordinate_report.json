@@ -1,7 +1,7 @@
 {
   "work_id": "043",
   "title": "司马昞妻孟敬训墓志",
-  "version": "20260726_mengjingxun_043_v1",
+  "version": "20260726_mengjingxun_043_v2_page_crowdsource",
   "image_page_count": 20,
   "image_root": "assets/page_images/043_司马昞妻孟敬训墓志/images/",
   "model_source": "data/model_boxes/glyph_model_border_041_045.json",
@@ -13,7 +13,11 @@
   "unlocated_case_ids": [
     "01"
   ],
-  "coordinate_policy": "仓库当前没有043真实模型坐标，不生成bbox，不用相邻字替代问题字。栏目三明确显示暂未可靠定位。",
+  "coordinate_policy": "已逐页核验确认案例01位于数字化第9页；仓库仍无043真实模型bbox，因此只显示第9页原图和页码，不生成推测性红框。",
   "page_files_created": 0,
-  "special_pages": "20页均保留原图；因缺少逐字坐标和页级释文，本版不对题签、题跋及装帧页制作字框。"
+  "special_pages": "第6—15页为墓志拓片正文页；案例01位于第9页。20页均保留原图，当前不制作伪造字框。",
+  "confirmed_page_count": 1,
+  "confirmed_case_pages": {
+    "01": 9
+  }
 }

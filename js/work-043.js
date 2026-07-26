@@ -12,11 +12,11 @@
   window.__DAMAGE_CASE_STANDARD_PATCH_V4__=true;
 
   const TITLE="司马昞妻孟敬训墓志";
-  const VERSION="20260726_mengjingxun_043_v1";
+  const VERSION="20260726_mengjingxun_043_v2_page_crowdsource";
   const TEXT_URL=`data/work043_full_text.txt?v=${VERSION}`;
   const CASE_URL=`data/work043_damage_cases.json?v=${VERSION}`;
   const NOTE="本节页面展示释文为由AI整理阅读版，段落划分和标点符号由AI辅助校对，仅供阅读参考。";
-  const INTRO="本栏目整理《司马昞妻孟敬训墓志》唯一一处缺字校读。候选字由同位置录文、字形构成和上下文对举共同支持；仓库当前没有043真实模型坐标，因此图片区明确标示暂未可靠定位，不显示推测性红框。";
+  const INTRO="本栏目整理《司马昞妻孟敬训墓志》唯一一处缺字校读。经逐页核验，该句位于数字化第9页；候选字由同位置录文、字形构成和上下文对举共同支持。仓库当前仍无043真实模型字框，因此显示第9页原图与页码，但不制造推测性红框。";
   const esc=value=>String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   const clone=value=>JSON.parse(JSON.stringify(value));
   let cases=[],current=0,listScrollTop=0;
@@ -26,10 +26,10 @@
   async function fetchJSON(url){const response=await fetch(url,{cache:"no-store"});if(!response.ok)throw new Error(`${url} ${response.status}`);return response.json();}
   function normalizeCase(row,index){
     const id=String(row?.id||index+1).padStart(2,"0"),original=String(row?.original||row?.o||""),corrected=String(row?.corrected||row?.c||original);
-    return {...row,id,original,corrected,category:String(row?.category||"残损碑文修复"),n:"残损碑文修复",t:String(row?.title||`第${id}处`),o:original,c:corrected,title:String(row?.title||`第${id}处`),mode:String(row?.mode||"documentary"),confidence:String(row?.confidence||"中"),analysis:Array.isArray(row?.analysis)?row.analysis.map(String):[],locations:Array.isArray(row?.locations)?row.locations:[],page:Number(row?.page||0)||null};
+    return {...row,id,original,corrected,category:String(row?.category||"残损碑文恢复"),n:"残损碑文恢复",t:String(row?.title||`第${id}处`),o:original,c:corrected,title:String(row?.title||`第${id}处`),mode:String(row?.mode||"documentary"),confidence:String(row?.confidence||"中"),analysis:Array.isArray(row?.analysis)?row.analysis.map(String):[],locations:Array.isArray(row?.locations)?row.locations:[],page:Number(row?.page||0)||null};
   }
   function publishCases(items){
-    window.DAMAGE_AI_CASES=items.map(item=>({...clone(item),n:"残损碑文修复",t:item.title,o:item.original,c:item.corrected,crowdsourceCategory:"残损碑文修复"}));
+    window.DAMAGE_AI_CASES=items.map(item=>({...clone(item),n:"残损碑文恢复",t:item.title,o:item.original,c:item.corrected,crowdsourceCategory:"残损碑文恢复"}));
     window.dispatchEvent(new CustomEvent("work-043-cases-ready",{detail:{count:items.length}}));
   }
   function paragraphHTML(text){
@@ -60,7 +60,13 @@
     try{const text=await fetchText(TEXT_URL);card.innerHTML=`<header class="full-transcript-header"><h3>${TITLE}</h3><span class="full-transcript-ornament" aria-hidden="true"></span></header><div class="full-transcript-body">${paragraphHTML(text)}</div>`;boldProblemSentences(card,items);}catch(error){console.error("[work-043] transcript",error);card.innerHTML='<div class="full-transcript-error">碑文释文暂时无法读取，请刷新页面后重试。</div>';}
   }
   function caseTabs(){return cases.map((item,index)=>`<button class="damage-tab${index===current?" active":""}" data-case-index="${index}" type="button" aria-pressed="${index===current}"><b>${esc(item.id)}</b><span class="name">${esc(item.category)}</span></button>`).join("");}
-  function locationHTML(){return '<div class="damage-location-missing work043-location-missing"><p>本例暂未获得可靠页码与真实字框，不显示推测性局部图。</p></div>';}
+  function locationHTML(item){
+    const page=Number(item?.page||0);
+    if(!page)return '<div class="damage-location-missing work043-location-missing"><p>本例暂未获得可靠页码与真实字框，不显示推测性局部图。</p></div>';
+    const labels=["","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五","十六","十七","十八","十九","二十"];
+    const image=`assets/page_images/043_司马昞妻孟敬训墓志/images/${String(page).padStart(4,"0")}_${labels[page]||page}.jpg`;
+    return `<div class="work043-page-only"><img src="${esc(image)}" alt="《${TITLE}》第${page}页原拓"><p class="damage-caption">《${TITLE}》第${page}页，本句第一个问题字所在页；真实字框暂未接入，不显示推测性红框。</p></div>`;
+  }
   function analysisHTML(item){
     const rows=item.analysis.length?item.analysis:["现有材料不足以形成具体候选。"];
     return `<div class="damage-block damage-evidence-block"><span class="damage-label">AI分析依据</span><ol class="work043-analysis-list">${rows.map(row=>`<li>${esc(row)}</li>`).join("")}</ol><div class="work043-confidence">建议置信度：<strong>${esc(item.confidence)}</strong></div></div>`;
@@ -68,14 +74,14 @@
   function renderDamage(){
     const section=document.getElementById("people");if(!section||!cases.length)return;const item=cases[current];
     setMenuTitle(3,"三、碑文残损与AI释读");publishCases(cases);section.className="content-card damage-ai";section.dataset.work043Dedicated="true";
-    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell"><div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(item.confidence)}置信度）</span></div><div class="damage-pager"><button data-action="prev" type="button" disabled>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" disabled>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（局部）</h3>${locationHTML()}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别或缺字槽位</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${esc(item.category)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">校读后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div>${analysisHTML(item)}</div></section></div></div></div>`;
+    section.innerHTML=`<h2 class="section-title">三、碑文残损与AI释读</h2><p class="damage-intro">${INTRO}</p><div class="damage-shell"><div class="damage-toolbar"><span class="damage-count">案例 ${current+1} / ${cases.length}</span><div class="damage-heading">${esc(item.category)}——“${esc(item.title)}” <span class="damage-heading-confidence">（${esc(item.confidence)}置信度）</span></div><div class="damage-pager"><button data-action="prev" type="button" disabled>‹ 上一个</button><span class="damage-page">${current+1} / ${cases.length}</span><button data-action="next" type="button" disabled>下一个 ›</button></div></div><div class="damage-body"><nav class="damage-list" aria-label="碑文残损与AI释读案例">${caseTabs()}</nav><div class="damage-stage"><section class="damage-card damage-image-card"><h3>拓片原图（第${item.page}页）</h3>${locationHTML(item)}</section><section class="damage-card damage-analysis"><h3>AI辅助校勘</h3><div class="damage-flow"><div class="damage-block"><span class="damage-label">原始识别或缺字槽位</span><div class="damage-text">${esc(item.original)}</div></div><div class="damage-arrow">↓</div><div class="damage-block"><span class="damage-label">${esc(item.category)}</span><div class="damage-text damage-new">${markedHTML(item.corrected)}</div></div><div class="damage-block"><span class="damage-label">校读后的上下文</span><div class="damage-restored">${esc(plainRestored(item.corrected))}</div></div>${analysisHTML(item)}</div></section></div></div></div>`;
     const list=section.querySelector(".damage-list");if(list){list.scrollTop=listScrollTop;list.addEventListener("scroll",()=>{listScrollTop=list.scrollTop;},{passive:true});}
     section.querySelectorAll("[data-case-index]").forEach(button=>button.addEventListener("click",()=>{current=Number(button.dataset.caseIndex)||0;renderDamage();}));
     if(typeof window.applyDamageCategoryUI==="function")window.applyDamageCategoryUI();
   }
   function ensureStyle(){
     if(document.getElementById("work043-mengjingxun-style"))return;const style=document.createElement("style");style.id="work043-mengjingxun-style";
-    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.work043-location-missing{min-height:430px;margin:0 16px 16px}.work043-analysis-list{margin:10px 0 0;padding-left:1.35em}.work043-analysis-list li{margin:.45em 0;line-height:1.8}.work043-confidence{margin-top:12px;padding-top:10px;border-top:1px dashed #ddcfb4;color:#675b4e}";
+    style.textContent=".damage-heading-confidence{font-size:.78em;color:#675b4e;white-space:nowrap}.damage-added{padding:0 .12em;border-bottom:2px solid #a53529;border-radius:4px;background:#f8e1cf;color:#9f3025!important;font-weight:900}.damage-text.damage-new{color:#2e251e!important;font-weight:400!important}.damage-image-card{overflow:hidden!important}.work043-location-missing{min-height:430px;margin:0 16px 16px}.work043-page-only{display:flex;flex:1 1 auto;min-height:0;flex-direction:column;margin:0 14px 14px;padding:12px;border:1px dashed #d8c69f;border-radius:14px;background:#fffaf0}.work043-page-only img{display:block;width:100%;height:100%;min-height:0;object-fit:contain;border-radius:10px}.work043-page-only p{flex:0 0 auto;margin:6px 0 0!important;padding:0 4px!important;text-indent:0!important;font-size:12px;line-height:1.5!important;color:#766657;text-align:center}.work043-analysis-list{margin:10px 0 0;padding-left:1.35em}.work043-analysis-list li{margin:.45em 0;line-height:1.8}.work043-confidence{margin-top:12px;padding-top:10px;border-top:1px dashed #ddcfb4;color:#675b4e}";
     document.head.appendChild(style);
   }
   function applySupplementalInfo(){
