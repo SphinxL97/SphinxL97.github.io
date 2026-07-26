@@ -1,0 +1,56 @@
+name: Temporary work035 browser test
+
+on:
+  push:
+    branches:
+      - agent/work035-wushici
+
+jobs:
+  browser-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Test work035 rendered sections
+        run: |
+          python3 -m http.server 8000 >/tmp/work035-server.log 2>&1 &
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage();
+            await page.goto('http://127.0.0.1:8000/detail.html?id=035', {
+              waitUntil: 'domcontentloaded',
+              timeout: 60000
+            });
+            await page.waitForFunction(() => window.__WORK_035_STABLE_READY__ === true, null, { timeout: 30000 });
+            await page.waitForTimeout(1500);
+            const result = await page.evaluate(() => ({
+              transcript: document.querySelector('#calligraphy')?.innerText || '',
+              damage: document.querySelector('#people')?.innerText || '',
+              body: document.body.innerText || '',
+              tabs: document.querySelectorAll('#people .damage-tab').length,
+              cases: Array.isArray(window.DAMAGE_AI_CASES) ? window.DAMAGE_AI_CASES.length : 0,
+              workReady: window.__WORK_035_STABLE_READY__ === true,
+              crowdReady: window.__WORK_035_CROWDSOURCE_READY__ === true,
+              scripts: [...document.scripts].map(node => node.src).filter(Boolean)
+            }));
+            console.log(JSON.stringify(result, null, 2));
+            if (!result.transcript.includes('伏□精洁')) throw new Error('栏目二未渲染035释文');
+            if (!result.damage.includes('AI分析依据')) throw new Error('栏目三未渲染AI分析依据');
+            if (result.tabs !== 29 || result.cases !== 29) throw new Error(`栏目三案例数量异常: tabs=${result.tabs}, cases=${result.cases}`);
+            if (!result.body.includes('四、众智释读')) throw new Error('栏目四标题未显示');
+            if (!result.crowdReady) throw new Error('栏目四共享模块未就绪');
+            if (!result.scripts.some(src => src.includes('/js/work-035.js'))) throw new Error('035专属脚本未加载');
+            await browser.close();
+          })().catch(error => {
+            console.error(error);
+            process.exit(1);
+          });
+          NODE
