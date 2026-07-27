@@ -80,10 +80,12 @@ with sync_playwright() as p:
         assert src['mode'] == 'iiif', (work_id, src)
         policy = page.evaluate('window.__READER_BOX_ALIGNMENT_POLICY__')
         assert policy['mode'] == 'iiif', (work_id, policy)
-        for selector in ('#reader', '#transcriptSection', '#damage-ai-reading', '#crowdsource-reading'):
-            assert page.locator(selector).count() == 1, (work_id, selector)
+        assert page.locator('#reader').count() == 1, (work_id, '#reader')
+        body_text = page.locator('body').inner_text()
+        for heading in ('二、碑文释文', '三、碑文残损与AI释读', '四、众智释读'):
+            assert heading in body_text, (work_id, heading)
 
     assert not errors, errors
     browser.close()
 
-print(json.dumps({'ok': True, 'checked': ['001-border-24-25', 'late-IIIF-overwrite-disabled', 'dblclick', 'scroll-top', '014-IIIF', '031-IIIF']}, ensure_ascii=False))
+print(json.dumps({'ok': True, 'checked': ['001-border-24-25', 'late-IIIF-overwrite-disabled', 'dblclick', 'scroll-top', '014-IIIF', '031-IIIF', 'sections-2-4']}, ensure_ascii=False))
