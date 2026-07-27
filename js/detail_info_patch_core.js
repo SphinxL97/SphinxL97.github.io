@@ -15,7 +15,6 @@
   const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const iiifOnly=new Set(["014","031"]);
   const useIiif=iiifOnly.has(parentId);
-  const IIIF_DATA_URL="data/glyph_records_iiif.json?v=20260727_column_one_policy_v2";
 
   function loadLegacyCore(){
     for(const url of LEGACY_SOURCES){
@@ -45,15 +44,11 @@
       h:Number(row?.h??row?.border_h??row?.display_h??row?.model_h??row?.bbox_h??bbox[3]??bboxXYWH[3]??0)
     };
   }
-  function isIiifSource(row){
-    const source=String(row?.source||"").toLowerCase();
-    return source.includes("iiif")||source.includes("annotation_target_xywh");
-  }
   function isModelSource(row){
     const source=String(row?.source||"").toLowerCase();
     return source.includes("model")||source.includes("border_refined")||source.includes("deep");
   }
-  function normalizeRows(rows,pageObj,source){
+  function normalizeRows(rows,pageObj,source,forceSource=false){
     return rows.map((row,index)=>{
       const box=rectOf(row);
       const text=String(row?.char||row?.text||"").slice(0,1);
@@ -71,7 +66,7 @@
         x:box.x,y:box.y,w:box.w,h:box.h,
         bbox_x:box.x,bbox_y:box.y,bbox_w:box.w,bbox_h:box.h,
         bbox:[box.x,box.y,box.w,box.h],
-        source:row?.source||source
+        source:forceSource?source:(row?.source||source)
       };
     }).filter(row=>row.w>0&&row.h>0);
   }
@@ -87,35 +82,6 @@
     }));
   }
 
-  let iiifPromise=null;
-  async function loadIiifData(){
-    if(iiifPromise)return iiifPromise;
-    iiifPromise=fetch(IIIF_DATA_URL,{cache:"no-store"})
-      .then(response=>{
-        if(!response.ok)throw new Error(`${IIIF_DATA_URL} ${response.status}`);
-        return response.json();
-      })
-      .then(data=>Array.isArray(data)?data:[])
-      .catch(error=>{
-        console.warn("[detail-core-policy] IIIF data load failed",error);
-        return[];
-      });
-    return iiifPromise;
-  }
-  async function iiifRowsForPage(pageObj){
-    const data=await loadIiifData();
-    const page=Number(pageObj?.canvas_index||pageObj?.page||0);
-    const effective=(typeof EFFECTIVE_WORK_ID!=="undefined"&&EFFECTIVE_WORK_ID)?String(EFFECTIVE_WORK_ID):rawId;
-    const rows=data.filter(row=>{
-      const virtual=String(row?.virtual_id||"");
-      const work=String(row?.work_id||"");
-      const workPrefix=(work.match(/^(\d{3})/)||[])[1]||String(row?.work_index||"").padStart(3,"0");
-      const idMatch=virtual?virtual===effective:workPrefix===parentId;
-      return idMatch&&Number(row?.canvas_index||row?.page||0)===page&&isIiifSource(row);
-    });
-    return normalizeRows(rows,pageObj,"iiif_annotation_target_xywh");
-  }
-
   loadLegacyCore();
 
   let downstreamLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
@@ -124,11 +90,11 @@
     if(policyDepth>0)return textOnlyRows(pageObj,useIiif?"iiif_no_box":"model_no_box");
     policyDepth+=1;
     try{
-      if(useIiif){
-        const direct=await iiifRowsForPage(pageObj);
-        return direct.length?direct:textOnlyRows(pageObj,"iiif_no_box");
-      }
       const downstream=downstreamLoader&&downstreamLoader!==policyLoader?await downstreamLoader(id,pageObj):[];
+      if(useIiif){
+        const iiif=normalizeRows(Array.isArray(downstream)?downstream:[],pageObj,"iiif_legacy_coordinates",true);
+        return iiif.length?iiif:textOnlyRows(pageObj,"iiif_no_box");
+      }
       const model=normalizeRows((Array.isArray(downstream)?downstream:[]).filter(isModelSource),pageObj,"model_border_refined");
       return model.length?model:textOnlyRows(pageObj,"model_no_box");
     }finally{
@@ -156,7 +122,7 @@
     rawId,
     policy:useIiif?"iiif":"model",
     exceptions:["014","031"],
-    version:"20260727_column_one_policy_v2"
+    version:"20260727_column_one_policy_v3"
   };
 
   function refreshReader(attempt=0){
