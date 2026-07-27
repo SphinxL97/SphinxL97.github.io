@@ -18,6 +18,23 @@
   };
 
   function padId(value){return String(value || "").padStart(3,"0")}
+  function asArray(value){
+    if(Array.isArray(value)) return value.filter(Boolean);
+    if(value === undefined || value === null || value === "") return [];
+    return [value];
+  }
+  function normalizeWriterName(value){
+    const original = String(value || "").trim();
+    const compact = original.normalize("NFKC").replace(/\s+/g,"")
+      .replaceAll("臨","临").replaceAll("傳","传")
+      .replaceAll("懷","怀").replaceAll("書","书");
+    if(compact === "褚遂良(临/传)") return "";
+    if(compact === "怀仁集王羲之书") return "王羲之";
+    return original;
+  }
+  function normalizeWriters(value){
+    return [...new Set(asArray(value).map(normalizeWriterName).filter(Boolean))];
+  }
   function requestUrl(input){
     if(typeof input === "string") return input;
     return input && typeof input.url === "string" ? input.url : "";
@@ -39,7 +56,9 @@
     return items;
   }
   function ensureMetadata(data){
-    const items = Array.isArray(data) ? data.map(item=>({...item})) : [];
+    const items = Array.isArray(data)
+      ? data.map(item=>({...item,writers:normalizeWriters(item && item.writers)}))
+      : [];
     const map = new Map(items.map(item=>[padId(item && item.id),item]));
 
     if(!map.has("014")){
@@ -57,6 +76,7 @@
       items.push(crane);map.set("036",crane);
     }else{
       crane.script=["正书"];
+      crane.writers=normalizeWriters(crane.writers);
     }
     return items;
   }
