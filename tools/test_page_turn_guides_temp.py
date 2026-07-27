@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 BASE = 'http://127.0.0.1:8000/detail.html'
@@ -29,12 +28,14 @@ with sync_playwright() as p:
     nxt = page.locator('.page-jump-zone.jump-next')
     assert prev.count() == 1 and nxt.count() == 1
 
-    prev_style = prev.evaluate("el => {const s=getComputedStyle(el);return {bg:s.backgroundImage,width:s.width,border:s.borderStyle,opacity:s.opacity}}")
-    next_style = nxt.evaluate("el => {const s=getComputedStyle(el);return {bg:s.backgroundImage,width:s.width,border:s.borderStyle,opacity:s.opacity}}")
+    prev_style = prev.evaluate("el => {const s=getComputedStyle(el);return {bg:s.backgroundImage,size:s.backgroundSize,pos:s.backgroundPosition,width:s.width,border:s.borderStyle,opacity:s.opacity}}")
+    next_style = nxt.evaluate("el => {const s=getComputedStyle(el);return {bg:s.backgroundImage,size:s.backgroundSize,pos:s.backgroundPosition,width:s.width,border:s.borderStyle,opacity:s.opacity}}")
     assert 'page-turn-prev.svg' in prev_style['bg'], prev_style
     assert 'page-turn-next.svg' in next_style['bg'], next_style
     assert prev_style['width'] == '130px' and next_style['width'] == '130px', (prev_style, next_style)
-    assert prev_style['border'] == 'solid' and next_style['border'] == 'solid'
+    assert prev_style['size'] == '56px 100%' and next_style['size'] == '56px 100%', (prev_style, next_style)
+    assert prev_style['pos'].startswith('0%') and next_style['pos'].startswith('100%'), (prev_style, next_style)
+    assert prev_style['border'] == 'none' and next_style['border'] == 'none', (prev_style, next_style)
 
     # The generated SVGs are served and contain the exact vertical wording.
     prev_svg = page.evaluate("""async () => await (await fetch('assets/ui/page-turn-prev.svg',{cache:'no-store'})).text()""")
@@ -65,4 +66,4 @@ with sync_playwright() as p:
     page.screenshot(path='page-turn-guides-001.png', full_page=False)
     browser.close()
 
-print(json.dumps({'ok': True, 'checked': ['vertical-svg-guides','single-page-dblclick','coordinate-mode-unchanged','sections-2-4']}, ensure_ascii=False))
+print(json.dumps({'ok': True, 'checked': ['vertical-svg-guides','narrow-outer-position','single-page-dblclick','coordinate-mode-unchanged','sections-2-4']}, ensure_ascii=False))
