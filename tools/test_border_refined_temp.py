@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from playwright.sync_api import sync_playwright
 
 BASE = 'http://127.0.0.1:8000/detail.html'
@@ -8,7 +7,7 @@ BASE = 'http://127.0.0.1:8000/detail.html'
 def wait_source(page, expected_page):
     page.wait_for_function(
         "p => window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__ && window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__.page === p",
-        expected_page,
+        arg=expected_page,
         timeout=20000,
     )
     return page.evaluate('window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__')
@@ -20,11 +19,18 @@ with sync_playwright() as p:
     errors = []
     page.on('pageerror', lambda exc: errors.append(str(exc)))
 
-    # 001 page 6: exact border_* fields must drive the overlay.
+    # 001 page 6: exact border_* fields must drive the overlay and remain
+    # unchanged after the late alignment script has had time to run.
     page.goto(f'{BASE}?id=001#reader', wait_until='networkidle')
     page.select_option('#pageSelect', '5')
     source = wait_source(page, 6)
+    page.wait_for_timeout(500)
+    source = page.evaluate('window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__')
     assert source['mode'] == 'model_aligned_border_refined', source
+    assert page.evaluate('window.__READER_BOX_ALIGNMENT_POLICY__') == {
+        'workId': '001', 'parentId': '001', 'mode': 'skip-model'
+    }
+
     records = page.evaluate("""async () => await (await fetch('data/glyph_boxes/model_aligned_border_refined/001/page_0006.json', {cache:'no-store'})).json()""")
     first = records[0]
     expected_first = {k: float(first[f'border_{k}']) for k in ('x','y','w','h')}
@@ -33,10 +39,14 @@ with sync_playwright() as p:
 
     img_scale = page.evaluate("parseFloat(document.querySelector('#pageImage').style.width) / document.querySelector('#pageImage').naturalWidth")
     assert img_scale > 0
+    selected_records = []
     for order in (24, 25):
         rec = next(r for r in records if int(r.get('order_in_page', 0)) == order)
+        selected_records.append(rec)
         gid = rec['glyph_id']
-        style = page.locator(f'.glyph-box[data-glyph-id="{gid}"]').evaluate("el => ({left:parseFloat(el.style.left),top:parseFloat(el.style.top),width:parseFloat(el.style.width),height:parseFloat(el.style.height)})")
+        locator = page.locator(f'.glyph-box[data-glyph-id="{gid}"]')
+        assert locator.count() == 1, (order, gid)
+        style = locator.evaluate("el => ({left:parseFloat(el.style.left),top:parseFloat(el.style.top),width:parseFloat(el.style.width),height:parseFloat(el.style.height)})")
         expected = {
             'left': float(rec['border_x']) * img_scale,
             'top': float(rec['border_y']) * img_scale,
@@ -45,12 +55,17 @@ with sync_playwright() as p:
         }
         for key in expected:
             assert abs(style[key] - expected[key]) < 1.1, (order, key, style, expected)
-        # The QA image is border-refined; at least one selected record must differ from display_*.
-    rec25 = next(r for r in records if int(r.get('order_in_page', 0)) == 25)
-    assert any(float(rec25[f'border_{k}']) != float(rec25[f'display_{k}']) for k in ('x','y','w','h')), rec25
 
-    # Existing interaction rules must remain intact.
-    page.locator('.reader-char').filter(has_text=rec25['char']).nth(1).click(force=True)
+    # At least one of the two user-shown records must visibly differ from the
+    # tighter display_* layer, proving that the page is using the QA border layer.
+    assert any(
+        any(float(rec[f'border_{k}']) != float(rec[f'display_{k}']) for k in ('x','y','w','h'))
+        for rec in selected_records
+    ), selected_records
+
+    # Existing interaction rules remain intact.
+    rec25 = selected_records[1]
+    page.locator(f'.reader-char[data-glyph-id="{rec25["glyph_id"]}"]').click(force=True)
     assert page.locator(f'.glyph-box[data-glyph-id="{rec25["glyph_id"]}"]').evaluate("el => el.classList.contains('selected')")
 
     page.select_option('#pageSelect', '5')
@@ -64,16 +79,18 @@ with sync_playwright() as p:
     page.wait_for_timeout(1200)
     assert page.evaluate('window.scrollY') < 10, page.evaluate('window.scrollY')
 
-    # IIIF exceptions stay unchanged.
+    # IIIF exceptions stay unchanged and keep the legacy alignment patch.
     for work_id, page_index, expected_page in [('014-01', '7', 8), ('031-01', '4', 5)]:
         page.goto(f'{BASE}?id={work_id}#reader', wait_until='networkidle')
         page.select_option('#pageSelect', page_index)
         src = wait_source(page, expected_page)
         assert src['mode'] == 'iiif', (work_id, src)
+        policy = page.evaluate('window.__READER_BOX_ALIGNMENT_POLICY__')
+        assert policy['mode'] == 'iiif', (work_id, policy)
         for selector in ('#reader', '#transcriptSection', '#damage-ai-reading', '#crowdsource-reading'):
             assert page.locator(selector).count() == 1, (work_id, selector)
 
     assert not errors, errors
     browser.close()
 
-print(json.dumps({'ok': True, 'checked': ['001-border-24-25', 'dblclick', 'scroll-top', '014-IIIF', '031-IIIF']}, ensure_ascii=False))
+print(json.dumps({'ok': True, 'checked': ['001-border-24-25', 'late-IIIF-overwrite-disabled', 'dblclick', 'scroll-top', '014-IIIF', '031-IIIF']}, ensure_ascii=False))
