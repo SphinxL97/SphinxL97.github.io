@@ -1,0 +1,185 @@
+name: Apply and validate column-one coordinate policy
+
+on:
+  push:
+    branches:
+      - agent/fix-column-one-coordinate-policy
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-validate:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-column-one-coordinate-policy
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Apply coordinate-source policy
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('detail.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_candidates = 'const DATA_CANDIDATES=["data/glyph_records_model_aligned_border_refined.json","data/glyph_records_model_aligned.json","data/glyph_records_iiif.json"];'
+          new_candidates = 'const IIIF_PARENT_WORKS=new Set(["014","031"]);const USE_IIIF_COORDINATES=IIIF_PARENT_WORKS.has(PARENT_WORK_ID);const DATA_CANDIDATES=USE_IIIF_COORDINATES?["data/glyph_records_iiif.json"]:["data/glyph_records_model_aligned_border_refined.json","data/glyph_records_model_aligned.json"];'
+          if text.count(old_candidates) != 1:
+              raise SystemExit(f'candidate anchor count={text.count(old_candidates)}')
+          text = text.replace(old_candidates, new_candidates, 1)
+
+          old_page_path = 'function pageBoxPath(id,pageNo){return`data/glyph_boxes/iiif/${id}/page_${String(pageNo).padStart(4,"0")}.json`}'
+          new_page_path = '''function isIiifCoordinateSource(value){const source=String(value||"").toLowerCase();return source.includes("iiif")||source.includes("annotation_target_xywh")}function chooseColumnOneGlyphs(perPageBoxes,fallbackItems){const perPage=Array.isArray(perPageBoxes)?perPageBoxes:[],fallback=Array.isArray(fallbackItems)?fallbackItems:[];if(USE_IIIF_COORDINATES){const perPageIiif=perPage.filter(item=>isIiifCoordinateSource(item.source)),fallbackIiif=fallback.filter(item=>isIiifCoordinateSource(item.source));return perPageIiif.length?perPageIiif:fallbackIiif}const perPageModel=perPage.filter(item=>!isIiifCoordinateSource(item.source)),fallbackModel=fallback.filter(item=>!isIiifCoordinateSource(item.source));return perPageModel.length?perPageModel:fallbackModel}function pageBoxPath(id,pageNo){return`data/glyph_boxes/iiif/${id}/page_${String(pageNo).padStart(4,"0")}.json`}'''
+          if text.count(old_page_path) != 1:
+              raise SystemExit(f'page-path anchor count={text.count(old_page_path)}')
+          text = text.replace(old_page_path, new_page_path, 1)
+
+          old_choice = 'currentGlyphs=perPageBoxes.length?perPageBoxes:fallbackItems;'
+          new_choice = 'currentGlyphs=chooseColumnOneGlyphs(perPageBoxes,fallbackItems);window.__COLUMN_ONE_COORDINATE_AUDIT__={workId:EFFECTIVE_WORK_ID,parentWorkId:PARENT_WORK_ID,policy:USE_IIIF_COORDINATES?"iiif":"model",page:p.canvas_index,selectedCount:currentGlyphs.filter(g=>!g.no_box&&getRect(g)).length,selectedSources:Array.from(new Set(currentGlyphs.map(g=>String(g.source||"unknown"))))};'
+          if text.count(old_choice) != 1:
+              raise SystemExit(f'choice anchor count={text.count(old_choice)}')
+          text = text.replace(old_choice, new_choice, 1)
+
+          required = [
+              'const IIIF_PARENT_WORKS=new Set(["014","031"])',
+              'const USE_IIIF_COORDINATES=IIIF_PARENT_WORKS.has(PARENT_WORK_ID)',
+              'function chooseColumnOneGlyphs(',
+              'policy:USE_IIIF_COORDINATES?"iiif":"model"',
+          ]
+          for marker in required:
+              if marker not in text:
+                  raise SystemExit(f'missing marker: {marker}')
+          if old_candidates in text or old_choice in text:
+              raise SystemExit('old coordinate selection logic remains')
+
+          path.write_text(text, encoding='utf-8')
+
+          # Extract every inline script and run syntax checks separately.
+          inline = []
+          for attrs, body in re.findall(r'<script([^>]*)>(.*?)</script>', text, flags=re.S|re.I):
+              if 'src=' in attrs.lower() or not body.strip():
+                  continue
+              inline.append(body)
+          if not inline:
+              raise SystemExit('no inline scripts found')
+          out = Path('/tmp/detail-inline')
+          out.mkdir(exist_ok=True)
+          for index, body in enumerate(inline, 1):
+              (out / f'inline_{index}.js').write_text(body, encoding='utf-8')
+          print(f'patched detail.html; extracted {len(inline)} inline scripts')
+          PY
+
+          for file in /tmp/detail-inline/*.js; do
+            node --check "$file"
+          done
+
+      - name: Install browser
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Browser smoke tests
+        shell: bash
+        run: |
+          python -m http.server 8000 >/tmp/column-one-http.log 2>&1 &
+          python - <<'PY'
+          from playwright.sync_api import sync_playwright
+
+          CASES = [
+              ('001', 'model'),
+              ('002', 'model'),
+              ('003', 'model'),
+              ('014-01', 'iiif'),
+              ('031-01', 'iiif'),
+              ('032', 'model'),
+              ('044', 'model'),
+          ]
+
+          def is_iiif(source):
+              value = str(source or '').lower()
+              return 'iiif' in value or 'annotation_target_xywh' in value
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page(viewport={"width": 1440, "height": 980})
+              page_errors = []
+              page.on('pageerror', lambda exc: page_errors.append(str(exc)))
+
+              results = []
+              for work_id, expected in CASES:
+                  page_errors.clear()
+                  page.goto(f'http://127.0.0.1:8000/detail.html?id={work_id}', wait_until='domcontentloaded', timeout=120000)
+                  page.wait_for_selector('#pageSelect option', timeout=120000)
+
+                  option_count = page.locator('#pageSelect option').count()
+                  found = None
+                  # Search the first 40 pages for a page with visible boxes.
+                  for index in range(min(option_count, 40)):
+                      page.select_option('#pageSelect', str(index))
+                      page.wait_for_timeout(180)
+                      audit = page.evaluate('window.__COLUMN_ONE_COORDINATE_AUDIT__ || null')
+                      if audit and int(audit.get('selectedCount') or 0) > 0:
+                          found = audit
+                          break
+
+                  if not found:
+                      raise AssertionError(f'{work_id}: no coordinate-bearing page found in first {min(option_count,40)} pages')
+                  if found.get('policy') != expected:
+                      raise AssertionError(f'{work_id}: expected policy {expected}, got {found}')
+
+                  sources = found.get('selectedSources') or []
+                  if expected == 'iiif':
+                      if not sources or not all(is_iiif(source) for source in sources):
+                          raise AssertionError(f'{work_id}: IIIF policy selected non-IIIF sources {sources}')
+                  else:
+                      if any(is_iiif(source) for source in sources):
+                          raise AssertionError(f'{work_id}: model policy leaked IIIF sources {sources}')
+
+                  if page.locator('#imageWrap .glyph-box').count() <= 0:
+                      raise AssertionError(f'{work_id}: coordinate audit has boxes but DOM has none')
+
+                  # Ensure the other content sections still exist and are not globally broken.
+                  page.wait_for_selector('#calligraphy', timeout=30000)
+                  page.wait_for_selector('#people', timeout=30000)
+                  page.wait_for_selector('#places', timeout=30000)
+                  page.wait_for_timeout(500)
+                  content_text = page.locator('#calligraphy, #people, #places').all_inner_texts()
+                  joined = '\n'.join(content_text)
+                  if '专属内容加载失败' in joined or '页面无法打开' in joined:
+                      raise AssertionError(f'{work_id}: content section reports failure: {joined[:500]}')
+                  if page_errors:
+                      raise AssertionError(f'{work_id}: JavaScript page errors: {page_errors}')
+
+                  results.append((work_id, found.get('page'), expected, sources, found.get('selectedCount')))
+
+              print('COLUMN_ONE_POLICY_RESULTS')
+              for result in results:
+                  print(result)
+              browser.close()
+          PY
+
+      - name: Commit validated change and remove workflow
+        shell: bash
+        run: |
+          rm -f .github/workflows/column_one_coordinate_policy.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detail.html .github/workflows/column_one_coordinate_policy.yml
+          git status --short
+          git commit -m "统一栏目一坐标来源策略 [skip ci]"
+          git push origin HEAD:agent/fix-column-one-coordinate-policy
