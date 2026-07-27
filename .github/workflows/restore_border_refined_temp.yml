@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - detail.html
+      - js/reader-box-alignment-patch.js
       - tools/restore_border_refined_temp.py
       - tools/test_border_refined_temp.py
       - .github/workflows/restore_border_refined_temp.yml
@@ -49,11 +50,11 @@ jobs:
         run: |
           cat border-test-output.txt
           exit 1
-      - name: Commit verified detail file
+      - name: Commit verified formal files
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add detail.html
+          git add detail.html js/reader-box-alignment-patch.js
           git diff --cached --quiet && exit 1
           git commit -m "恢复栏目一边界精修字框"
           git push origin HEAD:agent/restore-border-refined-column1
