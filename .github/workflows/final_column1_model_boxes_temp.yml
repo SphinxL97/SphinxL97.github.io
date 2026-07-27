@@ -4,13 +4,16 @@ on:
   push:
     branches:
       - agent/fix-final-column1-model-boxes
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
 
 jobs:
   apply-validate:
-    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    if: github.head_ref == 'agent/fix-final-column1-model-boxes' || github.ref == 'refs/heads/agent/fix-final-column1-model-boxes'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -150,5 +153,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add detail.html
+          git diff --cached --quiet && exit 0
           git commit -m "修复栏目一最终深度学习精修字框 [skip ci]"
           git push origin HEAD:agent/fix-final-column1-model-boxes
