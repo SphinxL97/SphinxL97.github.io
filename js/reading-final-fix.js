@@ -113,3 +113,11 @@
     return response;
   };
 })();
+
+(function(){
+  if(document.querySelector('script[data-card-catalog-display]')) return;
+  const script=document.createElement("script");
+  script.src="js/card-catalog-display.js?v=20260727_compact_card_v1";
+  script.dataset.cardCatalogDisplay="true";
+  document.head.appendChild(script);
+})();
