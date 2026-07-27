@@ -66,3 +66,35 @@
   .damage-card{height:560px}
   .damage-pager button{min-width:74px}
 }
+
+/* 全站碑帖详情页：栏目一两侧双击翻页提示。只作用于现有翻页热区。 */
+.reader-stage-wrap .page-jump-zone{
+  width:130px;
+  border:0;
+  border-radius:0;
+  background-color:transparent;
+  background-repeat:no-repeat;
+  background-size:56px 100%;
+  box-shadow:none;
+  cursor:ew-resize;
+  opacity:.96;
+  transition:background-color .18s ease,opacity .18s ease;
+}
+.reader-stage-wrap .page-jump-zone.jump-prev{
+  background-image:url("../assets/ui/page-turn-prev.svg");
+  background-position:left center;
+}
+.reader-stage-wrap .page-jump-zone.jump-next{
+  background-image:url("../assets/ui/page-turn-next.svg");
+  background-position:right center;
+}
+.reader-stage-wrap .page-jump-zone:hover{
+  background-color:rgba(255,249,236,.16);
+  opacity:1;
+}
+@media(max-width:1180px){
+  .reader-stage-wrap .page-jump-zone{width:92px;background-size:50px 100%}
+}
+@media(max-width:680px){
+  .reader-stage-wrap .page-jump-zone{width:58px;background-size:44px 100%;opacity:.84}
+}
