@@ -8,6 +8,7 @@
 
   const LEGACY_COMMIT="0f1114e833fe77ad7afac50e228b4dfbe2999a1d";
   const LEGACY_SOURCES=[
+    "js/detail_info_patch_core_legacy.js?v=20260727_column_one_policy_v5",
     `https://cdn.jsdelivr.net/gh/SphinxL97/SphinxL97.github.io@${LEGACY_COMMIT}/js/detail_info_patch_core.js`,
     `https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/${LEGACY_COMMIT}/js/detail_info_patch_core.js`
   ];
@@ -118,7 +119,7 @@
     rawId,
     policy:useIiif?"iiif":"model",
     exceptions:["014","031"],
-    version:"20260727_column_one_policy_v4"
+    version:"20260727_column_one_policy_v5"
   };
 
   function refreshReader(attempt=0){
