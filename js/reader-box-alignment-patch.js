@@ -10,6 +10,10 @@
 
   const raw=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(raw.includes("-")?raw:raw.padStart(3,"0"));
+  const parentId=workId.split("-")[0];
+  const useLegacyIIIF=new Set(["014","031"]).has(parentId);
+  window.__READER_BOX_ALIGNMENT_POLICY__={workId,parentId,mode:useLegacyIIIF?"iiif":"skip-model"};
+  if(!useLegacyIIIF)return;
   const imageWrap=document.getElementById("imageWrap");
   const pageImage=document.getElementById("pageImage");
   if(!imageWrap||!pageImage)return;
