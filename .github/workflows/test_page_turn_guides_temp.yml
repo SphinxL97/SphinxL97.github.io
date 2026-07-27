@@ -1,0 +1,39 @@
+name: Test page turn guides
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - css/damage_ai_reading.css
+      - assets/ui/page-turn-prev.svg
+      - assets/ui/page-turn-next.svg
+      - tools/test_page_turn_guides_temp.py
+      - .github/workflows/test_page_turn_guides_temp.yml
+
+permissions:
+  contents: read
+
+jobs:
+  browser-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/add-vertical-page-turn-guides
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Playwright
+        run: |
+          python -m pip install playwright
+          python -m playwright install chromium --with-deps
+      - name: Run browser acceptance test
+        run: |
+          python -m http.server 8000 >/tmp/page-turn-http.log 2>&1 &
+          sleep 2
+          python tools/test_page_turn_guides_temp.py
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: page-turn-guides-preview
+          path: page-turn-guides-001.png
