@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="碑帖赏读：按碑帖类型、刻立朝代、书体、撰文者、书写者、拓制时代与内容主题浏览碑帖。">
+<title>碑帖赏读 · 碑帖智能读析平台</title>
+<link rel="stylesheet" href="css/reading.css?v=20260727_module2_v1">
+</head>
+<body>
+<header class="topline">
+  <a class="site-name" href="index.html">
+    <span class="seal">拓</span>
+    <span class="name-main">碑帖智能读析平台</span>
+    <span class="name-sub">名称待定</span>
+  </a>
+  <nav class="topnav" aria-label="主导航">
+    <a href="gallery.html">碑帖总览</a>
+    <a class="active" href="reading.html">碑帖赏读</a>
+    <a href="ai-gallery.html">AI配图（待定）</a>
+    <a href="help.html">帮助说明（待定）</a>
+  </nav>
+</header>
+
+<section class="reading-hero">
+  <div class="hero-copy">
+    <p class="hero-kicker">由检索进入赏读</p>
+    <h1>碑帖赏读 · 探索书法与文化之美</h1>
+    <p>从内容、时代、书体与人物等维度重新组织碑帖，在真实拓片中发现书法艺术与历史文化。</p>
+    <form class="reading-search" id="readingSearchForm" role="search">
+      <label class="sr-only" for="readingSearch">搜索碑帖</label>
+      <input id="readingSearch" autocomplete="off" placeholder="输入碑帖名、异名、人物、地点、书体或内容关键词">
+      <button type="submit"><span aria-hidden="true">⌕</span> 搜索</button>
+    </form>
+  </div>
+</section>
+
+<nav class="category-strip" id="categoryStrip" aria-label="赏读分类"></nav>
+
+<main class="reading-layout">
+  <aside class="facet-panel" aria-label="当前分类筛选">
+    <div class="facet-head">
+      <div>
+        <span>筛选条件</span>
+        <strong id="facetTitle">书体</strong>
+      </div>
+      <button id="resetReading" type="button">清空</button>
+    </div>
+    <div class="facet-options" id="facetOptions"></div>
+    <div class="facet-decoration" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  </aside>
+
+  <section class="reading-results" aria-live="polite">
+    <header class="results-heading">
+      <div>
+        <p id="resultEyebrow">当前分类：书体</p>
+        <h2 id="resultTitle">按书体赏读</h2>
+      </div>
+      <p id="resultSummary">正在读取碑帖标签……</p>
+    </header>
+    <div id="readingGroups"></div>
+    <div class="empty-state" id="readingEmpty" hidden>
+      <strong>没有找到符合条件的碑帖</strong>
+      <span>可清除左侧筛选，或尝试更换搜索关键词。</span>
+    </div>
+  </section>
+</main>
+
+<footer class="reading-footer">
+  <span>标签数据来源：本站现有碑帖目录与高级检索元数据</span>
+  <span>悬浮封面可突出当前作品；左右按钮用于横向浏览</span>
+</footer>
+
+<script src="js/reading.js?v=20260727_module2_v1"></script>
+</body>
+</html>
