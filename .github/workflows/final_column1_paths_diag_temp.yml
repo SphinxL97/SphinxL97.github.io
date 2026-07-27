@@ -1,0 +1,32 @@
+name: Diagnose refined model paths
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  paths:
+    if: github.head_ref == 'agent/fix-final-column1-model-boxes'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-final-column1-model-boxes
+      - name: Collect paths
+        shell: bash
+        run: |
+          mkdir -p /tmp/final-column1-paths
+          find data/glyph_boxes/model_aligned_border_refined -maxdepth 3 -type f | sort > /tmp/final-column1-paths/all_paths.txt
+          grep -E '/(001|010|023|039|044)(/|-)+' /tmp/final-column1-paths/all_paths.txt > /tmp/final-column1-paths/relevant_paths.txt || true
+          python - <<'PY'
+          from pathlib import Path
+          for work in ['001','010','023','039','039-01','044']:
+              hits=[p.as_posix() for p in Path('data/glyph_boxes/model_aligned_border_refined').rglob('page_*.json') if f'/{work}/' in p.as_posix() or f'/{work}-' in p.as_posix()]
+              print(work, len(hits), hits[:8])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: final-column1-paths
+          path: /tmp/final-column1-paths/*
+          retention-days: 1
