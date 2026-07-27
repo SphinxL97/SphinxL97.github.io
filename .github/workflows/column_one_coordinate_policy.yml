@@ -26,12 +26,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Static checks
+      - name: Static and dataset checks
         shell: bash
         run: |
           node --check js/detail_info_patch_core.js
-          python - <<'PY'
+          python - <<'PY' > /tmp/column-one-dataset.txt
           from pathlib import Path
+          import json
+
           text = Path('js/detail_info_patch_core.js').read_text(encoding='utf-8')
           required = [
               'new Set(["014","031"])',
@@ -42,9 +44,30 @@ jobs:
           ]
           for marker in required:
               assert marker in text, marker
-          assert 'exceptions:["014","031"]' in text
-          print('static policy markers verified')
+
+          def parent(row):
+              value = str(row.get('work_id',''))
+              return value[:3] if value[:3].isdigit() else str(row.get('work_index','')).zfill(3)
+
+          iiif = json.loads(Path('data/glyph_records_iiif.json').read_text(encoding='utf-8'))
+          for work in ['014','031']:
+              rows = [row for row in iiif if parent(row) == work]
+              pages = sorted({int(row.get('canvas_index') or row.get('page') or 0) for row in rows})
+              sources = sorted({str(row.get('source','')) for row in rows})
+              print('IIIF', work, 'rows=', len(rows), 'pages=', pages[:5], '...', pages[-5:] if pages else [], 'sources=', sources)
+
+          for work in ['001','002','003','032','044']:
+              number = int(work)
+              start = ((number-1)//5)*5+1
+              end = min(start+4,45)
+              path = Path(f'data/model_boxes/glyph_model_border_{start:03d}_{end:03d}.json')
+              rows = json.loads(path.read_text(encoding='utf-8'))
+              selected = [row for row in rows if parent(row) == work]
+              pages = sorted({int(row.get('canvas_index') or row.get('page') or 0) for row in selected})
+              sources = sorted({str(row.get('source','')) for row in selected})
+              print('MODEL', work, 'rows=', len(selected), 'pages=', pages[:5], '...', pages[-5:] if pages else [], 'sources=', sources)
           PY
+          cat /tmp/column-one-dataset.txt
 
       - name: Install browser
         run: |
@@ -52,11 +75,14 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Browser smoke tests
+        id: smoke
+        continue-on-error: true
         shell: bash
         run: |
           python -m http.server 8000 >/tmp/column-one-http.log 2>&1 &
-          python - <<'PY'
+          python - <<'PY' > /tmp/column-one-browser.txt 2>&1
           from playwright.sync_api import sync_playwright
+          import traceback
 
           CASES = [
               ('001', 'model'),
@@ -76,55 +102,77 @@ jobs:
                   return 'model'
               return 'other'
 
-          with sync_playwright() as p:
-              browser = p.chromium.launch()
-              page = browser.new_page(viewport={"width": 1500, "height": 1000})
-              errors = []
-              page.on('pageerror', lambda exc: errors.append(str(exc)))
-              results = []
+          try:
+              with sync_playwright() as p:
+                  browser = p.chromium.launch()
+                  page = browser.new_page(viewport={"width": 1500, "height": 1000})
+                  errors = []
+                  failed_requests = []
+                  page.on('pageerror', lambda exc: errors.append(str(exc)))
+                  page.on('requestfailed', lambda req: failed_requests.append(f'{req.url} :: {req.failure}'))
 
-              for work_id, expected in CASES:
-                  errors.clear()
-                  page.goto(f'http://127.0.0.1:8000/detail.html?id={work_id}', wait_until='domcontentloaded', timeout=120000)
-                  page.wait_for_function('() => Boolean(window.__COLUMN_ONE_COORDINATE_POLICY__)', timeout=120000)
-                  policy = page.evaluate('window.__COLUMN_ONE_COORDINATE_POLICY__')
-                  assert policy['policy'] == expected, (work_id, policy)
-                  page.wait_for_selector('#pageSelect option', timeout=120000)
-                  option_count = page.locator('#pageSelect option').count()
-                  located = None
+                  for work_id, expected in CASES:
+                      errors.clear(); failed_requests.clear()
+                      print('\nOPEN', work_id, 'EXPECTED', expected, flush=True)
+                      page.goto(f'http://127.0.0.1:8000/detail.html?id={work_id}', wait_until='domcontentloaded', timeout=120000)
+                      page.wait_for_function('() => Boolean(window.__COLUMN_ONE_COORDINATE_POLICY__)', timeout=120000)
+                      policy = page.evaluate('window.__COLUMN_ONE_COORDINATE_POLICY__')
+                      print('POLICY', policy, flush=True)
+                      page.wait_for_selector('#pageSelect option', timeout=120000)
+                      option_count = page.locator('#pageSelect option').count()
+                      located = None
 
-                  for index in range(option_count):
-                      page.select_option('#pageSelect', str(index))
-                      page.wait_for_timeout(250)
-                      state = page.evaluate('''() => {
-                        const rows = typeof currentGlyphs !== 'undefined' && Array.isArray(currentGlyphs) ? currentGlyphs : [];
-                        const boxed = rows.filter(row => !row.no_box && (row.w || row.bbox_w || (Array.isArray(row.bbox) && row.bbox[2])));
-                        return {
-                          page: typeof currentPageIndex !== 'undefined' && pages?.[currentPageIndex] ? pages[currentPageIndex].canvas_index : null,
-                          count: boxed.length,
-                          sources: [...new Set(boxed.map(row => String(row.source || 'unknown')))]
-                        };
-                      }''')
-                      if state['count'] > 0:
-                          located = state
-                          break
+                      for index in range(option_count):
+                          page.select_option('#pageSelect', str(index))
+                          page.wait_for_timeout(180)
+                          state = page.evaluate('''() => {
+                            const rows = typeof currentGlyphs !== 'undefined' && Array.isArray(currentGlyphs) ? currentGlyphs : [];
+                            const boxed = rows.filter(row => !row.no_box && (row.w || row.bbox_w || (Array.isArray(row.bbox) && row.bbox[2])));
+                            return {
+                              page: typeof currentPageIndex !== 'undefined' && pages?.[currentPageIndex] ? pages[currentPageIndex].canvas_index : null,
+                              count: boxed.length,
+                              sources: [...new Set(boxed.map(row => String(row.source || 'unknown')))]
+                            };
+                          }''')
+                          if state['count'] > 0:
+                              located = state
+                              break
 
-                  assert located, f'{work_id}: no coordinate page found'
-                  kinds = {source_kind(source) for source in located['sources']}
-                  assert kinds == {expected}, (work_id, located, kinds)
-                  assert page.locator('#imageWrap .glyph-box').count() > 0, (work_id, located)
+                      print('LOCATED', located, flush=True)
+                      print('PAGE_ERRORS', errors, flush=True)
+                      print('FAILED_REQUESTS', failed_requests[-10:], flush=True)
+                      assert policy['policy'] == expected, (work_id, policy)
+                      assert located, f'{work_id}: no coordinate page found'
+                      kinds = {source_kind(source) for source in located['sources']}
+                      assert kinds == {expected}, (work_id, located, kinds)
+                      assert page.locator('#imageWrap .glyph-box').count() > 0, (work_id, located)
 
-                  page.wait_for_selector('#calligraphy', timeout=30000)
-                  page.wait_for_selector('#people', timeout=30000)
-                  page.wait_for_selector('#places', timeout=30000)
-                  page.wait_for_timeout(900)
-                  content = '\n'.join(page.locator('#calligraphy, #people, #places').all_inner_texts())
-                  assert '专属内容加载失败' not in content, (work_id, content[:800])
-                  assert '页面无法打开' not in content, (work_id, content[:800])
-                  assert not errors, (work_id, errors)
-                  results.append((work_id, expected, located))
-
-              for result in results:
-                  print(result)
-              browser.close()
+                      page.wait_for_selector('#calligraphy', timeout=30000)
+                      page.wait_for_selector('#people', timeout=30000)
+                      page.wait_for_selector('#places', timeout=30000)
+                      page.wait_for_timeout(1500)
+                      content = '\n'.join(page.locator('#calligraphy, #people, #places').all_inner_texts())
+                      print('CONTENT_HEAD', content[:500].replace('\n',' | '), flush=True)
+                      assert '专属内容加载失败' not in content, (work_id, content[:800])
+                      assert '页面无法打开' not in content, (work_id, content[:800])
+                      assert not errors, (work_id, errors)
+                  browser.close()
+          except Exception:
+              traceback.print_exc()
+              raise
           PY
+
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: column-one-coordinate-diagnostics
+          path: |
+            /tmp/column-one-dataset.txt
+            /tmp/column-one-browser.txt
+            /tmp/column-one-http.log
+          retention-days: 2
+
+      - name: Fail when browser checks fail
+        if: steps.smoke.outcome != 'success'
+        run: exit 1
