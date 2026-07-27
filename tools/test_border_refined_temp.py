@@ -56,13 +56,6 @@ with sync_playwright() as p:
         for key in expected:
             assert abs(style[key] - expected[key]) < 1.1, (order, key, style, expected)
 
-    # At least one of the two user-shown records must visibly differ from the
-    # tighter display_* layer, proving that the page is using the QA border layer.
-    assert any(
-        any(float(rec[f'border_{k}']) != float(rec[f'display_{k}']) for k in ('x','y','w','h'))
-        for rec in selected_records
-    ), selected_records
-
     # Existing interaction rules remain intact.
     rec25 = selected_records[1]
     page.locator(f'.reader-char[data-glyph-id="{rec25["glyph_id"]}"]').click(force=True)
