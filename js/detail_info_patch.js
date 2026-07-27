@@ -58,7 +58,7 @@
 
   const rawId=String(new URLSearchParams(location.search).get("id")||"001");
   const workId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
-  const coreUrl="js/detail_info_patch_core.js?v=20260724_uniform_font_header_v1";
+  const coreUrl="js/detail_info_patch_core.js?v=20260727_column_one_policy_v5";
   const dataUrl="data/beitie_header_info.json?v=20260727_huangtingjian_031_v1";
   const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
   const work032DataUrl="data/work032_info.json?v=20260725_xuzhenren_032_v1";
