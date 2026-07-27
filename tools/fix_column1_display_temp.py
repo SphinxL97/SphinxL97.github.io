@@ -27,10 +27,14 @@ replacements = [
 ]
 
 for old, new, name in replacements:
-    count = text.count(old)
-    if count != 1:
-        raise SystemExit(f"{name}: expected exactly 1 match, found {count}")
-    text = text.replace(old, new, 1)
+    old_count = text.count(old)
+    new_count = text.count(new)
+    if old_count == 1 and new_count == 0:
+        text = text.replace(old, new, 1)
+    elif old_count == 0 and new_count == 1:
+        print(f"{name}: already patched")
+    else:
+        raise SystemExit(f"{name}: invalid state old={old_count}, new={new_count}")
 
 required = [
     'function refinedModelRect(box){if(String(box.bbox_method||"")==="fallback_text_cell")return null;',
