@@ -1,0 +1,154 @@
+name: Final column one model boxes fix
+
+on:
+  push:
+    branches:
+      - agent/fix-final-column1-model-boxes
+
+permissions:
+  contents: write
+
+jobs:
+  apply-validate:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-final-column1-model-boxes
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Inspect refined page directories
+        shell: bash
+        run: |
+          echo 'Relevant refined paths:'
+          find data/glyph_boxes/model_aligned_border_refined -maxdepth 2 -type f | grep -E '/(001|010|023|039|044)(/|-)+' | head -80 || true
+
+      - name: Apply final coordinate policy
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('detail.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_decl_start = 'const RAW_WORK_ID=String(new URLSearchParams(location.search).get("id")||"001");'
+          decl_start = text.index(old_decl_start)
+          decl_end = text.index('let currentPageIndex=', decl_start)
+          new_decl = '''const RAW_WORK_ID=String(new URLSearchParams(location.search).get("id")||"001");const WORK_ID=RAW_WORK_ID.includes("-")?RAW_WORK_ID:RAW_WORK_ID.padStart(3,"0");const PARENT_WORK_ID=WORK_ID.includes("-")?WORK_ID.split("-")[0]:WORK_ID;let EFFECTIVE_WORK_ID=WORK_ID;const IIIF_COORDINATE_PARENTS=new Set(["014","031"]);function usesIIIFCoordinatePolicy(){return IIIF_COORDINATE_PARENTS.has(PARENT_WORK_ID)}function coordinateDataCandidates(){return[]}window.__COLUMN1_COORDINATE_POLICY__={workId:WORK_ID,parentId:PARENT_WORK_ID,mode:usesIIIFCoordinatePolicy()?"iiif":"model_aligned_border_refined",modelRoot:"data/glyph_boxes/model_aligned_border_refined"};'''
+          text = text[:decl_start] + new_decl + text[decl_end:]
+
+          box_start = text.index('function pageBoxPath(')
+          box_end = text.index('function fallbackWorkForId', box_start)
+          new_boxes = '''function iiifPageBoxPath(id,pageNo){return`data/glyph_boxes/iiif/${id}/page_${String(pageNo).padStart(4,"0")}.json`}function modelPageBoxPaths(id,pageNo){const name=`page_${String(pageNo).padStart(4,"0")}.json`,ids=[id];if(PARENT_WORK_ID&&!ids.includes(PARENT_WORK_ID))ids.push(PARENT_WORK_ID);return ids.map(workId=>`data/glyph_boxes/model_aligned_border_refined/${workId}/${name}`)}function estimateRows(n){if(n<=0)return 1;if(n<=10)return Math.ceil(n/2);if(n<=32)return Math.ceil(n/3);if(n<=70)return Math.ceil(n/5);return Math.ceil(Math.sqrt(n*1.8))}function refinedModelRect(box){if(box.border_x!==undefined&&box.border_y!==undefined&&box.border_w!==undefined&&box.border_h!==undefined)return{x:+box.border_x,y:+box.border_y,w:+box.border_w,h:+box.border_h};return null}function normalizeGlyphBoxRecord(box,pageObj,i,total,mode){const r=mode==="model"?refinedModelRect(box):getRect(box);if(!r||!isFinite(r.x)||!isFinite(r.y)||!isFinite(r.w)||!isFinite(r.h)||r.w<=0||r.h<=0)return null;const ch=String(box.char||box.text||box.value||"");const rows=estimateRows(total);return{glyph_id:box.glyph_id||`${EFFECTIVE_WORK_ID}_p${pageObj.canvas_index}_b${i+1}`,char:ch?ch[0]:"",text:ch?ch[0]:"",order_in_page:box.order_in_page||box.annotation_index||i+1,canvas_index:pageObj.canvas_index,canvas_label:pageObj.canvas_label||pageObj.label||pageObj.canvas_index,local_image:pageObj.image,canvas_width:box.canvas_width||pageObj.canvas_width,canvas_height:box.canvas_height||pageObj.canvas_height,bbox_x:r.x,bbox_y:r.y,bbox_w:r.w,bbox_h:r.h,bbox:[r.x,r.y,r.w,r.h],auto_col:box.auto_col!==undefined?+box.auto_col:Math.floor(i/rows),auto_row:box.auto_row!==undefined?+box.auto_row:i%rows,source:mode==="model"?"model_aligned_border_refined":String(box.source||"iiif")}}async function loadPageGlyphBoxes(id,pageObj,mode){const paths=mode==="iiif"?[iiifPageBoxPath(id,pageObj.canvas_index)]:modelPageBoxPaths(id,pageObj.canvas_index);for(const path of paths){const data=await safeFetchJSON(path);if(!Array.isArray(data)||!data.length)continue;const normalized=data.map((box,i)=>normalizeGlyphBoxRecord(box,pageObj,i,data.length,mode)).filter(Boolean);if(normalized.length)return normalized}return[]}'''
+          text = text[:box_start] + new_boxes + text[box_end:]
+
+          old_page = 'const p=pages[currentPageIndex],fallbackItems=p.items||[];currentGlyphs=fallbackItems;const useIIIF=usesIIIFCoordinatePolicy();const perPageBoxes=useIIIF?await loadPageGlyphBoxes(EFFECTIVE_WORK_ID,p):[];if(token!==loadPageToken)return;currentGlyphs=useIIIF?(perPageBoxes.length?perPageBoxes:fallbackItems):fallbackItems;window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__={workId:EFFECTIVE_WORK_ID,parentId:PARENT_WORK_ID,page:p.canvas_index,mode:useIIIF?"iiif":"model",recordCount:currentGlyphs.length,sources:[...new Set(currentGlyphs.map(g=>String(g.source||"")))]};'
+          new_page = 'const p=pages[currentPageIndex],fallbackItems=p.items||[];currentGlyphs=fallbackItems;const useIIIF=usesIIIFCoordinatePolicy(),coordinateMode=useIIIF?"iiif":"model";const perPageBoxes=await loadPageGlyphBoxes(EFFECTIVE_WORK_ID,p,coordinateMode);if(token!==loadPageToken)return;currentGlyphs=perPageBoxes.length?perPageBoxes:fallbackItems;const firstRect=currentGlyphs.length?getRect(currentGlyphs[0]):null;window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__={workId:EFFECTIVE_WORK_ID,parentId:PARENT_WORK_ID,page:p.canvas_index,mode:useIIIF?"iiif":"model_aligned_border_refined",recordCount:currentGlyphs.length,sources:[...new Set(currentGlyphs.map(g=>String(g.source||"")))],firstRect:firstRect?{x:firstRect.x,y:firstRect.y,w:firstRect.w,h:firstRect.h}:null};'
+          if old_page not in text:
+              raise SystemExit('loadPage anchor missing')
+          text = text.replace(old_page, new_page, 1)
+
+          required = [
+              'data/glyph_boxes/model_aligned_border_refined/${workId}/${name}',
+              'function refinedModelRect(box)',
+              'source:mode==="model"?"model_aligned_border_refined"',
+              'mode:useIIIF?"iiif":"model_aligned_border_refined"',
+          ]
+          for item in required:
+              assert item in text, item
+          assert 'glyph_model_border_' not in text
+          assert 'modelShardPath' not in text
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Install browser
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Browser validation
+        shell: bash
+        run: |
+          python -m http.server 8000 >/tmp/final-column1-http.log 2>&1 &
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from playwright.sync_api import sync_playwright
+
+          checks = [
+              ('001', 6, 'model_aligned_border_refined'),
+              ('010', 10, 'model_aligned_border_refined'),
+              ('023', 8, 'model_aligned_border_refined'),
+              ('039-01', 3, 'model_aligned_border_refined'),
+              ('044', 8, 'model_aligned_border_refined'),
+              ('014-01', 8, 'iiif'),
+              ('031-01', 5, 'iiif'),
+          ]
+
+          def find_model_file(work_id, page_no):
+              parent = work_id.split('-')[0]
+              candidates = [
+                  Path(f'data/glyph_boxes/model_aligned_border_refined/{work_id}/page_{page_no:04d}.json'),
+                  Path(f'data/glyph_boxes/model_aligned_border_refined/{parent}/page_{page_no:04d}.json'),
+              ]
+              return next((p for p in candidates if p.exists()), None)
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              results = []
+              for work_id, page_no, expected_mode in checks:
+                  page = browser.new_page(viewport={'width': 1500, 'height': 1000})
+                  errors = []
+                  page.on('pageerror', lambda exc, errors=errors: errors.append(str(exc)))
+                  page.goto(f'http://127.0.0.1:8000/detail.html?id={work_id}', wait_until='domcontentloaded', timeout=120000)
+                  page.wait_for_function('() => document.querySelectorAll("#pageSelect option").length > 0', timeout=120000)
+                  page.select_option('#pageSelect', str(page_no - 1))
+                  page.wait_for_function('(n) => window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__?.page === n', page_no, timeout=120000)
+                  page.wait_for_timeout(300)
+                  state = page.evaluate('window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__')
+                  assert state['mode'] == expected_mode, (work_id, state)
+                  assert state['recordCount'] > 0, (work_id, state)
+                  if expected_mode == 'model_aligned_border_refined':
+                      assert state['sources'] == ['model_aligned_border_refined'], (work_id, state)
+                      model_file = find_model_file(work_id, page_no)
+                      assert model_file is not None, work_id
+                      records = json.loads(model_file.read_text(encoding='utf-8'))
+                      first = records[0]
+                      expected = {'x': float(first['border_x']), 'y': float(first['border_y']), 'w': float(first['border_w']), 'h': float(first['border_h'])}
+                      actual = {k: float(state['firstRect'][k]) for k in ('x','y','w','h')}
+                      assert actual == expected, (work_id, actual, expected)
+                  assert page.locator('#reader').count() == 1
+                  assert page.locator('#calligraphy').count() == 1
+                  assert page.locator('#people').count() == 1
+                  assert page.locator('#places').count() == 1
+                  assert '图片无法打开' not in page.locator('body').inner_text()
+                  boxes = page.locator('#imageWrap .glyph-box')
+                  assert boxes.count() > 0, work_id
+                  first_box = boxes.first
+                  transparent = first_box.evaluate('(el) => getComputedStyle(el).borderTopColor')
+                  assert transparent in ('rgba(0, 0, 0, 0)', 'transparent'), (work_id, transparent)
+                  first_box.hover()
+                  assert 'hover' in (first_box.get_attribute('class') or '')
+                  first_box.click()
+                  assert 'selected' in (first_box.get_attribute('class') or '')
+                  assert not errors, (work_id, errors)
+                  results.append({'work_id': work_id, 'page': page_no, 'state': state})
+                  page.close()
+              browser.close()
+          Path('/tmp/final-column1-results.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(Path('/tmp/final-column1-results.json').read_text(encoding='utf-8'))
+          PY
+
+      - name: Commit formal change
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add detail.html
+          git commit -m "修复栏目一最终深度学习精修字框 [skip ci]"
+          git push origin HEAD:agent/fix-final-column1-model-boxes
