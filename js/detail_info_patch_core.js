@@ -6,6 +6,11 @@
   if(window.__DETAIL_CORE_COORDINATE_POLICY_V1__)return;
   window.__DETAIL_CORE_COORDINATE_POLICY_V1__=true;
 
+  document.querySelectorAll('a[href="people.html"]').forEach(link=>{
+    link.href="reading.html";
+    link.textContent="碑帖赏读";
+  });
+
   const LEGACY_COMMIT="0f1114e833fe77ad7afac50e228b4dfbe2999a1d";
   const LEGACY_SOURCES=[
     "js/detail_info_patch_core_legacy.js?v=20260727_column_one_policy_v5",
