@@ -1,0 +1,23 @@
+name: Audit 001 final model boxes PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  audit:
+    if: github.head_ref == 'agent/audit-001-final-model-boxes'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install pillow
+      - run: python tools/audit001_model_boxes.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audit-001-model-boxes
+          path: /tmp/audit001/*
+          retention-days: 1
