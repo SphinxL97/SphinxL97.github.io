@@ -28,7 +28,7 @@ with sync_playwright() as p:
             page.goto(f'http://127.0.0.1:8000/detail.html?id={work_id}', wait_until='domcontentloaded', timeout=120000)
             page.wait_for_function('() => document.querySelectorAll("#pageSelect option").length > 0', timeout=120000)
             page.select_option('#pageSelect', str(page_no - 1))
-            page.wait_for_function('(n) => window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__?.page === n', page_no, timeout=120000)
+            page.wait_for_function('(n) => window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__?.page === n', arg=page_no, timeout=120000)
             page.wait_for_timeout(500)
             state = page.evaluate('window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__')
             record['state'] = state
@@ -57,6 +57,9 @@ with sync_playwright() as p:
                 and not record['image_error']
                 and record['box_count'] > 0
                 and not js_errors
+                and record.get('default_border') in ('rgba(0, 0, 0, 0)', 'transparent')
+                and 'hover' in record.get('hover_class', '')
+                and 'selected' in record.get('selected_class', '')
             )
             if expected_mode == 'model_aligned_border_refined':
                 record['ok'] = record['ok'] and state.get('sources') == ['model_aligned_border_refined']
