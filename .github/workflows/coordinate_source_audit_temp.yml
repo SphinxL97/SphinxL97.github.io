@@ -1,0 +1,108 @@
+name: Coordinate source audit temp
+
+on:
+  push:
+    branches:
+      - agent/fix-column1-coordinate-source-policy
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  audit:
+    if: github.head_ref == 'agent/fix-column1-coordinate-source-policy' || github.ref == 'refs/heads/agent/fix-column1-coordinate-source-policy'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Audit coordinate files
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+          from collections import Counter, defaultdict
+
+          report = {
+              'page_files': {},
+              'global_files': {},
+              'model_files': {},
+          }
+
+          def records_from(path):
+              try:
+                  raw = path.read_text(encoding='utf-8').strip()
+                  if not raw:
+                      return []
+                  data = json.loads(raw)
+                  if isinstance(data, list):
+                      return data
+                  if isinstance(data, dict):
+                      for key in ('records','items','glyphs','boxes','data'):
+                          if isinstance(data.get(key), list):
+                              return data[key]
+                  return []
+              except Exception:
+                  return []
+
+          root = Path('data/glyph_boxes/iiif')
+          if root.exists():
+              for work_dir in sorted(p for p in root.iterdir() if p.is_dir()):
+                  sources = Counter()
+                  total = 0
+                  pages = 0
+                  for path in sorted(work_dir.glob('page_*.json')):
+                      recs = records_from(path)
+                      if not recs:
+                          continue
+                      pages += 1
+                      total += len(recs)
+                      for r in recs:
+                          sources[str(r.get('source',''))] += 1
+                  report['page_files'][work_dir.name] = {
+                      'pages': pages,
+                      'total': total,
+                      'sources': dict(sources),
+                  }
+
+          for path in sorted(Path('data').glob('glyph_records*.json')):
+              recs = records_from(path)
+              sources = Counter(str(r.get('source','')) for r in recs)
+              works = Counter()
+              for r in recs:
+                  wid = str(r.get('virtual_id') or r.get('work_id') or r.get('work_index') or '')
+                  m = re.match(r'^(\d{3}(?:-\d{2})?)', wid)
+                  works[m.group(1) if m else wid] += 1
+              report['global_files'][str(path)] = {
+                  'total': len(recs),
+                  'sources': dict(sources),
+                  'works': dict(works),
+              }
+
+          model_root = Path('data/model_boxes')
+          if model_root.exists():
+              for path in sorted(model_root.glob('*.json')):
+                  recs = records_from(path)
+                  sources = Counter(str(r.get('source','')) for r in recs)
+                  works = Counter()
+                  for r in recs:
+                      wid = str(r.get('virtual_id') or r.get('work_id') or r.get('work_index') or '')
+                      m = re.match(r'^(\d{3}(?:-\d{2})?)', wid)
+                      works[m.group(1) if m else wid] += 1
+                  report['model_files'][str(path)] = {
+                      'total': len(recs),
+                      'sources': dict(sources),
+                      'works': dict(works),
+                  }
+
+          out = Path('/tmp/coordinate-source-audit.json')
+          out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+          print(out.read_text(encoding='utf-8'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coordinate-source-audit
+          path: /tmp/coordinate-source-audit.json
+          retention-days: 1
