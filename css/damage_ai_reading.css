@@ -66,3 +66,32 @@
   .damage-card{height:560px}
   .damage-pager button{min-width:74px}
 }
+
+/* 全站碑帖详情页：栏目一两侧双击翻页提示。只作用于现有翻页热区。 */
+.reader-stage-wrap .page-jump-zone{
+  width:130px;
+  border:1px solid rgba(205,176,126,.46);
+  border-radius:16px;
+  background-color:rgba(255,253,248,.38);
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:100% 100%;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.46),0 5px 14px rgba(73,48,27,.035);
+  cursor:ew-resize;
+  opacity:.94;
+  transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease,opacity .18s ease;
+}
+.reader-stage-wrap .page-jump-zone.jump-prev{background-image:url("../assets/ui/page-turn-prev.svg")}
+.reader-stage-wrap .page-jump-zone.jump-next{background-image:url("../assets/ui/page-turn-next.svg")}
+.reader-stage-wrap .page-jump-zone:hover{
+  background-color:rgba(255,249,236,.64);
+  border-color:rgba(181,139,82,.64);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.64),0 8px 20px rgba(73,48,27,.07);
+  opacity:1;
+}
+@media(max-width:1180px){
+  .reader-stage-wrap .page-jump-zone{width:92px;background-size:92px 100%}
+}
+@media(max-width:680px){
+  .reader-stage-wrap .page-jump-zone{width:58px;background-size:74px 100%;opacity:.82}
+}
