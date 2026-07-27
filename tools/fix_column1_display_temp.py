@@ -16,7 +16,10 @@ old_dbl = 'document.querySelector(".jump-prev").addEventListener("dblclick",prev
 new_dbl = 'document.querySelector(".jump-prev").addEventListener("dblclick",e=>{e.stopPropagation();prevPage()});document.querySelector(".jump-next").addEventListener("dblclick",e=>{e.stopPropagation();nextPage()});readerCard.addEventListener("dblclick",e=>{if(e.target.closest(".image-wrap,.transcript-pane,.jump-prev,.jump-next,button,select"))return;'
 
 old_start = '<script>\nconst modalMap='
-new_start = '<script>\nif("scrollRestoration" in history)history.scrollRestoration="manual";function resetDetailScroll(){window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0}window.addEventListener("pageshow",resetDetailScroll);window.addEventListener("load",resetDetailScroll,{once:true});requestAnimationFrame(resetDetailScroll);setTimeout(resetDetailScroll,0);\nconst modalMap='
+new_start = '<script>\nif("scrollRestoration" in history)history.scrollRestoration="manual";function resetDetailScroll(){window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0}function scheduleDetailScrollReset(){resetDetailScroll();requestAnimationFrame(resetDetailScroll);[50,250,800].forEach(ms=>setTimeout(resetDetailScroll,ms))}window.addEventListener("pageshow",scheduleDetailScrollReset);window.addEventListener("load",scheduleDetailScrollReset,{once:true});document.addEventListener("DOMContentLoaded",scheduleDetailScrollReset,{once:true});scheduleDetailScrollReset();\nconst modalMap='
+
+old_init = 'if(firstImage)document.getElementById("heroCover").src=firstImage;loadPage(0)}else{'
+new_init = 'if(firstImage)document.getElementById("heroCover").src=firstImage;await loadPage(0);scheduleDetailScrollReset()}else{'
 
 replacements = [
     (old_rect, new_rect, "refinedModelRect"),
@@ -24,6 +27,7 @@ replacements = [
     (old_mode, new_mode, "active mode label"),
     (old_dbl, new_dbl, "double click handlers"),
     (old_start, new_start, "scroll reset bootstrap"),
+    (old_init, new_init, "scroll reset after reader init"),
 ]
 
 for old, new, name in replacements:
@@ -44,7 +48,8 @@ required = [
     'e.stopPropagation();prevPage()',
     'e.stopPropagation();nextPage()',
     'history.scrollRestoration="manual"',
-    'window.addEventListener("pageshow",resetDetailScroll)',
+    'window.addEventListener("pageshow",scheduleDetailScrollReset)',
+    'await loadPage(0);scheduleDetailScrollReset()',
 ]
 for marker in required:
     if marker not in text:
