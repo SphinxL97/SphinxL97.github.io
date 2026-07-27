@@ -32,10 +32,25 @@ jobs:
           python -m pip install playwright
           python -m playwright install chromium --with-deps
       - name: Run browser acceptance test
+        id: browser_test
+        continue-on-error: true
         run: |
           python -m http.server 8000 >/tmp/column1-http.log 2>&1 &
           sleep 2
-          python tools/test_column1_display_temp.py
+          python tools/test_column1_display_temp.py > column1-test-output.txt 2>&1
+      - name: Upload browser test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: column1-test-report
+          path: |
+            column1-test-output.txt
+            /tmp/column1-http.log
+      - name: Stop on browser test failure
+        if: steps.browser_test.outcome != 'success'
+        run: |
+          cat column1-test-output.txt
+          exit 1
       - name: Commit verified formal file when changed
         run: |
           git config user.name github-actions[bot]
