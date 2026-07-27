@@ -84,7 +84,7 @@
 
   loadLegacyCore();
 
-  let downstreamLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
+  const downstreamLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
   let policyDepth=0;
   const policyLoader=async function(id,pageObj){
     if(policyDepth>0)return textOnlyRows(pageObj,useIiif?"iiif_no_box":"model_no_box");
@@ -103,18 +103,14 @@
   };
 
   function enforcePolicyLoader(){
-    const current=window.loadPageGlyphBoxes;
-    if(current!==policyLoader){
-      if(typeof current==="function"&&current!==policyLoader)downstreamLoader=current;
-      window.loadPageGlyphBoxes=policyLoader;
-    }
+    if(window.loadPageGlyphBoxes!==policyLoader)window.loadPageGlyphBoxes=policyLoader;
   }
   enforcePolicyLoader();
   let guardChecks=0;
   const guard=setInterval(()=>{
     enforcePolicyLoader();
     guardChecks+=1;
-    if(guardChecks>=200)clearInterval(guard);
+    if(guardChecks>=1200)clearInterval(guard);
   },50);
 
   window.__COLUMN_ONE_COORDINATE_POLICY__={
@@ -122,7 +118,7 @@
     rawId,
     policy:useIiif?"iiif":"model",
     exceptions:["014","031"],
-    version:"20260727_column_one_policy_v3"
+    version:"20260727_column_one_policy_v4"
   };
 
   function refreshReader(attempt=0){
