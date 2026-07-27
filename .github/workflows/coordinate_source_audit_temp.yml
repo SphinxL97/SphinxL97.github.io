@@ -71,7 +71,7 @@ jobs:
                       target=next((o for o in options if o['text'].strip().startswith(str(page_no)+' /')),None)
                       if not target: raise AssertionError(('missing page option',options[:12]))
                       page.select_option('#pageSelect',target['value'])
-                      page.wait_for_function('(n)=>window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__?.page===n',page_no,timeout=120000)
+                      page.wait_for_function('(n)=>window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__?.page===n',arg=page_no,timeout=120000)
                       row['state']=page.evaluate('window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__')
                       row['policy']=page.evaluate('window.__COLUMN1_COORDINATE_POLICY__')
                       row['glyph_boxes']=page.locator('#imageWrap .glyph-box').count()
