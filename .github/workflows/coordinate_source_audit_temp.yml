@@ -54,7 +54,7 @@ jobs:
           python - <<'PY'
           from playwright.sync_api import sync_playwright
           import json, traceback
-          checks=[('001',6,'model'),('010',8,'model'),('023',8,'model'),('039-01',3,'model'),('044',8,'model'),('014-01',8,'iiif'),('031-01',5,'iiif')]
+          checks=[('001',6,'model'),('010',10,'model'),('023',8,'model'),('039-01',3,'model'),('044',8,'model'),('014-01',8,'iiif'),('031-01',5,'iiif')]
           results=[]
           failed=False
           with sync_playwright() as p:
