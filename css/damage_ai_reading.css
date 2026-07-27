@@ -81,11 +81,11 @@
   transition:background-color .18s ease,opacity .18s ease;
 }
 .reader-stage-wrap .page-jump-zone.jump-prev{
-  background-image:url("../assets/ui/page-turn-prev.svg");
+  background-image:url("../assets/ui/page-turn-prev.svg?v=20260727_landscape_scroll_v2");
   background-position:left center;
 }
 .reader-stage-wrap .page-jump-zone.jump-next{
-  background-image:url("../assets/ui/page-turn-next.svg");
+  background-image:url("../assets/ui/page-turn-next.svg?v=20260727_landscape_scroll_v2");
   background-position:right center;
 }
 .reader-stage-wrap .page-jump-zone:hover{
