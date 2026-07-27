@@ -30,10 +30,25 @@ jobs:
           python -m pip install playwright
           python -m playwright install chromium --with-deps
       - name: Run acceptance test
+        id: acceptance
+        continue-on-error: true
         run: |
           python -m http.server 8000 >/tmp/http.log 2>&1 &
           sleep 2
-          python tools/test_border_refined_temp.py
+          python tools/test_border_refined_temp.py > border-test-output.txt 2>&1
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: border-refined-test-report
+          path: |
+            border-test-output.txt
+            /tmp/http.log
+      - name: Stop on failure
+        if: steps.acceptance.outcome != 'success'
+        run: |
+          cat border-test-output.txt
+          exit 1
       - name: Commit verified detail file
         run: |
           git config user.name github-actions[bot]
