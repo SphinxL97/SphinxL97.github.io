@@ -38,7 +38,7 @@ jobs:
           required = [
               'new Set(["014","031"])',
               'policy:useIiif?"iiif":"model"',
-              'data/glyph_records_iiif.json',
+              'iiif_legacy_coordinates',
               'model_no_box',
               'iiif_no_box',
           ]
@@ -49,14 +49,7 @@ jobs:
               value = str(row.get('work_id',''))
               return value[:3] if value[:3].isdigit() else str(row.get('work_index','')).zfill(3)
 
-          iiif = json.loads(Path('data/glyph_records_iiif.json').read_text(encoding='utf-8'))
-          for work in ['014','031']:
-              rows = [row for row in iiif if parent(row) == work]
-              pages = sorted({int(row.get('canvas_index') or row.get('page') or 0) for row in rows})
-              sources = sorted({str(row.get('source','')) for row in rows})
-              print('IIIF', work, 'rows=', len(rows), 'pages=', pages[:5], '...', pages[-5:] if pages else [], 'sources=', sources)
-
-          for work in ['001','002','003','032','044']:
+          for work in ['001','002','003','014','031','032','044']:
               number = int(work)
               start = ((number-1)//5)*5+1
               end = min(start+4,45)
@@ -65,7 +58,9 @@ jobs:
               selected = [row for row in rows if parent(row) == work]
               pages = sorted({int(row.get('canvas_index') or row.get('page') or 0) for row in selected})
               sources = sorted({str(row.get('source','')) for row in selected})
-              print('MODEL', work, 'rows=', len(selected), 'pages=', pages[:5], '...', pages[-5:] if pages else [], 'sources=', sources)
+              role = 'IIIF_ORIGIN_COMPAT' if work in {'014','031'} else 'MODEL'
+              print(role, work, 'rows=', len(selected), 'pages=', pages[:5], '...', pages[-5:] if pages else [], 'sources=', sources)
+              assert selected, work
           PY
           cat /tmp/column-one-dataset.txt
 
@@ -118,7 +113,7 @@ jobs:
                       page.wait_for_function('() => Boolean(window.__COLUMN_ONE_COORDINATE_POLICY__)', timeout=120000)
                       policy = page.evaluate('window.__COLUMN_ONE_COORDINATE_POLICY__')
                       print('POLICY', policy, flush=True)
-                      page.wait_for_selector('#pageSelect option', timeout=120000)
+                      page.wait_for_function("() => document.querySelectorAll('#pageSelect option').length > 0", timeout=120000)
                       option_count = page.locator('#pageSelect option').count()
                       located = None
 
