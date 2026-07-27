@@ -17,6 +17,14 @@ out = Path('/tmp/final-column1-diag')
 out.mkdir(parents=True, exist_ok=True)
 results = []
 
+def find_model_file(work_id, page_no):
+    parent = work_id.split('-')[0]
+    candidates = [
+        Path(f'data/glyph_boxes/model_aligned_border_refined/{work_id}/page_{page_no:04d}.json'),
+        Path(f'data/glyph_boxes/model_aligned_border_refined/{parent}/page_{page_no:04d}.json'),
+    ]
+    return next((p for p in candidates if p.exists()), None)
+
 with sync_playwright() as p:
     browser = p.chromium.launch()
     for work_id, page_no, expected_mode in checks:
@@ -49,9 +57,11 @@ with sync_playwright() as p:
                 record['hover_class'] = first.get_attribute('class')
                 first.dispatch_event('click')
                 record['selected_class'] = first.get_attribute('class')
+
             record['js_errors'] = js_errors
-            record['ok'] = (
+            base_ok = (
                 state.get('mode') == expected_mode
+                and state.get('loader') == 'columnOnePolicy'
                 and state.get('recordCount', 0) > 0
                 and record['container_counts'] == {'reader': 1, 'calligraphy': 1, 'people': 1, 'places': 1}
                 and not record['image_error']
@@ -61,10 +71,28 @@ with sync_playwright() as p:
                 and 'hover' in record.get('hover_class', '')
                 and 'selected' in record.get('selected_class', '')
             )
+
             if expected_mode == 'model_aligned_border_refined':
-                record['ok'] = record['ok'] and state.get('sources') == ['model_aligned_border_refined']
+                model_file = find_model_file(work_id, page_no)
+                if model_file is None:
+                    raise AssertionError(f'missing refined page file for {work_id}')
+                source_records = json.loads(model_file.read_text(encoding='utf-8'))
+                first_source = source_records[0]
+                expected_rect = {
+                    'x': float(first_source['border_x']),
+                    'y': float(first_source['border_y']),
+                    'w': float(first_source['border_w']),
+                    'h': float(first_source['border_h']),
+                }
+                actual_rect = {k: float(state['firstRect'][k]) for k in ('x', 'y', 'w', 'h')}
+                record['expected_first_rect'] = expected_rect
+                record['actual_first_rect'] = actual_rect
+                record['coordinate_match'] = actual_rect == expected_rect
+                record['ok'] = base_ok and state.get('sources') == ['model_aligned_border_refined'] and record['coordinate_match']
             elif expected_mode == 'model_border_refined':
-                record['ok'] = record['ok'] and state.get('sources') == ['model_border_refined']
+                record['ok'] = base_ok and state.get('sources') == ['model_border_refined']
+            else:
+                record['ok'] = base_ok
         except Exception as exc:
             record['ok'] = False
             record['exception'] = repr(exc)
@@ -80,3 +108,5 @@ with sync_playwright() as p:
 
 (out / 'results.json').write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding='utf-8')
 print((out / 'results.json').read_text(encoding='utf-8'))
+if not all(r.get('ok') for r in results):
+    raise SystemExit('one or more final column-one checks failed')
