@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 760" role="img" aria-labelledby="title desc">
   <title id="title">双击向后翻页</title>
-  <desc id="desc">碑帖浏览右侧竖排翻页提示，后字加粗，底部为淡色山水纹样。</desc>
+  <desc id="desc">碑帖浏览右侧竖排翻页提示，后字加粗，底部为淡色如意云纹。</desc>
   <rect x="1" y="1" width="54" height="758" rx="14" fill="#fffdf8" fill-opacity=".42" stroke="#d8c4a1" stroke-opacity=".55"/>
   <g font-family="SimSun, Songti SC, serif" text-anchor="middle">
     <text x="28" y="190" font-size="20" fill="#c2b7ad">双</text>
@@ -10,10 +10,19 @@
     <text x="28" y="406" font-size="20" fill="#c2b7ad">翻</text>
     <text x="28" y="454" font-size="20" fill="#c2b7ad">页</text>
   </g>
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(56 0) scale(-1 1)">
-    <path d="M5 707 C12 680 21 666 28 688 C35 661 43 654 51 707" stroke="#d9c8aa" stroke-width="1.7" opacity=".32"/>
-    <path d="M6 721 C15 702 23 701 29 716 C37 693 45 696 50 721" stroke="#cfb991" stroke-width="1.4" opacity=".24"/>
-    <path d="M7 734 C17 722 24 726 30 735 C38 720 45 722 50 734" stroke="#c8af82" stroke-width="1.2" opacity=".19"/>
-    <path d="M13 680 C20 672 28 672 35 679 C41 684 46 682 50 678" stroke="#d5c2a0" stroke-width="1.2" opacity=".22"/>
+  <g fill="none" stroke="#cbb58e" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 655 H38" stroke-width="1.1" opacity=".22"/>
+    <circle cx="28" cy="697" r="20" stroke-width="1.2" opacity=".18"/>
+    <path d="M14 702
+             C14 695 19 691 25 694
+             C25 686 31 681 37 684
+             C43 687 44 694 40 698
+             C45 699 47 703 46 707
+             C45 711 42 713 38 713
+             H19
+             C15 713 12 710 12 706
+             C12 704 13 703 14 702Z" stroke-width="1.5" opacity=".34"/>
+    <path d="M20 704 C23 700 27 700 30 704 C33 700 37 700 40 704" stroke-width="1.2" opacity=".24"/>
+    <path d="M23 690 C26 688 30 688 33 690" stroke-width="1.1" opacity=".20"/>
   </g>
 </svg>
