@@ -2,6 +2,51 @@
 (function(){
   "use strict";
 
+  const previousFetch=window.fetch.bind(window);
+  function asArray(value){
+    if(Array.isArray(value))return value.filter(Boolean);
+    if(value===undefined||value===null||value==="")return [];
+    return [value];
+  }
+  function normalizeWriterName(value){
+    const original=String(value||"").trim();
+    const compact=original.normalize("NFKC").replace(/\s+/g,"")
+      .replaceAll("臨","临").replaceAll("傳","传")
+      .replaceAll("懷","怀").replaceAll("書","书");
+    if(compact==="褚遂良(临/传)")return "";
+    if(compact==="怀仁集王羲之书")return "王羲之";
+    return original;
+  }
+  function normalizeWriters(value){
+    return [...new Set(asArray(value).map(normalizeWriterName).filter(Boolean))];
+  }
+  function requestUrl(input){
+    if(typeof input==="string")return input;
+    return input&&typeof input.url==="string"?input.url:"";
+  }
+  function metadataRequest(input){
+    return requestUrl(input).split(/[?#]/,1)[0].endsWith("data/beitie_search_metadata.json");
+  }
+  function jsonResponse(source,data){
+    const headers=new Headers(source.headers);
+    headers.set("content-type","application/json; charset=utf-8");
+    return new Response(JSON.stringify(data),{status:source.status,statusText:source.statusText,headers});
+  }
+  window.fetch=async function(input,init){
+    const response=await previousFetch(input,init);
+    if(!response.ok||!metadataRequest(input))return response;
+    try{
+      const data=await response.clone().json();
+      const normalized=Array.isArray(data)
+        ? data.map(item=>({...item,writers:normalizeWriters(item&&item.writers)}))
+        : data;
+      return jsonResponse(response,normalized);
+    }catch(error){
+      console.error("[gallery] 书写者名称规范化失败",error);
+      return response;
+    }
+  };
+
   document.querySelectorAll('a[href="people.html"]').forEach(link=>{
     link.href="reading.html";
     link.textContent="碑帖赏读";
@@ -17,7 +62,7 @@
   window.GALLERY_VISIBLE_IDS=VISIBLE_IDS;
 
   const IMAGE_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
-  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/,"").split("/").map(encodeURIComponent).join("/");
+  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/ ,"").split("/").map(encodeURIComponent).join("/");
   const missingEntries=[
     {
       id:"006",title:"史晨后碑",
@@ -135,7 +180,7 @@
   function loadSearchModule(){
     if(document.querySelector('script[data-gallery-search-core]'))return;
     const script=document.createElement("script");
-    script.src="js/gallery-search-core.js?v=20260722_gallery33_v3";
+    script.src="js/gallery-search-core.js?v=20260727_writer_normalize_v1";
     script.async=false;script.dataset.gallerySearchCore="true";
     script.addEventListener("error",()=>console.error("[gallery] 检索脚本加载失败：",script.src),{once:true});
     document.head.appendChild(script);
