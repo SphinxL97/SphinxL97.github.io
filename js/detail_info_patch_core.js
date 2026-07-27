@@ -15,7 +15,7 @@
   const parentId=(rawId.includes("-")?rawId.split("-")[0]:rawId).padStart(3,"0");
   const iiifOnly=new Set(["014","031"]);
   const useIiif=iiifOnly.has(parentId);
-  const IIIF_DATA_URL="data/glyph_records_iiif.json?v=20260727_column_one_policy_v1";
+  const IIIF_DATA_URL="data/glyph_records_iiif.json?v=20260727_column_one_policy_v2";
 
   function loadLegacyCore(){
     for(const url of LEGACY_SOURCES){
@@ -119,17 +119,21 @@
   loadLegacyCore();
 
   let downstreamLoader=typeof window.loadPageGlyphBoxes==="function"?window.loadPageGlyphBoxes:null;
+  let policyDepth=0;
   const policyLoader=async function(id,pageObj){
-    if(useIiif){
-      const direct=await iiifRowsForPage(pageObj);
-      if(direct.length)return direct;
+    if(policyDepth>0)return textOnlyRows(pageObj,useIiif?"iiif_no_box":"model_no_box");
+    policyDepth+=1;
+    try{
+      if(useIiif){
+        const direct=await iiifRowsForPage(pageObj);
+        return direct.length?direct:textOnlyRows(pageObj,"iiif_no_box");
+      }
       const downstream=downstreamLoader&&downstreamLoader!==policyLoader?await downstreamLoader(id,pageObj):[];
-      const iiif=normalizeRows((Array.isArray(downstream)?downstream:[]).filter(isIiifSource),pageObj,"iiif_annotation_target_xywh");
-      return iiif.length?iiif:textOnlyRows(pageObj,"iiif_no_box");
+      const model=normalizeRows((Array.isArray(downstream)?downstream:[]).filter(isModelSource),pageObj,"model_border_refined");
+      return model.length?model:textOnlyRows(pageObj,"model_no_box");
+    }finally{
+      policyDepth-=1;
     }
-    const downstream=downstreamLoader&&downstreamLoader!==policyLoader?await downstreamLoader(id,pageObj):[];
-    const model=normalizeRows((Array.isArray(downstream)?downstream:[]).filter(isModelSource),pageObj,"model_border_refined");
-    return model.length?model:textOnlyRows(pageObj,"model_no_box");
   };
 
   function enforcePolicyLoader(){
@@ -152,7 +156,7 @@
     rawId,
     policy:useIiif?"iiif":"model",
     exceptions:["014","031"],
-    version:"20260727_column_one_policy_v1"
+    version:"20260727_column_one_policy_v2"
   };
 
   function refreshReader(attempt=0){
