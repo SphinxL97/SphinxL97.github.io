@@ -62,6 +62,7 @@
   }
 
   Object.freeze = function(value){
+    let restoreAfterFreeze = false;
     if(Array.isArray(value)){
       const scriptConfig = value.find(item=>item && item.key === "script" && Array.isArray(item.values));
       if(scriptConfig && !scriptConfig.values.includes("正书")) scriptConfig.values.splice(1,0,"正书");
@@ -72,9 +73,12 @@
       if(value["006"] && value["007"] && value["030"]){
         if(!value["014"]) value["014"]={...CATALOG_014};
         if(!value["031"]) value["031"]={...CATALOG_031};
+        restoreAfterFreeze = true;
       }
     }
-    return originalFreeze(value);
+    const frozen = originalFreeze(value);
+    if(restoreAfterFreeze) Object.freeze = originalFreeze;
+    return frozen;
   };
 
   window.fetch = async function(input,init){
@@ -88,6 +92,4 @@
     }
     return response;
   };
-
-  setTimeout(()=>{Object.freeze=originalFreeze},0);
 })();
