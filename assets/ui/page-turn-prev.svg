@@ -1,53 +1,81 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 760" role="img" aria-labelledby="title desc">
   <title id="title">双击向前翻页</title>
-  <desc id="desc">碑帖浏览左侧竖排翻页提示，前字加粗，背景为淡雅山水与舟影。</desc>
+  <desc id="desc">碑帖浏览左侧竖排翻页提示，保留双击向前翻页文字，背景为与页面纸色融合的淡墨山水、舟影与碑拓残片。</desc>
   <defs>
     <linearGradient id="paper" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#fbf7ed" stop-opacity=".82"/>
-      <stop offset=".52" stop-color="#fffdf8" stop-opacity=".34"/>
-      <stop offset="1" stop-color="#f7f0e2" stop-opacity=".68"/>
+      <stop offset="0" stop-color="#eee2cf" stop-opacity=".78"/>
+      <stop offset=".28" stop-color="#f7f0e4" stop-opacity=".62"/>
+      <stop offset=".72" stop-color="#fffdf8" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#fffdf8" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d7c4a1" stop-opacity=".30"/>
-      <stop offset="1" stop-color="#d7c4a1" stop-opacity="0"/>
+    <linearGradient id="inkFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7d6a58" stop-opacity=".02"/>
+      <stop offset=".42" stop-color="#7d6a58" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#5f4b3b" stop-opacity=".04"/>
     </linearGradient>
+    <linearGradient id="mountainWash" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#907b66" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#907b66" stop-opacity=".02"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+    <filter id="grain" x="-20%" y="-10%" width="140%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="2" seed="8" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="gray"/>
+      <feComponentTransfer in="gray" result="fade"><feFuncA type="table" tableValues="0 .09"/></feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="fade" mode="multiply"/>
+    </filter>
+    <clipPath id="clip"><rect x="1" y="1" width="54" height="758" rx="18"/></clipPath>
   </defs>
-  <rect x="1" y="1" width="54" height="758" rx="14" fill="url(#paper)" stroke="#d8c4a1" stroke-opacity=".55"/>
 
-  <!-- 上部远山：极淡，不干扰文字 -->
-  <g opacity=".20" fill="none" stroke="#cbb58e" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M7 115 C13 102 18 96 22 103 C27 90 33 82 38 94 C42 88 47 88 51 99" stroke-width="1.4"/>
-    <path d="M8 127 C15 117 21 114 26 121 C31 110 38 106 44 115 C47 112 50 113 52 118" stroke-width="1.0"/>
-    <path d="M32 86 C37 82 42 82 47 86" stroke-width=".9"/>
+  <g clip-path="url(#clip)">
+    <rect x="1" y="1" width="54" height="758" rx="18" fill="url(#paper)"/>
+    <rect x="2" y="2" width="31" height="756" fill="url(#inkFade)" opacity=".20" filter="url(#soft)"/>
+
+    <!-- 远山与云气：上部轻、下部渐浓 -->
+    <g fill="none" stroke="#a79278" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 118 C9 109 13 99 19 104 C24 89 30 82 35 94 C41 84 47 90 55 104" stroke-width="1.15" opacity=".24"/>
+      <path d="M0 132 C8 126 15 118 22 124 C29 111 37 108 43 118 C48 112 52 115 56 121" stroke-width=".85" opacity=".16"/>
+      <path d="M5 153 C14 148 21 149 28 153 C36 157 45 156 53 150" stroke-width=".7" opacity=".10"/>
+      <path d="M3 516 C10 503 16 492 22 501 C27 482 34 472 39 490 C45 478 50 486 56 500" stroke-width="1.15" opacity=".22"/>
+      <path d="M0 536 C9 525 17 520 24 529 C31 513 40 510 46 523 C50 518 53 520 56 525" stroke-width=".85" opacity=".16"/>
+    </g>
+    <path d="M0 540 C9 522 17 505 24 519 C31 493 39 487 44 508 C49 498 53 503 56 514 L56 602 L0 602 Z" fill="url(#mountainWash)" opacity=".68"/>
+    <path d="M0 594 C10 582 18 577 25 587 C32 568 42 566 48 580 C51 576 54 578 56 581 L56 640 L0 640 Z" fill="#8f7b67" opacity=".07"/>
+
+    <!-- 水面与舟影 -->
+    <g fill="none" stroke="#9d856b" stroke-linecap="round">
+      <path d="M4 650 C13 647 20 648 28 651 C36 654 44 653 53 649" stroke-width=".75" opacity=".22"/>
+      <path d="M7 664 C16 661 25 662 33 665 C40 667 47 667 54 664" stroke-width=".65" opacity=".15"/>
+      <path d="M22 688 C29 692 37 692 44 687" stroke-width="1.05" opacity=".35"/>
+      <path d="M24 687 H42" stroke-width=".85" opacity=".31"/>
+      <path d="M33 687 L34 678" stroke-width=".8" opacity=".28"/>
+      <path d="M34 678 C38 680 40 682 41 685" stroke-width=".7" opacity=".23"/>
+      <path d="M45 638 C44 625 45 614 48 603" stroke-width=".9" opacity=".22"/>
+      <path d="M47 611 C41 609 39 605 40 600 C45 601 48 604 50 608" stroke-width=".75" opacity=".20"/>
+    </g>
+
+    <!-- 极淡碑拓残片：只作文化提示，不压过文字 -->
+    <g transform="translate(5 554)" opacity=".23" filter="url(#grain)">
+      <path d="M1 3 Q7 0 13 3 L14 94 Q8 98 2 95 Z" fill="#4d4036"/>
+      <path d="M4 15 L10 13 M5 25 L11 24 M4 36 L10 34 M5 47 L11 46 M4 58 L10 57 M5 69 L11 67 M4 80 L10 79" stroke="#eadfcf" stroke-width=".8" stroke-linecap="round" opacity=".74"/>
+      <path d="M3 8 C7 6 10 7 12 9" stroke="#eadfcf" stroke-width=".55" fill="none" opacity=".48"/>
+    </g>
+
+    <!-- 纸面细纹 -->
+    <path d="M5 42 C14 36 22 38 30 43" stroke="#cbb99f" stroke-width=".7" opacity=".11" fill="none"/>
+    <path d="M4 724 C16 719 27 721 40 726" stroke="#bca58a" stroke-width=".65" opacity=".13" fill="none"/>
   </g>
 
-  <g font-family="SimSun, Songti SC, serif" text-anchor="middle">
-    <text x="28" y="190" font-size="20" fill="#c2b7ad">双</text>
-    <text x="28" y="238" font-size="20" fill="#c2b7ad">击</text>
-    <text x="28" y="286" font-size="20" fill="#c2b7ad">向</text>
-    <text x="28" y="348" font-size="34" font-weight="700" fill="#78513d">前</text>
-    <text x="28" y="406" font-size="20" fill="#c2b7ad">翻</text>
-    <text x="28" y="454" font-size="20" fill="#c2b7ad">页</text>
+  <!-- 翻页提示文字：保留原文，前字突出 -->
+  <g font-family="STSong, SimSun, 'Songti SC', serif" text-anchor="middle">
+    <text x="28" y="183" font-size="18" fill="#b7aaa0">双</text>
+    <text x="28" y="228" font-size="18" fill="#b7aaa0">击</text>
+    <text x="28" y="273" font-size="18" fill="#a99a8f">向</text>
+    <text x="28" y="336" font-size="31" font-weight="700" fill="#72503d">前</text>
+    <path d="M19 353 C25 358 31 358 37 353" fill="none" stroke="#9b765f" stroke-width="1.1" stroke-linecap="round" opacity=".48"/>
+    <text x="28" y="401" font-size="18" fill="#b7aaa0">翻</text>
+    <text x="28" y="446" font-size="18" fill="#b7aaa0">页</text>
   </g>
-
-  <!-- 中下部山岚 -->
-  <g opacity=".18" fill="url(#mist)" stroke="#c8b28b" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 585 C10 570 16 559 21 568 C25 553 31 545 36 557 C41 548 47 551 53 568 L53 630 L4 630 Z" stroke-width="1.0"/>
-    <path d="M10 605 C17 594 23 591 28 600 C34 586 41 584 48 598" fill="none" stroke-width=".9"/>
-  </g>
-
-  <!-- 水岸、松树与小舟 -->
-  <g fill="none" stroke="#bca27a" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8 675 H48" stroke-width=".9" opacity=".20"/>
-    <path d="M12 686 C20 682 28 682 36 686 C42 689 47 689 51 687" stroke-width=".8" opacity=".18"/>
-    <path d="M39 648 C39 633 40 621 42 611" stroke-width="1.0" opacity=".24"/>
-    <path d="M41 619 C36 616 34 611 35 606 C40 607 43 610 44 615" stroke-width=".9" opacity=".22"/>
-    <path d="M42 625 C47 621 50 621 53 623" stroke-width=".9" opacity=".20"/>
-    <path d="M16 704 C23 708 31 708 38 704" stroke-width="1.1" opacity=".28"/>
-    <path d="M18 704 H36" stroke-width="1.0" opacity=".26"/>
-    <path d="M27 704 L28 696" stroke-width=".9" opacity=".24"/>
-    <path d="M28 696 C31 697 33 699 34 702" stroke-width=".8" opacity=".20"/>
-  </g>
-  <circle cx="45" cy="92" r="1.1" fill="#bca27a" opacity=".17"/>
-  <circle cx="49" cy="88" r=".8" fill="#bca27a" opacity=".13"/>
 </svg>
