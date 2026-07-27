@@ -10,7 +10,7 @@ replacements = [
     ('async function loadPageGlyphBoxes(', 'async function loadColumnOnePolicyBoxes('),
     ('[iiifPageBoxPath(', '[columnOneIIIFPageBoxPath('),
     (':modelPageBoxPaths(', ':columnOneModelPageBoxPaths('),
-    ('normalizeGlyphBoxRecord(box,i)', 'normalizeColumnOnePolicyBox(box,i)'),
+    ('normalizeGlyphBoxRecord(', 'normalizeColumnOnePolicyBox('),
     ('await loadPageGlyphBoxes(', 'await loadColumnOnePolicyBoxes('),
 ]
 for old, new in replacements:
@@ -27,6 +27,7 @@ required = [
     'function columnOneModelPageBoxPaths(',
     'function normalizeColumnOnePolicyBox(',
     'async function loadColumnOnePolicyBoxes(',
+    'normalizeColumnOnePolicyBox(box,pageObj,i,data.length,mode)',
     'await loadColumnOnePolicyBoxes(EFFECTIVE_WORK_ID,p,coordinateMode)',
     'loader:"columnOnePolicy"',
 ]
@@ -37,7 +38,7 @@ for item in required:
 for forbidden in [
     'function iiifPageBoxPath(',
     'function modelPageBoxPaths(',
-    'function normalizeGlyphBoxRecord(',
+    'normalizeGlyphBoxRecord(',
     'async function loadPageGlyphBoxes(',
     'await loadPageGlyphBoxes(',
 ]:
