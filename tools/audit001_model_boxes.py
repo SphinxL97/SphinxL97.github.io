@@ -1,0 +1,115 @@
+from pathlib import Path
+from collections import Counter
+from PIL import Image, ImageDraw
+import json
+
+out = Path('/tmp/audit001')
+out.mkdir(parents=True, exist_ok=True)
+
+keywords = [
+    'qa_model_aligned', 'border_refined', 'raw_annotation_pages',
+    'from_existing_json', 'model_dataset', 'train_yolo',
+    'export_denoised', 'glyph_records_model_aligned'
+]
+matches = []
+for p in Path('.').rglob('*'):
+    rel = p.as_posix().lstrip('./')
+    low = rel.lower()
+    if any(k.lower() in low for k in keywords):
+        matches.append(rel + ('/' if p.is_dir() else ''))
+(out / 'matching_paths.txt').write_text('\n'.join(sorted(matches)), encoding='utf-8')
+
+def load_records(path):
+    p = Path(path)
+    if not p.exists() or not p.is_file():
+        return []
+    raw = p.read_text(encoding='utf-8').strip()
+    if not raw:
+        return []
+    data = json.loads(raw)
+    if isinstance(data, list):
+        return data
+    if isinstance(data, dict):
+        for key in ('records','items','glyphs','boxes','data'):
+            if isinstance(data.get(key), list):
+                return data[key]
+    return []
+
+def is_001_p6(r):
+    wid = str(r.get('virtual_id') or r.get('work_id') or r.get('work_index') or '')
+    if wid and wid.isdigit() and len(wid) < 3:
+        wid = wid.zfill(3)
+    return wid.startswith('001') and int(r.get('canvas_index') or r.get('page') or 0) == 6
+
+def rect(r):
+    if all(k in r for k in ('x','y','w','h')):
+        return [float(r['x']),float(r['y']),float(r['w']),float(r['h'])]
+    if isinstance(r.get('bbox'), list) and len(r['bbox']) >= 4:
+        return [float(x) for x in r['bbox'][:4]]
+    if all(k in r for k in ('bbox_x','bbox_y','bbox_w','bbox_h')):
+        return [float(r['bbox_x']),float(r['bbox_y']),float(r['bbox_w']),float(r['bbox_h'])]
+    return None
+
+sources = {
+    'model_shard': 'data/model_boxes/glyph_model_border_001_005.json',
+    'per_page_current': 'data/glyph_boxes/iiif/001/page_0006.json',
+    'global_refined': 'data/glyph_records_model_aligned_border_refined.json',
+    'global_aligned': 'data/glyph_records_model_aligned.json',
+    'global_iiif': 'data/glyph_records_iiif.json',
+}
+selected = {}
+summary = {'sources': {}, 'matching_path_count': len(matches)}
+for name, path in sources.items():
+    recs = load_records(path)
+    page_recs = recs if name == 'per_page_current' else [r for r in recs if is_001_p6(r)]
+    page_recs = [r for r in page_recs if rect(r)]
+    selected[name] = page_recs
+    summary['sources'][name] = {
+        'path': path,
+        'file_exists': Path(path).exists(),
+        'all_record_count': len(recs),
+        'page6_record_count': len(page_recs),
+        'source_values': dict(Counter(str(r.get('source','')) for r in page_recs)),
+        'first_five': [
+            {'char': str(r.get('char') or r.get('text') or ''), 'bbox': rect(r), 'glyph_id': str(r.get('glyph_id',''))}
+            for r in page_recs[:5]
+        ],
+    }
+
+image_path = None
+index_path = Path('data/page_images_index.json')
+if index_path.exists():
+    idx = json.loads(index_path.read_text(encoding='utf-8'))
+    works = idx.get('works', {}) if isinstance(idx, dict) else {}
+    work = works.get('001') or works.get('1') or {}
+    for p in work.get('pages', []):
+        if int(p.get('page', 0)) == 6:
+            image_path = p.get('image')
+            break
+if not image_path:
+    candidates = list(Path('assets/page_images').glob('001_*/images/0006_*.jpg'))
+    image_path = candidates[0].as_posix() if candidates else None
+summary['page6_image'] = image_path
+
+if image_path and Path(image_path).exists():
+    with Image.open(image_path) as im0:
+        base = im0.convert('RGB')
+    for name, recs in selected.items():
+        im = base.copy()
+        draw = ImageDraw.Draw(im)
+        for r in recs:
+            x,y,w,h = rect(r)
+            draw.rectangle([x,y,x+w,y+h], outline=(220,0,0), width=8)
+        im.save(out / f'{name}.jpg', quality=94)
+
+def boxset(recs):
+    return sorted(tuple(round(v, 3) for v in rect(r)) for r in recs)
+names = list(selected)
+summary['boxset_equalities'] = {}
+for i, a in enumerate(names):
+    for b in names[i+1:]:
+        summary['boxset_equalities'][f'{a}=={b}'] = boxset(selected[a]) == boxset(selected[b])
+
+(out / 'summary.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding='utf-8')
+print((out / 'summary.json').read_text(encoding='utf-8'))
+print((out / 'matching_paths.txt').read_text(encoding='utf-8'))
