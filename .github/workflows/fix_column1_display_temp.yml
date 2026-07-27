@@ -1,0 +1,42 @@
+name: Fix column one display boxes and navigation
+
+on:
+  push:
+    branches:
+      - agent/fix-column1-display-dblclick-scroll
+    paths:
+      - _tmp_trigger_column1_display_fix.txt
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/fix-column1-display-dblclick-scroll
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apply strict patch
+        run: python tools/fix_column1_display_temp.py
+      - name: Install browser test tools
+        run: |
+          python -m pip install playwright
+          python -m playwright install chromium --with-deps
+      - name: Run browser acceptance test
+        run: |
+          python -m http.server 8000 >/tmp/column1-http.log 2>&1 &
+          sleep 2
+          python tools/test_column1_display_temp.py
+      - name: Commit verified formal file
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add detail.html
+          git diff --cached --quiet && exit 1
+          git commit -m "修复栏目一显示框与页面交互"
+          git push origin HEAD:agent/fix-column1-display-dblclick-scroll
