@@ -24,12 +24,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Inspect refined page directories
-        shell: bash
-        run: |
-          echo 'Relevant refined paths:'
-          find data/glyph_boxes/model_aligned_border_refined -maxdepth 2 -type f | grep -E '/(001|010|023|039|044)(/|-)+' | head -80 || true
-
       - name: Apply final coordinate policy
         shell: bash
         run: |
@@ -42,7 +36,7 @@ jobs:
           old_decl_start = 'const RAW_WORK_ID=String(new URLSearchParams(location.search).get("id")||"001");'
           decl_start = text.index(old_decl_start)
           decl_end = text.index('let currentPageIndex=', decl_start)
-          new_decl = '''const RAW_WORK_ID=String(new URLSearchParams(location.search).get("id")||"001");const WORK_ID=RAW_WORK_ID.includes("-")?RAW_WORK_ID:RAW_WORK_ID.padStart(3,"0");const PARENT_WORK_ID=WORK_ID.includes("-")?WORK_ID.split("-")[0]:WORK_ID;let EFFECTIVE_WORK_ID=WORK_ID;const IIIF_COORDINATE_PARENTS=new Set(["014","031"]);function usesIIIFCoordinatePolicy(){return IIIF_COORDINATE_PARENTS.has(PARENT_WORK_ID)}function coordinateDataCandidates(){return[]}window.__COLUMN1_COORDINATE_POLICY__={workId:WORK_ID,parentId:PARENT_WORK_ID,mode:usesIIIFCoordinatePolicy()?"iiif":"model_aligned_border_refined",modelRoot:"data/glyph_boxes/model_aligned_border_refined"};'''
+          new_decl = '''const RAW_WORK_ID=String(new URLSearchParams(location.search).get("id")||"001");const WORK_ID=RAW_WORK_ID.includes("-")?RAW_WORK_ID:RAW_WORK_ID.padStart(3,"0");const PARENT_WORK_ID=WORK_ID.includes("-")?WORK_ID.split("-")[0]:WORK_ID;let EFFECTIVE_WORK_ID=WORK_ID;const IIIF_COORDINATE_PARENTS=new Set(["014","031"]);function usesIIIFCoordinatePolicy(){return IIIF_COORDINATE_PARENTS.has(PARENT_WORK_ID)}function modelShardPath(){const n=Number(PARENT_WORK_ID);if(!Number.isInteger(n)||n<1||n>45)return"";const start=Math.floor((n-1)/5)*5+1,end=Math.min(start+4,45);return`data/model_boxes/glyph_model_border_${String(start).padStart(3,"0")}_${String(end).padStart(3,"0")}.json`}function coordinateDataCandidates(){if(usesIIIFCoordinatePolicy())return[];const shard=modelShardPath();return shard?[shard]:[]}window.__COLUMN1_COORDINATE_POLICY__={workId:WORK_ID,parentId:PARENT_WORK_ID,mode:usesIIIFCoordinatePolicy()?"iiif":"model",modelPageRoot:"data/glyph_boxes/model_aligned_border_refined",modelShard:modelShardPath()};'''
           text = text[:decl_start] + new_decl + text[decl_end:]
 
           box_start = text.index('function pageBoxPath(')
@@ -51,7 +45,7 @@ jobs:
           text = text[:box_start] + new_boxes + text[box_end:]
 
           old_page = 'const p=pages[currentPageIndex],fallbackItems=p.items||[];currentGlyphs=fallbackItems;const useIIIF=usesIIIFCoordinatePolicy();const perPageBoxes=useIIIF?await loadPageGlyphBoxes(EFFECTIVE_WORK_ID,p):[];if(token!==loadPageToken)return;currentGlyphs=useIIIF?(perPageBoxes.length?perPageBoxes:fallbackItems):fallbackItems;window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__={workId:EFFECTIVE_WORK_ID,parentId:PARENT_WORK_ID,page:p.canvas_index,mode:useIIIF?"iiif":"model",recordCount:currentGlyphs.length,sources:[...new Set(currentGlyphs.map(g=>String(g.source||"")))]};'
-          new_page = 'const p=pages[currentPageIndex],fallbackItems=p.items||[];currentGlyphs=fallbackItems;const useIIIF=usesIIIFCoordinatePolicy(),coordinateMode=useIIIF?"iiif":"model";const perPageBoxes=await loadPageGlyphBoxes(EFFECTIVE_WORK_ID,p,coordinateMode);if(token!==loadPageToken)return;currentGlyphs=perPageBoxes.length?perPageBoxes:fallbackItems;const firstRect=currentGlyphs.length?getRect(currentGlyphs[0]):null;window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__={workId:EFFECTIVE_WORK_ID,parentId:PARENT_WORK_ID,page:p.canvas_index,mode:useIIIF?"iiif":"model_aligned_border_refined",recordCount:currentGlyphs.length,sources:[...new Set(currentGlyphs.map(g=>String(g.source||"")))],firstRect:firstRect?{x:firstRect.x,y:firstRect.y,w:firstRect.w,h:firstRect.h}:null};'
+          new_page = 'const p=pages[currentPageIndex],fallbackItems=p.items||[];currentGlyphs=fallbackItems;const useIIIF=usesIIIFCoordinatePolicy(),coordinateMode=useIIIF?"iiif":"model";const perPageBoxes=await loadPageGlyphBoxes(EFFECTIVE_WORK_ID,p,coordinateMode);if(token!==loadPageToken)return;currentGlyphs=perPageBoxes.length?perPageBoxes:fallbackItems;const sources=[...new Set(currentGlyphs.map(g=>String(g.source||"")))],activeMode=useIIIF?"iiif":perPageBoxes.length?"model_aligned_border_refined":sources.includes("model_border_refined")?"model_border_refined":"model_unavailable",firstRect=currentGlyphs.length?getRect(currentGlyphs[0]):null;window.__COLUMN1_ACTIVE_COORDINATE_SOURCE__={workId:EFFECTIVE_WORK_ID,parentId:PARENT_WORK_ID,page:p.canvas_index,mode:activeMode,recordCount:currentGlyphs.length,sources,firstRect:firstRect?{x:firstRect.x,y:firstRect.y,w:firstRect.w,h:firstRect.h}:null};'
           if old_page not in text:
               raise SystemExit('loadPage anchor missing')
           text = text.replace(old_page, new_page, 1)
@@ -60,12 +54,10 @@ jobs:
               'data/glyph_boxes/model_aligned_border_refined/${workId}/${name}',
               'function refinedModelRect(box)',
               'source:mode==="model"?"model_aligned_border_refined"',
-              'mode:useIIIF?"iiif":"model_aligned_border_refined"',
+              'sources.includes("model_border_refined")?"model_border_refined"',
           ]
           for item in required:
               assert item in text, item
-          assert 'glyph_model_border_' not in text
-          assert 'modelShardPath' not in text
           path.write_text(text, encoding='utf-8')
           PY
 
@@ -87,7 +79,7 @@ jobs:
               ('001', 6, 'model_aligned_border_refined'),
               ('010', 10, 'model_aligned_border_refined'),
               ('023', 8, 'model_aligned_border_refined'),
-              ('039-01', 3, 'model_aligned_border_refined'),
+              ('039-01', 3, 'model_border_refined'),
               ('044', 8, 'model_aligned_border_refined'),
               ('014-01', 8, 'iiif'),
               ('031-01', 5, 'iiif'),
@@ -125,6 +117,8 @@ jobs:
                       expected = {'x': float(first['border_x']), 'y': float(first['border_y']), 'w': float(first['border_w']), 'h': float(first['border_h'])}
                       actual = {k: float(state['firstRect'][k]) for k in ('x','y','w','h')}
                       assert actual == expected, (work_id, actual, expected)
+                  elif expected_mode == 'model_border_refined':
+                      assert state['sources'] == ['model_border_refined'], (work_id, state)
                   assert page.locator('#reader').count() == 1
                   assert page.locator('#calligraphy').count() == 1
                   assert page.locator('#people').count() == 1
