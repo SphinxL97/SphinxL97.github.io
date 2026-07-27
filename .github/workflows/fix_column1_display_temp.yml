@@ -1,10 +1,14 @@
 name: Fix column one display boxes and navigation
 
 on:
-  push:
+  pull_request:
     branches:
-      - agent/fix-column1-display-dblclick-scroll
+      - main
     paths:
+      - detail.html
+      - tools/fix_column1_display_temp.py
+      - tools/test_column1_display_temp.py
+      - .github/workflows/fix_column1_display_temp.yml
       - _tmp_trigger_column1_display_fix.txt
 
 permissions:
@@ -32,11 +36,12 @@ jobs:
           python -m http.server 8000 >/tmp/column1-http.log 2>&1 &
           sleep 2
           python tools/test_column1_display_temp.py
-      - name: Commit verified formal file
+      - name: Commit verified formal file when changed
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add detail.html
-          git diff --cached --quiet && exit 1
-          git commit -m "修复栏目一显示框与页面交互"
-          git push origin HEAD:agent/fix-column1-display-dblclick-scroll
+          if ! git diff --cached --quiet; then
+            git commit -m "修复栏目一显示框与页面交互"
+            git push origin HEAD:agent/fix-column1-display-dblclick-scroll
+          fi
