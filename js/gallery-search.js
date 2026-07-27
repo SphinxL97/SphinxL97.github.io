@@ -2,6 +2,11 @@
 (function(){
   "use strict";
 
+  document.querySelectorAll('a[href="people.html"]').forEach(link=>{
+    link.href="reading.html";
+    link.textContent="碑帖赏读";
+  });
+
   const VISIBLE_IDS=Object.freeze([
     "001","002","003","004","005","006","007","010","011","013",
     "014","015","016","017","018","020","022","023","024","025",
@@ -12,7 +17,7 @@
   window.GALLERY_VISIBLE_IDS=VISIBLE_IDS;
 
   const IMAGE_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
-  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/ ,"").split("/").map(encodeURIComponent).join("/");
+  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/,"").split("/").map(encodeURIComponent).join("/");
   const missingEntries=[
     {
       id:"006",title:"史晨后碑",
