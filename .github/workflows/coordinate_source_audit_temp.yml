@@ -17,54 +17,30 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Audit all possible IIIF sources for 014 and 031
+      - name: Inspect 014 and 031 IIIF metadata
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
-          import json, re
-          from collections import Counter
-
-          targets = ('014', '031')
-          report = {}
-
-          def walk(obj, out):
-              if isinstance(obj, dict):
-                  wid = str(obj.get('virtual_id') or obj.get('work_id') or obj.get('work_index') or '')
-                  if any(wid.startswith(t) for t in targets):
-                      out.append(obj)
-                  for v in obj.values():
-                      walk(v, out)
-              elif isinstance(obj, list):
-                  for v in obj:
-                      walk(v, out)
-
-          for path in sorted(Path('data').rglob('*.json')):
+          import json
+          out = {}
+          for name in ('data/pages_iiif.json','data/works.json','data/errors.json'):
+              p=Path(name)
+              raw=p.read_text(encoding='utf-8') if p.exists() else ''
+              out[name]={'size':len(raw),'head':raw[:20000]}
               try:
-                  raw = path.read_text(encoding='utf-8').strip()
-                  if not raw:
-                      continue
-                  if not any(t in raw for t in targets):
-                      continue
-                  data = json.loads(raw)
-              except Exception:
-                  continue
-              found = []
-              walk(data, found)
-              if not found:
-                  continue
-              sources = Counter(str(r.get('source','')) for r in found)
-              ids = Counter(str(r.get('virtual_id') or r.get('work_id') or r.get('work_index') or '') for r in found)
-              report[str(path)] = {
-                  'count': len(found),
-                  'sources': dict(sources),
-                  'ids': dict(ids),
-                  'sample': found[:3],
-              }
-
-          out = Path('/tmp/coordinate-source-audit.json')
-          out.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
-          print(out.read_text(encoding='utf-8'))
+                  data=json.loads(raw) if raw.strip() else None
+                  out[name]['type']=type(data).__name__
+                  if isinstance(data,dict):
+                      out[name]['keys']=list(data)[:50]
+                      out[name]['matching']={k:v for k,v in data.items() if str(k).startswith(('014','031')) or '014_' in str(k) or '031_' in str(k)}
+                  elif isinstance(data,list):
+                      out[name]['matching']=[x for x in data if '014' in json.dumps(x,ensure_ascii=False) or '031' in json.dumps(x,ensure_ascii=False)][:20]
+              except Exception as e:
+                  out[name]['error']=repr(e)
+          path=Path('/tmp/coordinate-source-audit.json')
+          path.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding='utf-8')
+          print(path.read_text(encoding='utf-8'))
           PY
       - uses: actions/upload-artifact@v4
         with:
