@@ -35,6 +35,24 @@ jobs:
           du -sh .
           find data js -type f 2>/dev/null | wc -l
 
+      - name: Correct repository-relative skip check
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('tools/audit_inscription_export.py')
+          s = p.read_text(encoding='utf-8')
+          old = 'def should_skip(path: Path) -> bool:\n    s = path.as_posix()\n    return any(part in s for part in SKIP_PARTS)'
+          new = '''def should_skip(path: Path) -> bool:
+              rel = path.relative_to(ROOT).as_posix()
+              parts = set(path.relative_to(ROOT).parts)
+              if '.git' in parts or 'node_modules' in parts:
+                  return True
+              return any(rel == prefix or rel.startswith(prefix + '/') for prefix in SKIP_PARTS if '/' in prefix)'''
+          if old not in s:
+              raise SystemExit('Expected skip-check block not found')
+          p.write_text(s.replace(old, new), encoding='utf-8')
+          PY
+
       - name: Audit transcription and correction data
         run: python3 tools/audit_inscription_export.py
 
