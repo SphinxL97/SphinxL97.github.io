@@ -6,6 +6,7 @@
 
   const root = document.documentElement;
   const initializedRails = new WeakSet();
+  const hoverLocks = new WeakMap();
 
   function addStyle(){
     if(document.getElementById("catalog-ui-polish-style")) return;
@@ -50,7 +51,38 @@
     return true;
   }
 
+  function railCards(rail){
+    return Array.from(rail.children).filter(item=>item.classList?.contains("reading-card"));
+  }
+
+  function canHoverScroll(rail){
+    return performance.now() >= (hoverLocks.get(rail) || 0);
+  }
+
+  function smoothScrollTo(rail,target){
+    const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
+    const clamped = Math.max(0,Math.min(max,target));
+    if(Math.abs(clamped-rail.scrollLeft) <= 1) return false;
+    hoverLocks.set(rail,performance.now()+480);
+    rail.scrollTo({left:clamped,behavior:"smooth"});
+    return true;
+  }
+
+  function scrollToPreviousCard(rail,card){
+    if(rail.scrollLeft <= 1) return false;
+    const cards = railCards(rail);
+    const index = cards.indexOf(card);
+    if(index <= 0) return smoothScrollTo(rail,0);
+
+    const railRect = rail.getBoundingClientRect();
+    const previousRect = cards[index-1].getBoundingClientRect();
+    const target = rail.scrollLeft + previousRect.left - railRect.left - 10;
+    return smoothScrollTo(rail,target);
+  }
+
   function revealCard(rail,card){
+    if(!canHoverScroll(rail)) return;
+
     const railRect = rail.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
     const margin = 10;
@@ -58,14 +90,20 @@
 
     if(cardRect.left < railRect.left + margin){
       target -= railRect.left + margin - cardRect.left;
-    }else if(cardRect.right > railRect.right - margin){
-      target += cardRect.right - (railRect.right - margin);
+      smoothScrollTo(rail,target);
+      return;
     }
 
-    const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
-    target = Math.max(0,Math.min(max,target));
-    if(Math.abs(target-rail.scrollLeft)>1){
-      rail.scrollTo({left:target,behavior:"smooth"});
+    if(cardRect.right > railRect.right - margin){
+      target += cardRect.right - (railRect.right - margin);
+      smoothScrollTo(rail,target);
+      return;
+    }
+
+    if(rail.scrollLeft > 1 && cardRect.left <= railRect.left + 38){
+      const cards = railCards(rail);
+      const firstVisible = cards.find(item=>item.getBoundingClientRect().right > railRect.left + margin);
+      if(card === firstVisible) scrollToPreviousCard(rail,card);
     }
   }
 
@@ -80,6 +118,17 @@
       if(event.relatedTarget && card.contains(event.relatedTarget)) return;
       revealCard(rail,card);
     });
+
+    const previousArrow = rail.closest(".rail-wrap")?.querySelector(".rail-arrow.prev");
+    if(previousArrow){
+      previousArrow.addEventListener("mouseenter",()=>{
+        if(!canHoverScroll(rail) || rail.scrollLeft <= 1) return;
+        const railRect = rail.getBoundingClientRect();
+        const cards = railCards(rail);
+        const firstVisible = cards.find(item=>item.getBoundingClientRect().right > railRect.left + 10);
+        if(firstVisible) scrollToPreviousCard(rail,firstVisible);
+      });
+    }
   }
 
   function initializeRails(){
