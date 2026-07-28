@@ -2,6 +2,8 @@
 (function(){
   "use strict";
 
+  document.documentElement.classList.add("catalog-ui-pending");
+
   const previousFetch=window.fetch.bind(window);
   function asArray(value){
     if(Array.isArray(value))return value.filter(Boolean);
@@ -116,7 +118,8 @@
   style.id="gallery-performance-style";
   style.textContent=`
     html.gallery-catalog-pending #galleryGrid,
-    html.gallery-catalog-pending #countText{visibility:hidden;}
+    html.gallery-catalog-pending #countText,
+    html.catalog-ui-pending #galleryGrid{visibility:hidden;}
     .beitie-card{content-visibility:auto;contain-intrinsic-size:430px;}
   `;
   document.head.appendChild(style);
@@ -210,9 +213,16 @@
 })();
 
 (function(){
-  if(document.querySelector('script[data-card-catalog-display]')) return;
-  const script=document.createElement("script");
-  script.src="js/card-catalog-display.js?v=20260727_compact_card_v1";
-  script.dataset.cardCatalogDisplay="true";
-  document.head.appendChild(script);
+  if(!document.querySelector('script[data-card-catalog-display]')){
+    const script=document.createElement("script");
+    script.src="js/card-catalog-display.js?v=20260728_centered_v2";
+    script.dataset.cardCatalogDisplay="true";
+    document.head.appendChild(script);
+  }
+  if(!document.querySelector('script[data-catalog-ui-polish]')){
+    const polish=document.createElement("script");
+    polish.src="js/catalog-ui-polish.js?v=20260728_center_hover_v1";
+    polish.dataset.catalogUiPolish="true";
+    document.head.appendChild(polish);
+  }
 })();
