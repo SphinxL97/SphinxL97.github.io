@@ -1,0 +1,47 @@
+name: Audit inscription export
+
+on:
+  push:
+    branches:
+      - agent/export-33-inscriptions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout text and data only
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.github/
+            /tools/
+            /data/
+            /js/
+            /*.html
+
+      - name: Show checked-out size
+        run: |
+          du -sh .
+          find data js -type f 2>/dev/null | wc -l
+
+      - name: Audit transcription and correction data
+        run: python3 tools/audit_inscription_export.py
+
+      - name: Upload audit bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: inscription-audit-bundle
+          path: |
+            inscription_audit_bundle.zip
+            output_inscription_audit/summary.txt
+            output_inscription_audit/summary.json
+          if-no-files-found: error
+          retention-days: 7
