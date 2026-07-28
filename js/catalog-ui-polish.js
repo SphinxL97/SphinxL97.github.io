@@ -7,6 +7,9 @@
   const root = document.documentElement;
   const initializedRails = new WeakSet();
   const hoverLocks = new WeakMap();
+  const autoScrollStates = new WeakMap();
+  const AUTO_START_DELAY = 260;
+  const AUTO_REPEAT_DELAY = 1080;
 
   function addStyle(){
     if(document.getElementById("catalog-ui-polish-style")) return;
@@ -108,7 +111,7 @@
     const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
     const clamped = Math.max(0,Math.min(max,target));
     if(Math.abs(clamped-rail.scrollLeft) <= 1) return false;
-    hoverLocks.set(rail,performance.now()+520);
+    hoverLocks.set(rail,performance.now()+650);
     rail.scrollTo({left:clamped,behavior:"smooth"});
     return true;
   }
@@ -124,31 +127,48 @@
     return smoothScrollTo(rail,target);
   }
 
-  function revealCard(rail,card){
-    if(!canHoverScroll(rail)) return;
+  function stepAutoScroll(rail,direction){
+    if(!rail.isConnected || !canHoverScroll(rail)) return false;
     const layout = balancedLayout(rail);
-    const index = layout.cards.indexOf(card);
-    if(index<0) return;
-
-    const railRect = rail.getBoundingClientRect();
-    const cardRect = card.getBoundingClientRect();
-    const clippedLeft = cardRect.left < railRect.left+2;
-    const clippedRight = cardRect.right > railRect.right-2;
-
-    if(clippedLeft){
-      snapToFirstFull(rail,index);
-      return;
-    }
-
-    if(clippedRight){
-      snapToFirstFull(rail,index-layout.fullCount+1);
-      return;
-    }
-
+    if(!layout.cards.length) return false;
     const firstFullIndex = firstFullyVisibleIndex(rail);
-    if(rail.scrollLeft>1 && index===firstFullIndex){
-      snapToFirstFull(rail,index-1);
+    if(firstFullIndex<0) return false;
+    const lastPossible = Math.max(0,layout.cards.length-layout.fullCount);
+    const nextIndex = Math.max(0,Math.min(lastPossible,firstFullIndex+direction));
+    if(nextIndex===firstFullIndex) return false;
+    return snapToFirstFull(rail,nextIndex);
+  }
+
+  function stopAutoScroll(rail){
+    const state = autoScrollStates.get(rail);
+    if(!state) return;
+    if(state.timer) clearTimeout(state.timer);
+    state.timer = 0;
+    state.direction = 0;
+  }
+
+  function startAutoScroll(rail,direction){
+    if(direction!==-1 && direction!==1) return;
+    let state = autoScrollStates.get(rail);
+    if(!state){
+      state = {direction:0,timer:0};
+      autoScrollStates.set(rail,state);
     }
+    if(state.direction===direction && state.timer) return;
+    stopAutoScroll(rail);
+    state.direction = direction;
+
+    const run = ()=>{
+      if(state.direction!==direction || !rail.isConnected) return;
+      const moved = stepAutoScroll(rail,direction);
+      if(!moved){
+        stopAutoScroll(rail);
+        return;
+      }
+      state.timer = setTimeout(run,AUTO_REPEAT_DELAY);
+    };
+
+    state.timer = setTimeout(run,AUTO_START_DELAY);
   }
 
   function initializeRail(rail){
@@ -156,20 +176,31 @@
     initializedRails.add(rail);
     rail.scrollLeft = 0;
 
-    rail.addEventListener("mouseover",event=>{
-      const card = event.target.closest(".reading-card");
-      if(!card || !rail.contains(card)) return;
-      if(event.relatedTarget && card.contains(event.relatedTarget)) return;
-      revealCard(rail,card);
+    rail.addEventListener("pointermove",event=>{
+      const rect = rail.getBoundingClientRect();
+      const edgeZone = Math.min(170,Math.max(90,rect.width*.12));
+      if(event.clientX <= rect.left+edgeZone && rail.scrollLeft>1){
+        startAutoScroll(rail,-1);
+      }else if(event.clientX >= rect.right-edgeZone && rail.scrollLeft < rail.scrollWidth-rail.clientWidth-1){
+        startAutoScroll(rail,1);
+      }else{
+        stopAutoScroll(rail);
+      }
     });
+    rail.addEventListener("pointerleave",()=>stopAutoScroll(rail));
+    rail.addEventListener("pointerdown",()=>stopAutoScroll(rail));
+    rail.addEventListener("wheel",()=>stopAutoScroll(rail),{passive:true});
 
-    const previousArrow = rail.closest(".rail-wrap")?.querySelector(".rail-arrow.prev");
+    const wrap = rail.closest(".rail-wrap");
+    const previousArrow = wrap?.querySelector(".rail-arrow.prev");
+    const nextArrow = wrap?.querySelector(".rail-arrow.next");
     if(previousArrow){
-      previousArrow.addEventListener("mouseenter",()=>{
-        if(!canHoverScroll(rail) || rail.scrollLeft<=1) return;
-        const firstFullIndex = firstFullyVisibleIndex(rail);
-        snapToFirstFull(rail,Math.max(0,firstFullIndex-1));
-      });
+      previousArrow.addEventListener("mouseenter",()=>startAutoScroll(rail,-1));
+      previousArrow.addEventListener("mouseleave",()=>stopAutoScroll(rail));
+    }
+    if(nextArrow){
+      nextArrow.addEventListener("mouseenter",()=>startAutoScroll(rail,1));
+      nextArrow.addEventListener("mouseleave",()=>stopAutoScroll(rail));
     }
   }
 
@@ -217,6 +248,9 @@
       attributeFilter:["class","data-compact-catalog-meta"]
     }));
     window.addEventListener("load",refresh,{once:true});
+    document.addEventListener("visibilitychange",()=>{
+      if(document.hidden) document.querySelectorAll(".card-rail").forEach(stopAutoScroll);
+    });
     setTimeout(()=>root.classList.remove("catalog-ui-pending"),5000);
   }
 
