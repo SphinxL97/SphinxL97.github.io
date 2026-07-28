@@ -56,6 +56,30 @@ jobs:
       - name: Audit transcription and correction data
         run: python3 tools/audit_inscription_export.py
 
+      - name: Collect full texts and repair sources
+        run: |
+          rm -rf inscription_source_bundle
+          mkdir -p inscription_source_bundle/data inscription_source_bundle/js
+          find data -maxdepth 1 -type f \( \
+            -name '*full_text.txt' -o \
+            -name '*damage_cases.json' -o \
+            -name '*damage_case*.json' -o \
+            -name 'beitie_catalog.json' -o \
+            -name 'beitie_details.json' -o \
+            -name 'beitie_header_info.json' -o \
+            -name 'beitie_search_metadata.json' -o \
+            -name 'page_images_index.json' \
+          \) -print -exec cp '{}' inscription_source_bundle/data/ \;
+          find js -maxdepth 1 -type f \( \
+            -name 'work-*.js' -o \
+            -name 'damage*.js' -o \
+            -name 'full_transcript.js' -o \
+            -name 'transcript-*.js' \
+          \) -print -exec cp '{}' inscription_source_bundle/js/ \;
+          find inscription_source_bundle -type f | sort > inscription_source_bundle/manifest.txt
+          zip -qr inscription_source_bundle.zip inscription_source_bundle
+          du -sh inscription_source_bundle inscription_source_bundle.zip
+
       - name: Upload audit bundle
         uses: actions/upload-artifact@v4
         with:
@@ -64,5 +88,13 @@ jobs:
             inscription_audit_bundle.zip
             output_inscription_audit/summary.txt
             output_inscription_audit/summary.json
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload source bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: inscription-source-bundle
+          path: inscription_source_bundle.zip
           if-no-files-found: error
           retention-days: 7
