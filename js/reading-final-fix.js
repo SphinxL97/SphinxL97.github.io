@@ -137,7 +137,7 @@
   }
   if(!document.querySelector('script[data-catalog-ui-polish]')){
     const polish=document.createElement("script");
-    polish.src="js/catalog-ui-polish.js?v=20260728_center_hover_v1";
+    polish.src="js/catalog-ui-polish.js?v=20260728_left_hover_v2";
     polish.dataset.catalogUiPolish="true";
     document.head.appendChild(polish);
   }
