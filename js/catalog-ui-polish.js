@@ -55,6 +55,14 @@
     return Array.from(rail.children).filter(item=>item.classList?.contains("reading-card"));
   }
 
+  function firstFullyVisibleCard(rail,margin=10){
+    const railRect = rail.getBoundingClientRect();
+    return railCards(rail).find(item=>{
+      const rect = item.getBoundingClientRect();
+      return rect.left >= railRect.left + margin - 1 && rect.right <= railRect.right - margin + 1;
+    }) || null;
+  }
+
   function canHoverScroll(rail){
     return performance.now() >= (hoverLocks.get(rail) || 0);
   }
@@ -101,9 +109,8 @@
     }
 
     if(rail.scrollLeft > 1 && cardRect.left <= railRect.left + 38){
-      const cards = railCards(rail);
-      const firstVisible = cards.find(item=>item.getBoundingClientRect().right > railRect.left + margin);
-      if(card === firstVisible) scrollToPreviousCard(rail,card);
+      const firstFull = firstFullyVisibleCard(rail,margin);
+      if(card === firstFull) scrollToPreviousCard(rail,card);
     }
   }
 
@@ -123,10 +130,9 @@
     if(previousArrow){
       previousArrow.addEventListener("mouseenter",()=>{
         if(!canHoverScroll(rail) || rail.scrollLeft <= 1) return;
-        const railRect = rail.getBoundingClientRect();
-        const cards = railCards(rail);
-        const firstVisible = cards.find(item=>item.getBoundingClientRect().right > railRect.left + 10);
-        if(firstVisible) scrollToPreviousCard(rail,firstVisible);
+        const firstFull = firstFullyVisibleCard(rail,10);
+        if(firstFull) scrollToPreviousCard(rail,firstFull);
+        else smoothScrollTo(rail,Math.max(0,rail.scrollLeft-Math.max(260,rail.clientWidth*.25)));
       });
     }
   }
