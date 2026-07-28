@@ -113,7 +113,8 @@
     document.querySelectorAll("#readingGroups .reading-group").forEach(group=>{
       const value = group.querySelector(".group-title h3")?.textContent.trim();
       const paragraph = group.querySelector(".group-title p");
-      if(value && paragraph && categoryDescriptions[value]) paragraph.textContent = categoryDescriptions[value];
+      const description = value ? categoryDescriptions[value] : "";
+      if(paragraph && description && paragraph.textContent !== description) paragraph.textContent = description;
     });
   }
   function scheduleApply(){
@@ -124,7 +125,7 @@
   function init(){
     const groups = document.getElementById("readingGroups");
     const strip = document.getElementById("categoryStrip");
-    if(groups) new MutationObserver(scheduleApply).observe(groups,{childList:true,subtree:true});
+    if(groups) new MutationObserver(scheduleApply).observe(groups,{childList:true});
     if(strip) new MutationObserver(scheduleApply).observe(strip,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]});
     document.addEventListener("click",event=>{
       if(event.target.closest("[data-category],[data-value]")) scheduleApply();
