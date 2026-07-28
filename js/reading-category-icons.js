@@ -2,13 +2,13 @@
   "use strict";
 
   const ICONS = Object.freeze({
-    script:"assets/ui/reading-icons/script.svg?v=20260728_v1",
-    type:"assets/ui/reading-icons/type.svg?v=20260728_v1",
-    dynasty:"assets/ui/reading-icons/dynasty.svg?v=20260728_v1",
-    author:"assets/ui/reading-icons/author.svg?v=20260728_v1",
-    writer:"assets/ui/reading-icons/writer.svg?v=20260728_v1",
-    copy_era:"assets/ui/reading-icons/copy-era.svg?v=20260728_v1",
-    theme:"assets/ui/reading-icons/theme.svg?v=20260728_v1"
+    script:"assets/ui/reading-icons/script.svg?v=20260728_v2",
+    type:"assets/ui/reading-icons/type.svg?v=20260728_v2",
+    dynasty:"assets/ui/reading-icons/dynasty.svg?v=20260728_v2",
+    author:"assets/ui/reading-icons/author.svg?v=20260728_v2",
+    writer:"assets/ui/reading-icons/writer.svg?v=20260728_v2",
+    copy_era:"assets/ui/reading-icons/copy-era.svg?v=20260728_v2",
+    theme:"assets/ui/reading-icons/theme.svg?v=20260728_v2"
   });
 
   let scheduled = false;
