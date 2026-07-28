@@ -1,6 +1,14 @@
 (function(){
   "use strict";
 
+  document.documentElement.classList.add("catalog-ui-pending");
+  if(!document.getElementById("reading-ui-pending-style")){
+    const pendingStyle=document.createElement("style");
+    pendingStyle.id="reading-ui-pending-style";
+    pendingStyle.textContent="html.catalog-ui-pending #readingGroups,html.catalog-ui-pending #categoryStrip{visibility:hidden;}";
+    document.head.appendChild(pendingStyle);
+  }
+
   const previousFetch = window.fetch.bind(window);
   const originalFreeze = Object.freeze;
 
@@ -86,6 +94,12 @@
     if(Array.isArray(value)){
       const scriptConfig = value.find(item=>item && item.key === "script" && Array.isArray(item.values));
       if(scriptConfig && !scriptConfig.values.includes("正书")) scriptConfig.values.splice(1,0,"正书");
+      const typeIndex=value.findIndex(item=>item && item.key === "type");
+      const scriptIndex=value.findIndex(item=>item && item.key === "script");
+      if(typeIndex>=0 && scriptIndex>typeIndex){
+        const [scriptItem]=value.splice(scriptIndex,1);
+        value.splice(typeIndex,0,scriptItem);
+      }
     }else if(value && typeof value === "object"){
       if(value["楷书"] && value["隶书"] && !value["正书"]){
         value["正书"]="以端正、庄重的书写面貌为主，兼具碑刻体势与自然书写意味。";
@@ -115,9 +129,16 @@
 })();
 
 (function(){
-  if(document.querySelector('script[data-card-catalog-display]')) return;
-  const script=document.createElement("script");
-  script.src="js/card-catalog-display.js?v=20260727_compact_card_v1";
-  script.dataset.cardCatalogDisplay="true";
-  document.head.appendChild(script);
+  if(!document.querySelector('script[data-card-catalog-display]')){
+    const script=document.createElement("script");
+    script.src="js/card-catalog-display.js?v=20260728_centered_v2";
+    script.dataset.cardCatalogDisplay="true";
+    document.head.appendChild(script);
+  }
+  if(!document.querySelector('script[data-catalog-ui-polish]')){
+    const polish=document.createElement("script");
+    polish.src="js/catalog-ui-polish.js?v=20260728_center_hover_v1";
+    polish.dataset.catalogUiPolish="true";
+    document.head.appendChild(polish);
+  }
 })();
