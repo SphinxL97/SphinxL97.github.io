@@ -6,7 +6,6 @@
 
   const root = document.documentElement;
   const initializedRails = new WeakSet();
-  const railMotion = new WeakMap();
 
   function addStyle(){
     if(document.getElementById("catalog-ui-polish-style")) return;
@@ -51,46 +50,23 @@
     return true;
   }
 
-  function stopRail(rail){
-    const motion = railMotion.get(rail);
-    if(!motion) return;
-    cancelAnimationFrame(motion.frame);
-    railMotion.delete(rail);
-  }
-
-  function startRail(rail,direction){
-    const current = railMotion.get(rail);
-    if(current && current.direction === direction) return;
-    stopRail(rail);
-    const motion = {direction,frame:0,start:rail.scrollLeft,limit:Math.min(260,Math.max(150,rail.clientWidth*.28))};
-    const step = ()=>{
-      const previous = rail.scrollLeft;
-      rail.scrollLeft += motion.direction * 7;
-      const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
-      const travelled = Math.abs(rail.scrollLeft-motion.start);
-      if(rail.scrollLeft <= 0 || rail.scrollLeft >= max || rail.scrollLeft === previous || travelled >= motion.limit){
-        stopRail(rail);
-        return;
-      }
-      motion.frame = requestAnimationFrame(step);
-    };
-    motion.frame = requestAnimationFrame(step);
-    railMotion.set(rail,motion);
-  }
-
   function revealCard(rail,card){
     const railRect = rail.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
     const margin = 10;
     let target = rail.scrollLeft;
+
     if(cardRect.left < railRect.left + margin){
-      target -= (railRect.left + margin - cardRect.left);
+      target -= railRect.left + margin - cardRect.left;
     }else if(cardRect.right > railRect.right - margin){
-      target += (cardRect.right - (railRect.right - margin));
+      target += cardRect.right - (railRect.right - margin);
     }
+
     const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
     target = Math.max(0,Math.min(max,target));
-    if(Math.abs(target-rail.scrollLeft)>1) rail.scrollTo({left:target,behavior:"smooth"});
+    if(Math.abs(target-rail.scrollLeft)>1){
+      rail.scrollTo({left:target,behavior:"smooth"});
+    }
   }
 
   function initializeRail(rail){
@@ -104,16 +80,6 @@
       if(event.relatedTarget && card.contains(event.relatedTarget)) return;
       revealCard(rail,card);
     });
-
-    rail.addEventListener("pointermove",event=>{
-      const rect = rail.getBoundingClientRect();
-      const edge = Math.min(78,Math.max(48,rect.width*.1));
-      if(event.clientX >= rect.right-edge) startRail(rail,1);
-      else if(event.clientX <= rect.left+edge) startRail(rail,-1);
-      else stopRail(rail);
-    });
-    rail.addEventListener("pointerleave",()=>stopRail(rail));
-    rail.addEventListener("pointerdown",()=>stopRail(rail));
   }
 
   function initializeRails(){
@@ -148,8 +114,17 @@
   function init(){
     addStyle();
     refresh();
-    const targets = [document.getElementById("galleryGrid"),document.getElementById("readingGroups"),document.getElementById("categoryStrip")].filter(Boolean);
-    targets.forEach(target=>new MutationObserver(refresh).observe(target,{childList:true,subtree:true,attributes:true,attributeFilter:["class","data-compact-catalog-meta"]}));
+    const targets = [
+      document.getElementById("galleryGrid"),
+      document.getElementById("readingGroups"),
+      document.getElementById("categoryStrip")
+    ].filter(Boolean);
+    targets.forEach(target=>new MutationObserver(refresh).observe(target,{
+      childList:true,
+      subtree:true,
+      attributes:true,
+      attributeFilter:["class","data-compact-catalog-meta"]
+    }));
     window.addEventListener("load",refresh,{once:true});
     setTimeout(()=>root.classList.remove("catalog-ui-pending"),5000);
   }
