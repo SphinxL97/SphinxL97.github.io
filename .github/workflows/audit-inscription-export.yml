@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - agent/export-33-inscriptions
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
