@@ -37,6 +37,12 @@
       .reading-card .card-attribution .writer-relation{
         text-align:center;
       }
+      .card-rail{
+        scroll-snap-type:none !important;
+      }
+      .card-rail .reading-card{
+        scroll-snap-align:none !important;
+      }
     `;
     document.head.appendChild(style);
   }
@@ -55,12 +61,43 @@
     return Array.from(rail.children).filter(item=>item.classList?.contains("reading-card"));
   }
 
-  function firstFullyVisibleCard(rail,margin=10){
+  function railGap(rail){
+    const style = getComputedStyle(rail);
+    const value = Number.parseFloat(style.columnGap || style.gap || "0");
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function balancedLayout(rail){
+    const cards = railCards(rail);
+    const cardWidth = cards[0]?.getBoundingClientRect().width || 230;
+    const gap = railGap(rail);
+    const railWidth = rail.clientWidth;
+    const minimumPeek = Math.max(30,Math.min(42,cardWidth*.18));
+    let fullCount = Math.floor((railWidth - 2*minimumPeek - gap)/(cardWidth + gap));
+    fullCount = Math.max(1,Math.min(cards.length,fullCount));
+    let peek = (railWidth - fullCount*cardWidth - (fullCount+1)*gap)/2;
+    while(fullCount>1 && peek<minimumPeek){
+      fullCount -= 1;
+      peek = (railWidth - fullCount*cardWidth - (fullCount+1)*gap)/2;
+    }
+    return {cards,cardWidth,gap,fullCount,peek:Math.max(0,peek)};
+  }
+
+  function cardContentLeft(rail,card){
     const railRect = rail.getBoundingClientRect();
-    return railCards(rail).find(item=>{
-      const rect = item.getBoundingClientRect();
-      return rect.left >= railRect.left + margin - 1 && rect.right <= railRect.right - margin + 1;
-    }) || null;
+    const cardRect = card.getBoundingClientRect();
+    return rail.scrollLeft + cardRect.left - railRect.left;
+  }
+
+  function firstFullyVisibleIndex(rail){
+    const cards = railCards(rail);
+    const railRect = rail.getBoundingClientRect();
+    const index = cards.findIndex(card=>{
+      const rect = card.getBoundingClientRect();
+      return rect.left >= railRect.left-1 && rect.right <= railRect.right+1;
+    });
+    if(index>=0) return index;
+    return cards.findIndex(card=>card.getBoundingClientRect().right>railRect.left+1);
   }
 
   function canHoverScroll(rail){
@@ -71,46 +108,46 @@
     const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
     const clamped = Math.max(0,Math.min(max,target));
     if(Math.abs(clamped-rail.scrollLeft) <= 1) return false;
-    hoverLocks.set(rail,performance.now()+480);
+    hoverLocks.set(rail,performance.now()+520);
     rail.scrollTo({left:clamped,behavior:"smooth"});
     return true;
   }
 
-  function scrollToPreviousCard(rail,card){
-    if(rail.scrollLeft <= 1) return false;
-    const cards = railCards(rail);
-    const index = cards.indexOf(card);
-    if(index <= 0) return smoothScrollTo(rail,0);
-
-    const railRect = rail.getBoundingClientRect();
-    const previousRect = cards[index-1].getBoundingClientRect();
-    const target = rail.scrollLeft + previousRect.left - railRect.left - 10;
+  function snapToFirstFull(rail,index){
+    const layout = balancedLayout(rail);
+    if(!layout.cards.length) return false;
+    const lastPossible = Math.max(0,layout.cards.length-layout.fullCount);
+    const firstFullIndex = Math.max(0,Math.min(lastPossible,index));
+    const card = layout.cards[firstFullIndex];
+    const inset = firstFullIndex>0 ? layout.peek+layout.gap : 0;
+    const target = cardContentLeft(rail,card)-inset;
     return smoothScrollTo(rail,target);
   }
 
   function revealCard(rail,card){
     if(!canHoverScroll(rail)) return;
+    const layout = balancedLayout(rail);
+    const index = layout.cards.indexOf(card);
+    if(index<0) return;
 
     const railRect = rail.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
-    const margin = 10;
-    let target = rail.scrollLeft;
+    const clippedLeft = cardRect.left < railRect.left+2;
+    const clippedRight = cardRect.right > railRect.right-2;
 
-    if(cardRect.left < railRect.left + margin){
-      target -= railRect.left + margin - cardRect.left;
-      smoothScrollTo(rail,target);
+    if(clippedLeft){
+      snapToFirstFull(rail,index);
       return;
     }
 
-    if(cardRect.right > railRect.right - margin){
-      target += cardRect.right - (railRect.right - margin);
-      smoothScrollTo(rail,target);
+    if(clippedRight){
+      snapToFirstFull(rail,index-layout.fullCount+1);
       return;
     }
 
-    if(rail.scrollLeft > 1 && cardRect.left <= railRect.left + 38){
-      const firstFull = firstFullyVisibleCard(rail,margin);
-      if(card === firstFull) scrollToPreviousCard(rail,card);
+    const firstFullIndex = firstFullyVisibleIndex(rail);
+    if(rail.scrollLeft>1 && index===firstFullIndex){
+      snapToFirstFull(rail,index-1);
     }
   }
 
@@ -129,10 +166,9 @@
     const previousArrow = rail.closest(".rail-wrap")?.querySelector(".rail-arrow.prev");
     if(previousArrow){
       previousArrow.addEventListener("mouseenter",()=>{
-        if(!canHoverScroll(rail) || rail.scrollLeft <= 1) return;
-        const firstFull = firstFullyVisibleCard(rail,10);
-        if(firstFull) scrollToPreviousCard(rail,firstFull);
-        else smoothScrollTo(rail,Math.max(0,rail.scrollLeft-Math.max(260,rail.clientWidth*.25)));
+        if(!canHoverScroll(rail) || rail.scrollLeft<=1) return;
+        const firstFullIndex = firstFullyVisibleIndex(rail);
+        snapToFirstFull(rail,Math.max(0,firstFullIndex-1));
       });
     }
   }
