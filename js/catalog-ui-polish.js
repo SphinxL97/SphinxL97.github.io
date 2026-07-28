@@ -62,12 +62,13 @@
     const current = railMotion.get(rail);
     if(current && current.direction === direction) return;
     stopRail(rail);
-    const motion = {direction,frame:0};
+    const motion = {direction,frame:0,start:rail.scrollLeft,limit:Math.min(260,Math.max(150,rail.clientWidth*.28))};
     const step = ()=>{
       const previous = rail.scrollLeft;
       rail.scrollLeft += motion.direction * 7;
       const max = Math.max(0,rail.scrollWidth-rail.clientWidth);
-      if(rail.scrollLeft <= 0 || rail.scrollLeft >= max || rail.scrollLeft === previous){
+      const travelled = Math.abs(rail.scrollLeft-motion.start);
+      if(rail.scrollLeft <= 0 || rail.scrollLeft >= max || rail.scrollLeft === previous || travelled >= motion.limit){
         stopRail(rail);
         return;
       }
