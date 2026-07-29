@@ -63,8 +63,12 @@
   const visibleIdSet=new Set(VISIBLE_IDS);
   window.GALLERY_VISIBLE_IDS=VISIBLE_IDS;
 
-  const IMAGE_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
-  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/ ,"").split("/").map(encodeURIComponent).join("/");
+  const IMAGE_BASE="https://cdn.jsdelivr.net/gh/SphinxL97/SphinxL97.github.io@image-assets/";
+  const IMAGE_FALLBACK_BASE="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
+  const remotePath=path=>IMAGE_BASE+String(path||"").replace(/^\.\//,"").replace(/^\/+/,"").split("/").map(encodeURIComponent).join("/");
+  const fallbackRemoteUrl=url=>String(url||"").startsWith(IMAGE_BASE)
+    ? IMAGE_FALLBACK_BASE+String(url).slice(IMAGE_BASE.length)
+    : String(url||"");
   const missingEntries=[
     {
       id:"006",title:"史晨后碑",
@@ -108,8 +112,12 @@
     if(!["006","007"].includes(id))return item;
     const fallback=id==="006"?"assets/page_images/006_史晨后碑/images/0001_一.jpg":"assets/page_images/007_伊阙佛龛碑/images/0001_一.jpg";
     const current=String(item.cover||fallback);
-    const cover=current.startsWith(IMAGE_BASE)?current:(/^https?:\/\//i.test(current)?current:remotePath(current));
-    return {...item,cover};
+    const cover=current.startsWith(IMAGE_BASE)
+      ? current
+      : (current.startsWith(IMAGE_FALLBACK_BASE)
+        ? IMAGE_BASE+current.slice(IMAGE_FALLBACK_BASE.length)
+        : (/^https?:\/\//i.test(current)?current:remotePath(current)));
+    return {...item,cover,detail_url:`detail.html?id=${id}`,active:true,has_volumes:false};
   }
 
   document.querySelector(".filter-note")?.remove();
@@ -129,6 +137,14 @@
   function revealImage(img){
     const source=img.dataset.src;
     if(!source)return;
+    if(source.startsWith(IMAGE_BASE)&&img.dataset.remoteCoverFallbackBound!=="1"){
+      img.dataset.remoteCoverFallbackBound="1";
+      img.addEventListener("error",()=>{
+        if(img.dataset.remoteCoverFallbackTried==="1")return;
+        img.dataset.remoteCoverFallbackTried="1";
+        img.src=fallbackRemoteUrl(source);
+      });
+    }
     img.src=source;
     img.removeAttribute("data-src");
     imageObserver?.unobserve(img);
