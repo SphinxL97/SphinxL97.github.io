@@ -1,7 +1,8 @@
 /* 全部碑帖栏目二、三共享路由，并统一栏目三案例分类。 */
 (function(){
   "use strict";
-  if(window.__DAMAGE_AI_READING_ROUTER_V85__)return;
+  if(window.__DAMAGE_AI_READING_ROUTER_V86__)return;
+  window.__DAMAGE_AI_READING_ROUTER_V86__=true;
   window.__DAMAGE_AI_READING_ROUTER_V85__=true;
   window.__DAMAGE_AI_READING_ROUTER_V84__=true;
   window.__DAMAGE_AI_READING_ROUTER_V83__=true;
@@ -34,6 +35,7 @@
   const legacy={src:"js/damage-case-unbracketed-adapter.js?v=20260721_legacy_v1",key:"legacy",ready:()=>Boolean(window.__DAMAGE_CASE_UNBRACKETED_ADAPTER__)};
   const integrity={src:"js/damage-case-integrity-v2.js?v=20260721_integrity_v2",key:"integrity",ready:()=>Boolean(window.__DAMAGE_CASE_INTEGRITY_V2__)};
   const partial={src:"js/damage-case-partial-status.js?v=20260721_partial_v1",key:"partial",ready:()=>Boolean(window.__DAMAGE_CASE_PARTIAL_STATUS__)};
+  const remoteImages={src:"js/work-remote-image-adapter.js?v=20260729_fix006007_iiif_v1",key:"remoteImages",ready:()=>Boolean(window.__WORK_REMOTE_IMAGE_ADAPTER__)};
 
   const routes={
     "001":[{src:"js/damage_ai_reading_core.js?v=20260717_stable_v1",key:"w001",ready:()=>Boolean(window.DAMAGE_AI_CASES?.length)},legacy,integrity,partial],
@@ -41,8 +43,8 @@
     "003":[{src:"js/work-003-longzangsi.js?v=20260721_longzangsi_analysis_v3",key:"w003",ready:()=>Boolean(window.__WORK_003_CONTENT_READY__)}],
     "004":[{src:"js/work-004-coordinate-adapter.js?v=20260717_stable_v1",key:"w004c",ready:()=>Boolean(window.__WORK_004_COORDINATE_ADAPTER__)},{src:"js/work-004-lushansi.js?v=20260721_lushansi_analysis_v3",key:"w004",ready:()=>Boolean(window.__WORK_004_CONTENT_READY__)}],
     "005":[{src:"js/work-005-yugonggong-stable.js?v=20260721_yugonggong_analysis_v4",key:"w005",ready:()=>Boolean(window.__WORK_005_CONTENT_READY__)}],
-    "006":[{src:"js/work-remote-image-adapter.js?v=20260722_remote_v2",key:"w006remote",ready:()=>Boolean(window.__WORK_REMOTE_IMAGE_ADAPTER__)},{src:"js/work-006-shichenhou.js?v=20260722_shichenhou_final_v3",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
-    "007":[{src:"js/work-007-coordinate-adapter.js?v=20260722_yique_columns_v8",key:"w007c",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER_V8__)},{src:"js/work-007.js?v=20260722_yique_columns_v8",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}],
+    "006":[remoteImages,{src:"js/work-006-shichenhou.js?v=20260722_shichenhou_final_v3",key:"w006",ready:()=>Boolean(window.__WORK_006_STABLE_READY__)}],
+    "007":[remoteImages,{src:"js/work-007-coordinate-adapter.js?v=20260722_yique_columns_v8",key:"w007c",ready:()=>Boolean(window.__WORK_007_COORDINATE_ADAPTER_V8__)},{src:"js/work-007.js?v=20260722_yique_columns_v8",key:"w007",ready:()=>Boolean(window.__WORK_007_STABLE_READY__)}],
     "010":[{src:"js/work-010-coordinate-adapter.js?v=20260722_zhaoqingxian_v1",key:"w010c",ready:()=>Boolean(window.__WORK_010_COORDINATE_ADAPTER__)},{src:"js/work-010.js?v=20260722_zhaoqingxian_v1",key:"w010",ready:()=>Boolean(window.__WORK_010_STABLE_READY__)}],
     "011":[{src:"js/work-011-coordinate-adapter.js?v=20260723_huangfudan_v1",key:"w011c",ready:()=>Boolean(window.__WORK_011_COORDINATE_ADAPTER__)},{src:"js/work-011.js?v=20260723_huangfudan_v1",key:"w011",ready:()=>Boolean(window.__WORK_011_STABLE_READY__)}],
     "013":[{src:"js/work-013-coordinate-adapter.js?v=20260723_lujun_v1",key:"w013c",ready:()=>Boolean(window.__WORK_013_COORDINATE_ADAPTER__)},{src:"js/work-013.js?v=20260723_lujun_v1",key:"w013",ready:()=>Boolean(window.__WORK_013_STABLE_READY__)}],
