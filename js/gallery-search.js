@@ -1,4 +1,4 @@
-/* 碑帖总览：只显示已建立高级检索元数据的33件作品；006、007封面使用image-assets分支。 */
+/* 碑帖总览：只显示已建立高级检索元数据的33件作品；006、007优先读取上海图书馆IIIF原图。 */
 (function(){
   "use strict";
 
@@ -112,6 +112,56 @@
     return {...item,cover};
   }
 
+  function imageIdFromBody(body){
+    if(Array.isArray(body)){
+      for(const item of body){const found=imageIdFromBody(item);if(found)return found;}
+      return "";
+    }
+    if(!body||typeof body!=="object")return "";
+    const direct=body.id||body["@id"];
+    if(typeof direct==="string"&&/^https?:\/\//i.test(direct))return direct;
+    return imageIdFromBody(body.items)||imageIdFromBody(body.resource);
+  }
+
+  function firstImageFromManifest(manifest){
+    const canvases=Array.isArray(manifest?.items)
+      ? manifest.items
+      : (Array.isArray(manifest?.sequences?.[0]?.canvases)?manifest.sequences[0].canvases:[]);
+    for(const canvas of canvases){
+      if(Array.isArray(canvas?.items)){
+        for(const annotationPage of canvas.items){
+          for(const annotation of asArray(annotationPage?.items)){
+            const found=imageIdFromBody(annotation?.body);
+            if(found)return found;
+          }
+        }
+      }
+      for(const annotation of asArray(canvas?.images)){
+        const found=imageIdFromBody(annotation?.resource||annotation?.body);
+        if(found)return found;
+      }
+    }
+    return "";
+  }
+
+  async function hydrateIIIFCover(item){
+    const id=String(item?.id||"").padStart(3,"0");
+    if(!["006","007"].includes(id)||!item?.manifest_url)return item;
+    try{
+      const response=await previousFetch(item.manifest_url,{cache:"force-cache"});
+      if(!response.ok)throw new Error(`${item.manifest_url} ${response.status}`);
+      const image=firstImageFromManifest(await response.json());
+      return image?{...item,cover:image}:item;
+    }catch(error){
+      console.warn(`[gallery] ${id} IIIF封面读取失败，保留历史图片回退地址`,error);
+      return item;
+    }
+  }
+
+  async function hydrateRemoteCovers(){
+    catalog=await Promise.all(catalog.map(hydrateIIIFCover));
+  }
+
   document.querySelector(".filter-note")?.remove();
 
   const style=document.createElement("style");
@@ -193,6 +243,7 @@
     try{
       await waitForCatalog();
       restoreVisibleCatalog();
+      await hydrateRemoteCovers();
       if(typeof render==="function")render();
       observeCovers(document);
       document.dispatchEvent(new CustomEvent("beitie:gallery-catalog-filtered",{detail:{count:catalog.length}}));
