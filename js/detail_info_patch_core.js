@@ -22,6 +22,63 @@
   const iiifOnly=new Set(["014","031"]);
   const useIiif=iiifOnly.has(parentId);
 
+  const remoteImageWorks=new Set(["006","007"]);
+  const imageCdnBase="https://cdn.jsdelivr.net/gh/SphinxL97/SphinxL97.github.io@image-assets/";
+  const imageFallbackBase="https://raw.githubusercontent.com/SphinxL97/SphinxL97.github.io/image-assets/";
+  function targetImagePath(value){
+    const source=String(value||"").trim();
+    if(!source)return "";
+    let decoded=source;
+    try{decoded=decodeURI(source);}catch(error){}
+    const marker="assets/page_images/";
+    const start=decoded.indexOf(marker);
+    if(start<0)return "";
+    const path=decoded.slice(start).split(/[?#]/,1)[0];
+    const workMatch=path.match(/^assets\/page_images\/(\d{3})_/);
+    return workMatch&&remoteImageWorks.has(workMatch[1])?path:"";
+  }
+  function remoteImageUrl(path,base){
+    return base+String(path||"").replace(/^\/+/,"").split("/").map(encodeURIComponent).join("/");
+  }
+  function patchRemoteImage(img){
+    if(!img||img.tagName!=="IMG")return;
+    ["src","data-src"].forEach(attribute=>{
+      const current=img.getAttribute(attribute)||"";
+      const path=targetImagePath(current);
+      if(!path)return;
+      if(!current.startsWith(imageCdnBase)&&!current.startsWith(imageFallbackBase)){
+        img.setAttribute(attribute,remoteImageUrl(path,imageCdnBase));
+      }
+      if(attribute==="src"&&img.dataset.remote006007FallbackBound!=="1"){
+        img.dataset.remote006007FallbackBound="1";
+        img.addEventListener("error",()=>{
+          const active=img.getAttribute("src")||"";
+          const activePath=targetImagePath(active);
+          if(!activePath||!active.startsWith(imageCdnBase)||img.dataset.remote006007FallbackTried==="1")return;
+          img.dataset.remote006007FallbackTried="1";
+          img.setAttribute("src",remoteImageUrl(activePath,imageFallbackBase));
+        });
+      }
+    });
+  }
+  function patchRemoteImages(root=document){
+    if(root?.tagName==="IMG")patchRemoteImage(root);
+    root?.querySelectorAll?.("img").forEach(patchRemoteImage);
+  }
+  function enableRemoteImages(){
+    if(!remoteImageWorks.has(parentId)||window.__DETAIL_006_007_REMOTE_IMAGES_V1__)return;
+    window.__DETAIL_006_007_REMOTE_IMAGES_V1__=true;
+    patchRemoteImages(document);
+    const observer=new MutationObserver(records=>{
+      records.forEach(record=>{
+        if(record.type==="attributes")patchRemoteImage(record.target);
+        record.addedNodes.forEach(node=>{if(node.nodeType===1)patchRemoteImages(node);});
+      });
+    });
+    observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:["src","data-src"]});
+  }
+  enableRemoteImages();
+
   function loadLegacyCore(){
     for(const url of LEGACY_SOURCES){
       try{
