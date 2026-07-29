@@ -63,7 +63,7 @@
   const work030DataUrl="data/work030_info.json?v=20260725_jiuchenggong_030_v1";
   const work032DataUrl="data/work032_info.json?v=20260725_xuzhenren_032_v1";
   const work033DataUrl="data/work033_info.json?v=20260725_zhengzuowei_033_v1";
-  const recoveryVersion="20260727_huangtingjian_031_v1";
+  const recoveryVersion="20260729_fix006007_iiif_v1";
   const categoryUrl=`js/damage-category-standardizer.js?v=${recoveryVersion}`;
   const routerUrl=`js/damage_ai_reading.js?v=${recoveryVersion}`;
   const transcriptFormatUrl="js/transcript-format-normalizer.js?v=20260725_transcript_format_v2";
